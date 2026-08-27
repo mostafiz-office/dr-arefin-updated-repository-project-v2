@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /hero-section-update/
+Disallow: /home-mobile-hero-preview/
+Disallow: /satellite-pages/
+
+Sitemap: https://drarefin-v4.lovable.app/sitemap.xml

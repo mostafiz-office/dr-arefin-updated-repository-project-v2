@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contattaci — CAF Patronato Fondi</title>
+  <meta name="description" content="Contatta CAF Patronato Fondi per informazioni o per prenotare un appuntamento." />
+  <link rel="stylesheet" href="global.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+<div class="caff-site">
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="index.html" class="header-logo">CAF Patronato <span>Fondi</span></a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="chi-siamo.html" class="nav-link">Chi Siamo</a>
+        <a href="servizi.html" class="nav-link">Servizi</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="contatto.html" class="nav-link nav-link-active">Contatto</a>
+      </nav>
+      <div class="header-actions">
+        <a href="contatto.html" class="header-login">Accedi</a>
+        <a href="contatto.html" class="btn btn-primary ast-button">Prenota Appuntamento</a>
+      </div>
+      <button class="header-hamburger" id="hamburger" aria-label="Menu">☰</button>
+    </div>
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="index.html" class="nav-mobile-link">Home</a>
+      <a href="chi-siamo.html" class="nav-mobile-link">Chi Siamo</a>
+      <a href="servizi.html" class="nav-mobile-link">Servizi</a>
+      <a href="blog.html" class="nav-mobile-link">Blog</a>
+      <a href="contatto.html" class="nav-mobile-link">Contatto</a>
+      <a href="contatto.html" class="btn btn-primary ast-button mt-5">Prenota Appuntamento</a>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="caff-block caff-page-hero">
+    <div class="container">
+      <h1 class="caff-page-hero-title">Contattaci</h1>
+      <p class="caff-page-hero-subtitle">Siamo qui per aiutarti. Contattaci per informazioni o per prenotare un appuntamento.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="caff-block section">
+    <div class="container">
+
+      <!-- Contact Info Cards -->
+      <div class="grid grid-4 mb-14">
+        <div class="contact-card">
+          <div class="contact-card-icon"><i data-lucide="phone"></i></div>
+          <div class="contact-card-title">Telefono</div>
+          <div class="contact-card-value"><a href="tel:+393285561774">+39 328 556 1774</a></div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon"><i data-lucide="mail"></i></div>
+          <div class="contact-card-title">Email</div>
+          <div class="contact-card-value"><a href="mailto:info@cafpatronatofondi.com">info@cafpatronatofondi.com</a></div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon"><i data-lucide="map-pin"></i></div>
+          <div class="contact-card-title">Indirizzo</div>
+          <div class="contact-card-value">Fondi (LT), Italy</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon"><i data-lucide="clock"></i></div>
+          <div class="contact-card-title">Orari</div>
+          <div class="contact-card-value">Lun–Ven: 9:00 – 18:00</div>
+        </div>
+      </div>
+
+      <!-- Form + Map -->
+      <div class="split">
+        <!-- Form -->
+        <div>
+          <span class="section-label">SCRIVICI</span>
+          <h2 class="mb-4">Inviaci un Messaggio</h2>
+          <p class="mb-8">Compila le modulo e ti risponderemo entro 24 ore lavorative. In alternativa, chiamaci direttamente per assistenza immediata.</p>
+
+          <form>
+            <div class="field">
+              <label class="field-label">Nome e Cognome *</label>
+              <input type="text" class="field-input" placeholder="Mario Rossi" required />
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label class="field-label">Email *</label>
+                <input type="email" class="field-input" placeholder="mario@email.com" required />
+              </div>
+              <div class="field">
+                <label class="field-label">Telefono</label>
+                <input type="tel" class="field-input" placeholder="+39 333 000 0000" />
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label">Messaggio *</label>
+              <textarea class="field-textarea" placeholder="Come possiamo aiutarti?" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg ast-button">Invia Messaggio</button>
+          </form>
+        </div>
+
+        <!-- Map Placeholder -->
+        <div class="map-placeholder">
+          <div>
+            <i data-lucide="map-pin" class="icon icon-xl"></i>
+            <p>Fondi (LT), Italy</p>
+            <p class="text-muted mt-2">Mappa interattiva disponibile prossimamente</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="caff-footer">
+    <div class="container">
+      <div class="caff-footer-grid">
+        <div>
+          <h3 class="caff-footer-brand"><span class="caff-footer-brand-accent">CAF Patronato</span> Fondi</h3>
+          <p class="caff-footer-brand-desc" style="text-align:justify;">Assistenza fiscale e previdenziale professionale a Fondi, Terracina e Cisterna di Latina. Dichiarazioni dei redditi, ISEE, pensioni e pratiche INPS per cittadini, famiglie e lavoratori. Chiama ☎ +39 328 556 1774 per il tuo appuntamento.</p>
+        </div>
+        <div>
+          <h4 class="caff-footer-title">Servizi</h4>
+          <ul class="caff-footer-links">
+            <li><a href="servizi.html">Dichiarazioni Fiscali</a></li>
+            <li><a href="servizi.html">Calcolo ISEE</a></li>
+            <li><a href="servizi.html">Servizi Patronato</a></li>
+            <li><a href="servizi.html">Consulenze Tributarie</a></li>
+            <li><a href="servizi.html">Pratiche INPS</a></li>
+            <li><a href="servizi.html">Successioni</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="caff-footer-title">Link Rapidi</h4>
+          <ul class="caff-footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="chi-siamo.html">Chi Siamo</a></li>
+            <li><a href="servizi.html">Servizi</a></li>
+            <li><a href="contatto.html">Contatto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="caff-footer-title">Informazioni di Contatto</h4>
+          <ul class="caff-footer-contact">
+            <li><a href="mailto:info@cafpatronatofondi.com"><i data-lucide="mail" style="width:16px;height:16px;flex-shrink:0"></i> info@cafpatronatofondi.com</a></li>
+            <li><a href="tel:+393285561774"><i data-lucide="phone" style="width:16px;height:16px;flex-shrink:0"></i> +39 328 556 1774</a></li>
+          </ul>
+          <div class="caff-footer-socials">
+            <a href="#" aria-label="Facebook" class="caff-footer-social-icon"><i data-lucide="facebook" style="width:20px;height:20px"></i></a>
+            <a href="#" aria-label="Instagram" class="caff-footer-social-icon"><i data-lucide="instagram" style="width:20px;height:20px"></i></a>
+            <a href="#" aria-label="LinkedIn" class="caff-footer-social-icon"><i data-lucide="linkedin" style="width:20px;height:20px"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="caff-footer-bottom">
+        <span>2025 © <strong>CAF Patronato Fondi</strong></span>
+        <div class="caff-footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Termini e Condizioni</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /.caff-site -->
+
+  <script>lucide.createIcons();</script>
+  <script>
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('nav-mobile').classList.toggle('is-open');
+    });
+    window.addEventListener('scroll', function() {
+      document.getElementById('header').classList.toggle('header-scrolled', window.scrollY > 10);
+    });
+  </script>
+</body>
+</html>

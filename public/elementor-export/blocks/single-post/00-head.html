@@ -1,0 +1,65 @@
+<!-- ==================== SINGLE POST <head> ==================== -->
+<!-- AREFIN-HEAD v1.0.0 — Per-post SEO meta for single blog posts. -->
+<!--
+  Most of these tags are produced dynamically by your SEO plugin
+  (Yoast / Rank Math) using the post title, excerpt and featured image.
+  This file documents the EXPECTED output so single posts match the
+  React `ArticleSingleDark.tsx` preview. Replace the {{tokens}} with the
+  plugin's dynamic variables, or rely on the plugin defaults.
+
+  Canonical example post:
+  https://drarefin.com/articles/gallbladder-stone-laparoscopic-removal/
+-->
+
+<title>{{post_title}} — Dr. Murshidul Arefin</title>
+<meta name="description" content="{{post_excerpt}}" />
+<link rel="canonical" href="{{permalink}}" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{{permalink}}" />
+<meta property="og:title" content="{{post_title}}" />
+<meta property="og:description" content="{{post_excerpt}}" />
+<meta property="og:image" content="{{featured_image_url}}" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{post_title}}" />
+<meta name="twitter:description" content="{{post_excerpt}}" />
+<meta name="twitter:image" content="{{featured_image_url}}" />
+
+<link rel="preload" as="image" href="{{featured_image_url}}" />
+
+<!-- BlogPosting + BreadcrumbList JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://drarefin.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://drarefin.com/articles/" },
+        { "@type": "ListItem", "position": 3, "name": "{{post_title}}", "item": "{{permalink}}" }
+      ]
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "{{post_title}}",
+      "description": "{{post_excerpt}}",
+      "datePublished": "{{iso_date}}",
+      "dateModified": "{{iso_modified}}",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "{{permalink}}" },
+      "keywords": "{{post_tags}}",
+      "author": { "@id": "https://drarefin.com/#physician" },
+      "image": "{{featured_image_url}}",
+      "url": "{{permalink}}",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Dr. Murshidul Arefin",
+        "url": "https://drarefin.com/"
+      }
+    }
+  ]
+}
+</script>

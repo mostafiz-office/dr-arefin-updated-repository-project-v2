@@ -1,0 +1,767 @@
+<style>
+/* =============================================================
+   Dr. Arefin — Elementor Export :: checkout.css v1.9.0
+   (v1.9.0: MERGE order-received / thank-you page styles into this snippet —
+    the "Order received" page is an endpoint of the SAME Checkout page
+    (/checkout/order-received/), so HFCM can't target it separately. Rules
+    are scoped to body...woocommerce-order-received (section 10) and fix the
+    invisible white-on-white confirmation text inside the Calendly card via
+    :has(.calendly-inline-widget);
+   (v1.8.0: FIX order card overlapping the heading/dark box — v1.7.0 forced
+    #order_review_heading AND #order_review into the SAME grid cell (both
+    grid-row:1, col 2) so they stacked on top of each other. Now heading =
+    row 1, review card = row 2 (grid-template-rows: min-content 1fr),
+    align-self:start on both so the card sits directly under the heading and
+    the 1fr second row absorbs the tall left column's height — no overlap,
+    no fake gap;
+   (v1.7.0: remove the red-marked gap above the order card — the previous
+    two-row grid made #customer_details span both rows, so CSS grid distributed
+    the tall left card's height into row 1 and pushed #order_review down; now
+    heading + review share one right-column grid cell and the review gets only
+    a controlled heading offset;
+    v1.6.0: KILL the middle gap — Astra's min-width:922px rule sets
+    #customer_details.col2-set width:55% float:left and #order_review(_heading)
+    width:40% float:right, outranking our id selectors so each column fills
+    only half its grid cell. Re-assert width:100%/float:none + strip Astra's
+    2px heading/review border by chaining ancestor id #primary to outrank Astra;
+    v1.5.0: matched to REAL rendered markup — billing+additional live in
+    #customer_details > .col-1; force-hide whitespace .col-2, empty
+    .woocommerce-shipping-fields, and stray <wc-order-attribution-inputs>
+    grid children (:empty never matched them); col-1 stacks the two cards;
+    v1.4.0: contain order card (border-box, no overflow), strip stray
+    bordered box off #order_review_heading, card aligns to top of col 2;
+    v1.3.0: neutralize Astra narrow content width so both columns fill)
+   WooCommerce checkout page = "/checkout/".
+   Premium medical-booking restyle of the default Astra + WooCommerce
+   checkout template. CSS only, no markup changes. No !important. Kebab-case.
+   Scoped under body.wp-theme-astra.woocommerce-checkout. Token source: global.css.
+   Mirrors product.css v3.2.0 + cart.css v1.0.0:
+   dark page canvas, dark form card (left), one bright focal review card
+   (right), green CTA pill. Two-column on desktop, single column on mobile.
+   ============================================================= */
+
+/* -------------------------------------------------------------
+   0. Local token fallbacks (if global.css isn't on the template)
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-checkout,
+body.wp-theme-astra.woocommerce-checkout .woocommerce {
+  --primary-bright: 133 80% 41%;
+  --primary-darker: 128 91% 32%;
+  --background: 220 20% 6%;
+  --surface-section: 220 15% 9%;
+  --card: 220 18% 14%;
+  --foreground: 0 0% 95%;
+  --muted-foreground: 220 8% 65%;
+  --border: 220 15% 20%;
+  --container-max: 1248px;
+  --container-pad: 1.5rem;
+  --font-heading: 'Ubuntu', system-ui, -apple-system, sans-serif;
+  --font-body: 'Poppins', system-ui, -apple-system, sans-serif;
+  /* bright focal surface (order review) on the dark page */
+  --bk-card: 0 0% 98%;
+  --bk-ink: 220 22% 11%;
+  --bk-ink-muted: 220 10% 40%;
+  --bk-panel: 220 16% 96%;
+  --bk-hairline: 220 14% 88%;
+}
+
+/* global safety — project rule */
+html, body { overflow-x: hidden; }
+
+/* -------------------------------------------------------------
+   1. PAGE CANVAS + container
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-checkout #page,
+body.wp-theme-astra.woocommerce-checkout #content,
+body.wp-theme-astra.woocommerce-checkout .site-content,
+body.wp-theme-astra.woocommerce-checkout #primary {
+  background-color: hsl(var(--background));
+}
+
+body.wp-theme-astra.woocommerce-checkout .ast-container,
+body.wp-theme-astra.woocommerce-checkout #primary > .ast-container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+body.wp-theme-astra.woocommerce-checkout .site-content > .ast-container {
+  padding-block: clamp(2rem, 1rem + 4vw, 5rem);
+}
+
+body.wp-theme-astra.woocommerce-checkout .entry-content,
+body.wp-theme-astra.woocommerce-checkout article.page {
+  background-color: transparent;
+  color: hsl(var(--foreground));
+  font-family: var(--font-body);
+}
+
+/* Neutralize Astra's narrow default content width so the two-column
+   checkout grid can stretch to the full container instead of being
+   squeezed into a thin centered column. */
+body.wp-theme-astra.woocommerce-checkout #primary,
+body.wp-theme-astra.woocommerce-checkout #content .ast-container,
+body.wp-theme-astra.woocommerce-checkout .entry-content,
+body.wp-theme-astra.woocommerce-checkout article.page,
+body.wp-theme-astra.woocommerce-checkout .woocommerce {
+  width: 100%;
+  max-width: none;
+  float: none;
+}
+body.wp-theme-astra.woocommerce-checkout #content .ast-container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+}
+
+body.wp-theme-astra.woocommerce-checkout .entry-title,
+body.wp-theme-astra.woocommerce-checkout .ast-archive-title {
+  font-family: var(--font-heading);
+  color: hsl(var(--foreground));
+}
+
+/* -------------------------------------------------------------
+   2. NOTICES + COUPON TOGGLE + LOGIN TOGGLE
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-checkout .woocommerce-form-login-toggle,
+body.wp-theme-astra.woocommerce-checkout .woocommerce-form-coupon-toggle,
+body.wp-theme-astra.woocommerce-checkout .woocommerce-info {
+  margin: 0 0 1.25rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid hsl(var(--border));
+  border-left: 3px solid hsl(var(--primary-bright));
+  border-radius: 14px;
+  background: hsl(var(--surface-section));
+  color: hsl(var(--foreground));
+  font: 500 0.95rem/1.5 var(--font-body);
+}
+body.wp-theme-astra.woocommerce-checkout .woocommerce-info::before {
+  display: none;
+}
+body.wp-theme-astra.woocommerce-checkout .woocommerce-info a,
+body.wp-theme-astra.woocommerce-checkout .showcoupon {
+  color: hsl(var(--primary-bright));
+  font-weight: 600;
+  text-decoration: none;
+}
+body.wp-theme-astra.woocommerce-checkout .woocommerce-info a:hover,
+body.wp-theme-astra.woocommerce-checkout .showcoupon:hover {
+  color: hsl(var(--primary-darker));
+  text-decoration: underline;
+}
+
+/* Coupon / login forms (collapsible) */
+body.wp-theme-astra.woocommerce-checkout form.checkout_coupon,
+body.wp-theme-astra.woocommerce-checkout form.login {
+  margin: 0 0 1.5rem;
+  padding: clamp(1.25rem, 1rem + 1.5vw, 1.75rem);
+  border: 1px solid hsl(var(--border));
+  border-radius: 16px;
+  background: hsl(var(--surface-section));
+}
+
+/* -------------------------------------------------------------
+   3. CHECKOUT LAYOUT — details (left) / heading + review (right)
+   WooCommerce emits #customer_details, then a SEPARATE
+   #order_review_heading, then #order_review as three sibling grid
+   items. Keep all visible desktop items in one grid row; otherwise the
+   tall left column forces row 1 to expand and creates a fake blank band
+   between "Your order" and the review card.
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-checkout form.checkout.woocommerce-checkout {
+   display: grid;
+   grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+   grid-template-rows: min-content 1fr;
+   column-gap: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+   row-gap: 0;
+   align-items: start;
+   width: 100%;
+   max-width: 100%;
+   min-width: 0;
+ }
+ body.wp-theme-astra.woocommerce-checkout #customer_details {
+   grid-column: 1;
+   grid-row: 1 / 3;
+   min-width: 0;
+ }
+ body.wp-theme-astra.woocommerce-checkout #customer_details,
+ body.wp-theme-astra.woocommerce-checkout #customer_details .col2-set,
+ body.wp-theme-astra.woocommerce-checkout #customer_details .col-1 {
+   display: block;
+   width: 100%;
+   float: none;
+   margin: 0;
+   padding: 0;
+ }
+ /* Stack billing + additional cards inside col-1 with a gap */
+ body.wp-theme-astra.woocommerce-checkout #customer_details .col-1 .woocommerce-additional-fields {
+   margin-top: 1.5rem;
+ }
+ /* Right column: heading in row 1, review card in row 2 — each gets a
+    distinct grid cell so they can NEVER overlap (the previous version put
+    both in row 1 and the dark heading box sat behind the bright card).
+    align-self:start pins the card right under the heading; the 1fr second
+    row just absorbs the tall left column's surplus height (no fake gap). */
+ body.wp-theme-astra.woocommerce-checkout #order_review_heading {
+   grid-column: 2;
+   grid-row: 1;
+   align-self: start;
+   min-width: 0;
+ }
+ body.wp-theme-astra.woocommerce-checkout #order_review,
+ body.wp-theme-astra.woocommerce-checkout .woocommerce-checkout-review-order {
+   grid-column: 2;
+   grid-row: 2;
+   align-self: start;
+   min-width: 0;
+   margin-top: 0;
+ }
+
+/* Hide ghost/empty nodes that break the grid:
+   - .woocommerce-shipping-fields holds only whitespace (no fields)
+   - .col-2 holds only an invisible <wc-order-attribution-inputs>
+   - stray <wc-order-attribution-inputs> are direct grid children that
+     would steal a grid cell and shift the order-review card.
+   :empty fails on all of these (whitespace / child element), so hide
+   them explicitly. */
+body.wp-theme-astra.woocommerce-checkout .woocommerce-shipping-fields,
+body.wp-theme-astra.woocommerce-checkout #customer_details .col-2,
+body.wp-theme-astra.woocommerce-checkout wc-order-attribution-inputs {
+  display: none;
+}
+ body.wp-theme-astra.woocommerce-checkout .woocommerce-additional-fields:empty {
+   display: none;
+ }
+
+/* ROOT CAUSE OF THE MIDDLE GAP:
+   Astra ships, at min-width:922px,
+     .woocommerce-page.woocommerce-checkout form #customer_details.col2-set { width:55%; float:left; margin-right:4.34% }
+     .woocommerce-page.woocommerce-checkout form #order_review(_heading)   { width:40%; float:right }
+   That selector (1 id, 3 classes, 1 elem) outranks our id selectors, so
+   each grid item only fills ~half its grid cell — leaving the huge empty
+   band down the middle. Astra also draws a 2px border box around
+   #order_review_heading + #order_review (specificity 2 ids) that our
+   strip rule lost to. Re-assert both by chaining an ancestor id
+   (#primary) so every relevant selector here outranks Astra. */
+body.wp-theme-astra.woocommerce-checkout #primary form.checkout #customer_details.col2-set,
+body.wp-theme-astra.woocommerce-checkout #primary form.checkout #order_review,
+body.wp-theme-astra.woocommerce-checkout #primary form.checkout #order_review_heading {
+  width: 100%;
+  max-width: 100%;
+  float: none;
+  margin-right: 0;
+  clear: none;
+}
+/* heading is plain text, never a bordered box */
+body.wp-theme-astra.woocommerce-checkout #primary form.checkout #order_review_heading {
+  margin: 0 0 1rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+/* order-review = the single bright focal card, no Astra side/bottom border */
+body.wp-theme-astra.woocommerce-checkout #primary form.checkout #order_review {
+  margin: 0;
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  border: 1px solid hsl(var(--bk-hairline));
+  border-radius: 18px;
+  background: hsl(var(--bk-card));
+}
+
+/* -------------------------------------------------------------
+   4. CUSTOMER DETAILS — dark form card
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-checkout .woocommerce-billing-fields,
+body.wp-theme-astra.woocommerce-checkout .woocommerce-shipping-fields,
+body.wp-theme-astra.woocommerce-checkout .woocommerce-additional-fields {
+  padding: clamp(1.25rem, 1rem + 2vw, 2rem);
+  border: 1px solid hsl(var(--border));
+  border-radius: 18px;
+  background: hsl(var(--surface-section));
+}
+body.wp-theme-astra.woocommerce-checkout .woocommerce-billing-fields h3,
+body.wp-theme-astra.woocommerce-checkout .woocommerce-shipping-fields h3,
+body.wp-theme-astra.woocommerce-checkout .woocommerce-additional-fields h3,
+body.wp-theme-astra.woocommerce-checkout #order_review_heading {
+  margin: 0 0 1.1rem;
+  font: 700 1.3rem/1.2 var(--font-heading);
+  color: hsl(var(--foreground));
+}
+
+/* Form rows + fields */
+body.wp-theme-astra.woocommerce-checkout .form-row {
+  margin: 0 0 1rem;
+  padding: 0;
+}
+body.wp-theme-astra.woocommerce-checkout .form-row label {
+  display: block;
+  margin: 0 0 0.4rem;
+  font: 600 0.85rem/1.3 var(--font-body);
+  color: hsl(var(--muted-foreground));
+}
+body.wp-theme-astra.woocommerce-checkout .form-row .required {
+  color: hsl(var(--primary-bright));
+  text-decoration: none;
+}
+body.wp-theme-astra.woocommerce-checkout .input-text,
+body.wp-theme-astra.woocommerce-checkout .form-row input.input-text,
+body.wp-theme-astra.woocommerce-checkout .form-row textarea,
+body.wp-theme-astra.woocommerce-checkout .select2-container .select2-selection,
+body.wp-theme-astra.woocommerce-checkout .form-row select {
+  width: 100%;
+  min-height: 50px;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  font: 400 1rem/1.4 var(--font-body);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+body.wp-theme-astra.woocommerce-checkout .form-row textarea {
+  min-height: 110px;
+}
+body.wp-theme-astra.woocommerce-checkout .input-text::placeholder,
+body.wp-theme-astra.woocommerce-checkout .form-row textarea::placeholder {
+  color: hsl(var(--muted-foreground));
+}
+body.wp-theme-astra.woocommerce-checkout .input-text:focus,
+body.wp-theme-astra.woocommerce-checkout .form-row textarea:focus,
+body.wp-theme-astra.woocommerce-checkout .form-row select:focus {
+  outline: none;
+  border-color: hsl(var(--primary-bright));
+  box-shadow: 0 0 0 3px hsl(var(--primary-bright) / 0.22);
+}
+body.wp-theme-astra.woocommerce-checkout .select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: hsl(var(--foreground));
+  line-height: 48px;
+}
+body.wp-theme-astra.woocommerce-checkout .select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 48px;
+}
+
+/* -------------------------------------------------------------
+   5. ORDER REVIEW — the one bright focal surface
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-checkout #order_review,
+body.wp-theme-astra.woocommerce-checkout #order_review_heading {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+/* Heading is plain text — never a bordered box. Strip any leftover
+   border/background/shadow so it doesn't render as a second card. */
+body.wp-theme-astra.woocommerce-checkout #order_review_heading {
+  margin: 0 0 1rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: hsl(var(--foreground));
+}
+body.wp-theme-astra.woocommerce-checkout #order_review {
+  float: none;
+  margin: 0;
+  align-self: start;
+}
+body.wp-theme-astra.woocommerce-checkout .woocommerce-checkout-review-order {
+  float: none;
+  align-self: start;
+}
+body.wp-theme-astra.woocommerce-checkout #order_review {
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  border-radius: 18px;
+  background: hsl(var(--bk-card));
+  color: hsl(var(--bk-ink));
+  border: 1px solid hsl(var(--bk-hairline));
+  box-shadow: 0 34px 80px -38px hsl(0 0% 0% / 0.9);
+}
+body.wp-theme-astra.woocommerce-checkout #order_review * {
+  box-sizing: border-box;
+}
+body.wp-theme-astra.woocommerce-checkout #order_review table.shop_table {
+  width: 100%;
+  margin: 0 0 1.25rem;
+  border: 0;
+  border-collapse: collapse;
+  background: transparent;
+  font-family: var(--font-body);
+}
+body.wp-theme-astra.woocommerce-checkout #order_review table.shop_table th,
+body.wp-theme-astra.woocommerce-checkout #order_review table.shop_table td {
+  padding: 0.85rem 0;
+  border: 0;
+  border-bottom: 1px solid hsl(var(--bk-hairline));
+  color: hsl(var(--bk-ink));
+  text-align: left;
+  vertical-align: top;
+}
+body.wp-theme-astra.woocommerce-checkout #order_review table.shop_table thead th {
+  font: 600 0.78rem/1.2 var(--font-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: hsl(var(--bk-ink-muted));
+}
+body.wp-theme-astra.woocommerce-checkout #order_review table.shop_table td.product-name {
+  font-weight: 600;
+}
+body.wp-theme-astra.woocommerce-checkout #order_review tr.cart-subtotal th,
+body.wp-theme-astra.woocommerce-checkout #order_review tr.cart-subtotal td {
+  color: hsl(var(--bk-ink-muted));
+  font-weight: 600;
+}
+body.wp-theme-astra.woocommerce-checkout #order_review tr.order-total th,
+body.wp-theme-astra.woocommerce-checkout #order_review tr.order-total td {
+  border-bottom: 0;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: hsl(var(--bk-ink));
+}
+body.wp-theme-astra.woocommerce-checkout #order_review tr.order-total .amount {
+  color: hsl(var(--primary-darker));
+}
+
+/* -------------------------------------------------------------
+   6. PAYMENT METHODS (inside bright card)
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-checkout #payment {
+  margin: 0;
+  padding: 0;
+  border-radius: 14px;
+  background: hsl(var(--bk-panel));
+}
+body.wp-theme-astra.woocommerce-checkout #payment ul.payment_methods {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid hsl(var(--bk-hairline));
+  border-radius: 14px;
+  list-style: none;
+}
+body.wp-theme-astra.woocommerce-checkout #payment ul.payment_methods li {
+  margin: 0 0 0.5rem;
+  color: hsl(var(--bk-ink));
+  font-family: var(--font-body);
+}
+body.wp-theme-astra.woocommerce-checkout #payment ul.payment_methods li:last-child {
+  margin-bottom: 0;
+}
+body.wp-theme-astra.woocommerce-checkout #payment ul.payment_methods label {
+  color: hsl(var(--bk-ink));
+  font-weight: 600;
+}
+body.wp-theme-astra.woocommerce-checkout #payment div.payment_box {
+  margin: 0.5rem 0 0;
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  background: hsl(var(--bk-card));
+  color: hsl(var(--bk-ink-muted));
+  font: 400 0.9rem/1.5 var(--font-body);
+}
+body.wp-theme-astra.woocommerce-checkout #payment div.payment_box::before {
+  display: none;
+}
+
+/* Terms */
+body.wp-theme-astra.woocommerce-checkout .woocommerce-terms-and-conditions-wrapper {
+  margin: 1rem 0;
+  color: hsl(var(--bk-ink-muted));
+  font-size: 0.9rem;
+}
+
+/* Place order */
+body.wp-theme-astra.woocommerce-checkout #payment #place_order,
+body.wp-theme-astra.woocommerce-checkout button#place_order {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 56px;
+  margin-top: 1rem;
+  padding: 0 2rem;
+  border: 0;
+  border-radius: 9999px;
+  background: hsl(var(--primary-bright));
+  color: hsl(0 0% 100%);
+  font: 700 1.0625rem/1 var(--font-body);
+  text-transform: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+body.wp-theme-astra.woocommerce-checkout #payment #place_order:hover,
+body.wp-theme-astra.woocommerce-checkout button#place_order:hover {
+  background: hsl(var(--primary-darker));
+  box-shadow: 0 16px 30px -14px hsl(var(--primary-bright) / 0.7);
+}
+
+/* Coupon apply button (in coupon form) */
+body.wp-theme-astra.woocommerce-checkout form.checkout_coupon button.button {
+  min-height: 50px;
+  padding: 0 1.6rem;
+  border: 0;
+  border-radius: 9999px;
+  background: hsl(var(--primary-bright));
+  color: hsl(0 0% 100%);
+  font: 600 0.95rem/1 var(--font-body);
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+body.wp-theme-astra.woocommerce-checkout form.checkout_coupon button.button:hover {
+  background: hsl(var(--primary-darker));
+}
+
+/* -------------------------------------------------------------
+   7. EMPTY CART (checkout with no items) — ONE centered card
+   (outer wrapper plain; only the inner message is the card)
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-checkout .wc-empty-cart-message {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+body.wp-theme-astra.woocommerce-checkout .cart-empty.woocommerce-info {
+  margin: 0 auto;
+  max-width: 640px;
+  padding: clamp(1.75rem, 1rem + 3vw, 2.75rem);
+  border: 1px solid hsl(var(--border));
+  border-left: 3px solid hsl(var(--primary-bright));
+  border-radius: 18px;
+  background: hsl(var(--surface-section));
+  color: hsl(var(--foreground));
+  font: 600 1.05rem/1.5 var(--font-body);
+  text-align: center;
+}
+body.wp-theme-astra.woocommerce-checkout .cart-empty.woocommerce-info::before {
+  display: none;
+}
+body.wp-theme-astra.woocommerce-checkout .return-to-shop {
+  margin: 1.5rem auto 0;
+  max-width: 640px;
+  text-align: center;
+}
+body.wp-theme-astra.woocommerce-checkout .return-to-shop a.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 2rem;
+  border: 0;
+  border-radius: 9999px;
+  background: hsl(var(--primary-bright));
+  color: hsl(0 0% 100%);
+  font: 700 1rem/1 var(--font-body);
+  text-transform: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+body.wp-theme-astra.woocommerce-checkout .return-to-shop a.button:hover {
+  background: hsl(var(--primary-darker));
+  box-shadow: 0 16px 30px -14px hsl(var(--primary-bright) / 0.7);
+}
+
+/* -------------------------------------------------------------
+   8. RESPONSIVE — stack to single column
+   ------------------------------------------------------------- */
+@media (max-width: 900px) {
+  body.wp-theme-astra.woocommerce-checkout form.checkout.woocommerce-checkout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    gap: 1.5rem;
+  }
+   body.wp-theme-astra.woocommerce-checkout #customer_details,
+   body.wp-theme-astra.woocommerce-checkout #order_review_heading,
+   body.wp-theme-astra.woocommerce-checkout #order_review,
+   body.wp-theme-astra.woocommerce-checkout .woocommerce-checkout-review-order {
+     grid-column: 1;
+     grid-row: auto;
+   }
+  body.wp-theme-astra.woocommerce-checkout .woocommerce-checkout-review-order {
+    margin-top: 0;
+  }
+}
+
+/* -------------------------------------------------------------
+   9. REDUCED MOTION
+   ------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  body.wp-theme-astra.woocommerce-checkout .input-text,
+  body.wp-theme-astra.woocommerce-checkout .form-row textarea,
+  body.wp-theme-astra.woocommerce-checkout .form-row select,
+  body.wp-theme-astra.woocommerce-checkout #place_order,
+  body.wp-theme-astra.woocommerce-checkout button#place_order,
+  body.wp-theme-astra.woocommerce-checkout .return-to-shop a.button,
+  body.wp-theme-astra.woocommerce-checkout form.checkout_coupon button.button {
+    transition: none;
+  }
+}
+
+/* =============================================================
+   10. ORDER RECEIVED / THANK-YOU PAGE (merged from order-received.css)
+   The "Order received" page is an ENDPOINT of this same Checkout page
+   (URL /checkout/order-received/123/), so it loads from this snippet.
+   Rules are scoped to body...woocommerce-order-received so they never
+   touch the checkout form above.
+
+   ROOT CAUSE of "invisible text": the page canvas is dark → global
+   foreground is near-white. The custom confirmation message
+   ("Hello {name}, your payment is confirmed. Please pick a date…")
+   lives inside a bright WHITE Calendly card, so white-on-white = invisible.
+   Fix: re-color all text inside the card (the element that :has() the
+   Calendly widget) to dark ink, and theme the native thank-you elements
+   for the dark canvas.
+   ============================================================= */
+body.wp-theme-astra.woocommerce-order-received,
+body.wp-theme-astra.woocommerce-order-received .woocommerce {
+  --bk-card: 0 0% 98%;
+  --bk-ink: 220 22% 11%;
+  --bk-ink-muted: 220 10% 40%;
+  --bk-panel: 220 16% 96%;
+  --bk-hairline: 220 14% 88%;
+}
+
+/* page canvas + container */
+body.wp-theme-astra.woocommerce-order-received #page,
+body.wp-theme-astra.woocommerce-order-received #content,
+body.wp-theme-astra.woocommerce-order-received .site-content,
+body.wp-theme-astra.woocommerce-order-received #primary {
+  background-color: hsl(var(--background));
+}
+body.wp-theme-astra.woocommerce-order-received .ast-container,
+body.wp-theme-astra.woocommerce-order-received #content .ast-container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+body.wp-theme-astra.woocommerce-order-received .site-content > .ast-container {
+  padding-block: clamp(2rem, 1rem + 4vw, 5rem);
+}
+body.wp-theme-astra.woocommerce-order-received .entry-content,
+body.wp-theme-astra.woocommerce-order-received article.page {
+  background-color: transparent;
+  color: hsl(var(--foreground));
+  font-family: var(--font-body);
+}
+
+/* thank-you heading */
+body.wp-theme-astra.woocommerce-order-received .woocommerce-thankyou-order-received,
+body.wp-theme-astra.woocommerce-order-received p.woocommerce-thankyou-order-received {
+  margin: 0 0 1.75rem;
+  font: 800 clamp(1.6rem, 1.2rem + 2vw, 2.4rem)/1.15 var(--font-heading);
+  color: hsl(var(--foreground));
+}
+
+/* order overview bar (number / date / email / total / payment) */
+body.wp-theme-astra.woocommerce-order-received ul.woocommerce-order-overview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+  margin: 0 0 1.75rem;
+  padding: clamp(1.25rem, 1rem + 1.5vw, 1.75rem);
+  border: 1px solid hsl(var(--border));
+  border-radius: 18px;
+  background: hsl(var(--surface-section));
+  list-style: none;
+}
+body.wp-theme-astra.woocommerce-order-received ul.woocommerce-order-overview li {
+  position: relative;
+  margin: 0;
+  padding: 0 clamp(1rem, 0.5rem + 1vw, 1.75rem) 0 0;
+  border: 0;
+  color: hsl(var(--muted-foreground));
+  font: 600 0.78rem/1.2 var(--font-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+body.wp-theme-astra.woocommerce-order-received ul.woocommerce-order-overview li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 1px;
+  height: 2.4rem;
+  transform: translateY(-50%);
+  background: hsl(var(--border));
+}
+body.wp-theme-astra.woocommerce-order-received ul.woocommerce-order-overview li strong {
+  display: block;
+  margin-top: 0.35rem;
+  color: hsl(var(--foreground));
+  font: 800 1.15rem/1.3 var(--font-heading);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* plain paragraphs on the dark canvas (e.g. "Pay with cash upon delivery.") */
+body.wp-theme-astra.woocommerce-order-received .woocommerce-order > p,
+body.wp-theme-astra.woocommerce-order-received .woocommerce > p {
+  color: hsl(var(--foreground));
+  font: 400 1.05rem/1.6 var(--font-body);
+}
+
+/* THE WHITE CALENDLY CARD — force every piece of text inside to dark ink */
+body.wp-theme-astra.woocommerce-order-received .e-con:has(.calendly-inline-widget),
+body.wp-theme-astra.woocommerce-order-received .elementor-section:has(.calendly-inline-widget),
+body.wp-theme-astra.woocommerce-order-received .elementor-widget-wrap:has(.calendly-inline-widget),
+body.wp-theme-astra.woocommerce-order-received div:has(> .calendly-inline-widget) {
+  color: hsl(var(--bk-ink));
+}
+body.wp-theme-astra.woocommerce-order-received .e-con:has(.calendly-inline-widget) :where(p, span, li, h1, h2, h3, h4, h5, h6, strong, em, a, label),
+body.wp-theme-astra.woocommerce-order-received .elementor-section:has(.calendly-inline-widget) :where(p, span, li, h1, h2, h3, h4, h5, h6, strong, em, a, label),
+body.wp-theme-astra.woocommerce-order-received .elementor-widget-wrap:has(.calendly-inline-widget) :where(p, span, li, h1, h2, h3, h4, h5, h6, strong, em, a, label),
+body.wp-theme-astra.woocommerce-order-received div:has(> .calendly-inline-widget) :where(p, span, li, h1, h2, h3, h4, h5, h6, strong, em, a, label) {
+  color: hsl(var(--bk-ink));
+}
+body.wp-theme-astra.woocommerce-order-received .e-con:has(.calendly-inline-widget) p strong,
+body.wp-theme-astra.woocommerce-order-received .elementor-section:has(.calendly-inline-widget) p strong,
+body.wp-theme-astra.woocommerce-order-received div:has(> .calendly-inline-widget) p strong {
+  color: inherit;
+  font-weight: inherit;
+}
+
+/* order details / customer details tables (if shown) on the dark canvas */
+body.wp-theme-astra.woocommerce-order-received .woocommerce-order-details,
+body.wp-theme-astra.woocommerce-order-received .woocommerce-customer-details {
+  margin-top: 2rem;
+  padding: clamp(1.25rem, 1rem + 1.5vw, 1.75rem);
+  border: 1px solid hsl(var(--border));
+  border-radius: 18px;
+  background: hsl(var(--surface-section));
+  color: hsl(var(--foreground));
+}
+body.wp-theme-astra.woocommerce-order-received .woocommerce-order-details h2,
+body.wp-theme-astra.woocommerce-order-received .woocommerce-customer-details h2,
+body.wp-theme-astra.woocommerce-order-received .woocommerce-column__title {
+  margin: 0 0 1rem;
+  font: 700 1.3rem/1.2 var(--font-heading);
+  color: hsl(var(--foreground));
+}
+body.wp-theme-astra.woocommerce-order-received table.woocommerce-table--order-details {
+  width: 100%;
+  border-collapse: collapse;
+  color: hsl(var(--foreground));
+}
+body.wp-theme-astra.woocommerce-order-received table.woocommerce-table--order-details th,
+body.wp-theme-astra.woocommerce-order-received table.woocommerce-table--order-details td {
+  padding: 0.85rem 0;
+  border: 0;
+  border-bottom: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+  text-align: left;
+}
+body.wp-theme-astra.woocommerce-order-received table.woocommerce-table--order-details tr.order-total td,
+body.wp-theme-astra.woocommerce-order-received table.woocommerce-table--order-details tr.order-total th {
+  border-bottom: 0;
+  font-family: var(--font-heading);
+  font-weight: 800;
+}
+body.wp-theme-astra.woocommerce-order-received table.woocommerce-table--order-details a {
+  color: hsl(var(--primary-bright));
+  text-decoration: none;
+}
+body.wp-theme-astra.woocommerce-order-received table.woocommerce-table--order-details a:hover {
+  color: hsl(var(--primary-darker));
+  text-decoration: underline;
+}
+</style>

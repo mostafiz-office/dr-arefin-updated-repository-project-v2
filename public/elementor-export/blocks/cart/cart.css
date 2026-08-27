@@ -1,0 +1,401 @@
+<style>
+/* =============================================================
+   Dr. Arefin — Elementor Export :: cart.css v1.1.0
+   (v1.1.0: fixed empty-cart box-in-a-box — outer wrapper now plain)
+   WooCommerce cart page = "/cart/".
+   Premium medical-booking restyle of the default Astra + WooCommerce
+   cart template. CSS only, no markup changes. No !important. Kebab-case.
+   Scoped under body.wp-theme-astra.woocommerce-cart. Token source: global.css.
+   Mirrors the product/appointment page language (product.css v3.2.0):
+   dark page canvas, one bright focal surface for totals, green CTA pill.
+   ============================================================= */
+
+/* -------------------------------------------------------------
+   0. Local token fallbacks (if global.css isn't on the cart template)
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-cart,
+body.wp-theme-astra.woocommerce-cart .woocommerce {
+  --primary-bright: 133 80% 41%;
+  --primary-darker: 128 91% 32%;
+  --background: 220 20% 6%;
+  --surface-section: 220 15% 9%;
+  --card: 220 18% 14%;
+  --foreground: 0 0% 95%;
+  --muted-foreground: 220 8% 65%;
+  --border: 220 15% 20%;
+  --container-max: 1248px;
+  --container-pad: 1.5rem;
+  --font-heading: 'Ubuntu', system-ui, -apple-system, sans-serif;
+  --font-body: 'Poppins', system-ui, -apple-system, sans-serif;
+  /* bright focal surface (totals) on the dark page */
+  --bk-card: 0 0% 98%;
+  --bk-ink: 220 22% 11%;
+  --bk-ink-muted: 220 10% 40%;
+  --bk-panel: 220 16% 96%;
+  --bk-hairline: 220 14% 88%;
+}
+
+/* global safety — project rule */
+html, body { overflow-x: hidden; }
+
+/* -------------------------------------------------------------
+   1. PAGE CANVAS + container
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-cart #page,
+body.wp-theme-astra.woocommerce-cart #content,
+body.wp-theme-astra.woocommerce-cart .site-content,
+body.wp-theme-astra.woocommerce-cart #primary {
+  background-color: hsl(var(--background));
+}
+
+body.wp-theme-astra.woocommerce-cart .ast-container,
+body.wp-theme-astra.woocommerce-cart #primary > .ast-container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+body.wp-theme-astra.woocommerce-cart .site-content > .ast-container {
+  padding-block: clamp(2rem, 1rem + 4vw, 5rem);
+}
+
+body.wp-theme-astra.woocommerce-cart .entry-content,
+body.wp-theme-astra.woocommerce-cart article.page {
+  background-color: transparent;
+  color: hsl(var(--foreground));
+  font-family: var(--font-body);
+}
+
+/* Page title (Cart) */
+body.wp-theme-astra.woocommerce-cart .entry-title,
+body.wp-theme-astra.woocommerce-cart .ast-archive-title {
+  font-family: var(--font-heading);
+  color: hsl(var(--foreground));
+}
+
+/* -------------------------------------------------------------
+   2. EMPTY CART — ONE centered card, green CTA
+   (outer .wc-empty-cart-message is a plain wrapper; only the inner
+   .cart-empty message is the card — prevents box-in-a-box nesting)
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-cart .wc-empty-cart-message {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+body.wp-theme-astra.woocommerce-cart .cart-empty.woocommerce-info {
+  margin: 0 auto;
+  max-width: 640px;
+  padding: clamp(1.75rem, 1rem + 3vw, 2.75rem);
+  border: 1px solid hsl(var(--border));
+  border-left: 3px solid hsl(var(--primary-bright));
+  border-radius: 18px;
+  background: hsl(var(--surface-section));
+  color: hsl(var(--foreground));
+  font: 600 1.05rem/1.5 var(--font-body);
+  text-align: center;
+}
+body.wp-theme-astra.woocommerce-cart .cart-empty.woocommerce-info::before {
+  display: none;
+}
+body.wp-theme-astra.woocommerce-cart .return-to-shop {
+  margin: 1.5rem auto 0;
+  max-width: 640px;
+  text-align: center;
+}
+body.wp-theme-astra.woocommerce-cart .return-to-shop a.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 2rem;
+  border: 0;
+  border-radius: 9999px;
+  background: hsl(var(--primary-bright));
+  color: hsl(0 0% 100%);
+  font: 700 1rem/1 var(--font-body);
+  text-transform: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+body.wp-theme-astra.woocommerce-cart .return-to-shop a.button:hover {
+  background: hsl(var(--primary-darker));
+  box-shadow: 0 16px 30px -14px hsl(var(--primary-bright) / 0.7);
+}
+
+/* -------------------------------------------------------------
+   3. CART LAYOUT — table (left) / totals (right)
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-cart .woocommerce {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+  align-items: start;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+body.wp-theme-astra.woocommerce-cart .woocommerce-notices-wrapper {
+  grid-column: 1 / -1;
+}
+/* empty state spans full width */
+body.wp-theme-astra.woocommerce-cart .woocommerce .wc-empty-cart-message,
+body.wp-theme-astra.woocommerce-cart .woocommerce .return-to-shop {
+  grid-column: 1 / -1;
+}
+
+/* -------------------------------------------------------------
+   4. CART FORM + ITEMS TABLE — dark card surface
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-cart form.woocommerce-cart-form {
+  margin: 0;
+  min-width: 0;
+}
+body.wp-theme-astra.woocommerce-cart table.shop_table.cart {
+  width: 100%;
+  margin: 0;
+  border: 1px solid hsl(var(--border));
+  border-radius: 18px;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  background: hsl(var(--surface-section));
+  font-family: var(--font-body);
+}
+body.wp-theme-astra.woocommerce-cart table.shop_table.cart thead th {
+  padding: 1rem 1.1rem;
+  background: hsl(var(--card));
+  border: 0;
+  border-bottom: 1px solid hsl(var(--border));
+  font: 600 0.78rem/1.2 var(--font-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+  text-align: left;
+}
+body.wp-theme-astra.woocommerce-cart table.shop_table.cart td {
+  padding: 1.1rem;
+  border: 0;
+  border-bottom: 1px solid hsl(var(--border));
+  vertical-align: middle;
+  color: hsl(var(--foreground));
+}
+body.wp-theme-astra.woocommerce-cart table.shop_table.cart tr:last-child td {
+  border-bottom: 0;
+}
+body.wp-theme-astra.woocommerce-cart td.product-thumbnail img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid hsl(var(--border));
+}
+body.wp-theme-astra.woocommerce-cart td.product-name a {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+  text-decoration: none;
+}
+body.wp-theme-astra.woocommerce-cart td.product-name a:hover {
+  color: hsl(var(--primary-bright));
+}
+body.wp-theme-astra.woocommerce-cart td.product-price,
+body.wp-theme-astra.woocommerce-cart td.product-subtotal {
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+body.wp-theme-astra.woocommerce-cart td.product-remove a.remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 9999px;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--muted-foreground));
+  font-size: 1.1rem;
+  line-height: 1;
+  text-decoration: none;
+}
+body.wp-theme-astra.woocommerce-cart td.product-remove a.remove:hover {
+  color: hsl(var(--primary-bright));
+  border-color: hsl(var(--primary-bright));
+  background: hsl(var(--card));
+}
+
+/* Quantity stepper */
+body.wp-theme-astra.woocommerce-cart td.product-quantity .quantity input.qty {
+  width: 64px;
+  min-height: 42px;
+  padding: 0 0.5rem;
+  border-radius: 10px;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  font-family: var(--font-body);
+  text-align: center;
+}
+
+/* Coupon + update-cart row */
+body.wp-theme-astra.woocommerce-cart table.shop_table.cart td.actions {
+  padding: 1rem 1.1rem;
+  background: hsl(var(--card));
+}
+body.wp-theme-astra.woocommerce-cart .coupon {
+  display: inline-flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+body.wp-theme-astra.woocommerce-cart .coupon input#coupon_code {
+  min-height: 46px;
+  padding: 0 0.9rem;
+  border-radius: 9999px;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--surface-section));
+  color: hsl(var(--foreground));
+  font-family: var(--font-body);
+}
+body.wp-theme-astra.woocommerce-cart .coupon button.button,
+body.wp-theme-astra.woocommerce-cart td.actions button.button {
+  min-height: 46px;
+  padding: 0 1.4rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: 9999px;
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  font: 600 0.9rem/1 var(--font-body);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+body.wp-theme-astra.woocommerce-cart .coupon button.button:hover,
+body.wp-theme-astra.woocommerce-cart td.actions button.button:hover {
+  border-color: hsl(var(--primary-bright));
+  color: hsl(var(--primary-bright));
+}
+
+/* -------------------------------------------------------------
+   5. CART TOTALS — the one bright focal surface
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-cart .cart-collaterals {
+  width: 100%;
+  min-width: 0;
+}
+body.wp-theme-astra.woocommerce-cart .cart-collaterals .cart_totals {
+  width: 100%;
+  float: none;
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  border-radius: 18px;
+  background: hsl(var(--bk-card));
+  color: hsl(var(--bk-ink));
+  border: 1px solid hsl(var(--bk-hairline));
+  box-shadow: 0 34px 80px -38px hsl(0 0% 0% / 0.9);
+}
+body.wp-theme-astra.woocommerce-cart .cart_totals > h2 {
+  margin: 0 0 1rem;
+  font: 700 1.4rem/1.2 var(--font-heading);
+  color: hsl(var(--bk-ink));
+}
+body.wp-theme-astra.woocommerce-cart .cart_totals table.shop_table {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-collapse: collapse;
+  background: transparent;
+  font-family: var(--font-body);
+}
+body.wp-theme-astra.woocommerce-cart .cart_totals table.shop_table th,
+body.wp-theme-astra.woocommerce-cart .cart_totals table.shop_table td {
+  padding: 0.85rem 0;
+  border: 0;
+  border-bottom: 1px solid hsl(var(--bk-hairline));
+  color: hsl(var(--bk-ink));
+  text-align: left;
+  vertical-align: top;
+}
+body.wp-theme-astra.woocommerce-cart .cart_totals table.shop_table th {
+  font-weight: 600;
+  color: hsl(var(--bk-ink-muted));
+}
+body.wp-theme-astra.woocommerce-cart .cart_totals tr.order-total th,
+body.wp-theme-astra.woocommerce-cart .cart_totals tr.order-total td {
+  border-bottom: 0;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: hsl(var(--bk-ink));
+}
+body.wp-theme-astra.woocommerce-cart .cart_totals tr.order-total .amount {
+  color: hsl(var(--primary-darker));
+}
+
+/* Proceed to checkout */
+body.wp-theme-astra.woocommerce-cart .wc-proceed-to-checkout {
+  margin-top: 1.25rem;
+  padding: 0;
+}
+body.wp-theme-astra.woocommerce-cart .wc-proceed-to-checkout a.checkout-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 56px;
+  padding: 0 2rem;
+  border: 0;
+  border-radius: 9999px;
+  background: hsl(var(--primary-bright));
+  color: hsl(0 0% 100%);
+  font: 700 1.0625rem/1 var(--font-body);
+  text-transform: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+body.wp-theme-astra.woocommerce-cart .wc-proceed-to-checkout a.checkout-button:hover {
+  background: hsl(var(--primary-darker));
+  box-shadow: 0 16px 30px -14px hsl(var(--primary-bright) / 0.7);
+}
+
+/* -------------------------------------------------------------
+   6. RESPONSIVE — stack to single column
+   ------------------------------------------------------------- */
+@media (max-width: 900px) {
+  body.wp-theme-astra.woocommerce-cart .woocommerce {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+  body.wp-theme-astra.woocommerce-cart table.shop_table.cart thead {
+    display: none;
+  }
+  body.wp-theme-astra.woocommerce-cart table.shop_table.cart tr.cart_item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 0.9rem;
+    align-items: center;
+    padding: 0.9rem 0.5rem;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+  body.wp-theme-astra.woocommerce-cart table.shop_table.cart tr.cart_item td {
+    padding: 0;
+    border: 0;
+  }
+  body.wp-theme-astra.woocommerce-cart td.actions {
+    display: block;
+  }
+  body.wp-theme-astra.woocommerce-cart .coupon {
+    width: 100%;
+  }
+  body.wp-theme-astra.woocommerce-cart .coupon input#coupon_code {
+    flex: 1 1 auto;
+  }
+}
+
+/* -------------------------------------------------------------
+   7. REDUCED MOTION
+   ------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  body.wp-theme-astra.woocommerce-cart .return-to-shop a.button,
+  body.wp-theme-astra.woocommerce-cart .wc-proceed-to-checkout a.checkout-button {
+    transition: none;
+  }
+}
+</style>

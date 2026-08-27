@@ -1,0 +1,197 @@
+<!--
+  ============================================================
+  CAF PATRONATO FONDI — STICKY HEADER + SMOOTH SCROLL
+  ============================================================
+  HOW TO ADD TO WORDPRESS:
+  
+  Option A — WPCode Plugin (recommended):
+    1. Go to WP Admin → Code Snippets → Add Snippet
+    2. Choose "Add Your Custom Code (New Snippet)"
+    3. Set Type: "HTML Snippet"
+    4. Paste this ENTIRE file content
+    5. Set Location: "Site Wide Footer"
+    6. Set Priority: 999
+    7. Activate the snippet
+  
+  Option B — Elementor Custom Code:
+    1. Go to Elementor → Custom Code → Add New
+    2. Paste this content
+    3. Set Location: "</body> — End"
+    4. Set Priority: 999
+    5. Publish
+  
+  IMPORTANT: Disable Astra's built-in Sticky Header:
+    Appearance → Customize → Header Builder → Sticky Header → OFF
+  ============================================================
+-->
+
+<style id="caff-sticky-smooth">
+/* --- Smooth Scrolling --- */
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* --- Sticky Header: target the OUTERMOST Elementor header wrapper --- */
+header.elementor-location-header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+header.elementor-location-header.header-scrolled {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+header.elementor-location-header.header-hidden {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+header.elementor-location-header.header-visible {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+</style>
+
+<script id="caff-sticky-header">
+(function() {
+  'use strict';
+
+  function initStickyHeader() {
+    console.log('[CAFF] Sticky header script running...');
+
+    var stickyTarget = document.querySelector('header.elementor-location-header')
+                    || document.querySelector('header[data-elementor-type="header"]');
+
+    if (!stickyTarget) {
+      var innerHeader = document.querySelector('.header');
+      if (innerHeader) {
+        var el = innerHeader.parentElement;
+        while (el && el !== document.body) {
+          if (el.tagName === 'HEADER') {
+            stickyTarget = el;
+            break;
+          }
+          el = el.parentElement;
+        }
+        if (!stickyTarget) stickyTarget = innerHeader;
+      }
+    }
+
+    if (!stickyTarget) {
+      console.warn('[CAFF] ❌ No header found at all!');
+      console.warn('[CAFF] All <header> elements:', document.querySelectorAll('header'));
+      return;
+    }
+
+    console.log('[CAFF] ✅ Sticky target:', stickyTarget.tagName, stickyTarget.className.substring(0, 100));
+
+    stickyTarget.style.position = 'sticky';
+    stickyTarget.style.top = '0';
+    stickyTarget.style.zIndex = '9999';
+    stickyTarget.style.width = '100%';
+    stickyTarget.style.transition = 'transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s ease';
+    stickyTarget.style.willChange = 'transform';
+
+    var parent = stickyTarget.parentElement;
+    var depth = 0;
+    while (parent && parent !== document.body && parent !== document.documentElement && depth < 20) {
+      var cs = window.getComputedStyle(parent);
+      var fixes = [];
+
+      if (cs.overflow !== 'visible') {
+        parent.style.overflow = 'visible';
+        fixes.push('overflow: ' + cs.overflow + ' → visible');
+      }
+      if (cs.overflowX !== 'visible') {
+        parent.style.overflowX = 'visible';
+        fixes.push('overflowX');
+      }
+      if (cs.overflowY !== 'visible') {
+        parent.style.overflowY = 'visible';
+        fixes.push('overflowY');
+      }
+      if (cs.transform && cs.transform !== 'none') {
+        parent.style.transform = 'none';
+        fixes.push('transform');
+      }
+      if (cs.contain && cs.contain !== 'none') {
+        parent.style.contain = 'none';
+        fixes.push('contain');
+      }
+      if (cs.filter && cs.filter !== 'none') {
+        parent.style.filter = 'none';
+        fixes.push('filter');
+      }
+      if (cs.clipPath && cs.clipPath !== 'none') {
+        parent.style.clipPath = 'none';
+        fixes.push('clip-path');
+      }
+
+      if (fixes.length > 0) {
+        var id = parent.tagName + (parent.id ? '#' + parent.id : '') + (parent.className ? '.' + parent.className.split(' ')[0] : '');
+        console.log('[CAFF] Fixed parent:', id, '→', fixes.join(', '));
+      }
+
+      parent = parent.parentElement;
+      depth++;
+    }
+
+    var lastScrollY = window.scrollY;
+    var threshold = 80;
+    var ticking = false;
+
+    function onScroll() {
+      var y = window.scrollY;
+
+      stickyTarget.classList.toggle('header-scrolled', y > 10);
+
+      if (y > threshold) {
+        if (y > lastScrollY + 5) {
+          stickyTarget.classList.add('header-hidden');
+          stickyTarget.classList.remove('header-visible');
+        } else if (y < lastScrollY - 5) {
+          stickyTarget.classList.remove('header-hidden');
+          stickyTarget.classList.add('header-visible');
+        }
+      } else {
+        stickyTarget.classList.remove('header-hidden', 'header-visible');
+      }
+
+      lastScrollY = y;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    onScroll();
+    console.log('[CAFF] ✅ Sticky header + smooth scroll active!');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStickyHeader);
+  } else {
+    initStickyHeader();
+  }
+
+  setTimeout(function() {
+    var check = document.querySelector('.header-scrolled, .header-hidden, .header-visible');
+    if (!check) {
+      console.log('[CAFF] Retrying header detection (delayed)...');
+      initStickyHeader();
+    }
+  }, 2000);
+
+})();
+</script>

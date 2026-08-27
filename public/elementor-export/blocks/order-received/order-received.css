@@ -1,0 +1,211 @@
+<style>
+/* =============================================================
+   Dr. Arefin — Elementor Export :: order-received.css v1.0.0
+   WooCommerce "Order received" / Thank-you page = "/checkout/order-received/".
+   Premium medical-booking restyle of the default Astra + WooCommerce
+   thank-you template + the embedded Calendly scheduling card.
+
+   ROOT CAUSE OF "INVISIBLE TEXT":
+   The page canvas is dark, so global foreground = near-white
+   (--foreground: 0 0% 95%). The custom confirmation message
+   ("Hello {name}, your payment is confirmed. Please pick a date…")
+   lives INSIDE a bright WHITE Calendly card, so it inherits the
+   near-white color → white-on-white → invisible. Fix: re-color all
+   text inside the card (the element that :has() the Calendly widget)
+   to a dark ink, and theme the native thank-you elements for the dark
+   canvas so every piece of text has proper contrast.
+
+   CSS only, no markup changes. No !important. Kebab-case.
+   Scoped under body.wp-theme-astra.woocommerce-order-received.
+   Token source: global.css. Mirrors checkout.css v1.8.0.
+   ============================================================= */
+
+/* -------------------------------------------------------------
+   0. Local token fallbacks (if global.css isn't on the template)
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-order-received,
+body.wp-theme-astra.woocommerce-order-received .woocommerce {
+  --primary-bright: 133 80% 41%;
+  --primary-darker: 128 91% 32%;
+  --background: 220 20% 6%;
+  --surface-section: 220 15% 9%;
+  --card: 220 18% 14%;
+  --foreground: 0 0% 95%;
+  --muted-foreground: 220 8% 65%;
+  --border: 220 15% 20%;
+  --container-max: 1248px;
+  --container-pad: 1.5rem;
+  --font-heading: 'Ubuntu', system-ui, -apple-system, sans-serif;
+  --font-body: 'Poppins', system-ui, -apple-system, sans-serif;
+  /* bright focal surfaces on the dark page */
+  --bk-card: 0 0% 98%;
+  --bk-ink: 220 22% 11%;
+  --bk-ink-muted: 220 10% 40%;
+  --bk-panel: 220 16% 96%;
+  --bk-hairline: 220 14% 88%;
+}
+
+/* global safety — project rule */
+html, body { overflow-x: hidden; }
+
+/* -------------------------------------------------------------
+   1. PAGE CANVAS + container
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-order-received #page,
+body.wp-theme-astra.woocommerce-order-received #content,
+body.wp-theme-astra.woocommerce-order-received .site-content,
+body.wp-theme-astra.woocommerce-order-received #primary {
+  background-color: hsl(var(--background));
+}
+body.wp-theme-astra.woocommerce-order-received .ast-container,
+body.wp-theme-astra.woocommerce-order-received #content .ast-container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+body.wp-theme-astra.woocommerce-order-received .site-content > .ast-container {
+  padding-block: clamp(2rem, 1rem + 4vw, 5rem);
+}
+body.wp-theme-astra.woocommerce-order-received .entry-content,
+body.wp-theme-astra.woocommerce-order-received article.page {
+  background-color: transparent;
+  color: hsl(var(--foreground));
+  font-family: var(--font-body);
+}
+
+/* -------------------------------------------------------------
+   2. THANK-YOU MESSAGE + ORDER OVERVIEW (native WooCommerce, dark)
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-order-received .woocommerce-thankyou-order-received,
+body.wp-theme-astra.woocommerce-order-received p.woocommerce-thankyou-order-received {
+  margin: 0 0 1.75rem;
+  font: 800 clamp(1.6rem, 1.2rem + 2vw, 2.4rem)/1.15 var(--font-heading);
+  color: hsl(var(--foreground));
+}
+
+/* the order number / date / email / total / payment bar */
+body.wp-theme-astra.woocommerce-order-received ul.woocommerce-order-overview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+  margin: 0 0 1.75rem;
+  padding: clamp(1.25rem, 1rem + 1.5vw, 1.75rem);
+  border: 1px solid hsl(var(--border));
+  border-radius: 18px;
+  background: hsl(var(--surface-section));
+  list-style: none;
+}
+body.wp-theme-astra.woocommerce-order-received ul.woocommerce-order-overview li {
+  position: relative;
+  margin: 0;
+  padding: 0 clamp(1rem, 0.5rem + 1vw, 1.75rem) 0 0;
+  border: 0;
+  font: 600 1.15rem/1.3 var(--font-heading);
+  color: hsl(var(--foreground));
+  text-transform: none;
+}
+body.wp-theme-astra.woocommerce-order-received ul.woocommerce-order-overview li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 1px;
+  height: 2.4rem;
+  transform: translateY(-50%);
+  background: hsl(var(--border));
+}
+body.wp-theme-astra.woocommerce-order-received ul.woocommerce-order-overview li strong {
+  display: block;
+  margin-top: 0.35rem;
+  color: hsl(var(--foreground));
+  font-weight: 800;
+}
+body.wp-theme-astra.woocommerce-order-received ul.woocommerce-order-overview li {
+  color: hsl(var(--muted-foreground));
+  font: 600 0.78rem/1.2 var(--font-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* any plain paragraph emitted on the dark canvas (e.g. "Pay with cash
+   upon delivery.") stays light/visible */
+body.wp-theme-astra.woocommerce-order-received .woocommerce-order > p,
+body.wp-theme-astra.woocommerce-order-received .woocommerce > p {
+  color: hsl(var(--foreground));
+  font: 400 1.05rem/1.6 var(--font-body);
+}
+
+/* -------------------------------------------------------------
+   3. THE WHITE CALENDLY SCHEDULING CARD
+   The confirmation message + the Calendly embed sit inside a bright
+   white card. Select that card via :has(.calendly-inline-widget) and
+   force every piece of text inside it to dark ink so nothing is
+   invisible against the white surface.
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-order-received .e-con:has(.calendly-inline-widget),
+body.wp-theme-astra.woocommerce-order-received .elementor-section:has(.calendly-inline-widget),
+body.wp-theme-astra.woocommerce-order-received .elementor-widget-wrap:has(.calendly-inline-widget),
+body.wp-theme-astra.woocommerce-order-received div:has(> .calendly-inline-widget) {
+  color: hsl(var(--bk-ink));
+}
+body.wp-theme-astra.woocommerce-order-received .e-con:has(.calendly-inline-widget) :where(p, span, li, h1, h2, h3, h4, h5, h6, strong, em, a, label),
+body.wp-theme-astra.woocommerce-order-received .elementor-section:has(.calendly-inline-widget) :where(p, span, li, h1, h2, h3, h4, h5, h6, strong, em, a, label),
+body.wp-theme-astra.woocommerce-order-received .elementor-widget-wrap:has(.calendly-inline-widget) :where(p, span, li, h1, h2, h3, h4, h5, h6, strong, em, a, label),
+body.wp-theme-astra.woocommerce-order-received div:has(> .calendly-inline-widget) :where(p, span, li, h1, h2, h3, h4, h5, h6, strong, em, a, label) {
+  color: hsl(var(--bk-ink));
+}
+/* keep <strong> inside the message inheriting (project rule) */
+body.wp-theme-astra.woocommerce-order-received .e-con:has(.calendly-inline-widget) p strong,
+body.wp-theme-astra.woocommerce-order-received .elementor-section:has(.calendly-inline-widget) p strong,
+body.wp-theme-astra.woocommerce-order-received div:has(> .calendly-inline-widget) p strong {
+  color: inherit;
+  font-weight: inherit;
+}
+
+/* -------------------------------------------------------------
+   4. ORDER DETAILS TABLE (if shown below) — keep on dark canvas
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce-order-received .woocommerce-order-details,
+body.wp-theme-astra.woocommerce-order-received .woocommerce-customer-details {
+  margin-top: 2rem;
+  padding: clamp(1.25rem, 1rem + 1.5vw, 1.75rem);
+  border: 1px solid hsl(var(--border));
+  border-radius: 18px;
+  background: hsl(var(--surface-section));
+  color: hsl(var(--foreground));
+}
+body.wp-theme-astra.woocommerce-order-received .woocommerce-order-details h2,
+body.wp-theme-astra.woocommerce-order-received .woocommerce-customer-details h2,
+body.wp-theme-astra.woocommerce-order-received .woocommerce-column__title {
+  margin: 0 0 1rem;
+  font: 700 1.3rem/1.2 var(--font-heading);
+  color: hsl(var(--foreground));
+}
+body.wp-theme-astra.woocommerce-order-received table.woocommerce-table--order-details {
+  width: 100%;
+  border-collapse: collapse;
+  color: hsl(var(--foreground));
+}
+body.wp-theme-astra.woocommerce-order-received table.woocommerce-table--order-details th,
+body.wp-theme-astra.woocommerce-order-received table.woocommerce-table--order-details td {
+  padding: 0.85rem 0;
+  border: 0;
+  border-bottom: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+  text-align: left;
+}
+body.wp-theme-astra.woocommerce-order-received table.woocommerce-table--order-details tr.order-total td,
+body.wp-theme-astra.woocommerce-order-received table.woocommerce-table--order-details tr.order-total th {
+  border-bottom: 0;
+  font-family: var(--font-heading);
+  font-weight: 800;
+}
+body.wp-theme-astra.woocommerce-order-received table.woocommerce-table--order-details a {
+  color: hsl(var(--primary-bright));
+  text-decoration: none;
+}
+body.wp-theme-astra.woocommerce-order-received table.woocommerce-table--order-details a:hover {
+  color: hsl(var(--primary-darker));
+  text-decoration: underline;
+}
+</style>

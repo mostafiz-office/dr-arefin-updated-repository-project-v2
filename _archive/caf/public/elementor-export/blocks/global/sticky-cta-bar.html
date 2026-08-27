@@ -1,0 +1,44 @@
+<!-- ============================================
+     STICKY BOTTOM CTA BAR
+     Paste into WPCode snippet or Elementor HTML widget (site-wide footer)
+     Requires: global.css loaded
+     ============================================ -->
+
+<div class="caff-sticky-cta" id="caff-sticky-cta">
+  <div class="caff-sticky-cta-glow"></div>
+  <div class="caff-sticky-cta-inner">
+    <a href="tel:+393285561774"
+       class="caff-sticky-btn caff-sticky-btn-call"
+       title="Chiama CAF Fondi Latina per assistenza">
+      <i data-lucide="phone" class="caff-icon-18"></i>
+      <span>Chiama</span>
+    </a>
+    <span class="caff-sticky-divider">O</span>
+    <a href="/contatto/"
+       class="caff-sticky-btn caff-sticky-btn-contact"
+       title="Contatta CAF Patronato Fondi">
+      <i data-lucide="mail" class="caff-icon-18"></i>
+      <span>Contatta</span>
+    </a>
+  </div>
+</div>
+
+<script>
+(function() {
+  var bar = document.getElementById('caff-sticky-cta');
+  if (!bar) return;
+  var threshold = 400;
+  var visible = false;
+
+  function toggle() {
+    var show = window.scrollY > threshold;
+    if (show !== visible) {
+      visible = show;
+      bar.classList.toggle('is-visible', show);
+    }
+  }
+
+  window.addEventListener('scroll', toggle, { passive: true });
+  toggle();
+})();
+</script>

@@ -1,0 +1,4433 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&family=Poppins:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 6.7%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 6.7%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 6.7%;
+
+    --primary: 104 56% 46%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 120 45% 39%;
+    --primary-light: 104 60% 75%;
+
+    --secondary: 0 0% 96.9%;
+    --secondary-foreground: 0 0% 6.7%;
+
+    --muted: 0 0% 96.9%;
+    --muted-foreground: 213 8% 45%;
+
+    --accent: 96 79% 94.3%;
+    --accent-foreground: 0 0% 6.7%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 93.7%;
+    --input: 0 0% 93.7%;
+    --ring: 104 56% 46%;
+
+    --radius: 0.375rem;
+
+    --body-text: 0 0% 33.7%;
+    --muted-text: 213 8% 45%;
+
+    --highlight: 37 85% 63%;
+    --brand-soft: 96 79% 94.3%;
+    --bg-dark: 0 0% 6.7%;
+    --bg-footer: 0 0% 0%;
+    --cta-bg: 150 54% 10%;
+    --surface: 0 0% 96.1%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 120 51% 39%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96.9%;
+    --sidebar-accent-foreground: 0 0% 6.7%;
+    --sidebar-border: 0 0% 93.7%;
+    --sidebar-ring: 120 51% 39%;
+
+    /* ===== Universal heading/keyword hover shadow ink =====
+       Spec: Dr-Arefin-Spec/components/heading-link-hover-shadow.md
+       Sharp zero-blur dark olive in light mode. Override in .arefin.dark
+       to a near-black tint so green hovers stay legible on dark surfaces.
+       Used by every section heading + bolded keyword hover across the site. */
+    --hover-shadow-ink: 40 61 5;
+
+    /* ================================================================
+       Responsive Type Ramp — single source of truth
+       Spec: Dr-Arefin-Spec/reviewer/10-typography-system.md
+       Fluid clamp() ramp scales smoothly between the QA matrix
+       breakpoints (375px → 1440px). Min = mobile (xs), max = 2xl.
+       Consume via .type-* utilities OR Tailwind text-fluid-*.
+       Never write component-local font-size declarations for
+       headings/body — extend the ramp instead.
+       ================================================================ */
+    --fs-display:  clamp(2.50rem, 1.55rem + 4.05vw, 5.00rem);  /* 40 → 80px */
+    --fs-h1:       clamp(2.00rem, 1.32rem + 2.92vw, 4.50rem);  /* 32 → 72px */
+    --fs-h2:       clamp(1.50rem, 1.05rem + 1.95vw, 3.00rem);   /* 24 → 48px */
+    --fs-h3:       clamp(1.375rem, 1.10rem + 1.18vw, 2.25rem);  /* 22 → 36px */
+    --fs-h4:       clamp(1.20rem, 1.05rem + 0.65vw, 1.625rem);  /* 19 → 26px */
+    --fs-lede:     clamp(0.96875rem, 0.93rem + 0.20vw, 1.125rem); /* 15.5 → 18px */
+    --fs-body:     clamp(0.84375rem, 0.78rem + 0.27vw, 1rem); /* 13.5 → 16px */
+    --fs-small:    clamp(0.75rem, 0.71rem + 0.18vw, 0.875rem); /* 12 → 14px */
+    --fs-micro:    clamp(0.6875rem, 0.67rem + 0.06vw, 0.75rem);   /* 11 → 12px */
+
+    /* Line-height pairs (tight for display, generous for body) */
+    --lh-display: 1.05;
+    --lh-h1: 1.10;
+    --lh-h2: 1.20;
+    --lh-h3: 1.25;
+    --lh-h4: 1.30;
+    --lh-lede: 1.55;
+    --lh-body: 1.65;
+    --lh-small: 1.55;
+
+    /* Letter-spacing */
+    --ls-display: -0.02em;
+    --ls-h1: -0.015em;
+    --ls-h2: -0.01em;
+    --ls-h3: -0.005em;
+    --ls-h4: 0;
+    --ls-body: 0;
+    --ls-eyebrow: 0.14em;
+
+    --arefin-light-mint: 134 61% 93%;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────
+     .arefin-mint-band — generic light-mint section in dark mode.
+     Strategy: redefine theme tokens at the section wrapper so that any
+     descendant (including inline `style={{ color: "hsl(var(--foreground))" }}`)
+     automatically flips to legible light-mode values on the #E2F8E7 bg.
+     Applied to ValueProp + Videos sections.
+     ───────────────────────────────────────────────────────────────── */
+  .arefin.dark .arefin-mint-band {
+    background-color: hsl(var(--arefin-light-mint));
+    --foreground: 0 0% 8%;
+    --muted-foreground: 0 0% 30%;
+    --card: 0 0% 100%;
+    --border: 140 20% 78%;
+    --muted: 140 25% 88%;
+    --primary: 142 71% 35%;
+    --primary-foreground: 0 0% 100%;
+    --hero-light-deep: 0 0% 8%;
+    --hero-light-muted: 0 0% 30%;
+    --hero-light-primary: 142 71% 38%;
+    --hero-light-border: 140 20% 78%;
+}
+
+  /* ================================================================= */
+  /*  Dr. Arefin brand tokens — LIGHT DEFAULT (scoped to .arefin)        */
+  /*  Activated by adding `arefin` class on the page root div.           */
+  /*  Dark variant activated by adding `dark` class alongside `arefin`.  */
+  /*  Spec source: Dr-Arefin-Spec/reference/design-system-source         */
+  /* ================================================================= */
+  /* Light tokens apply to .arefin only when neither it nor any ancestor has .dark.
+     This prevents inner <section className="arefin"> from re-lighting tokens
+     when nested inside <div className="arefin dark"> on /home-dark. */
+  .arefin:not(.dark):not(.dark *) {
+    /* ───── Brand — TWO GREENS ONLY ─────
+       Per design system: only --primary-bright (#14bb3e) and --primary-darker (#079a14).
+       All other green tokens are aliases that resolve to one of these two. */
+    --primary-bright: 133 80% 41%;   /* #14bb3e — main brand green (resting/default) */
+    --primary-darker: 128 91% 32%;   /* #079a14 — dark green (hover/emphasis only) */
+
+    /* Aliases — every green in the system collapses to the two above */
+    --primary: var(--primary-bright);
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: var(--primary-bright);
+    --primary-deep: var(--primary-darker);
+    --primary-hover: var(--primary-darker);
+    --primary-light: var(--primary-bright);
+
+    /* ───── Surfaces (light default per spec) ───── */
+    --background: 140 20% 97%;
+    --foreground: 160 20% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 160 20% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 160 20% 10%;
+
+    /* ───── Secondary / accent (soft green tint) ───── */
+    --secondary: 142 60% 93%;
+    --secondary-foreground: 142 71% 30%;
+    --accent: 142 60% 93%;
+    --accent-foreground: 142 71% 30%;
+
+    /* ───── Muted ───── */
+    --muted: 150 14% 96%;
+    --muted-foreground: 160 9% 46%;
+
+    /* ───── Borders & focus ───── */
+    --border: 150 13% 91%;
+    --input: 150 13% 91%;
+    --ring: 142 71% 45%;
+
+    /* ───── Destructive ───── */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* ───── Gradients (hero) — richer green-tinted band, clearly distinct from --background ───── */
+    --gradient-start: 142 70% 82%;
+    --gradient-end: 160 45% 88%;
+
+    /* ───── Compatibility shims for pre-existing Arefin components ───── */
+    /* Light-mode secondary surfaces (soft green-tinted) */
+    --background-darker: 150 14% 94%;
+    /* Feature band (CTA #1, footer): deep primary-tinted green — intentional dark band on light page */
+    --background-deepest: 160 30% 12%;
+    --surface-light: 0 0% 100%;
+    --surface-tint-1: 142 55% 95%;
+    --surface-tint-2: 160 35% 94%;
+    --cta-pill-bg: 0 0% 100%;
+    --cta-pill-active: 142 71% 45%;
+    --cta-pill-text-dark: 160 20% 10%;
+    --cta-pill-text-light: 0 0% 100%;
+    --body-text: 160 9% 46%;
+    --muted-text: 160 9% 46%;
+    /* Token-driven card shadow (spec: gas-card pattern — sm default, lg on hover) */
+    --shadow-card: 0 1px 2px 0 hsl(160 20% 10% / 0.05);
+    --shadow-card-hover: 0 10px 15px -3px hsl(160 20% 10% / 0.10), 0 4px 6px -4px hsl(160 20% 10% / 0.08);
+    --shadow-image: 0 20px 40px -15px hsl(160 30% 12% / 0.18);
+    --shadow-dropdown: 0 20px 25px -5px hsl(160 20% 10% / 0.10), 0 8px 10px -6px hsl(160 20% 10% / 0.10);
+
+    /* ───── Shape ───── */
+    --radius: 0.75rem;
+
+    /* ───── Reusable Card Theme Tokens (LIGHT) ─────
+       Single source for every card surface site-wide. Override per-mode only;
+       never hardcode card colors in component CSS. */
+    --card-bg:            0 0% 100%;                /* card surface (rest)  */
+    --card-bg-hover:      140 25% 98%;              /* card surface (hover) */
+    --card-border:        150 13% 91%;              /* card edge (rest)     */
+    --card-border-hover:  142 30% 80%;              /* card edge (hover)    */
+    --card-accent:        var(--primary-bright);    /* 3px left accent on hover */
+    --card-accent-rest:   var(--card-border);       /* 3px left accent at rest  */
+    --card-shadow:        0 1px 2px hsl(160 30% 12% / 0.06);
+    --card-shadow-hover:  0 14px 36px -12px hsl(160 30% 12% / 0.18), 0 2px 6px hsl(160 30% 12% / 0.08);
+    --card-radius:        12px;
+    /* Icon tile inside cards — neutral surface at rest, subtle green wash on hover.
+       Green is reserved for the icon glyph itself (purposeful highlight). */
+    --card-icon-bg:        150 13% 94%;              /* neutral light tile (rest)  */
+    --card-icon-bg-hover:  var(--primary-bright);    /* used at 12% alpha on hover */
+    --card-icon-fg:        var(--primary-bright);    /* glyph color                */
+
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Dark variant — activated via `.arefin.dark` (toggled by ThemeToggle) */
+  .arefin.dark {
+    /* ───── Brand — TWO GREENS ONLY (same system as light) ───── */
+    --primary-bright: 133 80% 41%;   /* #14bb3e */
+    --primary-darker: 128 91% 32%;   /* #079a14 */
+    --primary: var(--primary-bright);
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: var(--primary-bright);
+    --primary-deep: var(--primary-darker);
+    --primary-hover: var(--primary-darker);
+    --primary-light: var(--primary-bright);
+
+    --background: 220 20% 6%;
+    --foreground: 0 0% 95%;
+    /* SURFACE ELEVATION RULE (dark mode) — "Deep Slate Blue" variation:
+       DesignMonks pattern → deep page bg + cards carrying a cool blue-gray tint.
+       Section surfaces 6–9% L; --card 14% L with slate tint + visible slate border. */
+    --card: 220 18% 14%;
+    --card-foreground: 0 0% 95%;
+    --popover: 220 14% 17%;
+    --popover-foreground: 0 0% 95%;
+
+    --secondary: 131 30% 15%;
+    --secondary-foreground: 131 87% 75%;
+    --accent: 131 30% 15%;
+    --accent-foreground: 131 87% 75%;
+
+    --muted: 220 12% 15%;
+    --muted-foreground: 220 8% 65%;
+
+    /* Visible slate edge — matches DesignMonks' colored border accent */
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 95%;
+
+    --gradient-start: 220 20% 10%;
+    --gradient-end: 220 25% 6%;
+
+    --background-darker: 220 20% 5%;
+
+    /* Dark-mode hover ink: near-black so the sharp shadow stays dark
+       beneath bright-green hovered text (per heading-link-hover-shadow spec). */
+    --hover-shadow-ink: 0 0 0;
+    --background-deepest: 220 30% 4%;
+    --surface-light: 220 18% 14%;  /* aligned with --card (slate) */
+    --surface-section: 220 15% 9%;  /* between --background (6%) and --card (14%) for section differentiation */
+    --cta-pill-bg: 220 15% 14%;
+    --cta-pill-text-dark: 0 0% 95%;
+    --body-text: 220 8% 65%;
+    --muted-text: 220 8% 65%;
+    --shadow-card: 0 1px 2px 0 hsl(0 0% 0% / 0.4), 0 1px 3px 0 hsl(0 0% 0% / 0.5);
+    --shadow-card-hover: 0 10px 15px -3px hsl(0 0% 0% / 0.5), 0 4px 6px -4px hsl(131 87% 41% / 0.2);
+    --shadow-image: 0 25px 50px -15px hsl(0 0% 0% / 0.5);
+    --shadow-dropdown: 0 20px 25px -5px hsl(0 0% 0% / 0.5), 0 8px 10px -6px hsl(0 0% 0% / 0.4);
+
+    /* ─── Dark overrides for section-leaked light tokens ────────────────
+       Many V04Light* components reference --hero-light-* and --surface-*
+       directly. Remap them so the existing components render as dark. */
+    --hero-light-bg:       220 20% 6%;     /* matches --background */
+    --hero-light-surface:  220 18% 14%;    /* aligned with --card (slate) */
+    /* Unified drarefin.com brand green for accent text/links on dark bg.
+       #14BB3E — bright enough to read on dark, same hue family as the CTA. */
+    --hero-light-primary:  131 87% 41%;
+    --hero-light-deep:     0 0% 95%;       /* dark-mode "deep" = light text */
+    --hero-light-muted:    220 8% 70%;
+    --hero-light-border:   220 15% 20%;
+
+    /* Section rhythm — section surfaces stay LOW (6–9%) so the elevated
+       --card (17%) reads as a clearly raised surface above them.
+       NEVER let a section surface exceed --card lightness. */
+    --surface-cream:  160 22% 8%;   /* slightly above --background, well below --card */
+    --surface-sage:   150 18% 7%;   /* green-tinted mid band */
+    --surface-stone:  160 16% 9%;   /* warm-cool mid band */
+    --surface-tint-1: 142 24% 8%;   /* green-tinted band */
+    --surface-tint-2: 160 22% 7%;   /* CTA / divider band */
+
+    /* CTA "Call" pill — must contrast vs dark header.
+       Switch to elevated dark surface with light text + visible green ring on the OR badge.
+       --cta-pill-active uses the SAME deep brand green as hero CTA for consistency. */
+    --cta-pill-bg:        160 18% 18%;   /* lighter than header background */
+    --cta-pill-text-dark: 0 0% 100%;
+    --cta-pill-text-light: 0 0% 100%;
+    --cta-pill-active:    127 91% 32%;   /* #079A14 — drarefin.com brand green */
+
+    /* Hairline divider for section seams */
+    --hairline: 160 12% 22%;
+
+    /* ───── Reusable Card Theme Tokens (DARK) — premium slate ─────
+       Mirrors the light-mode contract with dark-tuned values.
+       Single source for every card surface site-wide. */
+    --card-bg:            222 30% 11%;              /* deep slate (rest)    */
+    --card-bg-hover:      222 26% 16%;              /* lifted slate (hover) */
+    --card-border:        220 20% 22%;              /* slate edge (rest)    */
+    --card-border-hover:  220 22% 28%;              /* slate edge (hover)   */
+    --card-accent:        var(--primary-bright);    /* 3px left accent on hover */
+    --card-accent-rest:   var(--card-border);       /* matches border at rest   */
+    --card-shadow:        0 1px 2px hsl(0 0% 0% / 0.35);
+    --card-shadow-hover:  0 14px 36px -12px hsl(0 0% 0% / 0.55), 0 2px 6px hsl(0 0% 0% / 0.3);
+    --card-radius:        12px;
+    /* Icon tile inside cards — neutral elevated slate at rest, subtle green wash on hover. */
+    --card-icon-bg:        220 18% 18%;              /* slightly above card bg */
+    --card-icon-bg-hover:  var(--primary-bright);    /* used at 18% alpha on hover */
+    --card-icon-fg:        var(--primary-bright);    /* glyph color                */
+  }
+
+  /* (Card hover lift is driven globally by the canonical Atto-card block
+     using --card-bg-hover/--card-border-hover/--card-accent/--card-shadow-hover.) */
+
+  /* ─── Testimonials section: LIGHT MINT band even in dark mode (rotation
+     rhythm: dark CTA → light testimonials → dark Final CTA). Matches the
+     Initiatives band exactly so we have a single canonical "soft" green. ─ */
+  .arefin.dark .testimonials-section {
+    background-color: hsl(var(--arefin-light-mint));
+  }
+
+  /* ─── Section seam: visible 1px hairline between alternating bands ───── */
+  .arefin.dark section + section {
+    border-top: 1px solid hsl(var(--hairline) / 0.6);
+  }
+
+  /* ─── Dark-page header — override DrArefinHeader's hardcoded bg-white ── */
+  .arefin.dark > header.sticky {
+    background-color: hsl(160 24% 7%);
+    border-bottom-color: hsl(160 18% 22% / 0.5);
+  }
+  .arefin.dark > header.sticky a:not(.arefin-mobile-link):not(.arefin-mobile-call),
+  .arefin.dark > header.sticky button:not(.arefin-mobile-link):not(.arefin-mobile-call) {
+    color: hsl(0 0% 95%);
+  }
+
+  /* ─── Dual-CTA pill on dark — moved to single block near base rules
+     (spec: Dr-Arefin-Spec/components/cta-button.md). Kept here as a no-op
+     marker so cascade-layer ordering is documented. Real rules live below. */
+
+  /* ─── Header nav-link hover → green (body text turns green on hover) ─── */
+  .arefin.dark > header.sticky a:not(.arefin-mobile-link):not(.arefin-mobile-call):hover,
+  .arefin.dark > header.sticky button:not(.arefin-dual-cta-call):not(.arefin-dual-cta-book):not(.arefin-mobile-link):not(.arefin-mobile-call):hover {
+    color: hsl(var(--primary-light));
+  }
+
+  /* ─── Dark mode: drarefin.com brand-green CTA (#079A14, HSL 127 91% 32%) ───
+     Used by primary CTAs on /home-dark — white-on-green ≈ 5.0:1 (WCAG AA pass).
+     NOTE: Secondary "Call Now" pill contrast invert lives in @layer utilities
+     (search: "DARK landing page (/home-dark) — secondary CTA contrast invert").
+     Putting that rule in @layer base will be overridden by the light-band
+     utilities-layer rule regardless of selector specificity. */
+  .arefin.dark {
+    --arefin-cta-green:        127 91% 32%;   /* #079A14 base */
+    --arefin-cta-green-hover:  127 91% 26%;   /* #056010 — deeper hover */
+  }
+  /* TWO GREENS ONLY: rest = --primary-bright (#14bb3e), hover = --primary-darker (#079a14) */
+  .arefin.dark .hero-cta-primary,
+  .arefin.dark .hero-cta-primary.is-green {
+    background: hsl(var(--primary-bright));
+    color: #000000;
+    border-color: hsl(var(--primary-bright));
+  }
+  .arefin.dark .hero-cta-primary .hero-cta-icon,
+  .arefin.dark .hero-cta-primary.is-green .hero-cta-icon {
+    color: #000000;
+  }
+  .arefin.dark .hero-cta-primary:hover,
+  .arefin.dark .hero-cta-primary.is-green:hover {
+    background: hsl(var(--primary-darker));
+    border-color: hsl(var(--primary-darker));
+    color: #ffffff;
+    box-shadow: none;
+    filter: none;
+  }
+  .arefin.dark .hero-cta-primary:hover .hero-cta-icon,
+  .arefin.dark .hero-cta-primary.is-green:hover .hero-cta-icon {
+    color: #ffffff;
+  }
+
+  /* ─── Body / heading word-hover on dark: green with inverted dark text-shadow ─── */
+  .arefin.dark p strong:hover,
+  .arefin.dark h1 strong:hover,
+  .arefin.dark h2 strong:hover,
+  .arefin.dark h3 strong:hover,
+  .arefin.dark h4 strong:hover {
+    color: hsl(var(--primary-light));
+    text-shadow: 1px 0.7px 0 hsl(160 22% 5%);
+    transition: color 200ms ease, text-shadow 200ms ease;
+  }
+
+  .arefin h1,
+  .arefin h2,
+  .arefin h3,
+  .arefin h4,
+  .arefin h5,
+  .arefin h6 {
+    font-family: 'Ubuntu', 'Poppins', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .arefin .surface-light {
+    background: hsl(var(--surface-light));
+    color: hsl(var(--card-foreground));
+  }
+
+  /* ─── Dark mode: keep hover text-shadows BLACK (not white) on titles ───
+     Many components use `text-shadow: 1px 0.7px 0 hsl(var(--hero-light-deep))`
+     or `... hsl(var(--foreground))` which both resolve to near-white in dark
+     mode and read as a jarring white halo. Re-pin them to a deep ink shadow. */
+  .arefin.dark .vp-a-num,
+  .arefin.dark .group:hover .vp-a-num,
+  .arefin.dark .group:focus-within .vp-a-num {
+    color: hsl(0 0% 100%);
+    text-shadow: none;
+  }
+  .arefin.dark .group:hover .vp-a-title,
+  .arefin.dark .group:focus-within .vp-a-title {
+    color: hsl(var(--primary-light));
+    text-shadow: 1px 0.7px 0 hsl(160 22% 5%);
+  }
+  .arefin.dark .vp-a-desc strong:hover {
+    color: hsl(var(--primary-light));
+    text-shadow: 1px 0.7px 0 hsl(160 22% 5%);
+  }
+
+  /* Services C — slate hover bg + brand-neutral dark shadow (premium palette) */
+  .arefin.dark .services-c-card:hover,
+  .arefin.dark .services-c-card:focus-within {
+    background: hsl(var(--card-bg-hover));
+    border-color: hsl(var(--card-border-hover));
+    border-left-color: hsl(var(--card-accent));
+    box-shadow: var(--card-shadow-hover);
+  }
+  .arefin.dark .services-c-card:hover .services-c-title,
+  .arefin.dark .services-c-card:focus-within .services-c-title {
+    color: hsl(var(--primary-bright));
+    text-shadow: 1px 0.7px 0 hsl(0 0% 0%);
+  }
+  .arefin.dark .services-c-desc strong:hover,
+  .arefin.dark .services-c-heading strong:hover {
+    color: hsl(var(--primary-light));
+    text-shadow: 1px 0.7px 0 hsl(160 22% 5%);
+  }
+
+  /* Initiatives A — same dark-shadow treatment */
+  .arefin.dark .group:hover .init-a-title,
+  .arefin.dark .group:focus-within .init-a-title {
+    color: hsl(var(--primary-light));
+    text-shadow: 1px 0.7px 0 hsl(160 22% 5%);
+  }
+  .arefin.dark .init-a-desc strong:hover,
+  .arefin.dark .init-a-intro strong:hover {
+    color: hsl(var(--primary-light));
+    text-shadow: 1px 0.7px 0 hsl(160 22% 5%);
+  }
+
+  /* ─── Hover color standardization (dark mode) ─────────────────────
+     Every interactive hover (links, h1 fragments, p-links, accent words)
+     resolves to the SINGLE Dr. Arefin signature green token: --primary
+     (#22C55E — same as the Book Appointment CTA). No multi-tone greens.
+     Black ink shadow is unified. */
+  .arefin.dark .hero-04-light-band .hero-h1-link:hover,
+  .arefin.dark .hero-04-light-band .hero-h1-link:focus-visible,
+  .arefin.dark .hero-04-light-band .hero-h1-link.is-accent:hover,
+  .arefin.dark .hero-04-light-band .hero-h1-link.is-accent:focus-visible,
+  .arefin.dark .hero-04-light-band .hero-p-link:hover,
+  .arefin.dark .hero-04-light-band .hero-p-link:focus-visible,
+    .arefin.dark a:hover,
+    .arefin.dark a:focus-visible {
+    color: hsl(var(--primary));
+    text-shadow: 0.5px 0.7px 0 rgb(0, 0, 0);
+  }
+  /* Dropdown items: never carry the global a:hover text-shadow.
+     T09 (2026-05-17): extended from mobile-panel-only to ALL dropdown and
+     mega-card surfaces (desktop + mobile) so Treatment-subpage dropdowns
+     stay crisp and legible. Differentiation comes from background tint +
+     color/border only. */
+  .arefin.dark a.arefin-dropdown-item:hover,
+  .arefin.dark a.arefin-dropdown-item:focus-visible,
+  .arefin.dark a.arefin-dropdown-item[aria-current="page"],
+  .arefin.dark a.arefin-dropdown-item[data-active="true"],
+  .arefin.dark .arefin-dropdown-item:hover .arefin-dropdown-item-title,
+  .arefin.dark .arefin-dropdown-item:hover .arefin-dropdown-item-desc,
+  .arefin.dark .arefin-dropdown-item:focus-visible .arefin-dropdown-item-title,
+  .arefin.dark .arefin-dropdown-item:focus-visible .arefin-dropdown-item-desc,
+  .arefin.dark .arefin-dropdown-item[aria-current="page"] .arefin-dropdown-item-title,
+  .arefin.dark .arefin-dropdown-item[aria-current="page"] .arefin-dropdown-item-desc,
+  .arefin.dark .arefin-dropdown-item[data-active="true"] .arefin-dropdown-item-title,
+  .arefin.dark .arefin-dropdown-item[data-active="true"] .arefin-dropdown-item-desc,
+  .arefin.dark a.arefin-mega-card:hover,
+  .arefin.dark a.arefin-mega-card:focus-visible,
+  .arefin.dark a.arefin-mega-card[data-active="true"],
+  .arefin.dark .arefin-mega-card:hover .arefin-mega-card-title,
+  .arefin.dark .arefin-mega-card:focus-visible .arefin-mega-card-title,
+  .arefin.dark .arefin-mega-card[data-active="true"] .arefin-mega-card-title,
+  .arefin.dark .arefin-mega-card:hover .arefin-mega-card-desc,
+  .arefin.dark .arefin-mega-card:focus-visible .arefin-mega-card-desc,
+  .arefin.dark a.arefin-mega-popular-list:hover,
+  .arefin.dark .arefin-mega-popular-list a:hover,
+  .arefin.dark .arefin-mega-footer-link:hover {
+    text-shadow: none;
+    filter: none;
+  }
+  /* Atto parity: accent fragment is NOT pre-tinted at rest — inherits H1
+     colour (white in dark). Hover lifts to the single shared green above. */
+  .arefin.dark .hero-04-light-band .hero-h1-link.is-accent {
+    color: inherit;
+    text-shadow: none;
+  }
+
+}
+
+/* ================================================================= */
+/*  Dr. Arefin — Motion system (spec 09-motion-transitions)            */
+/*  Namespaced `arefin-*` to avoid collision with CAF animations.      */
+/* ================================================================= */
+@layer utilities {
+  @keyframes arefin-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes arefin-fade-in-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes arefin-scale-in {
+    from { opacity: 0; transform: translateY(-4px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* Mega menu reveal — slides down + fades in */
+  @keyframes arefin-mega-reveal {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .arefin-mega-reveal {
+    animation: arefin-mega-reveal 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes arefin-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+  @keyframes arefin-pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4); }
+    50%      { box-shadow: 0 0 20px 4px hsl(var(--primary) / 0.15); }
+  }
+
+  .arefin-fade-in       { animation: arefin-fade-in 0.5s ease-out both; }
+  .arefin-fade-in-up    { animation: arefin-fade-in-up 0.7s ease-out both; }
+  .arefin-scale-in      { animation: arefin-scale-in 0.2s cubic-bezier(0.22, 1, 0.36, 1) both; transform-origin: top center; will-change: transform, opacity; }
+  .arefin-float         { animation: arefin-float 3s ease-in-out infinite; }
+  .arefin-pulse-glow    { animation: arefin-pulse-glow 2s ease-in-out infinite; }
+
+  .arefin-delay-100 { animation-delay: 0.1s; }
+  .arefin-delay-200 { animation-delay: 0.2s; }
+  .arefin-delay-300 { animation-delay: 0.3s; }
+  .arefin-delay-400 { animation-delay: 0.4s; }
+  .arefin-delay-500 { animation-delay: 0.5s; }
+
+  /* ───── Card surface — gas-card pattern (spec 07-cards-sections/01) ─────
+     On hover: shadow grows, lifts -8px, border becomes primary/40. 300ms compound. */
+  .arefin-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 300ms ease, transform 300ms ease, border-color 300ms ease;
+    will-change: transform;
+  }
+  .arefin-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    border-color: hsl(var(--primary) / 0.4);
+  }
+
+  /* Dropdown surface — single-layer tight shadow
+     box-shadow: 0 4px 4px -6px hsl(222 47% 11% / 0.08)
+     Intent: subtle, crisp lift without double-layer heaviness. */
+  .arefin-dropdown {
+    background: hsl(0 0% 100%);
+    border: 1px solid hsl(222 67% 12% / 0.08);
+    border-radius: 16px;
+    box-shadow: 0 4px 4px -6px hsl(222 47% 11% / 0.08);
+    padding: 8px;
+    transform-origin: top;
+  }
+
+  /* Dropdown items — unified hover language with .arefin-nav-item:
+     bg-secondary surface + primary text + tight zero-blur shadow on title.
+     Shadow spec for title: 1px 1px 0 hsl(var(--foreground)) — zero blur, 1px right/down offset.
+     Intent: sharp, premium text pop matching hero interactive headings. */
+  .arefin-dropdown-item {
+    outline: none;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 0 transparent;
+    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* Item hover/focus/active — no box-shadow on items.
+     The container .arefin-dropdown owns the only shadow in this surface,
+     so items can never visually stack a second layer. Differentiation
+     comes from background + border + title color only. */
+  .arefin-dropdown-item:hover,
+  .arefin-dropdown-item:focus-visible,
+  .arefin-dropdown-item[data-active="true"],
+  .arefin-dropdown-item[aria-current="page"] {
+    background-color: hsl(var(--primary) / 0.08);
+    border-color: hsl(var(--primary) / 0.25);
+    box-shadow: none;
+  }
+  .arefin-dropdown-item .arefin-dropdown-item-title {
+    color: hsl(222 47% 11%);
+    transition: color 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .arefin-dropdown-item .arefin-dropdown-item-desc {
+    color: hsl(222 20% 40%);
+    transition: color 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .arefin-dropdown-item:hover .arefin-dropdown-item-title,
+  .arefin-dropdown-item:focus-visible .arefin-dropdown-item-title,
+  .arefin-dropdown-item[data-active="true"] .arefin-dropdown-item-title,
+  .arefin-dropdown-item[aria-current="page"] .arefin-dropdown-item-title {
+    color: hsl(var(--primary-darker));
+  }
+
+  /* ────────────────────────────────────────────────────────────────────────
+     Mobile menu panel — Surface Elevation Rule
+     Page bg can be dark or light; the mobile panel ALWAYS renders as a
+     light "sheet" so the hardcoded dark navy text inside .arefin-dropdown-item
+     remains WCAG AA against it. Dark page → near-white panel with subtle
+     shadow gap; light page → pure white with thin top border.
+     ──────────────────────────────────────────────────────────────────────── */
+  .arefin-mobile-panel {
+    background-color: hsl(0 0% 100%);
+    color: hsl(222 47% 11%);
+    border-top: 1px solid hsl(0 0% 90%);
+    box-shadow: 0 12px 32px -12px hsl(0 0% 0% / 0.18);
+  }
+  .dark .arefin-mobile-panel,
+  .arefin.dark .arefin-mobile-panel {
+    background-color: hsl(0 0% 97%);
+    color: hsl(222 47% 11%);
+    border-top-color: hsl(0 0% 82%);
+    box-shadow: 0 16px 40px -10px hsl(0 0% 0% / 0.55);
+  }
+
+  /* ────────────────────────────────────────────────────────────────────────
+     Mega Menu Panel — Treatment dropdown
+     Wide centered panel with 2×2 grid, icon cards, green left-border hover.
+     ──────────────────────────────────────────────────────────────────────── */
+  /* Variation 3 — "Crisp Light": white panel, pale mint hover, dark navy text,
+     darker green on hover. Pinned regardless of light/dark page context. */
+  /* Treatment mega-panel — "soft light-black" surface with warm gray-beige
+     shadow. User feedback 2026-05-13: pure-white panel was harsh on dark home;
+     reduce lightness to ~8% and tint shadows beige for a calmer, premium feel. */
+  .arefin-mega-panel {
+    width: min(520px, calc(100vw - 32px));
+    background: hsl(40 6% 8%);
+    border: 1px solid hsl(40 15% 70% / 0.14);
+    border-radius: 16px;
+    box-shadow: none;
+    padding: 20px 24px;
+    transform-origin: top center;
+  }
+  .arefin-mega-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border-left: 3px solid transparent;
+    transition:
+      background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    outline: none;
+    text-decoration: none;
+  }
+  .arefin-mega-card:hover,
+  .arefin-mega-card:focus-visible,
+  .arefin-mega-card[data-active="true"] {
+    background-color: hsl(var(--primary-bright) / 0.12);
+    border-left-color: hsl(var(--primary-bright));
+  }
+  .arefin-mega-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: hsl(var(--primary-bright) / 0.18);
+    color: hsl(var(--primary-bright));
+    transition: background-color 300ms ease, color 300ms ease;
+  }
+  .arefin-mega-card:hover .arefin-mega-icon,
+  .arefin-mega-card:focus-visible .arefin-mega-icon {
+    background: hsl(var(--primary-bright) / 0.28);
+    color: hsl(var(--primary-bright));
+  }
+  .arefin-mega-card-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: hsl(40 10% 94%);
+    transition: color 300ms ease, text-shadow 300ms ease;
+  }
+  .arefin-mega-card:hover .arefin-mega-card-title,
+  .arefin-mega-card:focus-visible .arefin-mega-card-title,
+  .arefin-mega-card[data-active="true"] .arefin-mega-card-title {
+    color: hsl(var(--primary-bright));
+    /* T24: text-shadow removed per user feedback — color/border feedback only. */
+  }
+  .arefin-mega-card-desc {
+    font-size: 0.75rem;
+    color: hsl(40 8% 68%);
+    margin-top: 2px;
+    transition: color 300ms ease;
+  }
+  .arefin-mega-card:hover .arefin-mega-card-desc,
+  .arefin-mega-card:focus-visible .arefin-mega-card-desc {
+    color: hsl(40 10% 88%);
+  }
+  .arefin-mega-footer {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid hsl(40 15% 70% / 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .arefin-mega-footer-link {
+    color: hsl(40 8% 68%);
+  }
+  .arefin-mega-footer-link:hover {
+    color: hsl(var(--primary-bright));
+  }
+  .arefin-mega-popular {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid hsl(40 15% 70% / 0.12);
+  }
+  .arefin-mega-popular-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: hsl(40 8% 65%);
+    margin-bottom: 6px;
+  }
+  .arefin-mega-popular-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+  }
+  .arefin-mega-popular-list a {
+    font-size: 12px;
+    color: hsl(40 10% 82%);
+    transition: color 300ms ease;
+  }
+  .arefin-mega-popular-list a:hover {
+    color: hsl(var(--primary-bright));
+  }
+
+  /* ────────────────────────────────────────────────────────────────────────
+     Atto Property dual-CTA (1:1 spec replica)
+     Spec: Dr-Arefin-Spec/components/cta-button.md
+     ──────────────────────────────────────────────────────────────────────── */
+  .arefin-dual-cta {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+    border-radius: 0;
+  }
+  .arefin-dual-cta-call,
+  .arefin-dual-cta-book,
+  .arefin-dual-cta-contact {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: auto;
+    min-width: 116px;
+    padding: 12px 25px;
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0;
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    border: 0;
+    cursor: pointer;
+    opacity: 1;
+    -webkit-text-fill-color: currentColor;
+    filter: none;
+    /* No text-shadow at rest — only applied on :hover (see below). */
+    transition: background-color 0.4s ease, color 0.4s ease, text-shadow 0.4s ease;
+  }
+  .arefin-dual-cta-call > svg,
+  .arefin-dual-cta-book > svg,
+  .arefin-dual-cta-contact > svg {
+    display: block;
+    flex-shrink: 0;
+  }
+  .arefin-dual-cta-call {
+    background-color: #001837;
+    color: #ffffff;
+    border-radius: 10px 0 0 10px;
+  }
+  /* Paired hover swap — the hovered half becomes green, while the opposite
+     half turns white so both buttons never read as green at the same time. */
+  .arefin-dual-cta-call:hover {
+    background-color: hsl(var(--primary-bright));
+    color: #ffffff;
+  }
+  .arefin-dual-cta-call:hover > svg {
+    color: #ffffff;
+    stroke: #ffffff;
+  }
+  .arefin-dual-cta:has(.arefin-dual-cta-call:hover) .arefin-dual-cta-book,
+  .arefin-dual-cta:has(.arefin-dual-cta-call:hover) .arefin-dual-cta-contact {
+    background-color: #ffffff;
+    color: hsl(var(--primary-darker));
+  }
+  .arefin-dual-cta:has(.arefin-dual-cta-call:hover) .arefin-dual-cta-book > svg,
+  .arefin-dual-cta:has(.arefin-dual-cta-call:hover) .arefin-dual-cta-contact > svg {
+    color: hsl(var(--primary-darker));
+    stroke: hsl(var(--primary-darker));
+  }
+  .arefin-dual-cta-book,
+  .arefin-dual-cta-contact {
+    background-color: hsl(var(--primary-bright));
+    color: #ffffff;
+    border-radius: 0 10px 10px 0;
+  }
+  .arefin-dual-cta-book:hover,
+  .arefin-dual-cta-contact:hover {
+    background-color: hsl(var(--primary-darker));
+    color: #ffffff;
+  }
+  .arefin-dual-cta-book:hover > svg,
+  .arefin-dual-cta-contact:hover > svg {
+    color: #ffffff;
+    stroke: #ffffff;
+  }
+  .arefin-dual-cta:has(.arefin-dual-cta-book:hover) .arefin-dual-cta-call,
+  .arefin-dual-cta:has(.arefin-dual-cta-contact:hover) .arefin-dual-cta-call {
+    background-color: #ffffff;
+    color: #001837;
+  }
+  .arefin-dual-cta:has(.arefin-dual-cta-book:hover) .arefin-dual-cta-call > svg,
+  .arefin-dual-cta:has(.arefin-dual-cta-contact:hover) .arefin-dual-cta-call > svg {
+    color: #001837;
+    stroke: #001837;
+  }
+  .arefin-dual-cta-or {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    border-radius: 9999px;
+    background: #fafaf8;
+    color: #444444;
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+  }
+
+  /* ── DARK variant (same @layer — required per cascade-layers memory) ── */
+  .arefin.dark .arefin-dual-cta-call {
+    background-color: #ffffff;
+    color: hsl(0 0% 4%);
+    -webkit-text-fill-color: hsl(0 0% 4%);
+    border-color: #ffffff;
+    filter: none;
+  }
+  .arefin.dark .arefin-dual-cta-call svg {
+    color: hsl(0 0% 4%);
+    stroke: hsl(0 0% 4%);
+  }
+  .arefin.dark .arefin-dual-cta-call:hover {
+    background-color: hsl(var(--primary-bright));
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+    border-color: hsl(var(--primary-bright));
+  }
+  .arefin.dark .arefin-dual-cta-call:hover svg {
+    color: #ffffff;
+    stroke: #ffffff;
+  }
+  .arefin.dark .arefin-dual-cta-book,
+  .arefin.dark .arefin-dual-cta-contact {
+    background-color: hsl(var(--primary-bright));
+    color: #ffffff;
+  }
+  .arefin.dark .arefin-dual-cta-book:hover,
+  .arefin.dark .arefin-dual-cta-contact:hover {
+    background-color: hsl(var(--primary-darker));
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+    box-shadow: none;
+  }
+  .arefin.dark .arefin-dual-cta-book:hover svg,
+  .arefin.dark .arefin-dual-cta-contact:hover svg {
+    color: #ffffff;
+    stroke: #ffffff;
+  }
+  .arefin.dark .arefin-dual-cta:has(.arefin-dual-cta-call:hover) .arefin-dual-cta-book,
+  .arefin.dark .arefin-dual-cta:has(.arefin-dual-cta-call:hover) .arefin-dual-cta-contact {
+    background-color: #ffffff;
+    color: hsl(var(--primary-darker));
+    -webkit-text-fill-color: hsl(var(--primary-darker));
+  }
+  .arefin.dark .arefin-dual-cta:has(.arefin-dual-cta-call:hover) .arefin-dual-cta-book svg,
+  .arefin.dark .arefin-dual-cta:has(.arefin-dual-cta-call:hover) .arefin-dual-cta-contact svg {
+    color: hsl(var(--primary-darker));
+    stroke: hsl(var(--primary-darker));
+  }
+  .arefin.dark .arefin-dual-cta:has(.arefin-dual-cta-book:hover) .arefin-dual-cta-call,
+  .arefin.dark .arefin-dual-cta:has(.arefin-dual-cta-contact:hover) .arefin-dual-cta-call {
+    background-color: #ffffff;
+    color: hsl(0 0% 4%);
+    -webkit-text-fill-color: hsl(0 0% 4%);
+  }
+  .arefin.dark .arefin-dual-cta:has(.arefin-dual-cta-book:hover) .arefin-dual-cta-call svg,
+  .arefin.dark .arefin-dual-cta:has(.arefin-dual-cta-contact:hover) .arefin-dual-cta-call svg {
+    color: hsl(0 0% 4%);
+    stroke: hsl(0 0% 4%);
+  }
+  .arefin.dark .arefin-dual-cta-or {
+    background: #0a0a0a;
+    color: #ffffff;
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.15);
+  }
+
+  /* Portrait / media frame with themed elevation */
+  .arefin-image-frame {
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-image);
+    border-radius: 1.5rem;
+    overflow: hidden;
+  }
+
+  /* Dark feature band (CTA, footer) — deep green in both themes */
+  .arefin-feature-band {
+    background: hsl(var(--background-deepest));
+    color: hsl(0 0% 100%);
+  }
+  /* Footer override — Variant D: cool blue-black ramp ("tech black").
+     Scoped to <footer> so global CTA bands keep the green baseline. */
+  footer.arefin-feature-band {
+    background: hsl(220 16% 11%);
+  }
+  .arefin-feature-band h1,
+  .arefin-feature-band h2,
+  .arefin-feature-band h3,
+  .arefin-feature-band h4,
+  .arefin-feature-band strong {
+    color: hsl(0 0% 100%);
+  }
+  .arefin-feature-band .arefin-band-body {
+    color: hsl(0 0% 100% / 0.72);
+  }
+  .arefin-feature-band .arefin-band-body strong {
+    color: inherit;
+    font-weight: inherit;
+  }
+  .arefin-feature-band .arefin-band-meta {
+    color: hsl(0 0% 100% / 0.5);
+  }
+  .arefin-feature-band a.arefin-band-link:hover {
+    color: hsl(var(--primary-light));
+  }
+
+  /* ─────────────────────────────────────────────────────────────────
+     Footer — three stacked rows, each in a distinct dark shade
+     so users perceive them as separate sections (Brand/Specialty/Copyright).
+     Base tone is --background-deepest; deeper rows mix in black.
+     ───────────────────────────────────────────────────────────── */
+  /* Row 1 — Main brand row (Variant D middle tone). */
+  .arefin-footer-row-main {
+    background: hsl(222 18% 8%);
+    color: hsl(0 0% 100%);
+    border-bottom: 1px solid hsl(220 14% 18%);
+  }
+  /* Row 2 — Specialty links (Variant D deepest tone). */
+  .arefin-footer-row-specialty {
+    background: hsl(225 20% 5%);
+    color: hsl(0 0% 100%);
+    border-top: 1px solid hsl(220 14% 15%);
+    border-bottom: 1px solid hsl(0 0% 0% / 0.45);
+    box-shadow:
+      inset 0 1px 0 hsl(220 14% 18% / 0.4),
+      inset 0 -1px 0 hsl(0 0% 0% / 0.3);
+  }
+  /* Specialty label keeps brand green so the section reads as branded. */
+  .arefin-feature-band .arefin-footer-row-specialty .arefin-footer-specialty-label {
+    color: hsl(var(--primary-bright));
+    font-weight: 600;
+    letter-spacing: 0.18em;
+  }
+  /* Specialty links: pill-like chips for visual life on the green band.
+     Mobile bumps min-height + padding to clear WCAG 44px tap target;
+     desktop keeps the tighter, denser look. */
+  .arefin-footer-row-specialty .arefin-footer-specialty-list a,
+  .arefin-footer-specialty-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0.5rem 0.875rem;
+    border-radius: 999px;
+    background: hsl(0 0% 100% / 0.06);
+    border: 1px solid hsl(var(--primary-bright) / 0.25);
+    color: hsl(0 0% 100% / 0.92);
+    line-height: 1.2;
+    transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  }
+  @media (min-width: 768px) {
+    .arefin-footer-row-specialty .arefin-footer-specialty-list a,
+    .arefin-footer-specialty-pill {
+      min-height: 0;
+      padding: 0.35rem 0.75rem;
+    }
+  }
+  .arefin-footer-row-specialty .arefin-footer-specialty-list a:hover,
+  .arefin-footer-row-specialty .arefin-footer-specialty-list a:focus-visible,
+  .arefin-footer-specialty-pill:hover,
+  .arefin-footer-specialty-pill:focus-visible {
+    background: hsl(var(--primary-bright) / 0.18);
+    border-color: hsl(var(--primary-bright) / 0.65);
+    color: hsl(0 0% 100%);
+  }
+  /* Row 3 — Copyright: deepest near-black so © + attribution row reads as
+     a distinct foundation strip beneath the green specialty band. */
+  .arefin-footer-row-copyright {
+    background: #050a0e;
+    color: hsl(0 0% 100%);
+    border-top: 1px solid hsl(220 14% 12%);
+    box-shadow: inset 0 1px 0 hsl(0 0% 0% / 0.4);
+    /* iOS safe-area: lift content above the home indicator on
+       notched devices (iPhone X+, PWA installs). Falls back to 0
+       on non-iOS browsers via env() default. */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  /* Copyright text: lift to readable opacity (was 0.5 via band-meta) */
+  .arefin-feature-band .arefin-footer-row-copyright,
+  .arefin-feature-band .arefin-footer-row-copyright .arefin-band-meta {
+    color: hsl(0 0% 100% / 0.78);
+  }
+  /* Inherit the dark-band typography contract for all three rows */
+  .arefin-footer-row-main h1,
+  .arefin-footer-row-main h2,
+  .arefin-footer-row-main h3,
+  .arefin-footer-row-main h4,
+  .arefin-footer-row-main strong,
+  .arefin-footer-row-specialty h1,
+  .arefin-footer-row-specialty h2,
+  .arefin-footer-row-specialty h3,
+  .arefin-footer-row-specialty h4,
+  .arefin-footer-row-specialty strong,
+  .arefin-footer-row-copyright h1,
+  .arefin-footer-row-copyright h2,
+  .arefin-footer-row-copyright h3,
+  .arefin-footer-row-copyright h4,
+  .arefin-footer-row-copyright strong {
+    color: hsl(0 0% 100%);
+  }
+  .arefin-footer-row-main .arefin-band-body,
+  .arefin-footer-row-specialty .arefin-band-body,
+  .arefin-footer-row-copyright .arefin-band-body {
+    color: hsl(0 0% 100% / 0.72);
+  }
+  .arefin-footer-row-main .arefin-band-body strong,
+  .arefin-footer-row-specialty .arefin-band-body strong,
+  .arefin-footer-row-copyright .arefin-band-body strong {
+    color: inherit;
+    font-weight: inherit;
+  }
+  .arefin-footer-row-main .arefin-band-meta,
+  .arefin-footer-row-specialty .arefin-band-meta,
+  .arefin-footer-row-copyright .arefin-band-meta {
+    color: hsl(0 0% 100% / 0.5);
+  }
+
+  /* ─────────────────────────────────────────────────────────────────
+     Trust Strip — LIGHT MINT relief band between dark CTA and dark Footer.
+     Uses the SAME literal #E2F8E7 as Initiatives & Testimonials so all
+     three "soft" bands look identical and break the dark stretch visibly.
+     Text/icons forced to dark so they remain legible on the mint bg even
+     under the .arefin.dark page wrapper.
+     ───────────────────────────────────────────────────────────────── */
+  .arefin-trust-strip,
+  .arefin.dark .arefin-trust-strip {
+    background: hsl(var(--arefin-light-mint));
+    color: hsl(150 20% 15%);
+    border-top: 1px solid hsl(140 15% 82%);
+    border-bottom: 1px solid hsl(140 15% 82%);
+  }
+
+  .arefin-trust-strip-creds {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  @media (min-width: 768px) {
+    .arefin-trust-strip-creds {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.25rem 2rem;
+    }
+  }
+  .arefin-trust-strip-cred-item,
+  .arefin.dark .arefin-trust-strip-cred-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: hsl(150 20% 20%);
+    font-weight: 500;
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+  .arefin-trust-strip-cred-item svg,
+  .arefin.dark .arefin-trust-strip-cred-item svg {
+    color: hsl(var(--primary-darker));
+  }
+
+  .arefin-trust-strip-divider,
+  .arefin.dark .arefin-trust-strip-divider {
+    height: 1px;
+    background: hsl(140 15% 78%);
+    margin: 1.75rem 0;
+  }
+
+  .arefin-trust-strip-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    text-align: center;
+  }
+  @media (min-width: 768px) {
+    .arefin-trust-strip-actions {
+      flex-direction: row;
+      text-align: left;
+    }
+  }
+  .arefin-trust-strip-prompt,
+  .arefin.dark .arefin-trust-strip-prompt {
+    margin: 0;
+    color: hsl(150 20% 18%);
+  }
+  .arefin-trust-strip-prompt strong {
+    color: inherit;
+    font-weight: inherit;
+  }
+
+  .arefin-trust-strip-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.625rem;
+  }
+  .arefin-trust-strip-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.2;
+    border: 1px solid transparent;
+    transition: background-color 180ms ease, color 180ms ease,
+      border-color 180ms ease, box-shadow 180ms ease;
+  }
+  .arefin-trust-strip-btn-primary,
+  .arefin.dark .arefin-trust-strip-btn-primary {
+    background: hsl(var(--primary-bright));
+    color: hsl(0 0% 100%);
+  }
+  .arefin-trust-strip-btn-primary:hover,
+  .arefin.dark .arefin-trust-strip-btn-primary:hover {
+    background: hsl(var(--primary-darker));
+    color: hsl(0 0% 100%);
+    box-shadow: 4px 4px 0 0 rgb(var(--hover-shadow-ink));
+  }
+  .arefin-trust-strip-btn-secondary,
+  .arefin.dark .arefin-trust-strip-btn-secondary {
+    background: transparent;
+    color: hsl(150 20% 18%);
+    border-color: hsl(150 20% 18% / 0.35);
+  }
+  .arefin-trust-strip-btn-secondary:hover,
+  .arefin.dark .arefin-trust-strip-btn-secondary:hover {
+    border-color: hsl(var(--primary-bright));
+    color: hsl(var(--primary-darker));
+    box-shadow: 4px 4px 0 0 rgb(var(--hover-shadow-ink));
+  }
+
+  /* Nav item — center-grow underline + tight zero-blur text-shadow on hover.
+     Shadow spec: 1px 1px 0 hsl(var(--foreground)) — zero blur, 1px right/down offset.
+     Underline spec: 2px height, primary color, grows from center to 75% width.
+     Pairs with the inline hover:text-primary + hover:bg-secondary classes
+     to give nav links and dropdown items the SAME hover language. */
+  .arefin-nav-item {
+    position: relative;
+    transition:
+      color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      text-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .arefin-nav-item:hover,
+  .arefin-nav-item:focus-visible,
+  .arefin-nav-item[data-active="true"] {
+    /* Zero-blur sharp shadow: olive in light mode, black in dark mode. */
+    text-shadow: 1px 0.7px 0 rgb(var(--hover-shadow-ink) / 0.2);
+  }
+  .arefin.dark header .arefin-nav-item:hover,
+  .arefin.dark header .arefin-nav-item:focus-visible,
+  .arefin.dark header .arefin-nav-item:visited,
+  .arefin.dark header .arefin-nav-item[data-active="true"] {
+    text-shadow: 1px 0.7px 0 rgb(0, 0, 0);
+  }
+  .arefin-nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: hsl(var(--primary));
+    border-radius: 9999px;
+    transition: width 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .arefin-nav-item:hover::after,
+  .arefin-nav-item:focus-visible::after,
+  .arefin-nav-item[data-active="true"]::after {
+    width: 75%;
+  }
+
+  /* ───── Transparent header overlay (e.g., About hero, dark pages) ─────
+     When the header sits over a dark hero image, force nav text + chevron
+     + dual-CTA "OR" + mobile toggle icon to pure white for full legibility.
+     Hover state lifts to primary green; underline color stays primary. */
+  .arefin-header-transparent .arefin-nav-item:not(.arefin-mobile-link) {
+    color: hsl(0 0% 100%);
+  }
+  .arefin-header-transparent .arefin-nav-item:not(.arefin-mobile-link) svg {
+    color: hsl(0 0% 100%);
+    opacity: 0.85;
+  }
+  .arefin-header-transparent .arefin-nav-item:not(.arefin-mobile-link):hover,
+  .arefin-header-transparent .arefin-nav-item:not(.arefin-mobile-link):focus-visible,
+  .arefin-header-transparent .arefin-nav-item:not(.arefin-mobile-link)[data-active="true"] {
+    color: hsl(var(--primary-bright));
+    background-color: transparent;
+  }
+  .arefin-header-transparent .arefin-nav-item:not(.arefin-mobile-link):hover svg,
+  .arefin-header-transparent .arefin-nav-item:not(.arefin-mobile-link):focus-visible svg,
+  .arefin-header-transparent .arefin-nav-item:not(.arefin-mobile-link)[data-active="true"] svg {
+    color: hsl(var(--primary-bright));
+    opacity: 1;
+  }
+
+  /* CSS3 slide-text button (spec 05-buttons/02-join-us-slide-button) */
+  .arefin-slide-btn {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: stretch;        /* let inner fill full height, no centering */
+    justify-content: center;
+    height: 40px;
+    padding: 0 1.5rem;
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    transition: box-shadow 300ms ease, transform 300ms ease;
+    cursor: pointer;
+  }
+  .arefin-slide-btn__inner {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    align-self: flex-start;      /* anchor to top so only row 1 is visible by default */
+    transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  .arefin-slide-btn__text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 40px;                /* each row exactly matches button height */
+    flex: 0 0 40px;              /* prevent flex shrinking */
+    white-space: nowrap;
+  }
+  .arefin-slide-btn:hover .arefin-slide-btn__inner {
+    transform: translateY(-40px); /* translate by row height, not % */
+  }
+  .arefin-slide-btn:hover {
+    box-shadow: 0 10px 15px -3px hsl(var(--primary) / 0.3);
+  }
+  .arefin-slide-btn:active {
+    transform: scale(0.97);
+  }
+  .arefin-slide-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--primary) / 0.5);
+  }
+
+  /* ===== Hero variations (spec/04-section-variations/01-hero-04) ===== */
+  @keyframes hero-fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes hero-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes hero-portrait-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes hero-card-in {
+    from { opacity: 0; transform: scale(0.92) translateY(12px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes hero-pulse-glow {
+    0%, 100% { box-shadow: 0 0 40px 6px hsl(var(--primary) / 0.12); }
+    50%      { box-shadow: 0 0 80px 14px hsl(var(--primary) / 0.28); }
+  }
+  @keyframes hero-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+  @keyframes hero-pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0.6); }
+    50%      { box-shadow: 0 0 0 8px hsl(var(--primary) / 0); }
+  }
+  @keyframes hero-bar-grow {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+  }
+  @keyframes hero-ray-drift {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(3%, -3%); }
+  }
+
+  .hero-anim-fade-up    { animation: hero-fade-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .hero-anim-fade-in    { animation: hero-fade-in 0.3s ease-out both; }
+  .hero-anim-portrait   { animation: hero-portrait-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .hero-anim-card       { animation: hero-card-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .hero-anim-halo       { animation: hero-pulse-glow 4s ease-in-out infinite; animation-delay: 0.5s; }
+  .hero-anim-float      { animation: hero-float 4s ease-in-out infinite; }
+  .hero-anim-float-slow { animation: hero-float 6s ease-in-out infinite; animation-delay: 0.8s; }
+  .hero-anim-pulse-dot  { animation: hero-pulse-dot 1.5s ease-in-out infinite; }
+  .hero-anim-bar        { animation: hero-bar-grow 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; transform-origin: top; }
+  .hero-anim-ray        { animation: hero-ray-drift 8s ease-in-out infinite; }
+
+  .hero-d-0   { animation-delay: 0s; }
+  .hero-d-50  { animation-delay: 0.05s; }
+  .hero-d-100 { animation-delay: 0.1s; }
+  .hero-d-150 { animation-delay: 0.15s; }
+  .hero-d-200 { animation-delay: 0.2s; }
+  .hero-d-300 { animation-delay: 0.3s; }
+  .hero-d-400 { animation-delay: 0.4s; }
+  .hero-d-450 { animation-delay: 0.45s; }
+  .hero-d-550 { animation-delay: 0.55s; }
+  .hero-d-650 { animation-delay: 0.65s; }
+  .hero-d-700 { animation-delay: 0.7s; }
+
+  /* ScrollReveal — IntersectionObserver-driven fade-up.
+     Used by src/components/arefin/ScrollReveal.tsx. */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+    transition:
+      opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .scroll-reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  /* Re-use hero-d-* tokens as transition-delay for ScrollReveal. */
+  .scroll-reveal.hero-d-0   { transition-delay: 0s; }
+  .scroll-reveal.hero-d-100 { transition-delay: 0.1s; }
+  .scroll-reveal.hero-d-200 { transition-delay: 0.2s; }
+  .scroll-reveal.hero-d-300 { transition-delay: 0.3s; }
+  .scroll-reveal.hero-d-400 { transition-delay: 0.4s; }
+  .scroll-reveal.hero-d-500 { transition-delay: 0.5s; }
+  .scroll-reveal.hero-d-600 { transition-delay: 0.6s; }
+  .scroll-reveal.hero-d-700 { transition-delay: 0.7s; }
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* Force white headings inside hero-04 dark-band variations.
+     Overrides .arefin h1 default color which inherits from --foreground. */
+  .arefin .hero-04-band h1,
+  .arefin .hero-04-band h2,
+  .arefin .hero-04-band h3,
+  .arefin .hero-04-band strong {
+    color: hsl(0 0% 100%);
+  }
+  .arefin .hero-04-band h1 .text-primary,
+  .arefin .hero-04-band h1 span.text-primary {
+    color: hsl(var(--primary));
+  }
+
+  /* ===== Hero variations LIGHT (spec/04-section-variations/02-hero-04-light) ===== */
+  /* Pure White + Sage palette — applied to .hero-04-light-band sections.
+     Forces a clean light surface regardless of .arefin light/dark theme. */
+  .hero-04-light-band {
+    --hero-light-bg:       0 0% 100%;          /* #FFFFFF — pure white base */
+    --hero-light-surface:  138 60% 95%;        /* #E8F8EC — soft bright-green tint */
+    --hero-light-primary:  142 71% 45%;        /* #22C55E — Dr. Arefin signature green (accents/CTA) */
+    --hero-light-deep:     0 0% 8%;            /* #141414 — near-black for H1, strong body, primary CTA bg */
+    --hero-light-muted:    0 0% 38%;           /* neutral muted body text */
+    --hero-light-border:   138 35% 88%;        /* hairline border w/ green tint */
+    /* Mobile stability: orbs/tooltips use negative offsets and translates
+       that can extend past the column edge — clip them at the section to
+       guarantee no horizontal scroll on phones. */
+    overflow-x: clip;
+    max-width: 100vw;
+  }
+  /* Stage itself stays visible so translated tooltip cards (which move
+     up to ~170px from the orb to land on Dr. Arefin's belly) are not
+     cropped at the 280px mobile portrait edge. */
+  .hero-04-light-band .organ-stage {
+    overflow: visible;
+  }
+  /* Dark-mode flip — when inside .arefin.dark, re-map the same tokens
+     so the existing HeroV04Light* components render on a dark navy surface
+     matching drarefin.com's live dark theme. */
+  .arefin.dark .hero-04-light-band {
+    --hero-light-bg:       160 24% 7%;         /* deep navy */
+    --hero-light-surface:  160 28% 11%;        /* slightly lifted surface for ambient blob */
+    --hero-light-primary:  131 87% 41%;        /* brand bright accent (#14BB3E) */
+    --hero-light-deep:     0 0% 98%;           /* near-white for H1 + body */
+    --hero-light-muted:    160 10% 70%;        /* muted body text */
+    --hero-light-border:   160 18% 22%;
+  }
+  .arefin .hero-04-light-band,
+  .hero-04-light-band {
+    background: hsl(var(--hero-light-bg));
+    color: hsl(var(--hero-light-deep));
+  }
+  /* Ghost variant — same token mappings + button styles as .hero-04-light-band,
+     but TRANSPARENT background and inherited text color. Use to drop the exact
+     hero CTA buttons into any other section (e.g. final CTA) without painting
+     a visible band/box behind them. */
+  .arefin .hero-04-light-band.is-ghost,
+  .hero-04-light-band.is-ghost {
+    background: transparent;
+    color: inherit;
+  }
+  .arefin .hero-04-light-band.is-ghost h1,
+  .arefin .hero-04-light-band.is-ghost h2,
+  .arefin .hero-04-light-band.is-ghost h3 {
+    color: inherit;
+  }
+  .arefin .hero-04-light-band h1,
+  .arefin .hero-04-light-band h2,
+  .arefin .hero-04-light-band h3 {
+    color: hsl(var(--hero-light-deep));
+  }
+  .arefin .hero-04-light-band h1 .text-sage,
+  .hero-04-light-band .text-sage {
+    color: hsl(var(--hero-light-primary));
+  }
+
+  /* ===== Section rhythm tokens — alternating subtle surfaces + hairline dividers =====
+     Used to differentiate consecutive homepage sections so they don't visually merge. */
+  .arefin:not(.dark):not(.dark *) {
+    --surface-cream: 40 25% 97%;   /* warm off-white */
+    --surface-sage:  120 18% 97%;  /* faint primary-tinted off-white */
+    --surface-stone: 30 8% 96%;    /* faint warm-grey, distinct from sage & cream */
+    --hairline:      220 15% 90%;  /* very soft neutral border */
+  }
+  /* Dark variant — distinct dark surfaces for section differentiation */
+  .arefin.dark {
+    --surface-cream: 160 22% 9%;
+    --surface-sage:  155 26% 11%;
+    --surface-stone: 165 18% 8%;
+    --hairline:      160 18% 18%;
+  }
+  .arefin .arefin-surface-cream,
+  .arefin-surface-cream { background: hsl(var(--surface-cream)); }
+  .arefin .arefin-surface-sage,
+  .arefin-surface-sage  { background: hsl(var(--surface-sage)); }
+  .arefin .arefin-surface-stone,
+  .arefin-surface-stone { background: hsl(var(--surface-stone)); }
+  .arefin .arefin-section-divider,
+  .arefin-section-divider { border-top: 1px solid hsl(var(--hairline)); }
+
+  /* Subtle dotted-grid texture for Variation B background */
+  .hero-04-light-dots {
+    background-image: radial-gradient(hsl(var(--hero-light-primary) / 0.18) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  /* ===== Hero LIGHT — Typography refinements (issues #1, #2, #3, #8) ===== */
+  .hero-04-light-band .hero-eyebrow {
+    color: hsl(var(--hero-light-primary));
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+  .hero-04-light-band .hero-h1 {
+    font-weight: 800;
+    letter-spacing: -0.018em;
+    line-height: 1.18;
+    color: hsl(var(--hero-light-deep));
+    /* No text-shadow at rest — applied only when an inner link is hovered. */
+    transition: text-shadow 0.4s ease;
+  }
+  .hero-04-light-band .hero-h1:hover {
+    /* Atto-parity: hover-only sharp dark-green micro shadow. */
+    text-shadow: rgb(40, 61, 5) 1px 0.7px 0px;
+  }
+  /* Hero H1 sizing — delegated to fluid type ramp (--fs-h1).
+     Spec: Dr-Arefin-Spec/reviewer/10-typography-system.md */
+  .hero-04-light-band .hero-h1 {
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+  }
+  .hero-04-light-band .hero-lede {
+    color: hsl(var(--hero-light-muted));
+    font-size: var(--fs-lede);
+    line-height: var(--lh-lede);
+    max-width: 560px;
+    /* Mobile (<640px): tighten leading + cap measure for readability.
+       Spec: Task 17 — home hero subhead clamp lines + tighter mobile leading. */
+    text-wrap: pretty;
+  }
+  @media (max-width: 639px) {
+    .hero-04-light-band .hero-lede {
+      line-height: 1.5;
+      max-width: 38ch;
+      letter-spacing: 0.005em;
+    }
+    /* Mobile H1: tighten leading and balance wraps so the 3-line headline
+       sits cleanly above the portrait without a static font-size override
+       (ramp via --fs-h1 still drives the size). */
+    .hero-04-light-band .hero-h1 {
+      line-height: 1.14;
+      letter-spacing: -0.012em;
+      text-wrap: balance;
+    }
+    .hero-04-light-band .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+    }
+  }
+  .hero-04-light-band .hero-strong {
+    color: hsl(var(--hero-light-deep));
+    font-weight: 700;
+  }
+
+  /* ===== Atto-style interactive H1 keyword + lede links =====
+     Inherits surrounding type scale; adds color shift + sharp zero-blur
+     text-shadow on hover. No positional movement. */
+  .hero-04-light-band .hero-h1-link,
+  .hero-04-light-band .hero-p-link {
+    color: inherit;
+    text-decoration: none;
+    background-image: none;
+    transition:
+      color 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      text-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hero-04-light-band .hero-h1-link:hover,
+  .hero-04-light-band .hero-h1-link:focus-visible {
+    color: hsl(var(--primary));
+    text-shadow: 1px 0.7px 0 rgb(0, 0, 0);
+    outline: none;
+  }
+  /* Atto parity: accent fragment ("Liver Surgeon in Dhaka") inherits the H1's
+     base colour at rest — NOT pre-tinted green. Hover then lights it the
+     SAME signature Dr. Arefin green (#22C55E) used by the Book Appointment
+     CTA — single brand green, no multi-tone variations. */
+  .hero-04-light-band .hero-h1-link.is-accent {
+    color: inherit;
+  }
+  .hero-04-light-band .hero-h1-link.is-accent:hover,
+  .hero-04-light-band .hero-h1-link.is-accent:focus-visible {
+    color: hsl(var(--primary));
+    text-shadow: 1px 0.7px 0 rgb(0, 0, 0);
+  }
+  .hero-04-light-band .hero-p-link {
+    color: inherit;
+    font-weight: inherit;          /* unbolded — matches surrounding body text */
+  }
+  .hero-04-light-band .hero-p-link:hover,
+  .hero-04-light-band .hero-p-link:focus-visible {
+    color: hsl(var(--primary));
+    text-shadow: 1px 0.7px 0 rgb(0, 0, 0);
+    outline: none;
+  }
+
+  /* ===== Paragraph link — site-wide inline <p> link affordance =====
+     Spec: Dr-Arefin-Spec/components/paragraph-link-hover-shadow.md
+     Atto-style green inline links with sharp zero-blur text-shadow on hover.
+     No layout shift, no underline, no font-weight change.
+     Placed in @layer base alongside .hero-p-link so dark-mode overrides win
+     via cascade (project memory: cascade-layers-vs-specificity). */
+  .paragraph-link {
+    color: hsl(var(--hero-light-primary));
+    text-decoration: none;
+    text-shadow: none;
+    font-weight: inherit;
+    cursor: pointer;
+    transition:
+      color 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      text-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .paragraph-link:visited {
+    color: hsl(var(--hero-light-primary));
+  }
+  .paragraph-link:hover {
+    color: hsl(var(--hero-light-primary));
+    text-shadow: 1px 0.7px 0 hsl(var(--hero-light-deep));
+    text-decoration: none;
+  }
+  .paragraph-link:focus-visible {
+    outline: 2px solid hsl(var(--hero-light-primary));
+    outline-offset: 2px;
+    text-shadow: 1px 0.7px 0 hsl(var(--hero-light-deep));
+  }
+  /* Dark sections — colour follows --hero-light-primary token automatically.
+     Soften the shadow tint for legibility on dark backgrounds. */
+  .arefin.dark .paragraph-link:hover,
+  .arefin.dark .paragraph-link:focus-visible,
+  .section-dark .paragraph-link:hover,
+  .section-dark .paragraph-link:focus-visible,
+  .bg-dark .paragraph-link:hover,
+  .bg-dark .paragraph-link:focus-visible {
+    text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.55);
+  }
+
+  /* ===== Hero LIGHT — Pill CTAs (issues #4, #5, #14, #15, #18, #19) ===== */
+  .hero-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    height: 3rem;                 /* mobile 48px */
+    padding: 0 1.75rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    background: hsl(var(--hero-light-primary));
+    color: #000000;
+    line-height: 1;
+    padding-top: 2px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hero-cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    height: 3rem;
+    padding: 0 1.75rem;
+    padding-top: 2px;
+    line-height: 1;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    border: 1px solid hsl(var(--hero-light-primary) / 0.55);
+    color: hsl(var(--hero-light-deep));
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+                color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* Mobile (<640px): stack full-width so each CTA is one solid tap target.
+     Spec: Task 18 — home hero CTAs full-width stacked on mobile. */
+  @media (max-width: 639px) {
+    .hero-cta-primary,
+    .hero-cta-secondary {
+      width: 100%;
+      min-height: 3rem;             /* 48px tap target */
+    }
+  }
+  @media (min-width: 1024px) {
+    .hero-cta-primary,
+    .hero-cta-secondary {
+      height: 3.5rem;             /* 56px on lg+ */
+      padding: 0 2rem;
+      font-size: 1rem;
+    }
+  }
+  .hero-cta-primary .hero-cta-icon { color: #000000; }
+  .hero-cta-primary:hover {
+    background: hsl(var(--primary-darker));
+    color: #ffffff;
+    box-shadow: none;
+  }
+  .hero-cta-primary:hover .hero-cta-icon { color: #ffffff; }
+  .hero-cta-secondary:hover {
+    background: hsl(var(--hero-light-primary));
+    border-color: hsl(var(--hero-light-primary));
+    color: #ffffff;
+    box-shadow: none;
+  }
+  .hero-cta-primary:focus-visible,
+  .hero-cta-secondary:focus-visible {
+    outline: 2px solid hsl(var(--hero-light-primary));
+    outline-offset: 4px;
+  }
+  .hero-cta-icon { width: 18px; height: 18px; }
+  .hero-cta-icon-sm { width: 16px; height: 16px; }
+
+  /* ─── DARK landing page (/home-dark) — secondary CTA contrast invert ───
+     The light-band base rule above sets a "deep green" text color that fails
+     WCAG 2.1 AA on the dark hero. On `.arefin.dark`, the secondary pill must
+     INVERT to a white background + pure-black text/icon for high contrast.
+     Lives in @layer utilities (not base) so it beats the light-band rule —
+     cascade layers always override specificity across layers. See:
+     spec/04-section-variations/02-hero-04-light/03-hero-04-light-colors-themes.md */
+  .arefin.dark .hero-cta-secondary {
+    background: #ffffff;          /* white pill */
+    color: #0a0a0a;               /* near-black text — contrast 19:1 */
+    border-color: #ffffff;
+  }
+  .arefin.dark .hero-cta-secondary svg,
+  .arefin.dark .hero-cta-secondary .hero-cta-icon,
+  .arefin.dark .hero-cta-secondary .hero-cta-icon-sm {
+    color: #0a0a0a;
+    stroke: #0a0a0a;
+  }
+  .arefin.dark .hero-cta-secondary:hover {
+    background: hsl(var(--arefin-cta-green));   /* brand green on hover */
+    border-color: hsl(var(--arefin-cta-green));
+    color: #ffffff;
+  }
+  .arefin.dark .hero-cta-secondary:hover svg,
+  .arefin.dark .hero-cta-secondary:hover .hero-cta-icon,
+  .arefin.dark .hero-cta-secondary:hover .hero-cta-icon-sm {
+    color: #ffffff;
+    stroke: #ffffff;
+  }
+
+  /* ===== About — Variation B local chrome (eyebrow rule, portrait, chip) ===== */
+  .hero-04-light-band .about-b-rule {
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: hsl(var(--hero-light-primary));
+  }
+  .hero-04-light-band .about-b-portrait-wrap {
+    padding-bottom: 24px;
+    padding-left: 24px;
+  }
+  .hero-04-light-band .about-b-figure {
+    border-radius: 1rem;
+    transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hero-04-light-band .about-b-figure:hover {
+    box-shadow: 8px 8px 0 0 hsl(var(--hero-light-primary) / 0.18);
+  }
+  .hero-04-light-band .about-b-img {
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 1rem;
+    border: 1px solid hsl(var(--hero-light-border));
+  }
+  .hero-04-light-band .about-b-chip {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    min-width: 260px;
+    padding: 16px 20px;
+    border-radius: 14px;
+    border: 1px solid hsl(var(--hero-light-border));
+    background: hsl(0 0% 100% / 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 12px 40px -16px hsl(var(--hero-light-deep) / 0.18);
+  }
+  .hero-04-light-band .about-b-chip-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.7;
+    color: hsl(var(--hero-light-deep));
+  }
+  /* Dark variant — chip becomes dark glass card with light text */
+  .arefin.dark .hero-04-light-band .about-b-chip {
+    background: hsl(160 28% 10% / 0.85);
+    border-color: hsl(160 18% 25%);
+    box-shadow: 0 12px 40px -16px hsl(0 0% 0% / 0.6);
+  }
+  .arefin.dark .hero-04-light-band .about-b-chip-row {
+    color: hsl(0 0% 96%);
+  }
+  .arefin.dark .hero-04-light-band .about-b-chip-dot {
+    background: hsl(131 87% 41%);
+  }
+  .hero-04-light-band .about-b-chip-dot {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: hsl(var(--hero-light-primary));
+  }
+
+  /* ===== Hero LIGHT — Portrait frame (issue #10) ===== */
+  .hero-04-light-band .hero-portrait-frame {
+    background: hsl(var(--hero-light-surface));
+    border: 1px solid hsl(var(--hero-light-border));
+    border-radius: 1rem;          /* 16px — clinical authority */
+    overflow: hidden;
+  }
+  /* Variation A modifier: frameless blend — portrait floats over a soft green glow */
+  .hero-04-light-band .hero-portrait-frame.is-blend {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    overflow: visible;
+    position: relative;
+  }
+  .hero-04-light-band .hero-portrait-frame.is-blend::before {
+    content: "";
+    position: absolute;
+    inset: -20% -15% -10% -15%;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(50% 45% at 50% 55%, hsl(var(--hero-light-primary) / 0.18) 0%, transparent 70%);
+    border-radius: 9999px;
+  }
+  .hero-04-light-band .hero-portrait-frame.is-blend > img {
+    position: relative;
+    z-index: 1;
+    transform: scale(1.15);
+    transform-origin: center right;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, rgba(0,0,0,0.55) 92%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, #000 0%, #000 78%, rgba(0,0,0,0.55) 92%, rgba(0,0,0,0) 100%);
+  }
+  @media (max-width: 1023px) {
+    .hero-04-light-band .hero-portrait-frame.is-blend > img {
+      transform: scale(1.08);
+      transform-origin: center center;
+    }
+  }
+
+  /* Variation A modifier: green primary CTA — TWO GREENS ONLY */
+  .hero-cta-primary.is-green {
+    background: hsl(var(--primary-bright));
+    color: #000000;
+  }
+  .hero-cta-primary.is-green .hero-cta-icon { color: #000000; }
+  .hero-cta-primary.is-green:hover {
+    filter: none;
+    background: hsl(var(--primary-darker));
+    color: #ffffff;
+    box-shadow: none;
+  }
+  .hero-cta-primary.is-green:hover .hero-cta-icon { color: #ffffff; }
+
+  /* ===== Hero LIGHT — Icon-box trust items (issue #9) ===== */
+  .hero-04-light-band .hero-iconbox {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+  }
+  .hero-04-light-band .hero-iconbox-circle {
+    flex: 0 0 auto;
+    width: 52px;
+    height: 52px;
+    border-radius: 9999px;
+    background: hsl(var(--hero-light-surface));
+    border: 1px solid hsl(var(--hero-light-border));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: hsl(var(--hero-light-primary));
+    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hero-04-light-band .hero-iconbox:hover .hero-iconbox-circle {
+    background: hsl(var(--hero-light-primary) / 0.12);
+    border-color: hsl(var(--hero-light-primary) / 0.4);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+  .hero-04-light-band .hero-iconbox-title {
+    font-family: 'Ubuntu', 'Poppins', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: hsl(var(--hero-light-deep));
+    line-height: 1.2;
+    transition:
+      color 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      text-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hero-04-light-band .hero-iconbox:hover .hero-iconbox-title {
+    color: hsl(var(--primary-light));
+    text-shadow: 1px 0.7px 0 rgb(var(--hover-shadow-ink) / 0.2);
+  }
+  .hero-04-light-band .hero-iconbox-sub {
+    font-size: 0.8125rem;
+    color: hsl(var(--hero-light-muted));
+    line-height: 1.35;
+    margin-top: 2px;
+  }
+  /* Clickable variant — anchor reset, no positional shift */
+  .hero-04-light-band .hero-iconbox-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    border-radius: 12px;
+    outline-offset: 4px;
+  }
+  .hero-04-light-band .hero-iconbox-link:focus-visible {
+    outline: 2px solid hsl(var(--primary-bright));
+  }
+  /* Mobile (<640px): expand the entire iconbox into a full-width tap card.
+     Spec: Task 19 — validator iconboxes single column + larger touch targets. */
+  @media (max-width: 639px) {
+    .hero-04-light-band .hero-iconbox {
+      min-height: 64px;
+      padding: 0.625rem 0.75rem;
+      border-radius: 12px;
+      border: 1px solid hsl(var(--hero-light-border));
+      background: hsl(var(--hero-light-surface) / 0.6);
+      transition: background-color 220ms ease, border-color 220ms ease;
+    }
+    .hero-04-light-band .hero-iconbox-link:hover,
+    .hero-04-light-band .hero-iconbox-link:focus-visible {
+      background: hsl(var(--hero-light-primary) / 0.08);
+      border-color: hsl(var(--hero-light-primary) / 0.4);
+    }
+  }
+
+  /* Floating credential card (Variation B) — themed, no inline */
+  .hero-04-light-band .hero-cred-card {
+    background: hsl(var(--hero-light-bg));
+    border: 1px solid hsl(var(--hero-light-border));
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    max-width: 250px;
+    box-shadow: 0 14px 30px -16px hsl(var(--hero-light-deep) / 0.2);
+  }
+  .hero-04-light-band .hero-cred-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 9999px;
+    background: hsl(var(--hero-light-surface));
+    color: hsl(var(--hero-light-primary));
+  }
+}
+
+/* Reduced motion (spec 14-accessibility) — applies project-wide */
+@media (prefers-reduced-motion: reduce) {
+  .arefin *,
+  .arefin *::before,
+  .arefin *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer base {
+  html {
+    overflow-x: hidden;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: hidden;
+    /* Baseline body size delegated to fluid ramp so paragraphs without an
+       explicit .type-* utility inherit responsive sizing instead of the 16px
+       browser default (which felt too large on 390px viewports). */
+    font-size: var(--fs-body);
+    line-height: 1.6;
+  }
+
+  /* H-scroll guard — defensive caps so no replaced element or table can
+     blow out the viewport at 360/390px even if a parent forgets min-w-0
+     in a flex context. Pairs with html/body overflow-x:hidden above. */
+  img, video, iframe, svg, canvas, picture, object, embed {
+    max-width: 100%;
+    height: auto;
+  }
+  /* SVG icons inside fixed-size buttons should keep their explicit size. */
+  button svg, a svg, [role="button"] svg {
+    height: revert;
+  }
+
+  /* A6 — iOS Safari zooms when an input has font-size <16px on focus.
+     Force ≥16px on every form control to prevent the zoom-jump on tap. */
+  input, select, textarea {
+    font-size: max(16px, 1rem);
+  }
+
+  /* A7 — Visible focus ring that works on both light and dark backgrounds.
+     Uses two rings: solid bg color + green outer for contrast on any surface.
+     Honoured only for keyboard focus (focus-visible). */
+  :where(.arefin) :focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  table {
+    max-width: 100%;
+  }
+  pre, code {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  /* Long unbroken strings (URLs, codes) wrap instead of overflowing. */
+  p, li, dd, dt, blockquote, figcaption {
+    overflow-wrap: anywhere;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-foreground font-bold tracking-tight font-heading;
+  }
+
+  nav h2, nav h3, nav h4, nav h5, nav h6 {
+    @apply font-sans font-semibold;
+  }
+
+  strong {
+    font-weight: inherit;
+  }
+
+  a {
+    text-decoration: none;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+  }
+
+  a:hover {
+    text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+    text-decoration: none;
+  }
+
+  /* Atto-parity: dual-CTA pills carry an always-on tiny dark-green text-shadow
+     (rgb(40,61,5) 1px 0.7px 0). The global a:hover shadow would replace it on
+     hover and cause a perceived shift — keep the base shadow on hover too. */
+  a.arefin-dual-cta-call:hover,
+  a.arefin-dual-cta-book:hover,
+  a.arefin-dual-cta-contact:hover {
+    text-shadow: rgb(40, 61, 5) 1px 0.7px 0px;
+  }
+}
+
+@layer utilities {
+  .text-shadow-light {
+    text-shadow: 1px 0.7px 0 rgba(255, 255, 255, 0.85);
+  }
+  .text-shadow-dark {
+    text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+  }
+  .hover\:text-shadow-heading:hover {
+    text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+  }
+  .hover\:text-shadow-heading-light:hover {
+    text-shadow: 1px 0.7px 0 rgba(255, 255, 255, 0.85);
+  }
+  .img-shadow {
+    box-shadow: none;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  }
+  .img-shadow:hover {
+    background-color: #ffffff;
+    box-shadow: 3px 0 0 0 rgba(55, 146, 55, 0.85), 0 3px 0 0 rgba(55, 146, 55, 0.85);
+  }
+  .img-shadow-left {
+    box-shadow: none;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  }
+  .img-shadow-left:hover {
+    background-color: #ffffff;
+    box-shadow: -3px 0 0 0 rgba(55, 146, 55, 0.85), 0 3px 0 0 rgba(55, 146, 55, 0.85);
+  }
+
+  /* Dr. Arefin: card hover — matches canonical Atto pattern */
+  .arefin-card-hover {
+    border-left: 5px solid hsl(var(--border));
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: box-shadow 300ms ease, border-left-color 600ms ease-in-out;
+  }
+  .arefin-card-hover:hover {
+    border-left: 5px solid hsl(var(--primary-bright));
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  }
+
+  /* T10 (2026-05-17): Treatment-card title links inherit the h3 color so
+     the satellite-page anchor is visually identical to a plain heading
+     until hovered. The parent .{liver|gb|pc|bt}-card-title rules already
+     control color + hover text-shadow, so the inner <a> must NOT introduce
+     its own anchor blue/underline. */
+  .liver-card-title-link,
+  .gb-card-title-link,
+  .pc-card-title-link,
+  .bt-card-title-link {
+    color: inherit;
+    text-decoration: none;
+    background: transparent;
+  }
+  .liver-card-title-link:hover,
+  .liver-card-title-link:focus-visible,
+  .gb-card-title-link:hover,
+  .gb-card-title-link:focus-visible,
+  .pc-card-title-link:hover,
+  .pc-card-title-link:focus-visible,
+  .bt-card-title-link:hover,
+  .bt-card-title-link:focus-visible {
+    color: inherit;
+    text-shadow: inherit;
+  }
+
+  /* T14–T17 (2026-05-17): Reserve two h4-lines of vertical space on
+     treatment-condition card titles so visual rhythm stays consistent
+     even when titles wrap to one vs two lines across breakpoints. */
+  .liver-card-title,
+  .gb-card-title,
+  .pc-card-title,
+  .bt-card-title {
+    min-height: calc(var(--fs-h4) * 1.35 * 2);
+  }
+
+  .arefin-hero-img-stack {
+    position: relative;
+  }
+  .arefin-hero-img-stack > img {
+    transition: opacity 0.5s ease;
+  }
+  .arefin-hero-img-stack > img.is-light {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+  .arefin-hero-img-stack:hover > img.is-dark { opacity: 0; }
+  .arefin-hero-img-stack:hover > img.is-light { opacity: 1; }
+
+  /* =================================================================
+     Mentorship Carousel — Infinity autoplay, 3-card window
+     Slides are absolutely positioned in slots (left/center/right) and
+     animate between them via transform + opacity. Far slides park off
+     to the sides invisible so seamless wrap-around works.
+     ================================================================= */
+  .mentor-carousel {
+    position: relative;
+    padding: 48px 0 48px;
+  }
+  .mentor-carousel-track {
+    position: relative;
+    width: 100%;
+    /* Reserve vertical space for the scaled center card. JS-free height
+       comes from the tallest absolutely-positioned slide via min-height. */
+    min-height: 360px;
+    outline: none;
+  }
+  .mentor-carousel-track:focus-visible {
+    box-shadow: 0 0 0 2px hsl(var(--primary-bright) / 0.55);
+    border-radius: 16px;
+  }
+  .mentor-carousel-slide {
+    position: absolute;
+    /* All slides share the same vertical center so the side cards and the
+       center card visually align on the same horizontal midline, regardless
+       of scale. This is what the arrows snap to. */
+    top: 50%;
+    left: 50%;
+    width: 32%;
+    transform-origin: center center;
+    transition:
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 500ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .mentor-carousel-slide.no-transition {
+    transition: none;
+  }
+  .mentor-carousel-slide.slot-center {
+    transform: translate(-50%, -50%) scale(1.12);
+    opacity: 1;
+    z-index: 3;
+    pointer-events: auto;
+  }
+  .mentor-carousel-slide.slot-left {
+    transform: translate(calc(-50% - 110%), -50%) scale(0.9);
+    opacity: 0.7;
+    z-index: 2;
+    pointer-events: auto;
+  }
+  .mentor-carousel-slide.slot-right {
+    transform: translate(calc(-50% + 110%), -50%) scale(0.9);
+    opacity: 0.7;
+    z-index: 2;
+    pointer-events: auto;
+  }
+  .mentor-carousel-slide.slot-far-left {
+    transform: translate(calc(-50% - 220%), -50%) scale(0.8);
+    opacity: 0;
+  }
+  .mentor-carousel-slide.slot-far-right {
+    transform: translate(calc(-50% + 220%), -50%) scale(0.8);
+    opacity: 0;
+  }
+  .mentor-carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: hsl(0 0% 100%);
+    border: 1px solid hsl(var(--border));
+    color: hsl(var(--foreground));
+    box-shadow: 0 2px 8px -2px hsl(0 0% 0% / 0.15);
+    cursor: pointer;
+    z-index: 5;
+    transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  }
+  .mentor-carousel-arrow:hover,
+  .mentor-carousel-arrow:focus-visible {
+    background: hsl(var(--primary-bright));
+    color: hsl(0 0% 100%);
+    border-color: hsl(var(--primary-darker));
+    outline: none;
+  }
+  .mentor-carousel-arrow svg {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    stroke: currentColor;
+    fill: none;
+    display: block;
+  }
+  .mentor-carousel-arrow--prev { left: 0; }
+  .mentor-carousel-arrow--next { right: 0; }
+  .mentor-carousel-dots {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    gap: 8px;
+    z-index: 4;
+  }
+  .mentor-carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--muted));
+    cursor: pointer;
+    transition: background-color 220ms ease, transform 220ms ease, border-color 220ms ease;
+  }
+  .mentor-carousel-dot.is-active {
+    background: hsl(var(--primary-bright));
+    border-color: hsl(var(--primary-darker));
+    transform: scale(1.2);
+  }
+  .arefin.dark .mentor-carousel-arrow {
+    background: hsl(0 0% 12%);
+    color: hsl(0 0% 95%);
+    border-color: hsl(0 0% 25%);
+  }
+  .arefin.dark .mentor-carousel-arrow:hover,
+  .arefin.dark .mentor-carousel-arrow:focus-visible {
+    background: hsl(var(--primary-bright));
+    color: hsl(0 0% 8%);
+    border-color: hsl(var(--primary-darker));
+  }
+
+  /* Mobile: single-card carousel. Active card centered full-width;
+     prev/next slide off-screen. Arrows + dots sit in a row below the card,
+     so autoplay + manual arrow nav both work on phones. */
+  @media (max-width: 767px) {
+    .mentor-carousel {
+      padding: 8px 0 8px;
+      display: grid;
+      grid-template-columns: auto auto;
+      grid-template-areas:
+        "track track"
+        "prev  next"
+        "dots  dots";
+      justify-content: center;
+      align-items: center;
+      row-gap: 14px;
+      column-gap: 12px;
+    }
+    .mentor-carousel-track {
+      grid-area: track;
+      position: relative;
+      width: 100%;
+      min-height: 0;
+      display: flex;
+      justify-content: center;
+    }
+    .mentor-carousel-slide {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 88%;
+      transform: translate(-50%, 0) scale(1);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .mentor-carousel-slide.slot-center {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+      width: 88%;
+    }
+    .mentor-carousel-arrow {
+      position: static;
+      transform: none;
+      width: 40px;
+      height: 40px;
+    }
+    .mentor-carousel-arrow--prev { grid-area: prev; justify-self: end; }
+    .mentor-carousel-arrow--next { grid-area: next; justify-self: start; }
+    .mentor-carousel-dots {
+      grid-area: dots;
+      position: static;
+      transform: none;
+      justify-self: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* Crossfade-only: every slide stacks at center, no transforms, no scale.
+       Only the active slide is visible; others fade via opacity. */
+    .mentor-carousel-slide,
+    .mentor-carousel-slide.slot-center,
+    .mentor-carousel-slide.slot-left,
+    .mentor-carousel-slide.slot-right,
+    .mentor-carousel-slide.slot-far-left,
+    .mentor-carousel-slide.slot-far-right {
+      transform: translate(-50%, 0);
+      transition: opacity 240ms ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .mentor-carousel-slide.slot-center {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+
+  /* =================================================================
+     GLOBAL: Light-green text legibility on white backgrounds
+     - Adds subtle text-shadow to all primary-green text
+     - On hover, color deepens significantly for clear interaction cue
+     ================================================================= */
+  .arefin:not(.dark) .text-primary,
+  .arefin:not(.dark) .text-primary-light,
+  .arefin:not(.dark) [class*="text-primary"]:not(.text-primary-foreground):not(.text-primary-deep):not(.text-primary-darker) {
+    text-shadow: 0 1px 0 hsl(var(--primary-deep) / 0.18),
+                 0 0 1px hsl(var(--primary-deep) / 0.12);
+    transition:
+      color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      text-shadow 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* Hover (light theme only): deepen color + tighten shadow for tactile feedback.
+     Dark theme intentionally keeps a SINGLE hover hue (--primary-light) for
+     consistency — see .arefin.dark .hero-04-light-band rules above. */
+  .arefin:not(.dark) a.text-primary:hover,
+  .arefin:not(.dark) a.text-primary-light:hover,
+  .arefin:not(.dark) a:hover .text-primary,
+  .arefin:not(.dark) a:hover .text-primary-light,
+  .arefin:not(.dark) a:hover[class*="text-primary"]:not(.text-primary-foreground):not(.text-primary-deep):not(.text-primary-darker) {
+    color: hsl(var(--primary-darker));
+    text-shadow: 1px 0.7px 0 hsl(var(--primary-deep) / 0.35),
+                 0 0 2px hsl(var(--primary-deep) / 0.25);
+  }
+
+  /* Footer attribution — semantic H2 styled small/subtle for SEO */
+  .arefin-footer-attribution,
+  h2.arefin-footer-attribution {
+    display: inline;
+    font-size: inherit;            /* matches surrounding xs (12px) */
+    font-weight: 400;
+    line-height: inherit;
+    letter-spacing: 0;
+    margin: 0;
+    color: inherit;
+    opacity: 0.9;
+  }
+
+  /* Footer contact rows — full-width tappable cards on mobile so phone /
+     email / map links are easy to hit; collapse to inline links on md+. */
+  .arefin-footer-contact-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    min-height: 3rem;
+    padding: 0.625rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--foreground) / 0.08);
+    background: hsl(var(--foreground) / 0.04);
+    color: inherit;
+    text-shadow: none;
+    transition: color 220ms ease, background-color 220ms ease, border-color 220ms ease;
+  }
+  .arefin-footer-contact-row:hover,
+  .arefin-footer-contact-row:focus-visible {
+    color: hsl(var(--primary-bright));
+    background: hsl(var(--foreground) / 0.07);
+    border-color: hsl(var(--primary-bright) / 0.45);
+  }
+  @media (min-width: 768px) {
+    .arefin-footer-contact-row {
+      display: inline-flex;
+      min-height: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+    .arefin-footer-contact-row:hover,
+    .arefin-footer-contact-row:focus-visible {
+      background: transparent;
+      border-color: transparent;
+    }
+  }
+
+  .arefin-footer-social-link {
+    width: 2.75rem;
+    height: 2.75rem;
+    flex: 0 0 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: hsl(var(--foreground) / 0.10);
+    border: 1px solid hsl(var(--foreground) / 0.08);
+    color: hsl(var(--foreground) / 0.70);
+    text-shadow: none;
+    transition: color 220ms ease, background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  }
+
+  .arefin-footer-social-link:hover,
+  .arefin-footer-social-link:focus-visible {
+    background: hsl(var(--foreground) / 0.14);
+    border-color: hsl(var(--primary-bright));
+    color: hsl(var(--primary-bright));
+    box-shadow: 0 0 0 1px hsl(var(--primary-bright) / 0.16);
+    text-shadow: none;
+  }
+
+  /* ========================================================== */
+  /*  Atto-style SEO link wrapping                              */
+  /*  Component: src/components/arefin/SeoLink.tsx              */
+  /*  Spec:      Dr-Arefin-Spec/seo-link-wrapping.md            */
+  /*  Subtle by default — matches body color, shifts to brand   */
+  /*  green with sharp text-shadow on hover (no underline).     */
+  /* ========================================================== */
+  .seo-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 280ms cubic-bezier(0.22, 1, 0.36, 1),
+                text-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .seo-link:hover,
+  .seo-link:focus-visible {
+    color: hsl(var(--primary));
+    text-shadow: 1px 0.7px 0 hsl(var(--hero-light-deep));
+    outline: none;
+  }
+  .arefin.dark .seo-link:hover,
+  .arefin.dark .seo-link:focus-visible {
+    color: hsl(var(--hero-light-primary, var(--primary)));
+    text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.55);
+  }
+  /* Bold variant inherits weight from <strong> wrapper but keeps the same hover */
+  strong > .seo-link { font-weight: inherit; }
+
+  /* ========================================================== */
+  /*  Hind font — applied to video pages only                   */
+  /*  Loaded via index.html <link rel="preload"> for fast paint */
+  /* ========================================================== */
+  .video-page-heading,
+  .video-page h1,
+  .video-page h2,
+  .video-page h3 {
+    font-family: 'Hind', 'Ubuntu', system-ui, -apple-system, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* ============================================================== */
+  /*  ATTO PROPERTY CARD HOVER — canonical pattern (single source)  */
+  /*                                                                */
+  /*  Verified against attoproperty.com.au/blog/ source CSS         */
+  /*  (`.my-post-item` rule, scraped 2026-04-29):                   */
+  /*    .my-post-item {                                             */
+  /*      transition: box-shadow .3s ease, border-left .3s ease;    */
+  /*      box-shadow: 0 1px 3px rgba(0,0,0,0.08);                   */
+  /*      border-left: 5px solid transparent;                       */
+  /*    }                                                           */
+  /*    .my-post-item:hover {                                       */
+  /*      box-shadow: 0 10px 25px rgba(0,0,0,0.25);                 */
+  /*      border-left: 5px solid #008000;                           */
+  /*    }                                                           */
+  /*                                                                */
+  /*  Adaptation for Dr. Arefin (two-greens-only rule):             */
+  /*    • #008000 → hsl(var(--primary-bright)) (#14bb3e)            */
+  /*    • Soft blurred dark drop shadow kept identical to Atto      */
+  /*    • Title turns --primary-darker on hover                     */
+  /*    • NO translateY/X — color/border/shadow only                */
+  /* ============================================================== */
+  .arefin .a-card,
+  .arefin .b-card,
+  .arefin .c-card,
+  .arefin .anim-card,
+  .arefin .cred-card,
+  .arefin .data-card,
+  .arefin .metric-card,
+  .arefin .testA-card,
+  .arefin .testB-card,
+  .arefin .testC-card,
+  .arefin .trA-card,
+  .arefin .trC-card,
+  .arefin .services-c-card,
+  .arefin .initiatives-card {
+    background: hsl(var(--card-bg));
+    border: 1px solid hsl(var(--card-border));
+    border-left: 5px solid hsl(var(--card-accent-rest));
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    transition: background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease, border-left-color 600ms ease-in-out;
+  }
+
+  .arefin .a-card:hover,
+  .arefin .b-card:hover,
+  .arefin .c-card:hover,
+  .arefin .anim-card:hover,
+  .arefin .cred-card:hover,
+  .arefin .data-card:hover,
+  .arefin .metric-card:hover,
+  .arefin .testA-card:hover,
+  .arefin .testB-card:hover,
+  .arefin .testC-card:hover,
+  .arefin .trA-card:hover,
+  .arefin .trC-card:hover,
+  .arefin .services-c-card:hover,
+  .arefin .initiatives-card:hover {
+    background: hsl(var(--card-bg-hover));
+    border-color: hsl(var(--card-border-hover));
+    border-left-color: hsl(var(--card-accent));
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  /* Title turns dark-green on card hover (Atto title green) */
+  .arefin .a-card:hover :is(h2, h3, h4),
+  .arefin .a-card:hover :is(h2, h3, h4) a,
+  .arefin .b-card:hover :is(h2, h3, h4),
+  .arefin .b-card:hover :is(h2, h3, h4) a,
+  .arefin .c-card:hover :is(h2, h3, h4),
+  .arefin .c-card:hover :is(h2, h3, h4) a,
+  .arefin .trA-card:hover :is(h2, h3, h4),
+  .arefin .trA-card:hover :is(h2, h3, h4) a,
+  .arefin .trC-card:hover :is(h2, h3, h4),
+  .arefin .trC-card:hover :is(h2, h3, h4) a,
+  .arefin .services-c-card:hover :is(h2, h3, h4),
+  .arefin .services-c-card:hover :is(h2, h3, h4) a,
+  .arefin .initiatives-card:hover :is(h2, h3, h4),
+  .arefin .initiatives-card:hover :is(h2, h3, h4) a {
+    color: hsl(var(--primary-darker));
+    transition: color 300ms ease;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   INITIATIVES — Light bg, dark cards (contrast rule)
+   ═══════════════════════════════════════════════════════ */
+.init-a-section { background: hsl(var(--arefin-light-mint)); }
+
+.init-a-label { display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; color: hsl(var(--primary)); }
+.init-a-heading { color: hsl(220 15% 15%); letter-spacing: -0.02em; }
+.init-a-intro { color: hsl(220 10% 40%); line-height: 1.75; }
+.init-a-intro strong { color: inherit; font-weight: inherit; cursor: default; transition: color 220ms cubic-bezier(0.22,1,0.36,1), text-shadow 220ms cubic-bezier(0.22,1,0.36,1); }
+.init-a-intro strong:hover { color: hsl(var(--primary)); text-shadow: 1px 0.7px 0 rgb(var(--hover-shadow-ink) / 0.2); }
+
+.arefin .init-a-card {
+  position: relative; padding: 28px 28px 30px;
+  background: hsl(var(--card-bg));
+  border: 1px solid hsl(var(--card-border));
+  /* Reserve 3px of space at all times — color fades transparent → green on hover (no layout shift) */
+  border-left: 3px solid transparent;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  transition: background-color 280ms cubic-bezier(0.22,1,0.36,1), border-left-color 600ms ease-in-out, border-color 280ms cubic-bezier(0.22,1,0.36,1), box-shadow 280ms cubic-bezier(0.22,1,0.36,1);
+}
+.arefin .init-a-card:hover,
+.arefin .init-a-card:focus-within {
+  background: hsl(var(--card-bg-hover));
+  border-color: hsl(var(--card-border-hover));
+  border-left-color: hsl(var(--card-accent));
+  box-shadow: var(--card-shadow-hover);
+}
+
+.arefin .init-a-icon-wrap { width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: hsl(var(--card-icon-bg)); margin-bottom: 18px; transition: background-color 280ms ease; }
+.arefin .init-a-icon { color: hsl(var(--card-icon-fg)); transition: color 280ms ease; }
+.arefin .group:hover .init-a-icon-wrap { background: hsl(var(--card-icon-bg-hover) / 0.15); }
+
+.arefin .init-a-bar { display: block; width: 24px; height: 2px; border-radius: 9999px; background: hsl(var(--primary)); margin-bottom: 14px; transition: width 320ms cubic-bezier(0.22,1,0.36,1); }
+.arefin .group:hover .init-a-bar { width: 48px; }
+
+.arefin .init-a-title { font-size: 20px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; color: hsl(0 0% 95%); margin-bottom: 12px; transition: color 280ms cubic-bezier(0.22,1,0.36,1), text-shadow 280ms cubic-bezier(0.22,1,0.36,1); }
+.arefin .group:hover .init-a-title,
+.arefin .group:focus-within .init-a-title { color: hsl(var(--primary)); text-shadow: 1px 0.7px 0 rgb(var(--hover-shadow-ink) / 0.2); }
+/* T06 — title is a SeoLink: inherit color/weight, no underline; hover handled by .init-a-title above */
+.arefin .init-a-title-link,
+.arefin .init-a-title-link:visited,
+.arefin .init-a-title-link:hover,
+.arefin .init-a-title-link:focus-visible { color: inherit; text-decoration: none; background: none; }
+
+.arefin .init-a-desc { font-size: 14px; line-height: 1.7; color: hsl(0 0% 65%); }
+.arefin .init-a-desc strong { color: inherit; font-weight: inherit; cursor: default; transition: color 220ms cubic-bezier(0.22,1,0.36,1), text-shadow 220ms cubic-bezier(0.22,1,0.36,1); }
+.arefin .init-a-desc strong:hover { color: hsl(var(--primary)); text-shadow: 1px 0.7px 0 rgb(var(--hover-shadow-ink) / 0.2); }
+
+  /* ===== Floating medical icons — glass/3D layered effect ===== */
+  @keyframes med-icon-float-1 {
+    0%, 100% { transform: translateY(0) rotate(var(--med-rot-start)); }
+    50%      { transform: translateY(-10px) rotate(var(--med-rot-mid)); }
+  }
+  @keyframes med-icon-float-2 {
+    0%, 100% { transform: translateY(0) rotate(var(--med-rot-start)); }
+    33%      { transform: translateY(-7px) rotate(var(--med-rot-mid)); }
+    66%      { transform: translateY(4px) rotate(calc(var(--med-rot-start) - 3deg)); }
+  }
+  @keyframes med-icon-wiggle {
+    0%   { transform: rotate(0deg); }
+    25%  { transform: rotate(8deg); }
+    50%  { transform: rotate(-8deg); }
+    75%  { transform: rotate(5deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  /* Front icons: crisp, glassy, clearly in front */
+  .med-icon-float {
+    position: absolute;
+    pointer-events: auto;
+    color: hsl(0 0% 100% / 0.32);
+    filter: blur(0px);
+    backdrop-filter: blur(2px);
+    background: hsl(0 0% 100% / 0.04);
+    border-radius: 50%;
+    padding: 6px;
+    border: 1px solid hsl(0 0% 100% / 0.06);
+    transition: color 0.3s ease, filter 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+    will-change: transform;
+  }
+  /* Behind icons: blurred, dimmer, frosted-glass depth */
+  .med-icon-float.is-behind {
+    color: hsl(0 0% 100% / 0.15);
+    filter: blur(2px);
+    backdrop-filter: blur(4px);
+    background: hsl(0 0% 100% / 0.03);
+    border-color: hsl(0 0% 100% / 0.04);
+  }
+  .med-icon-float:hover {
+    color: hsl(0 0% 100% / 0.55);
+    background: hsl(0 0% 100% / 0.08);
+    border-color: hsl(0 0% 100% / 0.12);
+    animation: med-icon-wiggle 0.5s ease-in-out;
+  }
+  .med-icon-float.is-behind:hover {
+    color: hsl(0 0% 100% / 0.35);
+    filter: blur(0.5px);
+    background: hsl(0 0% 100% / 0.06);
+  }
+
+  .med-float-a { --med-rot-start: 0deg;    --med-rot-mid: 8deg;   animation: med-icon-float-1 5s   ease-in-out infinite; }
+  .med-float-b { --med-rot-start: 12deg;   --med-rot-mid: 4deg;   animation: med-icon-float-2 7s   ease-in-out infinite; animation-delay: 0.5s; }
+  .med-float-c { --med-rot-start: -8deg;   --med-rot-mid: 0deg;   animation: med-icon-float-1 6s   ease-in-out infinite; animation-delay: 1.2s; }
+  .med-float-d { --med-rot-start: 5deg;    --med-rot-mid: -5deg;  animation: med-icon-float-2 8s   ease-in-out infinite; animation-delay: 0.3s; }
+  .med-float-e { --med-rot-start: -12deg;  --med-rot-mid: -4deg;  animation: med-icon-float-1 5.5s ease-in-out infinite; animation-delay: 2s; }
+  .med-float-f { --med-rot-start: 15deg;   --med-rot-mid: 7deg;   animation: med-icon-float-2 6.5s ease-in-out infinite; animation-delay: 1s; }
+  .med-float-g { --med-rot-start: -3deg;   --med-rot-mid: 6deg;   animation: med-icon-float-1 7.5s ease-in-out infinite; animation-delay: 0.7s; }
+  .med-float-h { --med-rot-start: 10deg;   --med-rot-mid: 2deg;   animation: med-icon-float-2 5.8s ease-in-out infinite; animation-delay: 1.5s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .med-icon-float,
+    .med-float-a, .med-float-b, .med-float-c, .med-float-d,
+    .med-float-e, .med-float-f, .med-float-g, .med-float-h {
+      animation: none;
+    }
+  }
+
+/* ── Final CTA section: green radial glow to differentiate from footer ── */
+.arefin-final-cta {
+  background: radial-gradient(ellipse at center, hsl(var(--primary) / 0.08) 0%, transparent 70%);
+}
+
+/* ═══════════════════════════════════════════════════════
+   STICKY STACK SERVICES — Section 7
+   ═══════════════════════════════════════════════════════ */
+.sss-section { background: hsl(var(--arefin-light-mint)); }
+
+.sss-heading { color: hsl(150 30% 12%); }
+.sss-heading em { font-style: italic; color: hsl(var(--primary-deep)); }
+
+.sss-intro { color: hsl(150 15% 25%); line-height: 1.75; }
+.sss-intro strong { color: inherit; font-weight: inherit; cursor: default; transition: color 220ms cubic-bezier(0.22,1,0.36,1), text-shadow 220ms cubic-bezier(0.22,1,0.36,1); }
+.sss-intro strong:hover { color: hsl(var(--primary)); text-shadow: 1px 0.7px 0 rgb(var(--hover-shadow-ink) / 0.2); }
+
+.sss-stack {
+  display: flex;
+  flex-direction: column;
+  /* T02 (2026-05-17): Previously 160px / 80px created visible asymmetric
+     bottom padding vs the section's symmetric container py-* (top/bottom).
+     Trimmed to a minimal buffer that still lets card 6 pin briefly before
+     the section ends, while restoring equal top/bottom visual rhythm. */
+  padding-bottom: 32px;
+}
+@media (max-width: 767px) {
+  .sss-stack { padding-bottom: 16px; }
+}
+
+.sss-sticky-wrapper {
+  position: sticky;
+  top: var(--sss-top, 120px);
+  margin-bottom: 24px;
+}
+/* Keep last child's margin so card 6 has matching rhythm to the stack above. */
+
+@media (max-width: 767px) {
+  /* Mobile sticky stack — same behavior as desktop. Cards keep their
+     vertical layout (image stacked above content) and pin to top using
+     the same --sss-top offset (90px + i*20px), which already clears the
+     70px mobile header with breathing room. */
+  .sss-sticky-wrapper { margin-bottom: 18px; }
+  .sss-card { border-radius: 16px; }
+}
+
+.sss-card {
+  display: grid; grid-template-columns: 1fr; gap: 0;
+  border-radius: 20px; overflow: hidden;
+  box-shadow: 0 8px 32px -8px hsl(0 0% 0% / 0.25);
+  transition: box-shadow 280ms cubic-bezier(0.22,1,0.36,1);
+  min-height: 380px;
+}
+@media (min-width: 768px) { .sss-card { grid-template-columns: 50% 50%; min-height: 420px; } }
+
+/* DesignMonks-style distinct card backgrounds — dark on dark section */
+/* Selected palette: Clinical Ascent — white → sage → brand green → navy → ink → near-black.
+   Each step exposes --c-bg/--c-text/--c-mute/--c-faint/--c-border/--c-hover so child rules stay token-driven. */
+.sss-card {
+  background: var(--c-bg);
+  color: var(--c-text);
+}
+/* Light cards (1-2): dark ink text, dark-green hover */
+.sss-card[data-step="1"] {
+  --c-bg: #FFFFFF;
+  --c-text: #0B0E14;
+  --c-mute: hsl(0 0% 25%);
+  --c-faint: hsl(0 0% 40%);
+  --c-border: hsl(0 0% 0% / 0.18);
+  --c-hover: hsl(var(--primary-darker));
+}
+.sss-card[data-step="2"] {
+  --c-bg: #E8F5E9;
+  --c-text: #0B2912;
+  --c-mute: hsl(140 25% 18%);
+  --c-faint: hsl(140 18% 32%);
+  --c-border: hsl(140 30% 20% / 0.22);
+  --c-hover: hsl(var(--primary-darker));
+}
+/* Brand-green cards (3, 4): per user feedback all text — title, body, stats, category — forced to black for AA legibility on bright green. Hover swaps to white with shadow. */
+.sss-card[data-step="3"],
+.sss-card[data-step="4"] {
+  --c-bg: hsl(var(--primary-bright));
+  --c-text: hsl(0 0% 0%);
+  --c-mute: hsl(0 0% 0% / 0.85);
+  --c-faint: hsl(0 0% 0% / 0.7);
+  --c-border: hsl(0 0% 0% / 0.35);
+  --c-hover: hsl(0 0% 100%);
+}
+/* Inline strong inherits color, kept for explicitness */
+.sss-card[data-step="3"] .sss-card-desc strong,
+.sss-card[data-step="4"] .sss-card-desc strong {
+  color: inherit;
+}
+/* Dark cards (5-6): white text, light-green hover per dark-bg legibility memory */
+.sss-card[data-step="5"] {
+  --c-bg: #0B5E22;
+  --c-text: hsl(0 0% 100%);
+  --c-mute: hsl(0 0% 100% / 0.78);
+  --c-faint: hsl(0 0% 100% / 0.55);
+  --c-border: hsl(0 0% 100% / 0.4);
+  --c-hover: hsl(var(--primary-light));
+}
+.sss-card[data-step="6"] {
+  --c-bg: #0B1733;
+  --c-text: hsl(0 0% 100%);
+  --c-mute: hsl(0 0% 100% / 0.78);
+  --c-faint: hsl(0 0% 100% / 0.55);
+  --c-border: hsl(0 0% 100% / 0.4);
+  --c-hover: hsl(var(--primary-light));
+}
+
+.sss-card-content { padding: 32px 28px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+@media (min-width: 768px) { .sss-card-content { padding: 48px 44px; gap: 20px; } }
+@media (max-width: 767px) { .sss-card-content { padding: 22px 20px; gap: 12px; } }
+
+.sss-category { font-style: italic; font-size: 0.85rem; color: var(--c-faint); font-family: var(--font-heading); letter-spacing: 0.02em; text-transform: uppercase; }
+
+.sss-card-title { font-family: var(--font-heading); font-size: clamp(1.4rem, 2.5vw, 1.85rem); font-weight: 700; color: var(--c-text); line-height: 1.2; transition: color 280ms cubic-bezier(0.22,1,0.36,1), text-shadow 280ms cubic-bezier(0.22,1,0.36,1); }
+.sss-card:hover .sss-card-title { color: var(--c-hover); text-shadow: 1px 0.7px 0 hsl(0 0% 0% / 0.25); }
+@media (max-width: 767px) { .sss-card-title { font-size: 1.2rem; line-height: 1.25; } }
+
+.sss-card-desc { font-size: 0.9rem; line-height: 1.75; color: var(--c-mute); }
+.sss-card-desc strong { color: inherit; font-weight: inherit; cursor: default; transition: color 220ms cubic-bezier(0.22,1,0.36,1), text-shadow 220ms cubic-bezier(0.22,1,0.36,1); }
+.sss-card-desc strong:hover { color: var(--c-hover); text-shadow: 1px 0.7px 0 hsl(0 0% 0% / 0.25); }
+@media (max-width: 767px) { .sss-card-desc { font-size: 0.84rem; line-height: 1.6; } }
+
+.sss-stats { display: flex; flex-wrap: wrap; gap: 32px; padding-top: 8px; }
+.sss-stat { display: flex; flex-direction: column; gap: 2px; }
+.sss-stat-value { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 700; color: var(--c-text); line-height: 1.2; }
+.sss-stat-label { font-size: 0.72rem; color: var(--c-faint); text-transform: uppercase; letter-spacing: 0.05em; }
+@media (max-width: 767px) {
+  .sss-stats { gap: 16px 20px; padding-top: 4px; }
+  .sss-stat-value { font-size: 1.1rem; }
+  .sss-stat-label { font-size: 0.66rem; }
+}
+
+.sss-cta { font-size: 0.85rem; font-weight: 600; color: var(--c-text); padding: 10px 20px; border: 1px solid var(--c-border); border-radius: 999px; width: fit-content; transition: background 280ms cubic-bezier(0.22,1,0.36,1), color 280ms cubic-bezier(0.22,1,0.36,1), box-shadow 280ms cubic-bezier(0.22,1,0.36,1), border-color 280ms cubic-bezier(0.22,1,0.36,1); }
+.sss-cta:hover, .sss-card:hover .sss-cta { background: var(--c-text); color: var(--c-bg); border-color: var(--c-text); box-shadow: 0 4px 14px -4px hsl(0 0% 0% / 0.25); }
+@media (max-width: 767px) { .sss-cta { font-size: 0.78rem; padding: 8px 16px; } }
+
+.sss-card-visual { display: flex; align-items: center; justify-content: center; padding: 24px; }
+@media (min-width: 768px) { .sss-card-visual { padding: 32px; } }
+@media (max-width: 767px) { .sss-card-visual { padding: 14px 14px 0; } }
+
+.sss-card-img { width: 100%; max-width: 480px; height: auto; border-radius: 28px; object-fit: cover; aspect-ratio: 16/9; overflow: hidden; }
+@media (max-width: 767px) { .sss-card-img { border-radius: 18px; } }
+
+/* Title + category links inherit color, follow hover token */
+.sss-category-link { display: inline-block; color: inherit; text-decoration: none; transition: color 220ms cubic-bezier(0.22,1,0.36,1), text-shadow 220ms cubic-bezier(0.22,1,0.36,1); }
+.sss-category-link:hover .sss-category { color: var(--c-hover); text-shadow: 1px 0.7px 0 hsl(0 0% 0% / 0.2); }
+.sss-card-title-link { color: inherit; text-decoration: none; transition: color 220ms cubic-bezier(0.22,1,0.36,1), text-shadow 220ms cubic-bezier(0.22,1,0.36,1); }
+.sss-card-title-link:hover { color: var(--c-hover); text-shadow: 1px 0.7px 0 hsl(0 0% 0% / 0.25); }
+
+/* Inline keyword links in description — inherit color, hover to --c-hover */
+.sss-card-desc .sss-desc-link { color: inherit; text-decoration: none; transition: color 220ms cubic-bezier(0.22,1,0.36,1), text-shadow 220ms cubic-bezier(0.22,1,0.36,1); }
+.sss-card-desc .sss-desc-link strong { color: inherit; font-weight: inherit; }
+.sss-card-desc .sss-desc-link:hover,
+.sss-card-desc .sss-desc-link:hover strong { color: var(--c-hover); text-shadow: 1px 0.7px 0 hsl(0 0% 0% / 0.25); }
+
+/* Green cards (3,4) body text is forced black — inline links must hover white */
+.sss-card[data-step="3"] .sss-card-desc .sss-desc-link:hover,
+.sss-card[data-step="3"] .sss-card-desc .sss-desc-link:hover strong,
+.sss-card[data-step="4"] .sss-card-desc .sss-desc-link:hover,
+.sss-card[data-step="4"] .sss-card-desc .sss-desc-link:hover strong {
+  color: hsl(0 0% 100%);
+  text-shadow: 1px 0.7px 0 hsl(0 0% 0% / 0.3);
+}
+
+/* Video thumbnail button */
+.sss-video-thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.sss-video-thumb:hover .sss-card-img {
+  filter: brightness(0.75);
+}
+.sss-video-thumb .sss-card-img {
+  transition: filter 300ms ease;
+}
+
+/* Animated play button */
+.sss-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: opacity 300ms ease;
+  animation: sss-pulse-play 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.sss-video-thumb:hover .sss-play-btn {
+  opacity: 1;
+  animation-play-state: paused;
+}
+.sss-play-bg {
+  transition: fill-opacity 300ms ease;
+}
+.sss-video-thumb:hover .sss-play-bg {
+  fill-opacity: 1;
+}
+
+@keyframes sss-pulse-play {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.85; }
+  50% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+}
+
+/* Embedded iframe */
+/* Iframe wrapper with loading state */
+.sss-iframe-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: hsl(0 0% 8%);
+}
+.sss-card-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+}
+.sss-iframe-loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(0 0% 100% / 0.6);
+  z-index: 1;
+}
+.sss-spinner {
+  animation: sss-spin 0.8s linear infinite;
+}
+@keyframes sss-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Flip card: image-front / video-back ─────────────────────────────
+   Container provides perspective; .sss-flip-inner rotates Y on hover.
+   Faces use backface-visibility:hidden so only the visible face shows.
+   Hover-shift rule (no translateY): only rotation here, no positional drift.
+   ──────────────────────────────────────────────────────────────────── */
+.sss-flip {
+   position: relative;
+   width: 100%;
+   max-width: 480px;
+   aspect-ratio: 16/9;
+   perspective: 1400px;
+   border-radius: 24px;
+   overflow: hidden;
+   isolation: isolate;
+ }
+ .sss-flip-inner {
+   position: relative;
+   width: 100%;
+   height: 100%;
+   transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+   transform-style: preserve-3d;
+   will-change: transform;
+   border-radius: 24px;
+ }
+ .sss-flip[data-flipped="true"] .sss-flip-inner {
+   transform: rotateY(180deg);
+ }
+ .sss-flip-face {
+   position: absolute;
+   inset: 0;
+   width: 100%;
+   height: 100%;
+   border-radius: 24px;
+   overflow: hidden;
+   backface-visibility: hidden;
+   -webkit-backface-visibility: hidden;
+ }
+ .sss-flip-front {
+   background: hsl(0 0% 8%);
+ }
+ .sss-flip-back {
+   background: hsl(0 0% 4%);
+   transform: rotateY(180deg);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+ }
+ /* Inside flip, the image must fill the face (override max-width/aspect) — keep radius to clip in browsers where 3D transform breaks parent overflow */
+ .sss-flip-front .sss-card-img {
+   width: 100%;
+   height: 100%;
+   max-width: none;
+   border-radius: 24px;
+   aspect-ratio: auto;
+   object-fit: cover;
+ }
+ .sss-flip-front.sss-video-thumb {
+   max-width: none;
+   width: 100%;
+   height: 100%;
+   border-radius: 24px;
+ }
+.sss-flip-back .sss-card-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+}
+.sss-flip-back .sss-iframe-loader {
+  color: hsl(0 0% 100% / 0.6);
+}
+/* Reduced motion: fade swap instead of rotation */
+@media (prefers-reduced-motion: reduce) {
+  .sss-flip-inner { transition: none; }
+  .sss-flip[data-flipped="true"] .sss-flip-inner { transform: none; }
+  .sss-flip-back { transform: none; opacity: 0; transition: opacity 200ms ease; }
+  .sss-flip[data-flipped="true"] .sss-flip-back { opacity: 1; }
+  .sss-flip[data-flipped="true"] .sss-flip-front { opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Treatment Process Sticky — 2-column sticky header + stacked cards
+   ═══════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   Treatment Process — DesignMonks Work Process replica
+   Left progress bar + right stacking cards
+   ═══════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════
+   Treatment Process — DesignMonks sticky-stack
+   ══════════════════════════════════════════════════ */
+
+.tp-section {
+  /* Light green tint — brand primary at very low saturation/high lightness */
+  background: hsl(135 45% 95%);
+  color: hsl(0 0% 10%);
+  /* CRITICAL: overflow must be visible for sticky to work */
+  overflow: visible;
+}
+
+.tp-container {
+  max-width: 1248px;
+  margin: 0 auto;
+  padding: 80px 24px 120px;
+}
+
+/* Header */
+.tp-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 64px;
+}
+.tp-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  margin-bottom: 16px;
+  padding: 6px 20px;
+  border-radius: 999px;
+  border: 1px solid hsl(var(--primary-bright) / 0.25);
+  color: hsl(var(--primary-bright));
+}
+.tp-heading {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  line-height: 1.15;
+  font-weight: 700;
+  color: hsl(0 0% 10%);
+}
+.tp-heading em {
+  font-style: italic;
+  color: hsl(var(--primary-bright));
+}
+.tp-subtitle {
+  margin-top: 20px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: hsl(0 0% 40%);
+}
+
+/* Body: rail + cards */
+.tp-body {
+  display: flex;
+  gap: 0;
+  position: relative;
+  align-items: stretch;
+}
+
+/* ── Left progress rail ── */
+.tp-rail-col {
+  flex-shrink: 0;
+  width: 72px;
+  position: relative;
+  align-self: stretch;
+  /* height set inline via ResizeObserver to match the rendered .tp-stack */
+}
+.tp-rail-sticky {
+  position: sticky;
+  top: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Solid green circular badge with the active medical icon in white */
+.tp-rail-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  background: hsl(var(--primary-bright));
+  color: hsl(0 0% 100%);
+  box-shadow:
+    0 8px 22px -8px hsl(var(--primary-bright) / 0.55),
+    0 2px 6px -2px hsl(0 0% 0% / 0.12);
+}
+.tp-rail-icon-svg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 220ms ease, transform 220ms ease;
+  color: hsl(0 0% 100%);
+}
+.tp-rail-icon-svg[data-active="true"] {
+  opacity: 1;
+  transform: scale(1);
+}
+.tp-rail-track {
+  width: 3px;
+  background: hsl(0 0% 85%);
+  border-radius: 3px;
+  margin-top: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: height 120ms ease;
+}
+.tp-rail-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: hsl(var(--primary-bright));
+  border-radius: 3px;
+  transition: height 80ms linear;
+}
+
+/* ── Sticky stack column ── */
+.tp-stack {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  height: 400vh;
+}
+
+/* Each card pins at the same top — next card slides over previous */
+.tp-card-outer {
+  /* sticky positioning applied inline (desktop only) */
+  display: block;
+}
+
+/* The card itself */
+.tp-card {
+  border-radius: 24px;
+  padding: 44px 48px;
+  display: flex;
+  align-items: stretch;
+  gap: 32px;
+  min-height: 380px;
+  background: hsl(0 0% 100%);
+  border: 1px solid hsl(0 0% 90%);
+  box-shadow: 0 24px 60px -24px hsl(0 0% 0% / 0.35);
+  transition: box-shadow 280ms ease;
+}
+
+/* ── Brand Green → Navy palette (steps 1-2 reuse homepage Comprehensive Treatment colors) ── */
+/* T18–T21 (2026-05-17): Step 1 surface lightened to a premium pale-mint
+   tint — low-alpha --primary-bright over white — so the bright brand green
+   no longer dominates the journey rhythm. Dark text overrides below give
+   strong AA contrast on the lighter surface. */
+.tp-card[data-step="1"] {
+  background-color: hsl(0 0% 100%);
+  background-image: linear-gradient(0deg, hsl(var(--primary-bright) / 0.14), hsl(var(--primary-bright) / 0.14));
+  border-color: hsl(var(--primary-darker) / 0.35);
+  color: hsl(0 0% 8%);
+}
+.tp-card[data-step="2"] { background: #0B5E22; border-color: #094a1b; color: hsl(0 0% 95%); }
+.tp-card[data-step="3"] { background: #11303e; border-color: #0d2834; color: hsl(0 0% 95%); }
+.tp-card[data-step="4"] { background: #0c1a2e; border-color: #091524; color: hsl(0 0% 95%); }
+
+/* All cards: light text */
+.tp-card[data-step] .tp-card-title { color: hsl(0 0% 100%); }
+.tp-card[data-step] .tp-card-desc { color: hsl(0 0% 85%); }
+.tp-card[data-step] .tp-tasks-heading { color: hsl(0 0% 92%); }
+.tp-card[data-step] .tp-tag { color: hsl(0 0% 100%); background: hsl(0 0% 100% / 0.12); border-color: hsl(0 0% 100% / 0.15); }
+.tp-card[data-step] .tp-card-visual { color: hsl(0 0% 100% / 0.1); }
+.tp-card[data-step] .tp-badge { background: hsl(0 0% 100% / 0.18); color: hsl(0 0% 100%); }
+
+/* T21–T24, T32 — Step 1 card sits on bright brand green (#14bb3e); white text
+   fails AA contrast (~2.6:1). Switch Step 1 body/title/badge/tasks to
+   black/near-black for legibility (~6.5:1) across all TreatmentProcessSticky
+   variants: Liver, Gallbladder, Pancreatic, Biliary, and Mentorship Phase 1.
+   Other steps (2–4) keep their dark-surface white text. */
+.tp-card[data-step="1"] .tp-card-title { color: hsl(0 0% 8%); }
+.tp-card[data-step="1"] .tp-card-desc { color: hsl(0 0% 12%); }
+.tp-card[data-step="1"] .tp-tasks-heading { color: hsl(0 0% 8%); }
+.tp-card[data-step="1"] .tp-tag {
+  color: hsl(0 0% 8%);
+  background: hsl(0 0% 100% / 0.55);
+  border-color: hsl(0 0% 0% / 0.18);
+}
+.tp-card[data-step="1"] .tp-badge {
+  background: hsl(0 0% 0% / 0.16);
+  color: hsl(0 0% 8%);
+}
+.tp-card[data-step="1"] .tp-card-visual { color: hsl(0 0% 0% / 0.18); }
+
+.tp-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Badge pill */
+.tp-badge {
+  display: inline-block;
+  padding: 5px 18px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  background: hsl(var(--primary-bright));
+  color: hsl(0 0% 100%);
+}
+
+/* Badge as link — keeps pill look, no underline, hover darkens. No uplift. */
+.tp-badge-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              color 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tp-badge-link:hover,
+.tp-badge-link:focus-visible {
+  background: hsl(var(--primary-darker));
+  color: hsl(0 0% 100%);
+  box-shadow: 2px 2px 0 0 rgb(var(--hover-shadow-ink));
+  outline: none;
+}
+
+.tp-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: hsl(0 0% 10%);
+  margin-bottom: 12px;
+}
+
+/* Optional title link — matches homepage sticky-stack title link behaviour:
+   inherits the parent title color, no underline at rest, hover swaps to the
+   darker brand green with a sharp ink shadow. No transforms (no uplift). */
+.tp-card-title-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              text-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tp-card-title-link:hover,
+.tp-card-title-link:focus-visible {
+  color: hsl(var(--primary-darker));
+  text-shadow: 1px 0.7px 0 rgb(var(--hover-shadow-ink));
+  outline: none;
+}
+
+.tp-card-desc {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: hsl(0 0% 35%);
+  margin-bottom: 22px;
+  max-width: 600px;
+}
+
+.tp-tasks-heading {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: hsl(0 0% 15%);
+  margin-bottom: 10px;
+}
+
+.tp-task-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tp-tag {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: hsl(0 0% 30%);
+  background: hsl(0 0% 95%);
+  border: 1px solid hsl(0 0% 88%);
+}
+
+/* Tag as link — preserves pill look, no underline. Hover darkens to brand
+   green + sharp ink shadow. No transform / uplift (per global rule). */
+.tp-tag-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tp-tag-link:hover,
+.tp-tag-link:focus-visible {
+  color: hsl(0 0% 100%);
+  background: hsl(var(--primary-darker));
+  border-color: hsl(var(--primary-darker));
+  box-shadow: 2px 2px 0 0 rgb(var(--hover-shadow-ink));
+  outline: none;
+}
+.tp-card[data-step] .tp-tag-link:hover,
+.tp-card[data-step] .tp-tag-link:focus-visible {
+  color: hsl(0 0% 100%);
+  background: hsl(var(--primary-darker));
+  border-color: hsl(var(--primary-darker));
+}
+
+/* ── Right-side glassmorphism visual ── */
+.tp-card-visual {
+  flex-shrink: 0;
+  width: 280px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+@media (min-width: 900px) {
+  .tp-card-visual { display: flex; }
+}
+
+.tp-glass {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 32px;
+  background: linear-gradient(135deg, hsl(0 0% 100% / 0.18), hsl(0 0% 100% / 0.04));
+  border: 1px solid hsl(0 0% 100% / 0.22);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 30px 60px -20px hsl(0 0% 0% / 0.4),
+    inset 0 1px 0 hsl(0 0% 100% / 0.35),
+    inset 0 -20px 40px hsl(0 0% 0% / 0.15);
+  overflow: hidden;
+}
+.tp-glass::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle at 30% 25%, hsl(var(--primary-bright) / 0.55), transparent 55%);
+  filter: blur(30px);
+  pointer-events: none;
+}
+.tp-glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, hsl(0 0% 100% / 0.18) 0%, transparent 45%);
+  pointer-events: none;
+}
+.tp-glass-orb {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, hsl(var(--primary-bright) / 0.9), hsl(var(--primary-bright) / 0.2) 60%, transparent 75%);
+  filter: blur(2px);
+  z-index: 0;
+}
+.tp-glass-icon {
+  position: relative;
+  z-index: 1;
+  width: 92px;
+  height: 92px;
+  color: hsl(0 0% 100%);
+  filter: drop-shadow(0 4px 12px hsl(0 0% 0% / 0.4));
+}
+
+/* Planning variant — three layered glass cards */
+.tp-glass--planning .tp-glass-card {
+  position: absolute;
+  width: 120px;
+  height: 150px;
+  border-radius: 16px;
+  background: linear-gradient(150deg, hsl(0 0% 100% / 0.28), hsl(0 0% 100% / 0.08));
+  border: 1px solid hsl(0 0% 100% / 0.3);
+  box-shadow: 0 8px 24px -6px hsl(0 0% 0% / 0.35);
+  backdrop-filter: blur(8px);
+}
+.tp-glass--planning .tp-glass-card--1 { transform: translate(-32px, 14px) rotate(-10deg); z-index: 1; }
+.tp-glass--planning .tp-glass-card--2 { transform: translate(0, -8px) rotate(2deg); z-index: 2; }
+.tp-glass--planning .tp-glass-card--3 { transform: translate(32px, 14px) rotate(10deg); z-index: 3; }
+
+/* Per-step glow tints */
+.tp-glass--diagnosis::before { background: radial-gradient(circle at 30% 25%, hsl(170 70% 55% / 0.55), transparent 55%); }
+.tp-glass--planning::before  { background: radial-gradient(circle at 30% 25%, hsl(150 70% 55% / 0.5),  transparent 55%); }
+.tp-glass--surgery::before   { background: radial-gradient(circle at 30% 25%, hsl(140 75% 55% / 0.55), transparent 55%); }
+.tp-glass--recovery::before  { background: radial-gradient(circle at 30% 25%, hsl(135 75% 50% / 0.55), transparent 55%); }
+
+/* ── Mobile: no sticky, no rail ── */
+@media (max-width: 899px) {
+  .tp-container { padding: 48px 16px 64px; }
+  .tp-body { flex-direction: column; }
+  .tp-card { padding: 24px; gap: 16px; min-height: 0; }
+  .tp-card-outer { margin-bottom: 16px; }
+}
+
+/* =========================================================================
+   Interactive Organ Orbit — Dr. Arefin hero ( /hero-section-update )
+   3 colorful 3D organ icons floating around portrait.
+   - Idle: gentle float + slow rotate (continuous, ambient — not hover-triggered)
+   - Portrait hover: orbs energize (saturation + glow boost)
+   - Orb hover/focus: tooltip card with catchy question + CTA link
+   - Respects no-hover-uplift constraint: NO hover scale/translate on orbs;
+     only saturation, glow, drop-shadow, tooltip reveal change on hover.
+   ========================================================================= */
+@keyframes organ-float-a {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%      { transform: translateY(-12px) rotate(3deg); }
+}
+@keyframes organ-float-b {
+  0%, 100% { transform: translateY(-6px) rotate(2deg); }
+  50%      { transform: translateY(8px) rotate(-4deg); }
+}
+@keyframes organ-float-c {
+  0%, 100% { transform: translateY(0) rotate(4deg); }
+  50%      { transform: translateY(-10px) rotate(-2deg); }
+}
+@keyframes organ-glow-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%      { opacity: 0.6;  transform: scale(1.08); }
+}
+
+.arefin .organ-stage {
+  position: relative;
+  overflow: visible;
+}
+
+.arefin .organ-portrait-wrap {
+  position: relative;
+  cursor: default;
+  outline: none;
+}
+
+/* ORB container — anchors absolute position; transitions saturate/shadow only.
+   --organ-tooltip-gap: shared CSS gap from orb box edge to tooltip card edge.
+   Negative because each orb image has transparent padding around the actual
+   organ pixels — pulling the card inward yields a visible ~40px gap. */
+.arefin .organ-orb {
+  /* Positive gap = real visible distance from organ pixels to tooltip card.
+     Compensation for transparent PNG padding now lives on --organ-img-scale,
+     not on a negative tooltip offset. */
+  --organ-tooltip-gap: 16px;
+  --organ-img-scale: 1.28;
+  position: absolute;
+  display: inline-block;
+  width: 168px;
+  height: 168px;
+  z-index: 3;
+  text-decoration: none;
+  outline: none;
+  filter: saturate(1.25) brightness(1.05) drop-shadow(0 10px 18px rgba(0,0,0,0.22));
+  transform: scale(1);
+  transition: filter 500ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, filter;
+}
+
+/* Per-organ size emphasis: gallbladder is the hero (largest);
+   liver + stomach are noticeably smaller supporting orbs. */
+.arefin .organ-orb--mid-right   { width: 156px; height: 156px; }
+.arefin .organ-orb--top-left    { width: 134px; height: 134px; --organ-tooltip-gap: 6px; }
+.arefin .organ-orb--bottom-left { width: 134px; height: 134px; }
+
+@media (max-width: 1023px) {
+  .arefin .organ-orb { width: 110px; height: 110px; }
+  .arefin .organ-orb--mid-right   { width: 104px; height: 104px; }
+  .arefin .organ-orb--top-left    { width: 90px;  height: 90px; --organ-tooltip-gap: 4px; }
+  .arefin .organ-orb--bottom-left { width: 90px;  height: 90px; }
+}
+
+/* Closer-in positions; orbs overlap portrait edge slightly.
+   NOTE: class names retain legacy directional suffixes, but coords below
+   reflect the current visual layout requested by the design:
+   - --top-left  → LIVER, placed mid-left (chest height, left of portrait)
+   - --mid-right → GALLBLADDER, placed top-right (head/shoulder height) */
+.arefin .organ-orb--top-left   { top: 30%; left: -12%; }
+.arefin .organ-orb--mid-right  { top: 16%; right: -8%; }
+.arefin .organ-orb--bottom-left{ bottom: 4%; left: -8%; }
+
+/* Mobile orbit: pull orbs inward so tooltips stay within the viewport.
+   Gap stays positive — image scale already absorbs the transparent PNG padding. */
+@media (max-width: 640px) {
+  .arefin .organ-orb { width: 72px; height: 72px; --organ-tooltip-gap: 10px; --organ-img-scale: 1.22; }
+  .arefin .organ-orb--mid-right   { width: 76px; height: 76px; }
+  .arefin .organ-orb--top-left    { width: 68px; height: 68px; --organ-tooltip-gap: 4px; }
+  .arefin .organ-orb--bottom-left { width: 68px; height: 68px; --organ-img-scale: 1.18; }
+  /* Tucked inward so the orbs hug Dr. Arefin's silhouette
+     (liver near left chest, gallbladder near right shoulder,
+     stomach near lower-left torso). */
+  .arefin .organ-orb--top-left   { top: 32%; left: -6%; right: auto; bottom: auto; }
+  .arefin .organ-orb--mid-right  { top: 4%;  right: -6%; left: auto; bottom: auto; }
+  .arefin .organ-orb--bottom-left{ bottom: 8%; left: -6%; right: auto; top: auto; }
+}
+@media (max-width: 400px) {
+  .arefin .organ-orb,
+  .arefin .organ-orb--mid-right { width: 64px; height: 64px; }
+  .arefin .organ-orb--top-left,
+  .arefin .organ-orb--bottom-left { width: 58px; height: 58px; }
+}
+/* Mobile tooltip block moved AFTER the desktop tooltip rules below
+   (search for "MOBILE TOOLTIP OVERRIDES") so its transforms win the
+   cascade against `.organ-orb:hover .organ-tooltip` desktop rules. */
+
+/* Inner wrap holds the float/rotate animation so the outer Link can
+   freely change filter/shadow without conflicting transforms. */
+.arefin .organ-orb-img-wrap {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: organ-float-a 6s ease-in-out infinite;
+  will-change: transform;
+}
+.arefin .organ-orb--mid-right   .organ-orb-img-wrap { animation-name: organ-float-b; animation-duration: 5.2s; }
+.arefin .organ-orb--bottom-left .organ-orb-img-wrap { animation-name: organ-float-c; animation-duration: 6.8s; }
+
+.arefin .organ-orb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  /* Visually crops transparent PNG padding so the organ reaches the orb box edge.
+     Per-orb overrides below fine-tune each PNG's actual padding. */
+  transform: scale(var(--organ-img-scale, 1));
+  transform-origin: center;
+}
+/* Tuned via /?debug=organ-gap to land each visible gap near ~40px on desktop. */
+.arefin .organ-orb--mid-right   .organ-orb-img { --organ-img-scale: 1.55; } /* gallbladder PNG has heavy left padding */
+.arefin .organ-orb--top-left    .organ-orb-img { --organ-img-scale: 1.20; } /* liver */
+.arefin .organ-orb--bottom-left .organ-orb-img { --organ-img-scale: 1.00; } /* stomach PNG already tight on top */
+
+/* Soft radial green glow behind each orb */
+.arefin .organ-orb-glow {
+  position: absolute;
+  inset: -18%;
+  border-radius: 50%;
+  background: radial-gradient(circle, hsl(var(--primary-bright) / 0.35) 0%, hsl(var(--primary-bright) / 0.12) 45%, transparent 72%);
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 400ms ease, transform 400ms ease;
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(12px);
+}
+
+/* Portrait hover/focus -> ONLY soften the glow on all orbs (no scale).
+   Individual zoom is reserved for the orb the user actually hovers. */
+.arefin .organ-portrait-wrap:hover ~ .organ-orb .organ-orb-glow,
+.arefin .organ-portrait-wrap:focus-visible ~ .organ-orb .organ-orb-glow {
+  opacity: 0.6;
+  transform: scale(0.95);
+}
+
+/* Individual orb hover/focus -> intensify with bigger scale + soft neutral shadow */
+.arefin .organ-orb:hover,
+.arefin .organ-orb:focus-visible {
+  filter: saturate(1.4) brightness(1.08) drop-shadow(0 18px 24px rgba(0,0,0,0.28));
+  transform: scale(1.45);
+  z-index: 6;
+}
+.arefin .organ-orb:hover .organ-orb-glow,
+.arefin .organ-orb:focus-visible .organ-orb-glow {
+  opacity: 0.55;
+  transform: scale(1.05);
+  background: radial-gradient(circle, hsl(var(--primary-bright) / 0.28) 0%, hsl(var(--primary-bright) / 0.1) 50%, transparent 75%);
+}
+
+/* Tooltip card */
+.arefin .organ-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + var(--organ-tooltip-gap));
+  transform: translateX(-50%) translateY(14px) scale(0.9);
+  transform-origin: bottom center;
+  width: max-content;
+  max-width: 320px;
+  padding: 14px 16px;
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border: 1px solid hsl(var(--primary-bright) / 0.5);
+  border-radius: 14px;
+  box-shadow: 0 16px 36px rgba(0,0,0,0.32), 0 0 0 1px hsl(var(--primary-bright) / 0.18);
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity, transform;
+  /* Delayed exit (200ms) prevents flicker when the cursor briefly leaves
+     the orb/bridge while traveling toward the CTA button. */
+  transition: opacity 180ms ease-out 200ms, transform 220ms cubic-bezier(0.22, 1, 0.36, 1) 200ms;
+  z-index: 7;
+}
+/* Invisible "bridge" between the orb and the tooltip so the cursor can
+   travel from the icon to the CTA button without losing :hover state. */
+.arefin .organ-tooltip::before {
+  content: "";
+  position: absolute;
+  /* Default (top-anchored tooltip): bridge sits below the card, covering
+     the gap down to the orb. */
+  left: -24px;
+  right: -24px;
+  top: 100%;
+  height: 36px;
+  background: transparent;
+  pointer-events: auto;
+}
+.arefin .organ-orb--mid-right .organ-tooltip::before {
+  /* Tooltip opens BELOW the orb (right-aligned) — bridge sits above the card. */
+  top: auto;
+  bottom: 100%;
+  left: -24px;
+  right: -24px;
+  width: auto;
+  height: 36px;
+}
+.arefin .organ-orb--top-left .organ-tooltip::before {
+  /* Tooltip opens to the RIGHT of the orb — bridge sits on the left side. */
+  top: -24px;
+  bottom: -24px;
+  right: 100%;
+  left: auto;
+  width: 36px;
+  height: auto;
+}
+.arefin .organ-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  background: hsl(var(--card));
+  border-right: 1px solid hsl(var(--primary-bright) / 0.5);
+  border-bottom: 1px solid hsl(var(--primary-bright) / 0.5);
+}
+.arefin .organ-orb--mid-right .organ-tooltip {
+  /* Anchor BELOW the orb, aligned to the orb's RIGHT edge so the card
+     extends down-and-left into empty space — never overlapping the
+     portrait that sits to the left of this orb. */
+  left: auto;
+  right: 0;
+  top: calc(100% + var(--organ-tooltip-gap));
+  bottom: auto;
+  max-width: min(280px, calc(100vw - 32px));
+  transform-origin: top right;
+  transform: translateX(0) translateY(-14px) scale(0.9);
+}
+.arefin .organ-orb--mid-right .organ-tooltip::after {
+  /* Arrow points UP toward the orb, anchored near the right edge of the card. */
+  top: 0;
+  left: auto;
+  right: 24px;
+  bottom: auto;
+  margin: -6px 0 0 0;
+  transform: rotate(45deg);
+  border-top: 1px solid hsl(var(--primary-bright) / 0.5);
+  border-left: 1px solid hsl(var(--primary-bright) / 0.5);
+  border-right: none;
+  border-bottom: none;
+}
+/* Liver orb sits at the top-left of the portrait stage, which itself sits
+   on the right 40% of the page. Opening the tooltip to the right pushed it
+   past the viewport (clipped by global overflow-x:hidden). Anchor it BELOW
+   the orb instead, aligned to the orb's left edge, with a tighter max-width
+   so it always stays inside the viewport. */
+.arefin .organ-orb--top-left .organ-tooltip {
+  left: 0;
+  right: auto;
+  top: calc(100% + var(--organ-tooltip-gap));
+  bottom: auto;
+  max-width: min(280px, calc(100vw - 32px));
+  transform-origin: top left;
+  transform: translateX(0) translateY(-14px) scale(0.9);
+}
+.arefin .organ-orb--top-left .organ-tooltip::before {
+  /* Bridge above the card to cover the gap up to the orb. */
+  top: auto;
+  bottom: 100%;
+  left: -24px;
+  right: -24px;
+  width: auto;
+  height: 36px;
+}
+.arefin .organ-orb--top-left .organ-tooltip::after {
+  top: 0;
+  left: 24px;
+  bottom: auto;
+  margin: -6px 0 0 0;
+  transform: rotate(45deg);
+  border-top: 1px solid hsl(var(--primary-bright) / 0.5);
+  border-left: 1px solid hsl(var(--primary-bright) / 0.5);
+  border-right: none;
+  border-bottom: none;
+}
+.arefin .organ-orb:hover .organ-tooltip,
+.arefin .organ-orb:focus-visible .organ-tooltip,
+.arefin .organ-orb:focus-within .organ-tooltip,
+.arefin .organ-orb.is-active .organ-tooltip,
+.arefin .organ-tooltip:hover,
+.arefin .organ-tooltip:focus-within {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0) scale(1);
+  transition: opacity 220ms ease-out 90ms, transform 280ms cubic-bezier(0.22, 1, 0.36, 1) 90ms;
+}
+.arefin .organ-orb--mid-right:hover .organ-tooltip,
+.arefin .organ-orb--mid-right:focus-visible .organ-tooltip,
+.arefin .organ-orb--mid-right:focus-within .organ-tooltip,
+.arefin .organ-orb--mid-right .organ-tooltip:hover,
+.arefin .organ-orb--mid-right .organ-tooltip:focus-within {
+  transform: translateX(0) translateY(0) scale(1);
+}
+.arefin .organ-orb--top-left:hover .organ-tooltip,
+.arefin .organ-orb--top-left:focus-visible .organ-tooltip,
+.arefin .organ-orb--top-left:focus-within .organ-tooltip,
+.arefin .organ-orb--top-left .organ-tooltip:hover,
+.arefin .organ-orb--top-left .organ-tooltip:focus-within {
+  transform: translateX(0) translateY(0) scale(1);
+}
+
+.arefin .organ-tooltip-q {
+  margin: 0 0 8px;
+  font-family: var(--font-arefin-heading, inherit);
+  font-size: 17px;
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  color: hsl(0 0% 100%);
+}
+.arefin .organ-tooltip-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 6px 11px;
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: hsl(0 0% 100%);
+  background: hsl(var(--primary-bright) / 0.92);
+  border: 1px solid hsl(var(--primary-bright));
+  border-radius: 7px;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  box-shadow: 2px 2px 0 0 hsl(var(--primary-darker) / 0.3);
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease,
+              box-shadow 180ms ease;
+}
+/* Direct hover/focus on the CTA itself — gives clear feedback when the
+   cursor is on the button (independent of the orb's hover state). */
+.arefin .organ-tooltip-cta:hover,
+.arefin .organ-tooltip-cta:focus-visible {
+  background: hsl(var(--primary-darker));
+  border-color: hsl(var(--primary-darker));
+  color: hsl(0 0% 100%);
+  box-shadow: 4px 4px 0 0 hsl(var(--primary-darker) / 0.6);
+}
+.arefin .organ-orb:hover .organ-tooltip-cta,
+.arefin .organ-orb:focus-visible .organ-tooltip-cta {
+  background: hsl(var(--primary-bright));
+  border-color: hsl(var(--primary-bright));
+  color: hsl(0 0% 100%);
+  box-shadow: 2px 2px 0 0 hsl(var(--primary-darker) / 0.35);
+}
+
+/* CTA label variants — desktop shows full label, mobile shows short label.
+   Default: full visible, short hidden. Mobile media query inverts. */
+.arefin .organ-tooltip-cta-full  { display: inline; }
+.arefin .organ-tooltip-cta-short { display: none; }
+
+/* Close affordance — hidden by default; shown on mobile when card is active. */
+.arefin .organ-tooltip-close { display: none; }
+
+/* ===== MOBILE TOOLTIP OVERRIDES =====================================
+   Placed AFTER all desktop tooltip rules (including
+   `.organ-orb:hover .organ-tooltip` and `.organ-tooltip-cta:hover`)
+   so the cascade resolves in the mobile block's favour for transforms,
+   width, and white-space when the card is shown via :hover / .is-active.
+   Without this ordering the desktop hover rule
+   `transform: translateX(-50%) translateY(0) scale(1)` was overriding
+   the per-orb mobile translates and pushing the card off-screen. */
+@media (max-width: 640px) {
+  /* Specificity bumped via .arefin .organ-stage ancestor chain to
+     guarantee these mobile rules beat any later-added desktop rules. */
+  .arefin .organ-stage .organ-orb .organ-tooltip {
+    width: 168px;
+    max-width: min(168px, calc(100vw - 56px));
+    padding: 10px 12px;
+    border-radius: 12px;
+    left: 0;
+    right: auto;
+    top: 0;
+    bottom: auto;
+    transform-origin: center;
+    transform: translate(0, 0) scale(0.92);
+    /* Inactive tooltips do not intercept taps — only orbs receive them. */
+    pointer-events: none;
+  }
+  /* Active card re-enables pointer events so the close × and CTA work. */
+  .arefin .organ-stage .organ-orb.is-active .organ-tooltip {
+    pointer-events: auto;
+  }
+  .arefin .organ-stage .organ-orb .organ-tooltip::after,
+  .arefin .organ-stage .organ-orb .organ-tooltip::before { display: none; }
+
+  .arefin .organ-stage .organ-tooltip-cta-full  { display: none; }
+  .arefin .organ-stage .organ-tooltip-cta-short { display: inline; }
+
+  /* Mobile close × — visible only when card is active (tap-revealed). */
+  .arefin .organ-stage .organ-orb.is-active .organ-tooltip-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: hsl(var(--surface-1, 0 0% 100%));
+    color: hsl(var(--foreground));
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid hsl(var(--border));
+    user-select: none;
+  }
+
+  .arefin .organ-stage .organ-tooltip-q { font-size: 12px; line-height: 1.22; margin-bottom: 5px; }
+  .arefin .organ-stage .organ-tooltip-cta {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    font-size: 10.5px;
+    line-height: 1.18;
+    padding: 5px 8px;
+    gap: 3px;
+  }
+
+  /* Resting per-orb belly-anchored translates */
+  .arefin .organ-stage .organ-orb--top-left .organ-tooltip   { transform: translate(73px, 46px) scale(0.92); }
+  .arefin .organ-stage .organ-orb--mid-right .organ-tooltip  { transform: translate(-165px, 144px) scale(0.92); }
+  .arefin .organ-stage .organ-orb--bottom-left .organ-tooltip{ transform: translate(73px, -96px) scale(0.92); }
+
+  /* Active/hover/focus per-orb translates — same anchor, scale up to 1 */
+  .arefin .organ-stage .organ-orb--top-left:hover .organ-tooltip,
+  .arefin .organ-stage .organ-orb--top-left:focus-visible .organ-tooltip,
+  .arefin .organ-stage .organ-orb--top-left:focus-within .organ-tooltip,
+  .arefin .organ-stage .organ-orb--top-left.is-active .organ-tooltip   { transform: translate(73px, 46px) scale(1); }
+
+  .arefin .organ-stage .organ-orb--mid-right:hover .organ-tooltip,
+  .arefin .organ-stage .organ-orb--mid-right:focus-visible .organ-tooltip,
+  .arefin .organ-stage .organ-orb--mid-right:focus-within .organ-tooltip,
+  .arefin .organ-stage .organ-orb--mid-right.is-active .organ-tooltip  { transform: translate(-165px, 144px) scale(1); }
+
+  .arefin .organ-stage .organ-orb--bottom-left:hover .organ-tooltip,
+  .arefin .organ-stage .organ-orb--bottom-left:focus-visible .organ-tooltip,
+  .arefin .organ-stage .organ-orb--bottom-left:focus-within .organ-tooltip,
+  .arefin .organ-stage .organ-orb--bottom-left.is-active .organ-tooltip{ transform: translate(73px, -96px) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arefin .organ-orb-img-wrap { animation: none; }
+  .arefin .organ-portrait-wrap:hover ~ .organ-orb .organ-orb-glow,
+  .arefin .organ-stage:hover .organ-orb .organ-orb-glow { animation: none; }
+}
+
+/* ===================================================================
+   Responsive Type Ramp utilities
+   Spec: Dr-Arefin-Spec/reviewer/10-typography-system.md
+   These classes are the canonical way to size headings and body text.
+   They live in @layer utilities so component-local rules in @layer
+   components/base lose to them, ensuring consistency across pages.
+   =================================================================== */
+@layer utilities {
+  .type-display {
+    font-family: var(--font-heading, 'Ubuntu'), system-ui, sans-serif;
+    font-size: var(--fs-display);
+    line-height: var(--lh-display);
+    letter-spacing: var(--ls-display);
+    font-weight: 700;
+  }
+  .type-h1 {
+    font-family: var(--font-heading, 'Ubuntu'), system-ui, sans-serif;
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    letter-spacing: var(--ls-h1);
+    font-weight: 700;
+  }
+  .type-h2 {
+    font-family: var(--font-heading, 'Ubuntu'), system-ui, sans-serif;
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: var(--ls-h2);
+    font-weight: 700;
+  }
+  .type-h3 {
+    font-family: var(--font-heading, 'Ubuntu'), system-ui, sans-serif;
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    letter-spacing: var(--ls-h3);
+    font-weight: 600;
+  }
+  .type-h4 {
+    font-family: var(--font-heading, 'Ubuntu'), system-ui, sans-serif;
+    font-size: var(--fs-h4);
+    line-height: var(--lh-h4);
+    letter-spacing: var(--ls-h4);
+    font-weight: 600;
+  }
+  .type-lede {
+    font-size: var(--fs-lede);
+    line-height: var(--lh-lede);
+    letter-spacing: var(--ls-body);
+    font-weight: 400;
+  }
+  .type-body {
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
+    font-weight: 400;
+  }
+  .type-small {
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    letter-spacing: var(--ls-body);
+  }
+  .type-micro {
+    font-size: var(--fs-micro);
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+  .type-eyebrow {
+    font-family: var(--font-heading, 'Ubuntu'), system-ui, sans-serif;
+    font-size: var(--fs-small);
+    line-height: 1.2;
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* Tap target — WCAG 2.5.5 minimum interactive size (44x44).
+     Apply to icon-only buttons, social links, lightbox controls,
+     pagination chevrons, and any anchor wrapping only an icon. */
+  .touch-target {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* iOS zoom prevention — Safari auto-zooms when a focused form field has
+     a font-size below 16px. Force ≥16px on mobile for all native form
+     controls (and shadcn Input/Textarea/Select which render to these).
+     Desktop unaffected since zoom-on-focus only fires on touch devices. */
+  @media (max-width: 767px) {
+    input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]),
+    textarea,
+    select {
+      font-size: 16px;
+    }
+  }
+
+  /* Global keyboard focus ring fallback — WCAG 2.4.7 (Focus Visible).
+     Applies to interactive elements without bespoke :focus-visible styles
+     (bespoke rings on nav, dropdowns, mega cards, hero links keep winning
+     via higher specificity). Mouse clicks suppressed via :focus-visible. */
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  [role="link"]:focus-visible,
+  [role="tab"]:focus-visible,
+  [role="menuitem"]:focus-visible,
+  summary:focus-visible,
+  [tabindex]:not([tabindex="-1"]):focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid hsl(var(--primary-bright, 134 80% 41%));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* ====== Dev-only: Organ tooltip-gap debug overlay ======
+   Activated when `body.is-debug-organ-gap` is set by OrganGapDebugOverlay
+   (only when URL contains ?debug=organ-gap). Forces all organ tooltips
+   visible so the user can see + measure the visible gap from the organ
+   pixels to the tooltip card. */
+html body.is-debug-organ-gap .arefin .organ-orb .organ-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0) scale(1);
+  outline: 2px dashed hsl(var(--primary-bright));
+  outline-offset: 2px;
+}
+html body.is-debug-organ-gap .arefin .organ-orb.organ-orb--mid-right .organ-tooltip {
+  transform: translateY(50%) translateX(0) scale(1);
+}
+html body.is-debug-organ-gap .arefin .organ-orb.organ-orb--top-left .organ-tooltip {
+  transform: translateX(0) translateY(0) scale(1);
+}
+html body.is-debug-organ-gap .arefin .organ-orb .organ-orb-img {
+  outline: 1px dashed rgba(255, 80, 80, 0.7);
+}
+
+.organ-gap-debug-panel {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 9999;
+  max-width: 360px;
+  padding: 12px 14px;
+  background: rgba(10, 10, 10, 0.92);
+  color: #fff;
+  border: 1px solid hsl(var(--primary-bright));
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.organ-gap-debug-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: hsl(var(--primary-bright));
+}
+.organ-gap-debug-panel table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.organ-gap-debug-panel th,
+.organ-gap-debug-panel td {
+  padding: 4px 6px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.organ-gap-debug-panel th {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+}
+.organ-gap-debug-hint {
+  margin-top: 8px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.65);
+}
+.organ-gap-debug-hint code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+/* ===================================================================
+   Mobile drawer text/border pinning — task 08-02
+   The .arefin-mobile-panel always renders as a LIGHT surface (white
+   in light mode, hsl(0 0% 97%) in dark mode). Per-link Tailwind
+   utilities (text-foreground, text-popover-foreground, text-body-text,
+   border-border) live in @layer utilities and silently win over the
+   panel's own color rule in @layer components — invisible text in
+   dark mode. Pin descendants here in @layer utilities to neutralise.
+   =================================================================== */
+@layer utilities {
+  /* Class chaining ".x.x.x" raises specificity to (0,3,0) so we beat
+     .arefin-header-transparent .arefin-nav-item (0,2,0) without !important.
+     The element still has only one occurrence of .arefin-mobile-link, the
+     chain is purely a specificity-boost technique. */
+  /* Prefix with body + .arefin-mobile-panel parent → specificity (0,3,1)
+     beats both .arefin-header-transparent .arefin-nav-item (0,2,0) and any
+     stray (0,3,0) Tailwind/utility on the link itself. */
+  body .arefin-mobile-panel .arefin-mobile-link,
+  body .arefin-mobile-panel a.arefin-mobile-link,
+  body .arefin-mobile-panel button.arefin-mobile-link {
+    color: hsl(222 47% 11%);
+    background-color: transparent;
+    text-shadow: none;
+  }
+  body .arefin-mobile-panel .arefin-mobile-link:hover,
+  body .arefin-mobile-panel .arefin-mobile-link:focus-visible {
+    color: hsl(var(--primary-darker));
+    background-color: hsl(var(--primary-bright) / 0.08);
+  }
+  body .arefin-mobile-panel .arefin-mobile-link[data-active="true"],
+  body .arefin-mobile-panel .arefin-mobile-link[aria-current="page"] {
+    color: hsl(var(--primary-darker));
+    background-color: hsl(var(--primary-bright) / 0.10);
+    font-weight: 600;
+  }
+  .arefin-mobile-link::after { display: none; }
+  /* Chevron icon inside expanded button — inherit the link color */
+  .arefin-mobile-link svg { color: currentColor; }
+
+  .arefin-mobile-divider {
+    border-top: 1px solid hsl(0 0% 88%);
+  }
+  .arefin-mobile-call.arefin-mobile-call.arefin-mobile-call {
+    color: hsl(222 47% 11%);
+    border: 1px solid hsl(0 0% 88%);
+    background-color: transparent;
+  }
+  .arefin-mobile-call.arefin-mobile-call.arefin-mobile-call:hover,
+  .arefin-mobile-call.arefin-mobile-call.arefin-mobile-call:focus-visible {
+    color: hsl(var(--primary-darker));
+    border-color: hsl(var(--primary-bright));
+  }
+  /* Submenu rows inside .arefin-mobile-panel — keep dark-on-light contrast */
+  .arefin-mobile-panel .arefin-dropdown-item-title { color: hsl(222 47% 11%); }
+  .arefin-mobile-panel .arefin-dropdown-item-desc  { color: hsl(222 20% 35%); }
+}
+
+/* ===================================================================
+   Mobile drawer secondary polish — task 08-03
+   Restores hover/focus green on Call CTA + chevron icon contrast +
+   submenu icon green tint that the broad task 08-02 pin would
+   otherwise neutralise. Same @layer utilities so it wins consistently.
+   =================================================================== */
+@layer utilities {
+  /* Call CTA — restore green on hover/focus/active */
+  .arefin-mobile-panel a:hover,
+  .arefin-mobile-panel a:focus-visible,
+  .arefin-mobile-panel button:hover,
+  .arefin-mobile-panel button:focus-visible {
+    color: hsl(var(--primary-darker));
+    border-color: hsl(var(--primary-bright));
+  }
+  /* Submenu icon — keep brand-green tint, not navy */
+  .arefin-mobile-panel .arefin-dropdown-item .text-primary\/70,
+  .arefin-mobile-panel .arefin-dropdown-item svg {
+    color: hsl(var(--primary-bright));
+  }
+  /* "View all X →" link — stays green at all times */
+  .arefin-mobile-panel a.text-primary,
+  .arefin-mobile-panel a.text-primary span,
+  .arefin-mobile-panel a.text-primary svg {
+    color: hsl(var(--primary-bright));
+  }
+  /* Chevron in expanded parent button — inherit dark navy from button rule */
+  .arefin-mobile-panel button[aria-expanded] svg {
+    color: currentColor;
+  }
+  /* Submenu container left border — switch primary tint to bright green */
+  .arefin-mobile-panel .border-primary,
+  .arefin-mobile-panel [class*="border-primary"] {
+    border-color: hsl(var(--primary-bright));
+  }
+  /* SlideButton (Book) — text MUST stay white inside the panel */
+  .arefin-mobile-panel .slide-button,
+  .arefin-mobile-panel .slide-button * {
+    color: #ffffff;
+  }
+}
+
+/* ===================================================================
+   Mobile drawer link contrast — UNLAYERED override (task 08-04)
+   Unlayered rules beat all @layer rules regardless of specificity.
+   Required because the .arefin-header-transparent .arefin-nav-item
+   rule lives in @layer utilities and was not being beaten by same-layer
+   higher-specificity selectors in this codebase.
+   =================================================================== */
+.arefin-mobile-panel .arefin-mobile-link,
+.arefin-mobile-panel .arefin-mobile-link:hover,
+.arefin-mobile-panel .arefin-mobile-link:focus-visible,
+.arefin-mobile-panel .arefin-mobile-link[data-active="true"],
+.arefin-mobile-panel .arefin-mobile-link[aria-current="page"],
+.arefin.dark .arefin-mobile-panel .arefin-mobile-link,
+.arefin.dark .arefin-mobile-panel .arefin-mobile-link:hover,
+.arefin.dark .arefin-mobile-panel .arefin-mobile-link:focus-visible,
+.arefin.dark .arefin-mobile-panel .arefin-mobile-link[data-active="true"],
+.arefin.dark .arefin-mobile-panel .arefin-mobile-link[aria-current="page"],
+.arefin.dark header .arefin-mobile-panel .arefin-mobile-link,
+.arefin.dark header .arefin-mobile-panel .arefin-mobile-link:hover,
+.arefin.dark header .arefin-mobile-panel .arefin-mobile-link:focus-visible,
+.arefin.dark header .arefin-mobile-panel .arefin-mobile-link[data-active="true"],
+.arefin.dark header .arefin-mobile-panel .arefin-mobile-link[aria-current="page"] {
+  text-shadow: none;
+  -webkit-text-fill-color: currentColor;
+}
+.arefin-mobile-panel .arefin-mobile-link {
+  color: hsl(222 47% 11%);
+  background-color: transparent;
+}
+.arefin-mobile-panel .arefin-mobile-link:hover,
+.arefin-mobile-panel .arefin-mobile-link:focus-visible {
+  color: hsl(var(--primary-darker));
+  background-color: hsl(var(--primary-bright) / 0.08);
+}
+.arefin-mobile-panel .arefin-mobile-link[data-active="true"],
+.arefin-mobile-panel .arefin-mobile-link[aria-current="page"] {
+  color: hsl(var(--primary-darker));
+  background-color: hsl(var(--primary-bright) / 0.10);
+  font-weight: 600;
+}
+.arefin-mobile-panel .arefin-mobile-link::after,
+.arefin-mobile-panel .arefin-mobile-link:hover::after,
+.arefin-mobile-panel .arefin-mobile-link:focus-visible::after,
+.arefin-mobile-panel .arefin-mobile-link[data-active="true"]::after {
+  display: none;
+  width: 0;
+}
+.arefin-mobile-panel .arefin-mobile-link svg { color: currentColor; }
+
+/* ===================================================================
+   Mobile drawer — kill sticky-hover on touch + clean active states.
+   Touch devices fire :hover on tap and leave it painted until another
+   tap. Gate :hover behind (hover: hover) so touch never triggers it,
+   then provide explicit aria-current / aria-expanded styling for state.
+   =================================================================== */
+@media (hover: none) {
+  .arefin-mobile-panel .arefin-mobile-link:hover,
+  .arefin-mobile-panel .arefin-dropdown-item:hover {
+    background-color: transparent;
+    color: hsl(222 47% 11%);
+  }
+  .arefin-mobile-panel .arefin-dropdown-item:hover .arefin-dropdown-item-title {
+    color: hsl(222 47% 11%);
+  }
+  /* Brief tap feedback only while finger is down */
+  .arefin-mobile-panel .arefin-mobile-link:active,
+  .arefin-mobile-panel .arefin-dropdown-item:active {
+    background-color: hsl(var(--primary-bright) / 0.10);
+    color: hsl(var(--primary-darker));
+  }
+}
+
+/* Parent toggle (Treatment) — open state visual distinct from hover */
+.arefin-mobile-panel .arefin-mobile-link[aria-expanded="true"] {
+  color: hsl(var(--primary-darker));
+  background-color: hsl(var(--primary-bright) / 0.08);
+}
+
+/* Child submenu item — current page state (overrides any inherited fill) */
+.arefin-mobile-panel .arefin-dropdown-item[aria-current="page"],
+.arefin-mobile-panel .arefin-dropdown-item[data-active="true"] {
+  background-color: hsl(var(--primary-bright) / 0.12);
+  border-color: hsl(var(--primary-bright));
+}
+.arefin-mobile-panel .arefin-dropdown-item[aria-current="page"] .arefin-dropdown-item-title,
+.arefin-mobile-panel .arefin-dropdown-item[data-active="true"] .arefin-dropdown-item-title {
+  color: hsl(var(--primary-darker));
+  font-weight: 400;
+}
+
+
+/* =========================================================================
+   Section-heading hover slowdown — global
+   Per user request: all section headings (h1/h2/h3) hover color + text-shadow
+   change must ease in over 0.4s so the tint reads as a smooth left-to-right
+   "fill" instead of an instant snap. No transform/position change.
+   ========================================================================= */
+.arefin h1,
+.arefin h2,
+.arefin h3,
+.arefin .satellite-h1,
+.arefin .hero-h1,
+.arefin .hero-h1-link,
+.arefin .hero-p-link,
+.arefin .init-a-title,
+.arefin .sss-card-title,
+.arefin .sss-card-title-link,
+.arefin .sss-category-link {
+  transition-property: color, text-shadow;
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =========================================================================
+   .heading-wipe — reusable true left-to-right text fill on hover
+   Drop on any heading/link/span to get a real wipe (not just a fade).
+   Uses background-clip:text + animated background-position. No layout shift.
+   Duration/easing matches project standard (0.4s / ease-out).
+
+   Usage:
+     <h2 class="heading-wipe">Your heading</h2>
+
+   Override colors per-instance with CSS vars:
+     --wipe-from: hsl(var(--foreground));   // resting color
+     --wipe-to:   hsl(var(--primary-darker)); // hovered color
+   ========================================================================= */
+.heading-wipe {
+  --wipe-from: currentColor;
+  --wipe-to: hsl(var(--primary-darker));
+  background-image: linear-gradient(
+    to right,
+    var(--wipe-to) 50%,
+    var(--wipe-from) 50%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  transition: background-position 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              text-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.heading-wipe:hover,
+.heading-wipe:focus-visible {
+  background-position: 0 0;
+  text-shadow: 1px 0.7px 0 rgb(var(--hover-shadow-ink) / 0.25);
+}
+@media (prefers-reduced-motion: reduce) {
+  .heading-wipe { transition: none; }
+}
+

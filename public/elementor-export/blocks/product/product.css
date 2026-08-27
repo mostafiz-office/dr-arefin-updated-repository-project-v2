@@ -1,0 +1,603 @@
+<style>
+/* =============================================================
+   Dr. Arefin — Elementor Export :: product.css v3.2.0
+   WooCommerce single-product = "/shop/appointment/" booking page.
+   Premium medical-booking restyle of the default Astra + WooCommerce
+   template. CSS only, no markup changes. No !important. Kebab-case.
+   Scoped under body.wp-theme-astra. Token source: global.css.
+   Spec: Dr-Arefin-Spec/wordpress-export/06-appointment-page-ui-spec.md
+   Reading order: portrait -> eyebrow -> title -> price ->
+   what's included -> Book button -> trust.
+   ============================================================= */
+
+/* -------------------------------------------------------------
+   0. Local token fallbacks (if global.css isn't on the shop template)
+   ------------------------------------------------------------- */
+body.wp-theme-astra.woocommerce,
+body.wp-theme-astra .woocommerce {
+  --primary-bright: 133 80% 41%;
+  --primary-darker: 128 91% 32%;
+  --background: 220 20% 6%;
+  --surface-section: 220 15% 9%;
+  --card: 220 18% 14%;
+  --foreground: 0 0% 95%;
+  --muted-foreground: 220 8% 65%;
+  --border: 220 15% 20%;
+  --container-max: 1248px;
+  --container-pad: 1.5rem;
+  --font-heading: 'Ubuntu', system-ui, -apple-system, sans-serif;
+  --font-body: 'Poppins', system-ui, -apple-system, sans-serif;
+  /* booking-card local palette (light focal surface on dark page) */
+  --bk-card: 0 0% 98%;
+  --bk-ink: 220 22% 11%;
+  --bk-ink-muted: 220 10% 40%;
+  --bk-panel: 220 16% 96%;
+  --bk-hairline: 220 14% 88%;
+}
+
+/* global safety — project rule */
+html, body { overflow-x: hidden; }
+
+/* -------------------------------------------------------------
+   1. PAGE CANVAS + container
+   ------------------------------------------------------------- */
+body.wp-theme-astra.single-product #page,
+body.wp-theme-astra.single-product #content,
+body.wp-theme-astra.single-product .site-content,
+body.wp-theme-astra.single-product #primary {
+  background-color: hsl(var(--background));
+}
+
+body.wp-theme-astra.single-product .ast-container,
+body.wp-theme-astra.single-product #primary > .ast-container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+body.wp-theme-astra.single-product .ast-woocommerce-container {
+  padding-block: clamp(2rem, 1rem + 4vw, 5rem);
+}
+
+body.wp-theme-astra.single-product .entry-content,
+body.wp-theme-astra.single-product article.product {
+  background-color: transparent;
+  color: hsl(var(--foreground));
+  font-family: var(--font-body);
+}
+
+/* Breadcrumb (sits above the product) */
+body.wp-theme-astra.single-product .woocommerce-breadcrumb {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: hsl(var(--muted-foreground));
+}
+body.wp-theme-astra.single-product .woocommerce-breadcrumb a {
+  color: hsl(var(--muted-foreground));
+  text-decoration: none;
+}
+body.wp-theme-astra.single-product .woocommerce-breadcrumb a:hover {
+  color: hsl(var(--primary-bright));
+}
+
+/* -------------------------------------------------------------
+   2. PRODUCT GRID — portrait (left) / booking card (right)
+   ------------------------------------------------------------- */
+body.wp-theme-astra.single-product div.product,
+body.wp-theme-astra.single-product.woocommerce div.product,
+body.wp-theme-astra.single-product.woocommerce-page div.product {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+  gap: clamp(1.75rem, 1rem + 3.5vw, 4.5rem);
+  align-items: start;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding-block: 0;
+  box-sizing: border-box;
+}
+
+/* Sale badge */
+body.wp-theme-astra.single-product div.product span.onsale {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  left: 1rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background: hsl(var(--primary-bright));
+  color: hsl(0 0% 100%);
+  font: 600 0.8125rem/1 var(--font-body);
+}
+
+/* -------------------------------------------------------------
+   3. PORTRAIT — dark frame, fills its column (no empty gutter)
+   ------------------------------------------------------------- */
+body.wp-theme-astra.single-product div.product .woocommerce-product-gallery,
+body.wp-theme-astra.single-product.woocommerce #content div.product div.images.woocommerce-product-gallery,
+body.wp-theme-astra.single-product.woocommerce-page #content div.product div.images.woocommerce-product-gallery,
+body.wp-theme-astra.single-product.woocommerce div.product div.images.woocommerce-product-gallery,
+body.wp-theme-astra.single-product.woocommerce-page div.product div.images.woocommerce-product-gallery {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  max-width: 480px;
+  min-width: 0;
+  float: none;
+  clear: none;
+  box-sizing: border-box;
+}
+
+body.wp-theme-astra.single-product div.product .woocommerce-product-gallery__wrapper,
+body.wp-theme-astra.single-product div.product .woocommerce-product-gallery__image {
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  box-shadow: 0 34px 70px -34px hsl(0 0% 0% / 0.85);
+  box-sizing: border-box;
+}
+
+body.wp-theme-astra.single-product div.product .woocommerce-product-gallery__image img,
+body.wp-theme-astra.single-product div.product .wp-post-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  min-width: 0;
+  border-radius: 20px;
+}
+
+body.wp-theme-astra.single-product div.product .woocommerce-product-gallery__trigger {
+  top: 1rem;
+  right: 1rem;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+}
+
+/* -------------------------------------------------------------
+   4. BOOKING CARD — the one bright focal surface
+   ------------------------------------------------------------- */
+body.wp-theme-astra.single-product div.product .summary.entry-summary,
+body.wp-theme-astra.single-product.woocommerce #content div.product div.summary.entry-summary,
+body.wp-theme-astra.single-product.woocommerce-page #content div.product div.summary.entry-summary,
+body.wp-theme-astra.single-product.woocommerce div.product div.summary.entry-summary,
+body.wp-theme-astra.single-product.woocommerce-page div.product div.summary.entry-summary {
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  float: none;
+  clear: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  border-radius: 20px;
+  background: hsl(var(--bk-card));
+  color: hsl(var(--bk-ink));
+  border: 1px solid hsl(var(--bk-hairline));
+  box-shadow: 0 34px 80px -38px hsl(0 0% 0% / 0.9);
+  box-sizing: border-box;
+}
+
+/* Eyebrow — green pill (white text = always AA) */
+body.wp-theme-astra.single-product .summary .single-product-category {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0;
+  padding: 0.4rem 0.8rem;
+  border-radius: 9999px;
+  background: hsl(var(--primary-bright));
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: hsl(0 0% 100%);
+}
+body.wp-theme-astra.single-product .summary .single-product-category a {
+  color: hsl(0 0% 100%);
+  text-decoration: none;
+}
+
+/* Title */
+body.wp-theme-astra.single-product .summary .product_title.entry-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 1.5rem + 2vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: 0;
+  font-weight: 700;
+  color: hsl(var(--bk-ink));
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+/* Price */
+body.wp-theme-astra.single-product .summary p.price,
+body.wp-theme-astra.single-product .summary .price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.8rem;
+  margin: 0;
+  font-family: var(--font-heading);
+  color: hsl(var(--bk-ink));
+}
+body.wp-theme-astra.single-product .summary p.price ins,
+body.wp-theme-astra.single-product .summary p.price ins .amount {
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 2rem;
+  color: hsl(var(--primary-darker));
+}
+body.wp-theme-astra.single-product .summary p.price del,
+body.wp-theme-astra.single-product .summary p.price del .amount {
+  opacity: 1;
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: hsl(var(--bk-ink-muted));
+  text-decoration: line-through;
+}
+
+/* Short description info box (inside the white card) */
+body.wp-theme-astra.single-product .summary .woocommerce-product-details__short-description {
+  margin: 0;
+  padding: 1rem 1.15rem;
+  border: 1px solid hsl(var(--bk-hairline));
+  border-left: 3px solid hsl(var(--primary-bright));
+  border-radius: 12px;
+  background: hsl(var(--bk-panel));
+  display: grid;
+  gap: 0.7rem;
+}
+body.wp-theme-astra.single-product .summary .woocommerce-product-details__short-description p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: hsl(var(--bk-ink));
+}
+body.wp-theme-astra.single-product .summary .woocommerce-product-details__short-description p strong {
+  color: hsl(var(--primary-darker));
+  font-weight: 800;
+}
+body.wp-theme-astra.single-product .summary .woocommerce-product-details__short-description a {
+  color: hsl(var(--primary-darker));
+  text-decoration: underline;
+}
+/* legacy <pre> fallback */
+body.wp-theme-astra.single-product .summary .woocommerce-product-details__short-description pre {
+  margin: 0; padding: 0; border: 0; background: transparent;
+  white-space: pre-wrap; word-break: break-word; overflow: visible;
+}
+body.wp-theme-astra.single-product .summary .woocommerce-product-details__short-description pre span {
+  display: block; background: transparent;
+  font: 500 0.95rem/1.6 var(--font-body); color: hsl(var(--bk-ink));
+}
+
+/* Meta chips — authored <ul> inside short description */
+body.wp-theme-astra.single-product .summary .woocommerce-product-details__short-description ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+body.wp-theme-astra.single-product .summary .woocommerce-product-details__short-description ul li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  background: hsl(0 0% 100%);
+  border: 1px solid hsl(var(--bk-hairline));
+  font: 600 0.8125rem/1 var(--font-body);
+  color: hsl(var(--bk-ink));
+}
+
+/* "What's included" checklist — authored <ul class="arefin-included"> */
+body.wp-theme-astra.single-product .summary .arefin-included,
+body.wp-theme-astra.single-product .arefin-included {
+  list-style: none;
+  margin: 0;
+  padding: 1rem 1.15rem;
+  border: 1px solid hsl(var(--bk-hairline));
+  border-radius: 12px;
+  background: hsl(var(--bk-panel));
+  display: grid;
+  gap: 0.55rem;
+}
+body.wp-theme-astra.single-product .arefin-included li {
+  position: relative;
+  padding-left: 1.7rem;
+  font: 500 0.95rem/1.5 var(--font-body);
+  color: hsl(var(--bk-ink));
+}
+body.wp-theme-astra.single-product .arefin-included li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  width: 1.1rem;
+  height: 1.1rem;
+  background: hsl(var(--primary-bright));
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* -------------------------------------------------------------
+   5. CART FORM — full-width Book button
+   ------------------------------------------------------------- */
+body.wp-theme-astra.single-product .summary form.cart {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.15rem 0 0;
+  width: 100%;
+  flex-wrap: wrap;
+}
+/* single-session product: hide quantity if present */
+body.wp-theme-astra.single-product .summary form.cart .quantity {
+  display: none;
+}
+body.wp-theme-astra.single-product .summary form.cart button.single_add_to_cart_button,
+body.wp-theme-astra.single-product .summary form.cart .single_add_to_cart_button.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 56px;
+  margin: 0;
+  padding: 0 2rem;
+  border: 0;
+  border-radius: 9999px;
+  background: hsl(var(--primary-bright));
+  color: hsl(0 0% 100%);
+  font: 700 1.0625rem/1 var(--font-body);
+  letter-spacing: 0.01em;
+  text-transform: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+body.wp-theme-astra.single-product .summary form.cart button.single_add_to_cart_button:hover,
+body.wp-theme-astra.single-product .summary form.cart .single_add_to_cart_button.button:hover {
+  background: hsl(var(--primary-darker));
+  box-shadow: 0 16px 30px -14px hsl(var(--primary-bright) / 0.7);
+}
+
+/* Trust row — authored <p class="arefin-trust"> (optional) */
+body.wp-theme-astra.single-product .summary .arefin-trust {
+  margin: 0;
+  font: 600 0.8125rem/1.5 var(--font-body);
+  color: hsl(var(--bk-ink-muted));
+}
+
+/* Product meta (Category: …) */
+body.wp-theme-astra.single-product .summary .product_meta {
+  margin: 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid hsl(var(--bk-hairline));
+  font: 500 0.85rem/1.5 var(--font-body);
+  color: hsl(var(--bk-ink-muted));
+}
+body.wp-theme-astra.single-product .summary .product_meta a {
+  color: hsl(var(--primary-darker));
+  text-decoration: none;
+}
+
+/* -------------------------------------------------------------
+   6. "HOW IT WORKS" — authored <div class="arefin-steps"> (full width)
+   ------------------------------------------------------------- */
+body.wp-theme-astra.single-product .arefin-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: clamp(2rem, 1rem + 3vw, 3.5rem) 0 0;
+}
+body.wp-theme-astra.single-product .arefin-steps > div {
+  padding: 1.25rem 1.35rem;
+  border-radius: 16px;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+}
+body.wp-theme-astra.single-product .arefin-steps > div span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-bottom: 0.6rem;
+  border-radius: 9999px;
+  background: hsl(var(--primary-bright));
+  color: hsl(0 0% 100%);
+  font: 700 1.05rem/1 var(--font-heading);
+}
+body.wp-theme-astra.single-product .arefin-steps > div h3 {
+  margin: 0 0 0.3rem;
+  font: 700 1.1rem/1.25 var(--font-heading);
+  color: hsl(var(--foreground));
+}
+body.wp-theme-astra.single-product .arefin-steps > div p {
+  margin: 0;
+  font: 500 0.9rem/1.55 var(--font-body);
+  color: hsl(var(--muted-foreground));
+}
+
+/* -------------------------------------------------------------
+   7. TABS (Description / Reviews) — dark, readable panel
+   ------------------------------------------------------------- */
+body.wp-theme-astra.single-product .woocommerce-tabs {
+  grid-column: 1 / -1;
+  margin-top: clamp(2rem, 1rem + 3vw, 3.5rem);
+  padding-top: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  border-top: 1px solid hsl(var(--border));
+}
+body.wp-theme-astra.single-product .woocommerce-tabs ul.tabs {
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+body.wp-theme-astra.single-product .woocommerce-tabs ul.tabs::before { display: none; }
+body.wp-theme-astra.single-product .woocommerce-tabs ul.tabs li {
+  margin: 0;
+  padding: 0;
+  border: 1px solid hsl(var(--border));
+  border-radius: 9999px;
+  background: hsl(var(--card));
+}
+body.wp-theme-astra.single-product .woocommerce-tabs ul.tabs li::before,
+body.wp-theme-astra.single-product .woocommerce-tabs ul.tabs li::after { display: none; }
+body.wp-theme-astra.single-product .woocommerce-tabs ul.tabs li a {
+  display: block;
+  padding: 0.55rem 1.25rem;
+  font: 600 0.9rem/1 var(--font-body);
+  color: hsl(var(--muted-foreground));
+  text-decoration: none;
+}
+body.wp-theme-astra.single-product .woocommerce-tabs ul.tabs li.active {
+  background: hsl(var(--primary-bright));
+  border-color: hsl(var(--primary-bright));
+}
+body.wp-theme-astra.single-product .woocommerce-tabs ul.tabs li.active a { color: hsl(0 0% 100%); }
+
+/* hide empty Reviews tab until real reviews exist */
+body.wp-theme-astra.single-product .woocommerce-tabs ul.tabs li.reviews_tab,
+body.wp-theme-astra.single-product .woocommerce-tabs #tab-reviews { display: none; }
+
+/* DARK panel + forced light text (kills near-white-on-light invisibility) */
+body.wp-theme-astra.single-product .woocommerce-tabs .woocommerce-Tabs-panel {
+  background: hsl(var(--surface-section));
+  border: 1px solid hsl(var(--border));
+  border-radius: 16px;
+  padding: clamp(1.25rem, 1rem + 2vw, 2.5rem);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: hsl(var(--foreground));
+}
+body.wp-theme-astra.single-product .woocommerce-tabs .woocommerce-Tabs-panel * { color: inherit; }
+body.wp-theme-astra.single-product .woocommerce-tabs .woocommerce-Tabs-panel a { color: hsl(var(--primary-bright)); }
+body.wp-theme-astra.single-product .woocommerce-tabs .woocommerce-Tabs-panel h2,
+body.wp-theme-astra.single-product .woocommerce-tabs .woocommerce-Tabs-panel h3 {
+  font-family: var(--font-heading);
+  color: hsl(var(--foreground));
+}
+body.wp-theme-astra.single-product .woocommerce-tabs .woocommerce-Tabs-panel pre {
+  margin: 0;
+  white-space: pre-line;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  overflow: visible;
+}
+
+/* Related / upsell headings */
+body.wp-theme-astra.single-product .related.products > h2,
+body.wp-theme-astra.single-product .upsells.products > h2 {
+  font-family: var(--font-heading);
+  color: hsl(var(--foreground));
+}
+
+/* -------------------------------------------------------------
+   8. DESKTOP alignment — booking card scrolls normally
+   ------------------------------------------------------------- */
+@media (min-width: 901px) {
+  body.wp-theme-astra.single-product div.product .summary.entry-summary {
+    position: static;
+    top: auto;
+    align-self: start;
+  }
+  body.wp-theme-astra.single-product div.product .woocommerce-product-gallery {
+    justify-self: start;
+  }
+}
+
+/* -------------------------------------------------------------
+   9. RESPONSIVE — single column, no overflow, fixed mobile Book bar
+   ------------------------------------------------------------- */
+@media (max-width: 900px) {
+  body.wp-theme-astra.single-product .ast-woocommerce-container {
+    padding-block: 1.25rem 2rem;
+  }
+  body.wp-theme-astra.single-product div.product,
+  body.wp-theme-astra.single-product.woocommerce div.product,
+  body.wp-theme-astra.single-product.woocommerce-page div.product {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+    overflow: hidden;
+  }
+  body.wp-theme-astra.single-product div.product .woocommerce-product-gallery,
+  body.wp-theme-astra.single-product.woocommerce #content div.product div.images.woocommerce-product-gallery,
+  body.wp-theme-astra.single-product.woocommerce-page #content div.product div.images.woocommerce-product-gallery,
+  body.wp-theme-astra.single-product.woocommerce div.product div.images.woocommerce-product-gallery,
+  body.wp-theme-astra.single-product.woocommerce-page div.product div.images.woocommerce-product-gallery {
+    width: 100%;
+    max-width: min(100%, 440px);
+    min-width: 0;
+    margin-inline: auto;
+  }
+  body.wp-theme-astra.single-product div.product .summary.entry-summary,
+  body.wp-theme-astra.single-product.woocommerce #content div.product div.summary.entry-summary,
+  body.wp-theme-astra.single-product.woocommerce-page #content div.product div.summary.entry-summary,
+  body.wp-theme-astra.single-product.woocommerce div.product div.summary.entry-summary,
+  body.wp-theme-astra.single-product.woocommerce-page div.product div.summary.entry-summary {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 1.25rem;
+    border-radius: 18px;
+  }
+  body.wp-theme-astra.single-product div.product .woocommerce-product-gallery .zoomImg {
+    display: none;
+  }
+  body.wp-theme-astra.single-product .arefin-steps {
+    grid-template-columns: 1fr;
+  }
+  /* Fixed bottom Book bar */
+  body.wp-theme-astra.single-product .summary form.cart {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    margin: 0;
+    padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
+    background: hsl(var(--bk-card));
+    border-top: 1px solid hsl(var(--bk-hairline));
+    box-shadow: 0 -18px 38px -30px hsl(0 0% 0% / 0.8);
+  }
+  body.wp-theme-astra.single-product {
+    padding-bottom: 96px; /* room for the fixed bar */
+  }
+}
+
+/* -------------------------------------------------------------
+   10. REDUCED MOTION
+   ------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  body.wp-theme-astra.single-product .summary form.cart button.single_add_to_cart_button {
+    transition: none;
+  }
+}
+</style>

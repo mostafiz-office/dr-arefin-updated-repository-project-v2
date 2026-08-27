@@ -1,0 +1,4558 @@
+<style>
+/* ============================================
+   CAF PATRONATO FONDI — GLOBAL CSS
+   FD-CSS v1.2.3 — Global Stylesheet
+   Astra Theme + Elementor Ready
+   ============================================ */
+
+/* (Smooth scrolling is handled by caff-sticky-header-snippet.html) */
+
+/* ============================================
+   FONT IMPORTS — Ubuntu (headings) + Poppins (body)
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&family=Poppins:wght@400;500;600&display=swap');
+
+/* ============================================
+   0. ASTRA + ELEMENTOR CONFLICT OVERRIDES
+   Uses high-specificity selectors (body prefix,
+   double-class, attribute selectors) instead of
+   !important to beat Astra/Elementor cascade.
+   ============================================ */
+
+/* ---- HIDE ASTRA DEFAULT HEADER & FOOTER ---- */
+body.wp-theme-astra .ast-builder-menu,
+body.wp-theme-astra #ast-desktop-header,
+body.wp-theme-astra #ast-mobile-header,
+body.wp-theme-astra #masthead,
+body.wp-theme-astra .site-header,
+body.wp-theme-astra header.site-header,
+body.wp-theme-astra .main-header-bar,
+body.wp-theme-astra .ast-primary-header,
+body.wp-theme-astra .ast-above-header,
+body.wp-theme-astra .ast-below-header,
+body.wp-theme-astra .ast-mobile-header-wrap {
+  display: none;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
+body.wp-theme-astra .site-footer,
+body.wp-theme-astra .ast-footer-overlay,
+body.wp-theme-astra footer.site-footer,
+body.wp-theme-astra .ast-small-footer,
+body.wp-theme-astra .ast-above-footer,
+body.wp-theme-astra .ast-below-footer,
+body.wp-theme-astra #colophon {
+  display: none;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
+body.wp-theme-astra .site-content {
+  margin-top: 0;
+}
+
+/* ---- NUCLEAR FULL-WIDTH RESET ---- */
+#page,
+#page > #content,
+#page > #content > .ast-container,
+.ast-container,
+#primary,
+#main,
+.site-main,
+.entry-content,
+article,
+.site-content {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.elementor,
+.elementor-element,
+.e-con,
+.e-con-inner,
+.e-con.e-parent,
+.e-con.e-child,
+.elementor-widget,
+.elementor-widget-html,
+.elementor-widget-wrap,
+.elementor-widget-container {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  --container-max-width: 100% !important;
+  --padding-inline: 0 !important;
+  --padding-block: 0 !important;
+  --widgets-spacing: 0 !important;
+  gap: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.ast-separate-container .ast-article-single,
+.ast-separate-container .ast-article-post,
+.ast-separate-container #primary {
+  background: transparent !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+body .caff-block,
+body .caff-site,
+body .header,
+body .caff-footer {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Reset Astra's b,strong { font-weight:700 } — visually normal, SEO preserved */
+.caff-site strong,
+.caff-site strong a,
+.caff-site a strong,
+body .caff-site strong,
+body .caff-site strong a,
+body .caff-site p strong,
+body .caff-site p strong a,
+body .caff-site h3 strong,
+body .caff-site h3 strong a,
+body .caff-site .nav-dropdown strong,
+body .caff-site .nav-dropdown strong a,
+body .caff-site .nav-dropdown h3 strong,
+body .caff-site .nav-dropdown h3 strong a,
+body .caff-site .caff-footer strong,
+body .caff-site .caff-footer strong a,
+body .caff-site .caff-footer p strong,
+body .caff-site .caff-footer p strong a,
+body .caff-site .caff-footer-grid strong,
+body .caff-site .caff-footer-grid strong a,
+body .caff-site .caff-footer-grid p.seo-container-para strong,
+body .caff-site .caff-footer-grid p.seo-container-para strong a,
+body.wp-theme-astra .caff-site strong,
+body.wp-theme-astra .caff-site strong a,
+body.wp-theme-astra .caff-footer strong,
+body.wp-theme-astra .caff-footer strong a,
+body.wp-theme-astra .nav-dropdown strong,
+body.wp-theme-astra .nav-dropdown strong a,
+body .elementor .caff-site strong,
+body .elementor .caff-site strong a,
+body .elementor-widget-html .caff-site strong,
+body .elementor-widget-html .caff-site strong a,
+body .elementor-widget-html .caff-footer strong,
+body .elementor-widget-html .caff-footer strong a,
+body .elementor-widget-html .nav-dropdown strong,
+body .elementor-widget-html .nav-dropdown strong a,
+.nav-dropdown strong,
+.nav-dropdown strong a,
+.nav-dropdown h3 strong,
+.nav-dropdown h3 strong a,
+.header strong,
+.header strong a {
+  font-weight: 400;
+}
+
+/* Footer SEO strong links — default color + green hover */
+.caff-footer-seo-link,
+.caff-footer strong a.caff-footer-seo-link,
+body .caff-site .caff-footer strong a.caff-footer-seo-link,
+body .caff-site .caff-footer-grid strong a.caff-footer-seo-link,
+body.wp-theme-astra .caff-footer strong a.caff-footer-seo-link,
+body .elementor-widget-html .caff-footer strong a.caff-footer-seo-link {
+  color: var(--ast-global-color-3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.caff-footer-seo-link:hover,
+.caff-footer strong a.caff-footer-seo-link:hover,
+body .caff-site .caff-footer strong a.caff-footer-seo-link:hover,
+body .caff-site .caff-footer-grid strong a.caff-footer-seo-link:hover,
+body.wp-theme-astra .caff-footer strong a.caff-footer-seo-link:hover,
+body .elementor-widget-html .caff-footer strong a.caff-footer-seo-link:hover {
+  color: var(--ast-global-color-0);
+  text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+}
+
+/* Prevent Astra from zeroing our margins/spacing */
+.caff-site h1,
+.caff-site h2,
+.caff-site h3,
+.caff-site h4,
+.caff-site h5,
+.caff-site h6 {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  font-style: inherit;
+}
+
+.caff-site p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Override Elementor's img { border-radius: 0 } */
+.caff-site img {
+  border-radius: inherit;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Override Elementor's box-sizing */
+.caff-site *,
+.caff-site *::before,
+.caff-site *::after {
+  box-sizing: border-box;
+}
+
+/* Prevent Elementor from overriding link colors */
+body .elementor .caff-site a,
+body .elementor .elementor-widget-html a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Restore specific link colors with high specificity */
+body .elementor .caff-site a.btn-primary,
+body .elementor-widget-html a.btn-primary {
+  color: #ffffff;
+}
+
+body .elementor .caff-site a.btn-outline-white,
+body .elementor-widget-html a.btn-outline-white {
+  color: #ffffff;
+}
+
+body .elementor .caff-site a.card-cta,
+body .elementor-widget-html a.card-cta {
+  color: var(--ast-global-color-0);
+}
+
+body .elementor .caff-site a.nav-dropdown-link,
+body .elementor-widget-html a.nav-dropdown-link {
+  color: var(--ast-global-color-2);
+}
+
+body .elementor .caff-site a.nav-dropdown-link:hover,
+body .elementor-widget-html a.nav-dropdown-link:hover {
+  color: var(--ast-global-color-0);
+}
+
+/* Prevent Astra's body font from bleeding in */
+.caff-site {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: var(--ast-global-color-2);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Override Astra .container conflicts — protect our padding from nuclear reset */
+.caff-site .container,
+body .elementor .container,
+body .elementor-widget-container .container {
+  max-width: 1248px !important;
+  margin: 0 auto !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Prevent Elementor's hr { background-color: transparent } */
+.caff-site hr {
+  background-color: var(--ast-global-color-6);
+  border: none;
+  height: 1px;
+}
+
+/* Prevent Astra's button resets from breaking our .btn */
+.caff-site .btn {
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: inherit;
+}
+
+/* Override Astra's ul/ol/li resets */
+.caff-site ul,
+.caff-site ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ============================================
+   END CONFLICT OVERRIDES
+   ============================================ */
+
+/* Color Mapping and Reset & Base */
+:root {
+  --ast-global-color-0: #379237; /* Primary Green */
+  --ast-global-color-1: #2d7a2d; /* Primary Hover */
+  --ast-global-color-2: #0C2818; /* Dark Green / Headlines */
+  --ast-global-color-3: #555555; /* Body Text */
+  --ast-global-color-4: #f8f9fa; /* Light Gray Bg */
+  --ast-global-color-5: #ffffff; /* White Bg */
+  --ast-global-color-6: #eeeeee; /* Border */
+  --ast-global-color-7: #000000; /* Footer / Dark sections */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Fallback Astra color variables — Astra will override these when loaded */
+:root {
+  --ast-global-color-0: #54B435;
+  --ast-global-color-1: #379237;
+  --ast-global-color-2: #1a1a1a;
+  --ast-global-color-3: #555555;
+  --ast-global-color-4: #EEFCE5;
+  --ast-global-color-5: #ffffff;
+  --ast-global-color-6: #e5e5e5;
+  --ast-global-color-7: #111111;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: var(--ast-global-color-2);
+  background-color: var(--ast-global-color-5);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   3. TYPOGRAPHY (Semantic only — Astra styles)
+   ============================================ */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--ast-global-color-2);
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* High-specificity override to beat Astra theme font */
+body.wp-theme-astra .caff-site h1,
+body.wp-theme-astra .caff-site h2,
+body.wp-theme-astra .caff-site h3,
+body.wp-theme-astra .caff-site h4,
+body.wp-theme-astra .caff-site h5,
+body.wp-theme-astra .caff-site h6,
+body .elementor-widget-html h1,
+body .elementor-widget-html h2,
+body .elementor-widget-html h3,
+body .elementor-widget-html h4,
+body .elementor-widget-html h5,
+body .elementor-widget-html h6 {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 700;
+}
+
+/* Nav/menu headings stay Poppins */
+body.wp-theme-astra .caff-site .caff-header h2,
+body.wp-theme-astra .caff-site .caff-header h3,
+body.wp-theme-astra .caff-site .nav-dropdown h2,
+body.wp-theme-astra .caff-site .nav-dropdown h3,
+body .elementor-widget-html .caff-header h2,
+body .elementor-widget-html .caff-header h3,
+body .elementor-widget-html .nav-dropdown h2,
+body .elementor-widget-html .nav-dropdown h3 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+/* Nav/menu headings use Poppins, not Ubuntu */
+.caff-site .caff-header h2,
+.caff-site .caff-header h3,
+.caff-site .nav-dropdown h2,
+.caff-site .nav-dropdown h3,
+.caff-site .caff-nav h2,
+.caff-site .caff-nav h3 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+p {
+  color: var(--ast-global-color-3);
+  line-height: 1.7;
+}
+
+.text-muted {
+  color: var(--ast-global-color-3);
+  opacity: 0.7;
+}
+
+.section-label,
+body.wp-theme-astra .caff-site .section-label,
+body .elementor-widget-html .section-label {
+  display: block;
+  font-size: 0.75rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ast-global-color-0);
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+/* ============================================
+   4. LAYOUT
+   ============================================ */
+.container {
+  max-width: 1248px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+  box-sizing: border-box !important;
+}
+
+.section {
+  padding: 5rem 0;
+}
+
+.section-alt {
+  background-color: var(--ast-global-color-4);
+}
+
+.section-dark {
+  background-color: var(--ast-global-color-7);
+}
+
+.section-footer {
+  background-color: var(--ast-global-color-7);
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.grid-2 { grid-template-columns: 1fr; }
+.grid-3 { grid-template-columns: 1fr; }
+.grid-4 { grid-template-columns: 1fr; }
+
+.text-center { text-align: center; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.max-w-2xl { max-width: 42rem; }
+.max-w-3xl { max-width: 48rem; }
+.max-w-4xl { max-width: 56rem; }
+
+/* ============================================
+   5. BUTTONS (Astra-compatible)
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+body .caff-site .btn.btn-primary,
+body .elementor .btn.btn-primary {
+  background-color: #54B435;
+  color: #ffffff;
+  padding: 0.875rem 1.75rem;
+}
+
+body .caff-site .btn.btn-primary:hover,
+body .elementor .btn.btn-primary:hover {
+  background-color: #379237;
+}
+
+body .caff-site .btn.btn-secondary,
+body .elementor .btn.btn-secondary {
+  background-color: transparent;
+  color: var(--ast-global-color-0);
+  padding: 0.875rem 1.75rem;
+  border: 1.5px solid var(--ast-global-color-0);
+}
+
+body .caff-site .btn.btn-secondary:hover,
+body .elementor .btn.btn-secondary:hover {
+  background-color: var(--ast-global-color-0);
+  color: #ffffff;
+}
+
+body .caff-site .btn.btn-outline-white,
+body .elementor .btn.btn-outline-white {
+  background-color: rgba(255,255,255,0.08);
+  color: #ffffff;
+  padding: 0.875rem 1.75rem;
+  border: 2px solid rgba(255,255,255,0.6);
+  backdrop-filter: blur(4px);
+}
+
+body .caff-site .btn.btn-outline-white:hover,
+body .elementor .btn.btn-outline-white:hover {
+  background-color: #ffffff;
+  color: var(--ast-global-color-2);
+  border-color: #ffffff;
+}
+
+.btn-dark-outline {
+  background-color: transparent;
+  color: var(--ast-global-color-2);
+  padding: 0.875rem 1.75rem;
+  border: 2px solid var(--ast-global-color-2);
+}
+
+.btn-dark-outline:hover {
+  background-color: var(--ast-global-color-2);
+  color: #ffffff;
+}
+
+.btn-lg {
+  font-size: 1rem;
+  padding: 1.125rem 2.5rem;
+}
+
+.btn-sm {
+  font-size: 0.8125rem;
+  padding: 0.625rem 1rem;
+}
+
+/* ============================================
+   6. HEADER LAYOUT
+   ============================================ */
+
+body .caff-site .header-inner,
+body .elementor .header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5rem;
+}
+
+body .caff-site .header-logo,
+body .elementor .header-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  color: var(--ast-global-color-2);
+}
+
+body .caff-site .header-logo-icon,
+body .elementor .header-logo-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--ast-global-color-0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  color: #ffffff;
+}
+
+body .caff-site .header-logo-icon svg,
+body .elementor .header-logo-icon svg {
+  width: 22px;
+  height: 22px;
+  color: #ffffff;
+}
+
+body .caff-site .header-logo-text,
+body .elementor .header-logo-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ast-global-color-2);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+body .caff-site .header-logo-amp,
+body .elementor .header-logo-amp {
+  color: var(--ast-global-color-0);
+}
+
+/* --- Pill Nav Links --- */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.nav-pill {
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: none;
+  color: var(--ast-global-color-2);
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.nav-pill:hover {
+  color: var(--ast-global-color-0);
+  background-color: rgba(55, 146, 55, 0.05);
+}
+
+.nav-link-active.nav-pill {
+  color: var(--ast-global-color-0);
+  background-color: rgba(55, 146, 55, 0.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.nav-chevron {
+  transition: transform 0.2s ease;
+}
+
+body.wp-theme-astra .nav-pill,
+body .elementor .nav-pill,
+body .elementor-widget-html .nav-pill,
+body .caff-site .nav-pill {
+  font-weight: 500;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+body.wp-theme-astra .nav-pill:hover,
+body .elementor .nav-pill:hover,
+body .elementor-widget-html .nav-pill:hover,
+body .caff-site .nav-pill:hover {
+  color: var(--ast-global-color-0, #54B435);
+  background-color: rgba(55, 146, 55, 0.05);
+  text-shadow: none;
+}
+
+body.wp-theme-astra .nav-dropdown-wrap,
+body .elementor .nav-dropdown-wrap,
+body .caff-site .nav-dropdown-wrap {
+  box-shadow: none;
+}
+
+/* --- Desktop Dropdowns --- */
+.nav-dropdown-wrap {
+  position: relative;
+}
+
+.nav-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  min-width: 16rem;
+  background-color: var(--ast-global-color-5);
+  border: 1px solid var(--ast-global-color-6);
+  border-radius: 0.75rem;
+  box-shadow: none;
+  padding: 0.5rem 0;
+  z-index: 50;
+}
+
+.nav-dropdown-wrap.is-open .nav-dropdown {
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.nav-dropdown-right {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+.nav-dropdown-wrap.is-open .nav-dropdown {
+  display: block;
+}
+
+.nav-dropdown-wrap.is-open .nav-chevron {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ast-global-color-2);
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.nav-dropdown-link:hover {
+  background-color: #EEFCE5;
+  color: var(--ast-global-color-0);
+}
+
+/* --- Blog Mega-Menu Dropdown --- */
+.nav-mega-dropdown {
+  min-width: 44rem;
+  padding: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-mega-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.nav-mega-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.nav-mega-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ast-global-color-2);
+  padding: 0 1rem 0.5rem 1rem;
+  margin-bottom: 0.25rem;
+  border-bottom: 1px solid var(--ast-global-color-6);
+}
+
+.nav-mega-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ast-global-color-0);
+  padding: 0.75rem 1rem 0.25rem;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.nav-mega-view-all:hover {
+  opacity: 0.8;
+}
+
+body .elementor .caff-site a.nav-mega-view-all,
+body .elementor-widget-html a.nav-mega-view-all {
+  color: var(--ast-global-color-0);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* --- Header Dual CTA Pill (Atto Property Style) --- */
+.header-dual-cta {
+  display: flex;
+  align-items: center;
+  border-radius: 9999px;
+  overflow: visible;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* WCAG 2.1 AA Compliant: White text (#ffffff) on dark backgrounds meets 4.5:1 contrast ratio */
+.header-dual-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2.75rem;
+  padding: 0 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--ff-body);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: filter 0.3s ease;
+  line-height: 1;
+}
+
+/* No position-shift on hover — brightness only */
+.header-dual-btn:hover {
+  filter: brightness(1.25);
+}
+
+/* Dark CTA button: #0C2818 bg + #ffffff text = 12.6:1 contrast (AAA) */
+.header-dual-btn-dark {
+  background-color: #0C2818;
+  color: #ffffff;
+  border-radius: 9999px 0 0 9999px;
+}
+
+.header-dual-btn-dark:hover {
+  filter: brightness(1.25);
+}
+
+/* Green CTA button: #379237 bg + #ffffff text = 4.52:1 contrast (AA) */
+.header-dual-btn-green {
+  background-color: #379237;
+  color: #ffffff;
+  border-radius: 0 9999px 9999px 0;
+}
+
+.header-dual-btn-green:hover {
+  filter: brightness(1.1);
+}
+
+/* Divider: Floating white circle with depth shadow */
+.header-dual-divider {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: -0.625rem;
+  margin-right: -0.625rem;
+  border-radius: 50px;
+  background-color: #fafaf8;
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  color: #000;
+  box-shadow: 0 0 0 6px rgb(255 255 255 / .2);
+  flex-shrink: 0;
+}
+
+body .elementor-widget-html .header-dual-cta {
+  display: flex;
+  align-items: center;
+  border-radius: 9999px;
+  overflow: visible;
+}
+
+/* High-specificity overrides to beat Elementor's 'a { color: inherit }' cascade */
+body .elementor .elementor-widget-html a.header-dual-btn.header-dual-btn-dark,
+body.wp-theme-astra .entry-content a.header-dual-btn.header-dual-btn-dark {
+  color: #ffffff;
+  background-color: #0C2818;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+body .elementor .elementor-widget-html a.header-dual-btn.header-dual-btn-green,
+body.wp-theme-astra .entry-content a.header-dual-btn.header-dual-btn-green {
+  color: #ffffff;
+  background-color: #379237;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+body .elementor .elementor-widget-html a.header-dual-btn:hover,
+body.wp-theme-astra .entry-content a.header-dual-btn:hover {
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+body .elementor .elementor-widget-html a.header-dual-btn.header-dual-btn-dark:hover,
+body.wp-theme-astra .entry-content a.header-dual-btn.header-dual-btn-dark:hover {
+  filter: brightness(1.25);
+}
+
+body .elementor .elementor-widget-html a.header-dual-btn.header-dual-btn-green:hover,
+body.wp-theme-astra .entry-content a.header-dual-btn.header-dual-btn-green:hover {
+  filter: brightness(1.1);
+}
+
+body .elementor .elementor-widget-html .header-dual-divider,
+body.wp-theme-astra .entry-content .header-dual-divider {
+  color: #000;
+  background-color: #fafaf8;
+  box-shadow: 0 0 0 6px rgb(255 255 255 / .2);
+}
+
+/* Mobile dual CTA full width */
+.header-dual-cta.caff-mobile-cta {
+  margin-top: 0.75rem;
+}
+
+.header-dual-cta.caff-mobile-cta .header-dual-btn {
+  flex: 1;
+}
+
+/* --- Animated Hamburger --- */
+.header-hamburger {
+  display: none;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger-line {
+  display: block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.25rem;
+  height: 2px;
+  background-color: var(--ast-global-color-2);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger-line-1 { top: calc(50% - 6px); }
+.hamburger-line-2 { top: 50%; transform: translateX(-50%); }
+.hamburger-line-3 { top: calc(50% + 6px); }
+
+.header-hamburger.is-open .hamburger-line-1 {
+  top: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+.header-hamburger.is-open .hamburger-line-2 {
+  opacity: 0;
+  transform: translateX(-50%) scaleX(0);
+}
+.header-hamburger.is-open .hamburger-line-3 {
+  top: 50%;
+  transform: translateX(-50%) rotate(-45deg);
+}
+
+/* Mobile nav */
+.nav-mobile {
+  display: none;
+  border-top: 1px solid var(--ast-global-color-6);
+  padding: 1.5rem;
+}
+
+.nav-mobile.is-open {
+  display: block;
+}
+
+.nav-mobile-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ast-global-color-2);
+  text-decoration: none;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--ast-global-color-6);
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-mobile-link:hover {
+  color: var(--ast-global-color-0);
+}
+
+.nav-mobile-toggle {
+  cursor: pointer;
+}
+
+.nav-mobile-toggle .nav-chevron {
+  transition: transform 0.2s ease;
+}
+
+/* Active/open accordion toggle — green pill */
+.nav-mobile-accordion.is-open .nav-mobile-toggle {
+  background-color: var(--ast-global-color-0);
+  color: #ffffff;
+  border-radius: 0.5rem;
+  border-bottom-color: transparent;
+  margin-bottom: 0.25rem;
+}
+
+.nav-mobile-accordion.is-open .nav-mobile-toggle .nav-chevron {
+  transform: rotate(180deg);
+  color: #ffffff;
+}
+
+.nav-mobile-sub {
+  display: none;
+  padding-left: 1.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.nav-mobile-accordion.is-open .nav-mobile-sub {
+  display: block;
+}
+
+.nav-mobile-sublink {
+  display: block;
+  padding: 0.5rem 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--ast-global-color-3);
+  text-decoration: none;
+}
+
+.nav-mobile-sublink:hover {
+  color: var(--ast-global-color-0);
+}
+
+/* ============================================
+   7. HERO — Dark Cinematic 2-Column
+   ============================================ */
+body .elementor-widget-html .caff-hero,
+body .caff-site .caff-hero,
+.caff-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(165deg, #0a0a0a 0%, #0d1f0d 60%, #1a2e1a 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body .elementor-widget-html .caff-hero-lines,
+.caff-hero-lines {
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 50%;
+  opacity: 0.15;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent, transparent 60px,
+    rgba(84,180,53,0.3) 60px, rgba(84,180,53,0.3) 62px
+  );
+}
+
+body .elementor-widget-html .caff-hero-grid,
+body .caff-site .caff-hero-grid,
+.caff-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+  padding: 5rem 0;
+}
+
+body .elementor-widget-html .caff-hero-content,
+.caff-hero-content {
+  position: relative;
+  text-align: left;
+}
+
+body .elementor-widget-html .caff-hero-title,
+body .elementor-widget-html .caff-hero .caff-hero-title,
+body .caff-site .caff-hero-title,
+.caff-hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+body .elementor-widget-html .caff-hero-link,
+body .elementor .caff-hero a.caff-hero-link,
+.caff-hero-link {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+body .elementor .caff-hero a.caff-hero-link:hover,
+.caff-hero-link:hover {
+  color: #b8e6b8;
+  text-shadow: 1px 0.7px 0 rgba(255, 255, 255, 0.25), 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+body .elementor-widget-html .caff-hero-keyword,
+.caff-hero-keyword {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  border-radius: 0.5rem;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+body .elementor .caff-hero .caff-hero-keyword:hover,
+.caff-hero-keyword:hover {
+  background: rgba(84,180,53,0.2);
+  border-color: rgba(84,180,53,0.4);
+  box-shadow: 0 0 20px rgba(84,180,53,0.3);
+}
+
+body .elementor-widget-html .caff-hero-subtitle,
+body .elementor-widget-html .caff-hero p,
+body .caff-site .caff-hero-subtitle,
+.caff-hero-subtitle {
+  font-size: 1.125rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 32rem;
+  text-align: left;
+}
+
+body .elementor .caff-hero a.caff-hero-sublink,
+body .elementor-widget-html .caff-hero-sublink,
+.caff-hero-sublink {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+body .elementor .caff-hero a.caff-hero-sublink:hover,
+.caff-hero-sublink:hover {
+  color: #54B435;
+}
+
+body .elementor-widget-html .caff-hero-buttons,
+.caff-hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+body .elementor-widget-html .caff-hero-btn-primary,
+body .elementor .caff-hero a.caff-hero-btn-primary,
+.caff-hero-btn-primary {
+  box-shadow: 0 10px 40px rgba(84,180,53,0.3);
+  border-radius: 0.75rem;
+  font-size: 1.125rem;
+  padding: 1.25rem 2.5rem;
+  height: 4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #54B435;
+  color: #ffffff;
+}
+body .elementor .caff-hero a.caff-hero-btn-primary:hover {
+  background-color: #379237;
+}
+
+/* Hero Stats */
+body .elementor-widget-html .caff-hero-stats,
+.caff-hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 2rem;
+}
+
+body .elementor-widget-html .caff-hero-stat,
+.caff-hero-stat {
+  text-align: center;
+}
+
+body .elementor-widget-html .caff-hero-stat-val,
+.caff-hero-stat-val {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #54B435;
+  text-align: center;
+}
+
+body .elementor-widget-html .caff-hero-stat-label,
+.caff-hero-stat-label {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+  text-align: center;
+}
+
+/* Hero Image Column */
+body .elementor-widget-html .caff-hero-image-col,
+.caff-hero-image-col {
+  position: relative;
+}
+
+body .elementor-widget-html .caff-hero-image-wrap,
+.caff-hero-image-wrap {
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+body .elementor-widget-html .caff-hero-image,
+.caff-hero-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Hero Floating Card */
+@keyframes caff-float-card-in {
+  0% { opacity: 0; transform: translateX(40px) scale(0.92); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+body .elementor-widget-html .caff-hero-float-card,
+.caff-hero-float-card {
+  position: absolute;
+  top: 1.5rem;
+  left: -1.5rem;
+  z-index: 10;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  cursor: pointer;
+  animation: caff-float-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.5s both;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+body .elementor-widget-html .caff-hero-float-card:hover,
+.caff-hero-float-card:hover {
+  border-color: rgba(84, 180, 53, 0.5);
+  box-shadow: 0 0 0 1px rgba(84, 180, 53, 0.4);
+  background: rgba(255,255,255,0.08);
+}
+
+body .elementor-widget-html .caff-hero-float-card:hover .caff-hero-float-icon,
+.caff-hero-float-card:hover .caff-hero-float-icon {
+  transform: scale(1.1) rotate(8deg);
+}
+
+body .elementor-widget-html .caff-hero-float-card:hover .caff-hero-float-title,
+.caff-hero-float-card:hover .caff-hero-float-title {
+  color: #81C784;
+}
+
+/* Float card contrast fix: when image is hovered, card switches to dark bg */
+body .elementor-widget-html .caff-hero-image-wrap:hover ~ .caff-hero-float-card,
+.caff-hero-image-wrap:hover ~ .caff-hero-float-card {
+  background: rgba(12, 40, 24, 0.85);
+  border-color: rgba(84, 180, 53, 0.3);
+}
+
+body .elementor-widget-html .caff-hero-float-icon,
+.caff-hero-float-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: #54B435;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+body .elementor-widget-html .caff-hero-float-title,
+.caff-hero-float-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+body .elementor-widget-html .caff-hero-float-sub,
+.caff-hero-float-sub {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+}
+
+/* DesignMonks-style decorative color strips (apply to Elementor containers) */
+body .elementor-widget-html .caff-strip-teal,
+body .elementor .caff-strip-teal,
+.caff-strip-teal { background-color: #3DD9C0; }
+
+body .elementor-widget-html .caff-strip-cyan,
+body .elementor .caff-strip-cyan,
+.caff-strip-cyan { background-color: #2BC4D6; }
+
+body .elementor-widget-html .caff-strip-indigo,
+body .elementor .caff-strip-indigo,
+.caff-strip-indigo { background-color: #7B8AE6; }
+
+body .elementor-widget-html .caff-strip-gold,
+body .elementor .caff-strip-gold,
+.caff-strip-gold { background-color: #E6C44A; }
+
+/* ============================================
+   7b. PAGE HERO VARIANTS
+   Three visual styles: image-overlay, geometric, aurora
+   ============================================ */
+
+/* --- BASE PAGE HERO --- */
+body .elementor-widget-html .caff-page-hero {
+  background-color: #111111;
+  padding: 5rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+}
+
+/* Desktop - equal padding */
+@media (min-width: 768px) {
+  body .elementor-widget-html .caff-page-hero {
+    padding: 7rem 0;
+    min-height: 360px;
+  }
+}
+
+/* --- VARIANT: AURORA --- */
+body .elementor-widget-html .caff-page-hero--aurora {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  body .elementor-widget-html .caff-page-hero--aurora {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+/* --- VARIANT: IMAGE-OVERLAY --- */
+body .elementor-widget-html .caff-page-hero--image-overlay {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  body .elementor-widget-html .caff-page-hero--image-overlay {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+/* --- VARIANT: GEOMETRIC --- */
+body .elementor-widget-html .caff-page-hero--geometric {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  body .elementor-widget-html .caff-page-hero--geometric {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+/* DesignMonks-style decorative color strip (shared by ALL variants) */
+.caff-page-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    #3DD9C0 0%, #3DD9C0 25%,
+    #2BC4D6 25%, #2BC4D6 50%,
+    #7B8AE6 50%, #7B8AE6 75%,
+    #E6C44A 75%, #E6C44A 100%
+  );
+  z-index: 3;
+}
+
+.caff-page-hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+.caff-page-hero-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+
+.caff-page-hero-subtitle {
+  font-size: 1.125rem;
+  color: rgba(255,255,255,0.7);
+  max-width: 42rem;
+  margin: 0 auto;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.4);
+}
+
+/* --- VARIANT 1: IMAGE-OVERLAY --- */
+/* Used by: Chi Siamo, CAF 730, ISEE, Dichiarazione Redditi, Patronato INPS */
+.caff-page-hero--image-overlay {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Default background image (fallback) */
+.caff-page-hero--image-overlay {
+  background-image: url('/wp-content/uploads/page-hero-bg.jpg');
+}
+
+/* Page-specific background images */
+.caff-page-hero--bg-chi-siamo {
+  background-image: url('https://cafpatronatofondi.com/wp-content/uploads/2026/03/hero-chi-siamo.jpg');
+}
+.caff-page-hero--bg-caf-730 {
+  background-image: url('https://cafpatronatofondi.com/wp-content/uploads/2026/03/hero-caf-730.jpg');
+}
+.caff-page-hero--bg-caf-isee {
+  background-image: url('https://cafpatronatofondi.com/wp-content/uploads/2026/03/hero-caf-isee.jpg');
+}
+.caff-page-hero--bg-dichiarazione {
+  background-image: url('https://cafpatronatofondi.com/wp-content/uploads/2026/03/hero-dichiarazione-redditi.jpg');
+}
+.caff-page-hero--bg-patronato {
+  background-image: url('https://cafpatronatofondi.com/wp-content/uploads/2026/03/hero-patronato-inps.jpg');
+}
+
+/* Dark gradient overlay for image-overlay variant */
+.caff-page-hero--image-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(12, 40, 24, 0.88) 0%, rgba(17, 17, 17, 0.92) 100%);
+  z-index: 0;
+}
+
+/* --- VARIANT 2: GEOMETRIC --- */
+/* Used by: Servizi, Blog */
+.caff-page-hero--geometric {
+  background-color: #1a1a2e;
+}
+
+/* Grid pattern layer */
+.caff-page-hero--geometric .caff-hero-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.caff-hero-geometric-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.07;
+}
+
+/* Floating geometric shapes */
+.caff-hero-geo-shape {
+  position: absolute;
+  border: 1px solid rgba(61, 217, 192, 0.15);
+  z-index: 0;
+}
+
+.caff-hero-geo-shape--1 {
+  top: 15%;
+  left: 10%;
+  width: 8rem;
+  height: 8rem;
+  transform: rotate(45deg);
+  animation: caff-spin 25s linear infinite;
+}
+
+.caff-hero-geo-shape--2 {
+  bottom: 20%;
+  right: 15%;
+  width: 6rem;
+  height: 6rem;
+  border-color: rgba(123, 138, 230, 0.12);
+  transform: rotate(12deg);
+  animation: caff-spin 30s linear infinite reverse;
+}
+
+.caff-hero-geo-shape--3 {
+  top: 40%;
+  right: 25%;
+  width: 4rem;
+  height: 4rem;
+  background-color: rgba(61, 217, 192, 0.05);
+  border: none;
+  transform: rotate(30deg);
+}
+
+.caff-hero-geo-shape--4 {
+  bottom: 30%;
+  left: 20%;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border-color: rgba(61, 217, 192, 0.1);
+}
+
+/* Hexagon SVG in geometric hero */
+.caff-hero-hexagon-cluster {
+  position: absolute;
+  top: 10%;
+  right: 8%;
+  width: 10rem;
+  height: 10rem;
+  opacity: 0.08;
+}
+
+/* Depth gradient for geometric */
+.caff-hero-geo-depth {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(61, 217, 192, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 30%, rgba(123, 138, 230, 0.05) 0%, transparent 50%);
+  z-index: 0;
+}
+
+@keyframes caff-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* --- VARIANT 3: AURORA --- */
+/* Used by: All Contatto pages */
+.caff-page-hero--aurora {
+  background-color: #1a1a2e;
+}
+
+.caff-hero-aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: 0;
+}
+
+.caff-hero-aurora-blob--1 {
+  top: -40%;
+  left: -20%;
+  width: 80%;
+  height: 150%;
+  opacity: 0.12;
+  background: linear-gradient(135deg, #3DD9C0, #2BC4D6);
+  animation: caff-aurora-1 8s ease-in-out infinite;
+}
+
+.caff-hero-aurora-blob--2 {
+  bottom: -30%;
+  right: -10%;
+  width: 60%;
+  height: 120%;
+  opacity: 0.10;
+  background: linear-gradient(225deg, #7B8AE6, #3DD9C0);
+  filter: blur(120px);
+  animation: caff-aurora-2 10s ease-in-out infinite;
+}
+
+.caff-hero-aurora-blob--3 {
+  top: 10%;
+  right: 20%;
+  width: 40%;
+  height: 80%;
+  opacity: 0.08;
+  background: linear-gradient(180deg, #E6C44A, #7B8AE6);
+  filter: blur(80px);
+  animation: caff-aurora-3 12s ease-in-out infinite;
+}
+
+@keyframes caff-aurora-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5%, 3%) scale(1.05); }
+}
+
+@keyframes caff-aurora-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-4%, -2%) scale(1.08); }
+}
+
+@keyframes caff-aurora-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(3%, -5%) scale(1.03); }
+}
+
+/* ============================================
+   8. SHARED SECTION STYLES
+   ============================================ */
+.caff-section-pad {
+  padding: 5rem 0 5rem;
+}
+
+.section-label-center {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ast-global-color-3);
+  opacity: 0.7;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.caff-section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--ast-global-color-2);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.caff-section-subtitle {
+  color: var(--ast-global-color-3);
+  max-width: 42rem;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.7;
+}
+
+body.wp-theme-astra .entry-content a.caff-title-link,
+body .elementor-widget-html a.caff-title-link,
+.caff-title-link {
+  color: var(--ast-global-color-2);
+  text-decoration: none;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+body.wp-theme-astra .entry-content a.caff-title-link:hover,
+body .elementor-widget-html a.caff-title-link:hover,
+.caff-title-link:hover {
+  color: var(--ast-global-color-0, #54B435);
+  text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+}
+
+.caff-inline-link {
+  color: var(--ast-global-color-0);
+  text-decoration: none;
+}
+.caff-inline-link:hover { text-decoration: underline; }
+
+.caff-body-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.caff-body-link:hover { color: var(--ast-global-color-0); text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85); }
+
+.caff-inline-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ast-global-color-0);
+  margin-top: 2rem;
+  text-decoration: none;
+  padding: 0.625rem 1.25rem;
+  border: 1.5px solid var(--ast-global-color-0, #54B435);
+  border-radius: 6px;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, text-shadow 0.2s ease;
+}
+.caff-inline-cta:hover {
+  background: var(--ast-global-color-0, #54B435);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px -4px rgba(84, 180, 53, 0.4);
+  text-shadow: 1px 0.7px 0 rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+}
+.caff-inline-cta i,
+.caff-inline-cta svg {
+  transition: transform 0.2s ease;
+}
+.caff-inline-cta:hover i,
+.caff-inline-cta:hover svg {
+  transform: translateX(4px);
+}
+
+.text-center { text-align: center; }
+.mb-14 { margin-bottom: 3.5rem; }
+
+/* Two-column grid */
+.caff-two-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+.caff-two-col-center { align-items: center; }
+.caff-two-col-stretch { align-items: stretch; }
+
+/* ============================================
+   9. TRUST STRIP
+   ============================================ */
+.caff-trust-strip {
+  border-bottom: 1px solid var(--ast-global-color-6);
+  padding: 3rem 0 3.5rem;
+  text-align: center;
+  background: var(--ast-global-color-5);
+}
+
+.caff-trust-strip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.caff-trust-stat {
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+/* Trust stat link wrapper */
+.caff-trust-stat-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+}
+
+.caff-trust-stat:hover .caff-trust-stat-val,
+.caff-trust-stat:hover .caff-trust-value {
+  transform: scale(1.05);
+  text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+}
+
+.caff-trust-stat:hover .caff-trust-stat-label,
+.caff-trust-stat:hover .caff-trust-label {
+  color: var(--ast-global-color-0);
+}
+
+.caff-trust-value,
+.caff-trust-stat-val {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--ast-global-color-0);
+  margin-bottom: 0.25rem;
+  text-align: center;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.caff-trust-label,
+.caff-trust-stat-label {
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.65);
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+/* Icon circles */
+.caff-icon-circle {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: rgba(84,180,53,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.caff-icon-circle-lg {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: rgba(84,180,53,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+
+/* Service card sub-element aliases */
+.caff-service-card-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: rgba(84,180,53,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+
+.caff-service-card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--ast-global-color-2);
+  margin-bottom: 0.5rem;
+}
+
+.caff-service-card-desc {
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* ============================================
+   10. SERVICE CARDS
+   ============================================ */
+.caff-services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.caff-service-card {
+  background-color: var(--ast-global-color-5);
+  border: 1px solid var(--ast-global-color-6);
+  border-radius: 8px;
+  padding: 1.75rem 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.caff-service-card:hover {
+  box-shadow: none;
+  border-color: var(--ast-global-color-0);
+  background-color: #EEFCE5;
+}
+
+.caff-service-card:hover .caff-service-card-title,
+.caff-service-card:hover .caff-card-title {
+  color: var(--ast-global-color-0);
+}
+
+.caff-service-card:hover .caff-service-card-desc,
+.caff-service-card:hover .caff-card-desc {
+  color: var(--ast-global-color-3);
+}
+
+.caff-card-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: rgba(84,180,53,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+
+.caff-card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--ast-global-color-2);
+  margin-bottom: 0.5rem;
+}
+
+.caff-card-title-link {
+  color: var(--ast-global-color-2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.caff-card-title-link:hover { color: var(--ast-global-color-0); text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85); }
+
+.caff-card-desc {
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.caff-card-desc-link {
+  color: var(--ast-global-color-3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.caff-card-desc-link:hover { color: var(--ast-global-color-0); text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85); }
+
+.caff-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ast-global-color-0);
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+.caff-card-cta:hover { gap: 0.625rem; text-decoration: underline; }
+
+/* ============================================
+   11. WHY CHOOSE US
+   ============================================ */
+.caff-why-image-col { position: relative; }
+.caff-why-image-wrap { border-radius: 8px; overflow: hidden; }
+.caff-why-image { width: 100%; height: 480px; object-fit: cover; }
+.caff-why-image-full { height: 100%; }
+.caff-why-image-inner-full { height: 100%; }
+
+/* Image hover — left-side green border, no position shift */
+.caff-why-image-inner,
+body .elementor-widget-html .caff-why-image-inner,
+body.wp-theme-astra .entry-content .caff-why-image-inner {
+  transition: box-shadow 0.3s ease;
+}
+.caff-why-image-inner:hover,
+body .elementor-widget-html .caff-why-image-inner:hover,
+body.wp-theme-astra .entry-content .caff-why-image-inner:hover {
+  background-color: #ffffff;
+  box-shadow: 0 3px 0 0 rgba(55, 146, 55, 0.85);
+}
+
+.caff-why-image-badge {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  background-color: var(--ast-global-color-0);
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+.caff-why-badge-val { font-size: 1.5rem; font-weight: 700; }
+.caff-why-badge-label { font-size: 0.8125rem; opacity: 0.9; }
+
+.caff-why-items { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.caff-why-item {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.caff-why-item:hover {
+  background: rgba(84, 180, 53, 0.04);
+  transform: translateX(4px);
+}
+
+.caff-why-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: rgba(84,180,53,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.caff-why-item-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ast-global-color-2);
+  margin-bottom: 0.25rem;
+}
+
+/* Why item heading link hover */
+.caff-why-item-title a,
+body .elementor-widget-html .caff-why-item-title a,
+body.wp-theme-astra .entry-content .caff-why-item-title a {
+  color: var(--ast-global-color-2);
+  text-decoration: none;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+.caff-why-item-title a:hover,
+body .elementor-widget-html .caff-why-item-title a:hover,
+body.wp-theme-astra .entry-content .caff-why-item-title a:hover {
+  color: var(--ast-global-color-0, #54B435);
+  text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+}
+
+.caff-why-item-desc {
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+  line-height: 1.6;
+}
+
+/* --- Why Choose Us: unbold SEO links (like footer) --- */
+body.wp-theme-astra .entry-content .caff-why-item-desc strong,
+body .elementor-widget-html .caff-why-item-desc strong,
+.caff-why-item-desc strong {
+  font-weight: 400;
+}
+
+body.wp-theme-astra .entry-content .caff-why-item-desc strong a,
+body .elementor-widget-html .caff-why-item-desc strong a,
+.caff-why-item-desc strong a {
+  color: var(--ast-global-color-3);
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+body.wp-theme-astra .entry-content .caff-why-item-desc strong a:hover,
+body .elementor-widget-html .caff-why-item-desc strong a:hover,
+.caff-why-item-desc strong a:hover {
+  color: var(--ast-global-color-0, #54B435);
+  text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+}
+
+/* --- Why Choose Us: unbold SEO links in intro paragraph --- */
+body.wp-theme-astra .entry-content .caff-bg-gray .seo-container-para strong,
+body .elementor-widget-html .caff-bg-gray .seo-container-para strong,
+.caff-bg-gray .seo-container-para strong {
+  font-weight: 400;
+}
+
+body.wp-theme-astra .entry-content .caff-bg-gray .seo-container-para strong a,
+body .elementor-widget-html .caff-bg-gray .seo-container-para strong a,
+.caff-bg-gray .seo-container-para strong a {
+  color: var(--ast-global-color-3);
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+body.wp-theme-astra .entry-content .caff-bg-gray .seo-container-para strong a:hover,
+body .elementor-widget-html .caff-bg-gray .seo-container-para strong a:hover,
+.caff-bg-gray .seo-container-para strong a:hover {
+  color: var(--ast-global-color-0, #54B435);
+  text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+}
+
+/* ============================================
+   12. PROCESS
+   ============================================ */
+.caff-process-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.caff-process-card {
+  background: var(--ast-global-color-5);
+  border: 1px solid var(--ast-global-color-6, #e5e7eb);
+  border-radius: 0.5rem;
+  padding: 1.75rem 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.caff-process-card:hover {
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.08);
+  border-color: rgba(84,180,53,0.2);
+  background: #EEFCE5;
+  transform: translateY(-4px);
+}
+
+.caff-process-card:hover .caff-icon-circle-lg {
+  background: var(--ast-global-color-0) !important;
+  transform: scale(1.1);
+}
+
+.caff-process-card:hover .caff-icon-circle-lg i,
+.caff-process-card:hover .caff-icon-circle-lg svg {
+  color: #fff !important;
+}
+
+.caff-process-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: rgba(84,180,53,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+
+.caff-process-step-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ast-global-color-0);
+  opacity: 0.4;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.caff-process-step-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--ast-global-color-2);
+  margin-bottom: 0.5rem;
+}
+
+.caff-process-link,
+body .elementor .elementor-widget-html .caff-process-link,
+body .elementor-widget-html .caff-process-link {
+  color: var(--ast-global-color-2);
+  text-decoration: none;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+.caff-process-link:hover,
+body .elementor .elementor-widget-html .caff-process-link:hover,
+body .elementor-widget-html .caff-process-link:hover {
+  color: var(--ast-global-color-0, #54B435);
+  text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+}
+
+/* Process card description links — unbolded, green hover, zero-blur shadow */
+.caff-process-step-desc strong {
+  font-weight: 400;
+}
+.caff-process-step-desc a,
+body .elementor .elementor-widget-html .caff-process-step-desc a,
+body .elementor-widget-html .caff-process-step-desc a {
+  color: var(--ast-global-color-2);
+  text-decoration: none;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+.caff-process-step-desc a:hover,
+body .elementor .elementor-widget-html .caff-process-step-desc a:hover,
+body .elementor-widget-html .caff-process-step-desc a:hover {
+  color: var(--ast-global-color-0, #54B435);
+  text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+}
+
+.caff-process-card .caff-icon-circle-lg { transition: all 0.3s ease; }
+.caff-process-card .caff-icon-circle-lg i,
+.caff-process-card .caff-icon-circle-lg svg { transition: color 0.3s ease; }
+
+.caff-process-step-desc {
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+  line-height: 1.6;
+  max-width: 20rem;
+  margin: 0 auto;
+}
+
+/* ============================================
+   13. TESTIMONIALS
+   ============================================ */
+.caff-testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.caff-testimonial-card {
+  background: var(--ast-global-color-5);
+  border: 1px solid var(--ast-global-color-6);
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.caff-testimonial-card:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  border-color: rgba(84,180,53,0.2);
+  background: var(--ast-global-color-5);
+  transform: translateY(-4px);
+}
+
+.caff-stars {
+  color: var(--ast-global-color-0);
+  font-size: 1.25rem;
+  letter-spacing: 0.125rem;
+  margin-bottom: 1rem;
+}
+
+.caff-testimonial-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ast-global-color-2);
+  margin-bottom: 0.75rem;
+}
+
+.caff-testimonial-heading {
+  font-weight: 700;
+  color: var(--ast-global-color-2);
+  margin-bottom: 0.75rem;
+}
+
+.caff-testimonial-heading-link {
+  color: var(--ast-global-color-2);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.caff-testimonial-heading-link:hover {
+  color: var(--ast-global-color-0);
+  text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+}
+
+/* --- Testimonial keyword links: unbold, green hover (like footer) --- */
+body.wp-theme-astra .entry-content .caff-testimonial-text strong,
+body .elementor-widget-html .caff-testimonial-text strong,
+.caff-testimonial-text strong {
+  font-weight: 400;
+}
+
+body.wp-theme-astra .entry-content .caff-testimonial-keyword-link,
+body .elementor-widget-html .caff-testimonial-keyword-link,
+.caff-testimonial-keyword-link {
+  color: var(--ast-global-color-3);
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.2s ease;
+}
+
+body.wp-theme-astra .entry-content .caff-testimonial-keyword-link:hover,
+body .elementor-widget-html .caff-testimonial-keyword-link:hover,
+.caff-testimonial-keyword-link:hover {
+  color: var(--ast-global-color-0, #54B435);
+}
+
+/* --- Testimonial heading links: unbold, green hover --- */
+body.wp-theme-astra .entry-content .caff-testimonial-heading strong,
+body .elementor-widget-html .caff-testimonial-heading strong,
+.caff-testimonial-heading strong {
+  font-weight: 700;
+}
+
+body.wp-theme-astra .entry-content .caff-testimonial-heading-link,
+body .elementor-widget-html .caff-testimonial-heading-link,
+.caff-testimonial-heading-link {
+  color: var(--ast-global-color-2);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+body.wp-theme-astra .entry-content .caff-testimonial-heading-link:hover,
+body .elementor-widget-html .caff-testimonial-heading-link:hover,
+.caff-testimonial-heading-link:hover {
+  color: var(--ast-global-color-0, #54B435);
+  text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+}
+}
+
+/* --- Testimonial subtitle keyword links: unbold, green hover --- */
+body.wp-theme-astra .entry-content .caff-section-subtitle.seo-container-para strong,
+body .elementor-widget-html .caff-section-subtitle.seo-container-para strong,
+.caff-section-subtitle.seo-container-para strong {
+  font-weight: 400;
+}
+
+body.wp-theme-astra .entry-content .caff-section-subtitle.seo-container-para strong a,
+body .elementor-widget-html .caff-section-subtitle.seo-container-para strong a,
+.caff-section-subtitle.seo-container-para strong a {
+  color: var(--ast-global-color-3);
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+body.wp-theme-astra .entry-content .caff-section-subtitle.seo-container-para strong a:hover,
+body .elementor-widget-html .caff-section-subtitle.seo-container-para strong a:hover,
+.caff-section-subtitle.seo-container-para strong a:hover {
+  color: var(--ast-global-color-0, #54B435);
+}
+
+.caff-testimonial-text {
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+.caff-testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ast-global-color-6);
+}
+
+.caff-testimonial-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.caff-testimonial-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ast-global-color-2);
+}
+
+.caff-testimonial-role {
+  font-size: 0.75rem;
+  color: var(--ast-global-color-3);
+}
+
+/* ============================================
+   14. CTA BAND
+   ============================================ */
+.caff-cta-band {
+  background-color: #0C2818;
+  padding: 6rem 0 7rem;
+  text-align: center;
+}
+
+.caff-cta-title {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.2;
+}
+
+.caff-cta-subtitle {
+  color: rgba(255,255,255,0.7);
+  font-size: 1.125rem;
+  max-width: 36rem;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+
+.caff-cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* ============================================
+   15. FOOTER
+   ============================================ */
+.caff-footer {
+  background-color: #EEFCE5;
+  border-top: 1px solid var(--ast-global-color-6);
+}
+
+.caff-footer-inner {
+  padding: 4rem 0 1.5rem;
+}
+
+.caff-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.caff-footer-brand {
+  margin-bottom: 1rem;
+}
+
+.caff-footer-brand-link {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  color: var(--ast-global-color-2);
+}
+
+.caff-footer-desc {
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+  line-height: 1.7;
+}
+
+.caff-footer-heading {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--ast-global-color-2);
+  margin-bottom: 1.25rem;
+}
+
+.caff-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.caff-footer-links a,
+body .elementor .caff-site a.caff-footer-links a,
+body .elementor .elementor-widget-html .caff-footer-links a {
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+  text-decoration: none;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+.caff-footer-links a:hover,
+body .elementor .caff-site .caff-footer-links a:hover,
+body .elementor .elementor-widget-html .caff-footer-links a:hover { color: var(--ast-global-color-0, #54B435); text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85); }
+
+.caff-footer-contacts {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.caff-footer-contacts a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.caff-footer-contacts a:hover { color: var(--ast-global-color-0); text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85); }
+
+.caff-footer-social {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.caff-social-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--ast-global-color-2);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+.caff-social-icon:hover { background-color: var(--ast-global-color-0); }
+
+.caff-footer-bottom {
+  border-top: 1px solid var(--ast-global-color-6);
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+}
+
+.caff-footer-legal {
+  display: flex;
+  gap: 1.5rem;
+}
+.caff-footer-legal a {
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.caff-footer-legal a:hover { color: var(--ast-global-color-0); text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85); }
+
+/* ============================================
+   16. LOCATION CARDS
+   ============================================ */
+.caff-locations-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.caff-location-card {
+  background: var(--ast-global-color-5);
+  border: 1px solid var(--ast-global-color-6);
+  border-radius: 8px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.caff-location-card:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  border-color: rgba(84,180,53,0.2);
+  background: #EEFCE5;
+  transform: translateY(-4px);
+}
+
+.caff-location-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ast-global-color-2);
+  margin-bottom: 0.75rem;
+}
+
+.caff-location-desc {
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+.caff-location-rating { margin-bottom: 1.5rem; }
+.caff-location-rating-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ast-global-color-2);
+  margin-bottom: 0.25rem;
+}
+
+.caff-location-btn { width: 100%; text-align: center; }
+
+.caff-locations-cta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--ast-global-color-2);
+  color: #fff;
+  border-radius: 9999px;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.caff-pill-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.caff-pill-link:hover { color: var(--ast-global-color-0); text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85); }
+
+/* ============================================
+   17. VALUES CARDS
+   ============================================ */
+.caff-values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.caff-value-card {
+  background: var(--ast-global-color-5);
+  border: 1px solid var(--ast-global-color-6);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+.caff-value-card:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  border-color: rgba(84,180,53,0.2);
+  background: #EEFCE5;
+}
+
+/* ============================================
+   18. MISSION BOX (Chi Siamo)
+   ============================================ */
+.caff-mission-box {
+  background: var(--ast-global-color-4);
+  border-radius: 8px;
+  padding: 2.5rem 3.5rem;
+}
+
+.caff-mission-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ast-global-color-2);
+  margin-bottom: 1rem;
+}
+
+.caff-mission-desc {
+  color: var(--ast-global-color-3);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.caff-mission-stats {
+  display: flex;
+  gap: 2.5rem;
+}
+.caff-mission-stats .caff-stat-label {
+  white-space: nowrap;
+}
+
+.caff-story-text {
+  color: var(--ast-global-color-3);
+  line-height: 1.7;
+}
+.caff-story-text p { margin-bottom: 1rem; }
+
+/* ============================================
+   19. SERVICE DETAILS (Servizi page)
+   ============================================ */
+.caff-service-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.caff-service-detail-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.caff-service-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.caff-service-detail-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: rgba(84,180,53,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caff-service-detail-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ast-global-color-2);
+}
+
+.caff-service-detail-desc {
+  color: var(--ast-global-color-3);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+
+.caff-service-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.caff-service-bullets li {
+  display: flex;
+  align-items: start;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+}
+.caff-service-bullets li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ast-global-color-0);
+  margin-top: 0.5rem;
+  flex-shrink: 0;
+}
+
+.caff-service-detail-placeholder {
+  background: var(--ast-global-color-4);
+  border-radius: 8px;
+  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+}
+
+/* ============================================
+   20. FAQ
+   ============================================ */
+.caff-faq-list {
+  max-width: 48rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.caff-faq-item {
+  background: var(--ast-global-color-5);
+  border: 1px solid var(--ast-global-color-6);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.caff-faq-item:hover {
+  background: #EEFCE5;
+  border-color: rgba(84,180,53,0.2);
+}
+
+.caff-faq-toggle {
+  width: 100%;
+  padding: 1.25rem;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ast-global-color-2);
+  text-align: left;
+  cursor: pointer;
+}
+
+.caff-faq-chevron {
+  transition: transform 0.3s;
+  color: var(--ast-global-color-3);
+}
+
+.caff-faq-item.is-open .caff-faq-chevron {
+  transform: rotate(180deg);
+}
+
+.caff-faq-answer {
+  display: none;
+  padding: 0 1.25rem 1.25rem;
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+  line-height: 1.6;
+}
+
+.caff-faq-item.is-open .caff-faq-answer {
+  display: block;
+}
+
+/* ============================================
+   21. CONTACT PAGE
+   ============================================ */
+.caff-contact-info-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+.caff-contact-info-grid > * {
+  width: 100%;
+}
+
+.caff-contact-info-card {
+  background: var(--ast-global-color-5);
+  border: 1px solid var(--ast-global-color-6);
+  border-radius: 12px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+.caff-contact-info-card:hover {
+  border-color: rgba(84,180,53,0.4);
+  box-shadow: 0 3px 0 0 rgba(55,146,55,0.85);
+  background-color: rgba(84,180,53,0.03);
+}
+.caff-contact-info-card .caff-icon-circle-lg {
+  width: 3.5rem;
+  height: 3.5rem;
+  background: linear-gradient(135deg, rgba(84,180,53,0.15), rgba(84,180,53,0.05));
+  box-shadow: inset 0 0 0 1px rgba(84,180,53,0.15);
+  transition: box-shadow 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+.caff-contact-info-card:hover .caff-icon-circle-lg {
+  box-shadow: inset 0 0 0 1.5px rgba(84,180,53,0.35);
+  background: linear-gradient(135deg, rgba(84,180,53,0.25), rgba(84,180,53,0.1));
+}
+.caff-contact-info-card .caff-icon-circle-lg i {
+  transition: transform 0.3s ease;
+}
+.caff-contact-info-card:hover .caff-icon-circle-lg i {
+  transform: scale(1.1) rotate(5deg);
+}
+.caff-contact-info-card .caff-contact-info-title {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+.caff-contact-info-card:hover .caff-contact-info-title {
+  color: var(--ast-global-color-0);
+  text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+}
+.caff-contact-info-card .caff-contact-info-value {
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+.caff-contact-info-card:hover .caff-contact-info-value {
+  color: var(--ast-global-color-2);
+}
+.caff-contact-info-card:hover a.caff-contact-info-value {
+  color: var(--ast-global-color-0);
+}
+
+.caff-contact-info-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ast-global-color-2);
+  margin-bottom: 0.5rem;
+}
+
+.caff-contact-info-value {
+  font-size: 0.9375rem;
+  color: var(--ast-global-color-3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a.caff-contact-info-value:hover { color: var(--ast-global-color-0); text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85); }
+
+.caff-map-placeholder {
+  background: var(--ast-global-color-4);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+/* Form styles */
+.caff-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.caff-form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.caff-form-label {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ast-global-color-2);
+  margin-bottom: 0.5rem;
+}
+.caff-form-input,
+.caff-form-textarea {
+  width: 100%;
+  padding: 0.9375rem 1.125rem;
+  border: 1px solid var(--ast-global-color-6);
+  border-radius: 8px;
+  background: var(--ast-global-color-5);
+  font-size: 1rem;
+  color: var(--ast-global-color-2);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+.caff-form-input::placeholder,
+.caff-form-textarea::placeholder {
+  color: #adb5bd;
+  font-size: 0.9375rem;
+}
+.caff-form-input:focus,
+.caff-form-textarea:focus {
+  outline: none;
+  border-color: var(--ast-global-color-0);
+  box-shadow: 0 0 0 3px rgba(84,180,53,0.12);
+}
+.caff-form-textarea {
+  resize: none;
+  min-height: 140px;
+}
+
+/* Related services grid */
+.caff-related-services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+.caff-related-card {
+  display: block;
+  background: var(--ast-global-color-5);
+  border: 1px solid var(--ast-global-color-6);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.caff-related-card:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  border-color: rgba(84,180,53,0.2);
+}
+.caff-related-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ast-global-color-2);
+  margin-bottom: 0.5rem;
+}
+.caff-related-desc {
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+/* ============================================
+   22. REUSABLE CONTENT CLASSES
+   ============================================ */
+
+/* --- Page Hero container (centered text + extra bottom padding) --- */
+.caff-page-hero .container {
+  padding-top: 5rem;
+  padding-bottom: 7rem;
+  text-align: center;
+}
+
+/* --- Section backgrounds --- */
+.caff-bg-white { background-color: var(--ast-global-color-5); }
+.caff-bg-alt   { background-color: var(--ast-global-color-4); }
+
+/* --- Intro / prose wrapper (max-width narrow block) --- */
+.caff-intro-wrap {
+  max-width: 48rem;
+  margin-bottom: 3rem;
+}
+
+/* --- Section heading (h2 inside content sections) --- */
+.caff-content-heading {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--ast-global-color-2);
+  margin-bottom: 1.5rem;
+}
+
+/* Content heading inner links */
+.caff-content-heading a,
+.caff-content-heading strong a,
+body .elementor-widget-html .caff-content-heading a,
+body.wp-theme-astra .entry-content .caff-content-heading a {
+  color: var(--ast-global-color-2);
+  text-decoration: none;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+.caff-content-heading a:hover,
+.caff-content-heading strong a:hover,
+body .elementor-widget-html .caff-content-heading a:hover,
+body.wp-theme-astra .entry-content .caff-content-heading a:hover {
+  color: var(--ast-global-color-0, #54B435);
+  text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+}
+
+/* --- Heading link (inherits heading color, no underline) --- */
+.caff-heading-link {
+  color: var(--ast-global-color-2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.caff-heading-link:hover,
+body.wp-theme-astra .entry-content a.caff-heading-link:hover,
+body .elementor-widget-html a.caff-heading-link:hover,
+body .elementor .elementor-widget-html a.caff-heading-link:hover { color: var(--ast-global-color-0, #54B435); text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85); }
+
+/* --- Prose block (body text with vertical flow) --- */
+.caff-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--ast-global-color-3);
+  line-height: 1.7;
+}
+
+/* --- SEO inline link (inherits text color, no underline) --- */
+.caff-seo-link {
+  color: var(--ast-global-color-3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.caff-seo-link:hover { color: var(--ast-global-color-0); text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85); }
+
+/* --- Auto-fill card grid --- */
+.caff-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+/* --- Card inner layout (icon + text row) --- */
+.caff-card-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+/* --- Small lucide icon inside cards --- */
+.caff-card-icon-sm {
+  width: 20px;
+  height: 20px;
+  color: var(--ast-global-color-0);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* --- Card heading (compact) --- */
+.caff-card-heading {
+  font-weight: 600;
+  color: var(--ast-global-color-2);
+  margin-bottom: 0.25rem;
+}
+
+/* --- Card description (small text) --- */
+.caff-card-text {
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+}
+
+/* --- Centered CTA wrapper --- */
+.caff-cta-center {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+/* --- Related services section padding --- */
+.caff-section-pad-sm {
+  padding-top: 4rem;
+  padding-bottom: 5rem;
+}
+
+/* --- Related services heading --- */
+.caff-related-heading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ast-global-color-2);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* --- Related card CTA link --- */
+.caff-related-cta {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ast-global-color-0);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* --- Arrow icon (14px inside related cards) --- */
+.caff-icon-arrow {
+  width: 14px;
+  height: 14px;
+}
+
+/* --- CTA margin-top utility --- */
+.caff-cta-mt {
+  margin-top: 2rem;
+}
+
+/* --- Button row (flex wrap) --- */
+.caff-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* --- Sidebar panel (green tint bg) --- */
+.caff-sidebar-panel {
+  background-color: var(--ast-global-color-4, #f0fdf4);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* --- Sidebar panel alt (white with border) --- */
+.caff-sidebar-panel-alt {
+  background: #fff;
+  border: 1px solid var(--ast-global-color-6, #e5e7eb);
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+
+/* --- Sidebar heading (icon + text row) --- */
+.caff-sidebar-heading {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--ast-global-color-2);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* --- Benefit list (check-icon items) --- */
+.caff-benefit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* --- Benefit item --- */
+.caff-benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+}
+
+/* --- Check icon (16px) --- */
+.caff-check-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--ast-global-color-0);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* --- Document list (bullet items) --- */
+.caff-doc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* --- Document item --- */
+.caff-doc-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--ast-global-color-3);
+}
+
+/* --- Document bullet dot --- */
+.caff-doc-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ast-global-color-0);
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+/* --- Card stack (vertical flex column) --- */
+.caff-card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* --- Card stack large gap --- */
+.caff-card-stack-lg {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* --- Compact service card (white border, for sidebar lists) --- */
+.caff-sidebar-card {
+  background: #fff;
+  border: 1px solid var(--ast-global-color-6, #e5e7eb);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+}
+
+/* --- Icon sizes (for Lucide CDN icons) --- */
+.caff-icon-14 { width: 14px; height: 14px; }
+.caff-icon-16 { width: 16px; height: 16px; }
+.caff-icon-20 { width: 20px; height: 20px; }
+.caff-icon-22 { width: 22px; height: 22px; }
+.caff-icon-24 { width: 24px; height: 24px; }
+.caff-icon-28 { width: 28px; height: 28px; }
+.caff-icon-48 { width: 48px; height: 48px; }
+.caff-icon-96 { width: 96px; height: 96px; }
+.caff-icon-green { color: var(--ast-global-color-0); }
+.caff-icon-white { color: #fff; }
+.caff-icon-muted { color: rgba(84,180,53,0.3); }
+.caff-icon-faint { color: rgba(84,180,53,0.2); }
+.caff-icon-opacity-half { opacity: 0.5; color: var(--ast-global-color-0); }
+.caff-icon-opacity-06 { opacity: 0.6; color: var(--ast-global-color-0); }
+.caff-icon-opacity-07 { opacity: 0.7; color: var(--ast-global-color-0); }
+.caff-star-icon { width: 20px; height: 20px; color: var(--ast-global-color-0); fill: var(--ast-global-color-0); }
+
+/* --- Background variants --- */
+.caff-bg-gray { background-color: #F5F5F5; }
+.caff-bg-cta { background-color: #0C2818; }
+.caff-bg-white-border { background-color: var(--ast-global-color-5); border-bottom: 1px solid var(--ast-global-color-6); }
+
+/* --- Section header wrapper --- */
+.caff-section-header { text-align: center; margin-bottom: 3.5rem; }
+
+/* --- Spacing utilities --- */
+body .elementor-widget-html .caff-pad-trust,
+body .elementor .caff-pad-trust,
+.caff-pad-trust { padding-top: 5rem; padding-bottom: 5rem; }
+
+body .elementor-widget-html .caff-cta-pad,
+body .elementor .caff-cta-pad,
+.caff-cta-pad { padding-top: 6rem; padding-bottom: 7rem; text-align: center; }
+
+.caff-mb-5 { margin-bottom: 5rem; }
+.caff-mb-6 { margin-bottom: 1.5rem; }
+
+body .elementor-widget-html .caff-footer-pad,
+body .elementor .caff-footer-pad,
+.caff-footer-pad { padding-top: 4rem; padding-bottom: 5rem; }
+
+/* --- Nav item (h3 reset inside dropdowns) --- */
+.caff-nav-item { font-size: inherit; font-weight: inherit; margin: 0; }
+
+/* --- Form heading and intro --- */
+.caff-form-heading { font-size: 1.75rem; font-weight: 700; color: var(--ast-global-color-2); margin-bottom: 1rem; }
+.caff-form-intro { color: var(--ast-global-color-3); line-height: 1.7; margin-bottom: 2rem; }
+
+/* --- Map placeholder text --- */
+.caff-map-text { color: var(--ast-global-color-3); font-size: 0.875rem; }
+.caff-map-text-sm { color: var(--ast-global-color-3); font-size: 0.75rem; margin-top: 0.25rem; }
+.caff-map-icon { margin-bottom: 0.75rem; }
+
+/* --- Other locations --- */
+.caff-other-locations-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; max-width: 40rem; margin: 0 auto; }
+.caff-other-location-card { display: block; background: #fff; border: 1px solid var(--ast-global-color-6, #e5e7eb); border-radius: 0.5rem; padding: 1.5rem; text-align: center; text-decoration: none; transition: box-shadow 0.2s; }
+.caff-other-location-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+.caff-other-location-title { font-weight: 600; color: var(--ast-global-color-2); margin-bottom: 0.5rem; }
+
+/* --- Stat values --- */
+.caff-stat-val { font-size: 1.875rem; font-weight: 700; color: var(--ast-global-color-0); transition: text-shadow 0.3s ease, transform 0.3s ease; }
+.caff-stat-val:hover { text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85); transform: scale(1.05); }
+.caff-stat-label { font-size: 0.875rem; color: var(--ast-global-color-3); }
+
+/* --- Value card elements --- */
+.caff-value-title { font-size: 1.125rem; font-weight: 600; color: var(--ast-global-color-2); margin-bottom: 0.75rem; }
+.caff-value-desc { font-size: 0.875rem; color: var(--ast-global-color-3); line-height: 1.6; }
+
+/* --- Mobile nav CTA --- */
+.caff-mobile-cta { margin-top: 1rem; width: 100%; text-align: center; }
+
+/* --- Footer description --- */
+.caff-footer-desc-text { font-size: 0.875rem; line-height: 1.7; color: var(--ast-global-color-3); text-align: justify; }
+.caff-footer-contact-link { display: inline-flex; align-items: center; gap: 0.625rem; }
+
+/* --- Blog cards --- */
+.caff-blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px; }
+.caff-blog-card { background: #fff; border: 1px solid #d1d5db; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s ease, border-color 0.3s ease; }
+.caff-blog-card:hover { transform: translateY(-4px); border-color: var(--ast-global-color-0, #379237); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); }
+.caff-blog-card-thumb { background: var(--ast-global-color-4, #f0fdf4); padding: 2rem; display: flex; align-items: center; justify-content: center; }
+.caff-blog-card-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+.caff-blog-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ast-global-color-0); background: rgba(84,180,53,0.1); padding: 4px 10px; border-radius: 4px; display: inline-block; margin-bottom: 0.5rem; width: fit-content; text-decoration: none; transition: background 0.2s ease; }
+.caff-blog-badge:hover { background: rgba(84,180,53,0.18); }
+.caff-blog-card-title { font-weight: 700; color: var(--ast-global-color-2); margin-bottom: 0.5rem; line-height: 1.4; }
+.caff-blog-card-title a { color: var(--ast-global-color-2); text-decoration: none; }
+.caff-blog-card-title a:hover { color: var(--ast-global-color-0); text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85); }
+.caff-blog-card-desc { font-size: 0.875rem; color: var(--ast-global-color-3); line-height: 1.6; margin-bottom: 1rem; flex: 1; }
+.caff-blog-card-meta { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--ast-global-color-3); margin-bottom: 14px; }
+.caff-blog-meta-item { display: flex; align-items: center; gap: 0.25rem; }
+.caff-blog-meta-divider { color: #ccc; font-weight: 400; }
+.caff-blog-meta-author { font-weight: 600; color: var(--ast-global-color-0); }
+.caff-blog-card-readmore { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 600; color: var(--ast-global-color-0); text-decoration: none; margin-top: auto; transition: gap 0.2s ease, color 0.2s ease; }
+.caff-blog-card-readmore:hover { gap: 10px; color: var(--ast-global-color-1); }
+
+/* --- Blog categories --- */
+.caff-blog-categories { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+.caff-blog-category-pill { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--ast-global-color-4, #f0fdf4); color: var(--ast-global-color-2); border-radius: 9999px; font-size: 0.875rem; font-weight: 500; text-decoration: none; }
+.caff-blog-category-count { font-size: 0.75rem; opacity: 0.6; }
+
+/* --- Why-choose-us image stretch --- */
+.caff-why-image-container,
+body .elementor-widget-html .caff-why-image-container,
+body.wp-theme-astra .entry-content .caff-why-image-container { position: relative; height: 100%; }
+
+.caff-why-image-inner,
+body .elementor-widget-html .caff-why-image-inner,
+body.wp-theme-astra .entry-content .caff-why-image-inner { border-radius: 0.5rem; overflow: hidden; }
+
+.caff-why-image-inner-full,
+body .elementor-widget-html .caff-why-image-inner-full,
+body.wp-theme-astra .entry-content .caff-why-image-inner-full { height: 100%; }
+
+.caff-why-image-full,
+body .elementor-widget-html .caff-why-image-full,
+body.wp-theme-astra .entry-content .caff-why-image-full { height: 100%; object-fit: cover; }
+
+body .elementor-widget-html .caff-two-col-stretch,
+body.wp-theme-astra .entry-content .caff-two-col-stretch { align-items: stretch; }
+
+/* --- Hero section label variant --- */
+body.wp-theme-astra .entry-content p.caff-hero-section-label,
+body .elementor .elementor-widget-html p.caff-hero-section-label,
+body .elementor-widget-html p.caff-hero-section-label,
+p.caff-hero-section-label,
+.caff-hero-section-label {
+  display: block;
+  font-size: 0.75rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #81C784;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+/* --- Animation delay --- */
+.caff-delay-200 { animation-delay: 0.2s; }
+
+/* --- Nowrap utility --- */
+.caff-nowrap { white-space: nowrap; }
+
+/* --- Section padding xs (3rem) --- */
+.caff-section-pad-xs { padding-top: 3rem; padding-bottom: 3rem; }
+
+/* --- Blog section header --- */
+.caff-blog-section-header { margin-bottom: 2.5rem; }
+
+/* --- Footer brand heading margin --- */
+.caff-footer-brand-heading { margin-bottom: 1rem; }
+
+/* --- Inline link with underline (for related services paragraphs) --- */
+.caff-inline-link-u { color: var(--ast-global-color-0); text-decoration: underline; }
+.caff-inline-link-u:hover { color: var(--ast-global-color-1); }
+
+/* --- Icon flex-shrink helper --- */
+.caff-icon-noshrink { flex-shrink: 0; }
+
+/* --- Footer bottom strong --- */
+.caff-footer-copyright-brand { font-weight: inherit; color: var(--ast-global-color-2); }
+
+/* --- Footer legal row --- */
+.caff-footer-legal-row { display: flex; gap: 1.5rem; }
+
+/* ============================================
+   23. UTILITY CLASSES
+   ============================================ */
+
+/* Screen-reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Entrance animation */
+.animate-fade-in-up {
+  animation: caffFadeInUp 0.6s ease both;
+}
+
+@keyframes caffFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* card-cta alias */
+body .elementor .caff-site a.card-cta,
+body .elementor-widget-html a.card-cta,
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ast-global-color-0);
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+.card-cta:hover { gap: 0.625rem; text-decoration: underline; }
+
+/* Stars row */
+.caff-stars {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+/* Footer socials alias */
+.caff-footer-socials {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.caff-footer-social-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--ast-global-color-2);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.3s;
+}
+.caff-footer-social-icon:hover {
+  background-color: var(--ast-global-color-0);
+  transform: scale(1.1) rotate(6deg);
+}
+.caff-footer-social-icon svg {
+  transition: transform 0.3s;
+}
+.caff-footer-social-icon:hover svg {
+  transform: scale(1.1);
+}
+
+body .elementor .caff-site a.caff-footer-social-icon,
+body .elementor-widget-html a.caff-footer-social-icon {
+  color: #ffffff;
+}
+
+/* ============================================
+   23. MEDIA QUERIES
+   ============================================ */
+@media (min-width: 640px) {
+  .caff-contact-info-grid > * { width: calc((100% - 1.5rem) / 2); }
+  .caff-form-row { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 768px) {
+  .caff-trust-strip-grid { grid-template-columns: repeat(4, 1fr); }
+  .caff-trust-stat-val { font-size: 2.25rem; }
+  .caff-services-grid { grid-template-columns: repeat(2, 1fr); }
+  .caff-process-grid { grid-template-columns: repeat(3, 1fr); }
+  .caff-testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+  .caff-locations-grid { grid-template-columns: repeat(3, 1fr); }
+  .caff-values-grid { grid-template-columns: repeat(3, 1fr); }
+  .caff-related-services-grid { grid-template-columns: repeat(3, 1fr); }
+  .caff-mission-stats { grid-template-columns: repeat(4, 1fr); }
+
+  body .elementor-widget-html .caff-hero-title,
+  .caff-hero-title { font-size: 3rem; }
+  body .elementor-widget-html .caff-hero-stat-val,
+  .caff-hero-stat-val { font-size: 2rem; }
+  .caff-page-hero-title { font-size: 2.75rem; }
+  .caff-section-title { font-size: 2rem; }
+  .caff-cta-title { font-size: 2.5rem; }
+
+  .caff-footer-grid { grid-template-columns: 2fr 1fr 1fr 2fr; }
+  .caff-footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+@media (min-width: 1024px) {
+  body .elementor-widget-html .caff-hero-grid,
+  .caff-hero-grid { grid-template-columns: 1fr 1fr; padding: 5rem 0 7rem; }
+  body .elementor-widget-html .caff-hero-title,
+  .caff-hero-title { font-size: 3.75rem; }
+  .caff-services-grid { grid-template-columns: repeat(4, 1fr); }
+  .caff-two-col { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .caff-service-detail-row { grid-template-columns: 1fr 1fr; }
+  .caff-service-detail-reverse > div:first-child { order: 2; }
+  .caff-service-detail-reverse .caff-service-detail-placeholder { order: 1; }
+  .caff-contact-info-grid > * { width: calc((100% - 3rem) / 3); }
+
+  .header-hamburger { display: none; }
+  .nav { display: flex; }
+  .header-actions { display: flex; }
+}
+
+@media (max-width: 1023px) {
+  .nav { display: none; }
+  .header-actions { display: none; }
+  .header-hamburger { display: flex; }
+}
+
+/* ============================================
+   MOBILE CENTERING — Single-column polish
+   Centers hero, service, and footer elements
+   when layout collapses to one column.
+   ============================================ */
+@media (max-width: 767px) {
+
+  /* --- Hero: center all content on mobile --- */
+  body .caff-site .caff-hero-content,
+  body .elementor-widget-html .caff-hero-content,
+  .caff-hero-content {
+    text-align: center;
+  }
+
+  body .caff-site .caff-hero-title,
+  body .elementor-widget-html .caff-hero-title,
+  .caff-hero-title {
+    text-align: center;
+  }
+
+  body .caff-site .caff-hero-subtitle,
+  body .elementor-widget-html .caff-hero-subtitle,
+  .caff-hero-subtitle {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  body .caff-site .caff-hero-section-label,
+  body .elementor-widget-html .caff-hero-section-label,
+  p.caff-hero-section-label,
+  .caff-hero-section-label {
+    text-align: center;
+  }
+
+  body .caff-site .caff-hero-buttons,
+  body .elementor-widget-html .caff-hero-buttons,
+  .caff-hero-buttons {
+    justify-content: center;
+  }
+
+  /* --- Hero stats: center text within each stat --- */
+  body .caff-site .caff-hero-stats,
+  body .elementor-widget-html .caff-hero-stats,
+  .caff-hero-stats {
+    text-align: center;
+  }
+
+  /* --- Service content two-col: center headings on mobile --- */
+  body .caff-site .caff-two-col .section-label,
+  body .elementor-widget-html .caff-two-col .section-label,
+  .caff-two-col .section-label {
+    text-align: center;
+  }
+
+  /* --- CTA buttons row: center on mobile --- */
+  body .caff-site .caff-btn-row,
+  body .elementor-widget-html .caff-btn-row,
+  .caff-btn-row {
+    justify-content: center;
+  }
+
+  /* --- Footer social icons: center on mobile --- */
+  body .caff-site .caff-footer-social,
+  body .elementor-widget-html .caff-footer-social,
+  .caff-footer-social,
+  body .caff-site .caff-footer-socials,
+  body .elementor-widget-html .caff-footer-socials,
+  .caff-footer-socials {
+    justify-content: center;
+  }
+
+  /* --- Footer legal row: center on mobile --- */
+  body .caff-site .caff-footer-legal,
+  body .elementor-widget-html .caff-footer-legal,
+  .caff-footer-legal,
+  body .caff-site .caff-footer-legal-row,
+  body .elementor-widget-html .caff-footer-legal-row,
+  .caff-footer-legal-row {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* --- Footer bottom: ensure center on mobile --- */
+  body .caff-site .caff-footer-bottom,
+  body .elementor-widget-html .caff-footer-bottom,
+  .caff-footer-bottom {
+    text-align: center;
+    align-items: center;
+  }
+
+  /* --- Footer columns: center headings, links & contacts on mobile --- */
+  body .caff-site .caff-footer-heading,
+  body .elementor-widget-html .caff-footer-heading,
+  .caff-footer-heading {
+    text-align: center;
+  }
+
+  body .caff-site .caff-footer-links,
+  body .elementor-widget-html .caff-footer-links,
+  .caff-footer-links {
+    text-align: center;
+  }
+
+  body .caff-site .caff-footer-links li,
+  body .elementor-widget-html .caff-footer-links li,
+  .caff-footer-links li {
+    text-align: center;
+  }
+
+  body .caff-site .caff-footer-contacts,
+  body .elementor-widget-html .caff-footer-contacts,
+  .caff-footer-contacts {
+    text-align: center;
+  }
+
+  body .caff-site .caff-footer-contacts li,
+  body .elementor-widget-html .caff-footer-contacts li,
+  .caff-footer-contacts li {
+    text-align: center;
+  }
+
+  body .caff-site .caff-footer-contacts a,
+  body .elementor-widget-html .caff-footer-contacts a,
+  .caff-footer-contacts a {
+    justify-content: center;
+  }
+
+  body .caff-site .caff-footer-brand,
+  body .elementor-widget-html .caff-footer-brand,
+  .caff-footer-brand {
+    text-align: center;
+  }
+
+  body .caff-site .caff-footer-brand-link,
+  body .elementor-widget-html .caff-footer-brand-link,
+  .caff-footer-brand-link {
+    justify-content: center;
+  }
+
+  body .caff-site .caff-footer-desc,
+  body .elementor-widget-html .caff-footer-desc,
+  .caff-footer-desc {
+    text-align: center;
+  }
+
+  /* --- Mission box: center all content on mobile --- */
+  body .caff-site .caff-mission-box,
+  body .elementor-widget-html .caff-mission-box,
+  .caff-mission-box {
+    text-align: center;
+    padding: 2rem 1.5rem;
+  }
+
+  body .caff-site .caff-mission-title,
+  body .elementor-widget-html .caff-mission-title,
+  .caff-mission-title {
+    text-align: center;
+  }
+
+  body .caff-site .caff-mission-desc,
+  body .elementor-widget-html .caff-mission-desc,
+  .caff-mission-desc {
+    text-align: center;
+  }
+
+  body .caff-site .caff-mission-stats,
+  body .elementor-widget-html .caff-mission-stats,
+  .caff-mission-stats {
+    text-align: center;
+    justify-items: center;
+  }
+
+  /* --- Mission stats: force consistent wrapping --- */
+  body .caff-site .caff-stat-label,
+  body .elementor-widget-html .caff-stat-label,
+  .caff-stat-label {
+    min-height: 2.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* --- Chi Siamo story column: center on mobile --- */
+  body .caff-site .caff-two-col .caff-content-heading,
+  body .elementor-widget-html .caff-two-col .caff-content-heading,
+  .caff-two-col .caff-content-heading {
+    text-align: center;
+  }
+
+  body .caff-site .caff-two-col .caff-prose,
+  body .elementor-widget-html .caff-two-col .caff-prose,
+  .caff-two-col .caff-prose {
+    text-align: center;
+  }
+
+  /* --- Scroll-to-top button: lift above sticky CTA bar --- */
+  .ast-scroll-top-icon,
+  #ast-scroll-top,
+  .ksuspended-btn,
+  [class*="scroll-top"],
+  [class*="back-to-top"],
+  [id*="scroll-top"] {
+    bottom: 5.5rem;
+  }
+}
+
+/* ============================================
+   LOCATION CTA PAIR (Green Primary + Outline)
+   ============================================ */
+.caff-location-cta-pair {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Primary: Solid Green */
+body.wp-theme-astra .entry-content .caff-loc-btn-primary,
+body .elementor-widget-html .caff-loc-btn-primary,
+.caff-loc-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  background: var(--ast-global-color-0, #54B435);
+  box-shadow: 0 2px 10px rgba(84, 180, 53, 0.3);
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+body.wp-theme-astra .entry-content .caff-loc-btn-primary:hover,
+body .elementor-widget-html .caff-loc-btn-primary:hover,
+.caff-loc-btn-primary:hover {
+  background: var(--ast-global-color-1, #379237);
+  color: #fff;
+}
+
+/* Secondary: Green Outline */
+body.wp-theme-astra .entry-content .caff-loc-btn-outline,
+body .elementor-widget-html .caff-loc-btn-outline,
+.caff-loc-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ast-global-color-0, #54B435);
+  text-decoration: none;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  background: transparent;
+  border: 2px solid var(--ast-global-color-0, #54B435);
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+body.wp-theme-astra .entry-content .caff-loc-btn-outline:hover,
+body .elementor-widget-html .caff-loc-btn-outline:hover,
+.caff-loc-btn-outline:hover {
+  background: var(--ast-global-color-0, #54B435);
+  color: #fff;
+}
+
+/* ============================================
+   SECTION HEADING LINKS (for locations H2)
+   ============================================ */
+body.wp-theme-astra .entry-content a.caff-section-heading-link,
+body .elementor-widget-html a.caff-section-heading-link,
+.caff-section-heading-link {
+  color: var(--ast-global-color-2, #111);
+  text-decoration: none;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+body.wp-theme-astra .entry-content a.caff-section-heading-link:hover,
+body .elementor-widget-html a.caff-section-heading-link:hover,
+.caff-section-heading-link:hover {
+  color: var(--ast-global-color-0, #54B435);
+  text-shadow: 1px 0.7px 0 rgba(0, 0, 0, 0.85);
+}
+
+/* --- Image shadows --- */
+.caff-img-shadow,
+body .elementor-widget-html .caff-hero-image-wrap,
+.caff-hero-image-wrap {
+  position: relative;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.caff-hero-image-wrap .caff-hero-image-light {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.caff-hero-image-wrap .caff-hero-image-dark {
+  transition: opacity 0.3s ease;
+}
+
+.caff-hero-image-wrap:hover .caff-hero-image-dark {
+  opacity: 0;
+}
+
+.caff-hero-image-wrap:hover .caff-hero-image-light {
+  opacity: 1;
+}
+
+/* Hero image link wrapper — whole hover image is clickable */
+.caff-hero-image-link {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.caff-hero-image-link .caff-hero-image-light {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.caff-hero-image-wrap:hover .caff-hero-image-link .caff-hero-image-light {
+  opacity: 1;
+}
+
+.caff-img-shadow:hover,
+body .elementor-widget-html .caff-hero-image-wrap:hover,
+.caff-hero-image-wrap:hover {
+  box-shadow: 0 1px 0 0 rgb(255 255 255 / 95%);
+}
+
+/* ============================================
+   STICKY BOTTOM CTA BAR
+   Rotating conic-gradient border + twin buttons
+   ============================================ */
+
+@keyframes caff-border-rotate {
+  0%   { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.caff-sticky-cta {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+  padding: 2px;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.caff-sticky-cta.is-visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Rotating conic-gradient border — smooth DesignMonks-style sweep */
+.caff-sticky-cta-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 900%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    transparent 15%,
+    rgba(84, 180, 53, 0.15) 20%,
+    rgba(84, 180, 53, 0.4) 25%,
+    #54B435 30%,
+    #66BB6A 35%,
+    #81C784 40%,
+    #66BB6A 45%,
+    #54B435 50%,
+    rgba(84, 180, 53, 0.4) 55%,
+    rgba(84, 180, 53, 0.15) 60%,
+    transparent 65%,
+    transparent 100%
+  );
+  animation: caff-border-rotate 4s linear infinite;
+  z-index: 0;
+}
+
+.caff-sticky-cta-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 9999px;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Shared button base */
+.caff-sticky-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: filter 0.2s ease;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.caff-sticky-btn:hover {
+  filter: brightness(1.15);
+  text-shadow: none;
+  text-decoration: none;
+}
+
+/* Call button — dark navy */
+.caff-sticky-btn-call {
+  background: #0c1a2e;
+  color: #ffffff;
+  border-radius: 9999px 0 0 9999px;
+}
+
+/* Contact button — vivid green */
+.caff-sticky-btn-contact {
+  background: #379237;
+  color: #ffffff;
+  border-radius: 0 9999px 9999px 0;
+}
+
+/* "Or" divider circle */
+.caff-sticky-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50px;
+  background: #fafaf8;
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  flex-shrink: 0;
+  margin-left: -0.625rem;
+  margin-right: -0.625rem;
+  z-index: 2;
+  box-shadow: 0 0 0 6px rgb(255 255 255 / .2);
+}
+
+/* Icon sizing */
+.caff-icon-18 {
+  width: 18px;
+  height: 18px;
+}
+
+/* High-specificity overrides for WordPress */
+body.wp-theme-astra .caff-sticky-btn,
+body .elementor .elementor-widget-html .caff-sticky-btn,
+body .elementor-widget-html .caff-sticky-btn {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+body.wp-theme-astra .caff-sticky-btn:hover,
+body .elementor .elementor-widget-html .caff-sticky-btn:hover,
+body .elementor-widget-html .caff-sticky-btn:hover {
+  text-shadow: none;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/* Mobile: slightly smaller */
+@media (max-width: 480px) {
+  .caff-sticky-btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+  }
+  .caff-sticky-divider {
+    width: 1.125rem;
+    height: 1.125rem;
+    font-size: 0.625rem;
+    margin-left: -0.5625rem;
+    margin-right: -0.5625rem;
+  }
+}
+
+/* Dual-State Button (Atto Property style) */
+.caff-dual-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.caff-dual-btn-normal,
+.caff-dual-btn-hover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.caff-dual-btn-normal {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.caff-dual-btn-hover {
+  position: absolute;
+  inset: 0;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.caff-dual-btn:hover .caff-dual-btn-normal {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.caff-dual-btn:hover .caff-dual-btn-hover {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+
+/* ===========================================================================
+   ADVANTAGES SECTION — Animated Gradient Border Cards (DesignMonks-style)
+   =========================================================================== */
+
+.caff-advantages {
+  background-color: #0C2818;
+  overflow: hidden;
+}
+
+.caff-advantages-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.caff-advantages-highlight {
+  background: linear-gradient(135deg, #54B435, #81C784);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.caff-label-light {
+  color: #81C784;
+}
+
+.caff-advantages-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.caff-adv-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.caff-adv-card-link:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Card with rotating gradient border */
+.caff-adv-card {
+  position: relative;
+  border-radius: 12px;
+  padding: 2px;
+  overflow: hidden;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+.caff-adv-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Rotating conic-gradient glow (the animated border) */
+.caff-adv-card-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 400%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    transparent 10%,
+    rgba(56, 142, 60, 0.15) 15%,
+    rgba(30, 90, 150, 0.4) 20%,
+    rgba(80, 120, 200, 0.6) 25%,
+    #5C6BC0 28%,
+    #42A5F5 32%,
+    #26C6DA 36%,
+    #54B435 42%,
+    #81C784 48%,
+    rgba(84, 180, 53, 0.4) 55%,
+    rgba(55, 146, 55, 0.15) 62%,
+    transparent 70%,
+    transparent 100%
+  );
+  animation: caff-adv-border-rotate 4s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes caff-adv-border-rotate {
+  0%   { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Inner content panel (sits on top of glow) */
+.caff-adv-card-inner {
+  position: relative;
+  z-index: 1;
+  background: #112B1C;
+  border-radius: 10px;
+  padding: 2rem 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.caff-adv-card-icon {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(84, 180, 53, 0.3);
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  color: #81C784;
+}
+
+.caff-adv-card-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+.caff-adv-card-title strong {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.caff-adv-card-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+}
+
+.caff-advantages-cta-wrap {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.caff-inline-cta-light {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+  background: transparent;
+}
+.caff-inline-cta-light:hover {
+  background: #54B435;
+  border-color: #54B435;
+  color: #ffffff;
+}
+
+/* ---- WordPress specificity overrides ---- */
+body.wp-theme-astra .caff-adv-card-title,
+body .elementor-widget-html .caff-adv-card-title {
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+body.wp-theme-astra .caff-adv-card-title strong,
+body .elementor-widget-html .caff-adv-card-title strong {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+body.wp-theme-astra .caff-adv-card-desc,
+body .elementor-widget-html .caff-adv-card-desc {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+body.wp-theme-astra .caff-adv-card-link,
+body .elementor-widget-html .caff-adv-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+body.wp-theme-astra .caff-adv-card-link:hover,
+body .elementor-widget-html .caff-adv-card-link:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+body.wp-theme-astra .caff-advantages-title,
+body .elementor-widget-html .caff-advantages-title {
+  color: #ffffff;
+}
+
+body.wp-theme-astra .caff-inline-cta.caff-inline-cta-light,
+body .elementor .elementor-widget-html a.caff-inline-cta-light,
+body .elementor-widget-html a.caff-inline-cta-light,
+body .elementor .caff-site a.caff-inline-cta-light {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+  background: transparent;
+  text-decoration: none;
+}
+body.wp-theme-astra .caff-inline-cta.caff-inline-cta-light:hover,
+body .elementor .elementor-widget-html a.caff-inline-cta-light:hover,
+body .elementor-widget-html a.caff-inline-cta-light:hover,
+body .elementor .caff-site a.caff-inline-cta-light:hover {
+  background: #54B435;
+  border-color: #54B435;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .caff-advantages-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .caff-advantages-grid {
+    grid-template-columns: 1fr;
+  }
+  .caff-advantages-title {
+    font-size: 1.75rem;
+  }
+}
+
+
+/* ============================================
+   STICKY STACK CARDS SECTION
+   DesignMonks "Industry Wins" scroll-stack pattern
+   ============================================ */
+
+.caff-stack-section {
+  background: #f8f9fa;
+  padding-bottom: 2rem;
+}
+
+/* ---- FIX: Neutralize parent overflow that kills position:sticky in Elementor ---- */
+body .caff-stack-section,
+body .caff-stack-section .caff-stack-container,
+body .elementor-section:has(.caff-stack-section),
+body .elementor-column:has(.caff-stack-section),
+body .elementor-widget:has(.caff-stack-section),
+body .elementor-widget-wrap:has(.caff-stack-section),
+body .elementor-element:has(.caff-stack-section),
+body .e-con:has(.caff-stack-section),
+body .e-con-inner:has(.caff-stack-section),
+body .elementor-section-wrap:has(.caff-stack-section),
+body .entry-content:has(.caff-stack-section),
+body .site-content:has(.caff-stack-section),
+body .ast-container:has(.caff-stack-section) {
+  overflow: visible;
+}
+
+.caff-stack-heading {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.caff-stack-heading-accent {
+  font-style: italic;
+  color: #2E7D32;
+}
+
+/* The tall scroll container that allows sticky behavior */
+.caff-stack-container {
+  max-width: 1232px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Each card visual — NOT sticky (sticky is on the <a> wrapper) */
+.caff-stack-card {
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+/* Card background colors */
+.caff-stack-card-1 { background: #C9FFF7; }
+.caff-stack-card-2 { background: #FFB8B1; }
+.caff-stack-card-3 { background: #FBE8A4; }
+.caff-stack-card-4 { background: #C6CFFF; }
+
+/* Hover: sharp zero-blur drop shadow + lift */
+.caff-stack-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 1px 0.7px 0 #000;
+}
+
+.caff-stack-card-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 420px;
+  align-items: center;
+}
+
+.caff-stack-card-content {
+  padding: 3.5rem;
+}
+
+.caff-stack-card-category {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.1rem;
+  color: #1a1a2e;
+  margin-bottom: 0.75rem;
+  font-weight: 400;
+}
+
+.caff-stack-card-title {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 1rem;
+  line-height: 1.25;
+}
+
+.caff-stack-card-desc {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #4a4a5a;
+  margin-bottom: 1.5rem;
+  max-width: 480px;
+}
+
+/* Stats row */
+.caff-stack-card-stats {
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 1.75rem;
+}
+
+.caff-stack-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.caff-stack-stat-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  color: #1a1a2e;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.caff-stack-stat-value {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+/* Card CTA link */
+.caff-stack-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2E7D32;
+  text-decoration: none;
+  transition: gap 0.3s ease;
+}
+
+.caff-stack-card-link:hover {
+  gap: 0.85rem;
+  text-decoration: none;
+  color: #1B5E20;
+}
+
+/* Right visual area */
+.caff-stack-card-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  position: relative;
+}
+
+.caff-stack-card-icon-wrap {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  transition: transform 0.4s ease;
+}
+
+/* Image wrap — replaces icon for DesignMonks style */
+.caff-stack-card-image-wrap {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  max-width: 400px;
+  width: 100%;
+}
+.caff-stack-card-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Person card — DesignMonks CEO/testimonial style */
+.caff-stack-person-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 10px 16px;
+  max-width: 280px;
+  margin-top: 8px;
+}
+.caff-stack-person-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.caff-stack-person-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.caff-stack-person-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+.caff-stack-person-role {
+  font-size: 0.75rem;
+  color: rgba(26, 26, 46, 0.6);
+}
+.caff-stack-person-arrow {
+  color: rgba(26, 26, 46, 0.4);
+  flex-shrink: 0;
+}
+
+/* Per-card icon colors — deeper tones matching card backgrounds */
+.caff-stack-card-1 .caff-stack-card-icon-wrap { color: #0E8C7A; }
+.caff-stack-card-2 .caff-stack-card-icon-wrap { color: #D4553A; }
+.caff-stack-card-3 .caff-stack-card-icon-wrap { color: #D4940A; }
+.caff-stack-card-4 .caff-stack-card-icon-wrap { color: #5B4FC7; }
+
+/* Full-card link wrapper — THIS is the sticky element */
+.caff-stack-card-link-wrap {
+  display: block;
+  position: sticky;
+  margin-bottom: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+/* Incremental top offsets + z-index on the <a> wrapper (nth-child of .caff-stack-container) */
+.caff-stack-card-link-wrap:nth-child(1) { top: 130px; z-index: 1; }
+.caff-stack-card-link-wrap:nth-child(2) { top: 150px; z-index: 2; }
+.caff-stack-card-link-wrap:nth-child(3) { top: 170px; z-index: 3; }
+.caff-stack-card-link-wrap:nth-child(4) { top: 190px; z-index: 4; }
+
+.caff-stack-card-link-wrap:hover,
+.caff-stack-card-link-wrap:focus {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ---- WordPress specificity overrides for Stack Cards ---- */
+body.wp-theme-astra .caff-stack-card-title,
+body .elementor-widget-html .caff-stack-card-title {
+  color: #1a1a2e;
+}
+
+body.wp-theme-astra .caff-stack-card-desc,
+body .elementor-widget-html .caff-stack-card-desc {
+  color: #1a1a2e;
+}
+
+body.wp-theme-astra .caff-stack-card-link,
+body .elementor-widget-html .caff-stack-card-link,
+body .elementor-widget-html a.caff-stack-card-link {
+  color: #2E7D32;
+  text-decoration: none;
+}
+body.wp-theme-astra .caff-stack-card-link:hover,
+body .elementor-widget-html .caff-stack-card-link:hover,
+body .elementor-widget-html a.caff-stack-card-link:hover {
+  color: #1B5E20;
+  text-decoration: none;
+}
+
+body.wp-theme-astra .entry-content .caff-stack-card-category,
+body .elementor-widget-html .caff-stack-card-category {
+  color: #1a1a2e;
+  font-size: 1.1rem;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .caff-stack-heading {
+    font-size: 2rem;
+  }
+
+  .caff-stack-card-inner {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .caff-stack-card-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .caff-stack-card-visual {
+    display: none;
+  }
+
+  .caff-stack-card-1 { top: 70px; }
+  .caff-stack-card-2 { top: 80px; }
+  .caff-stack-card-3 { top: 90px; }
+  .caff-stack-card-4 { top: 100px; }
+
+  .caff-stack-card-stats {
+    gap: 2rem;
+  }
+
+  .caff-stack-stat-value {
+    font-size: 1.5rem;
+  }
+}
+
+</style>
