@@ -29,6 +29,8 @@
     el.style.cssText =
       'display:block;' +
       'width:100%;' +
+      'max-width:100%;' +
+      'flex-basis:100%;' +
       'box-sizing:border-box;' +
       'margin:0 0 15px 0;' +
       'padding:12px 15px;' +
@@ -43,17 +45,40 @@
     return el;
   }
 
+  /* Find the outermost Elementor wrapper of the submit button so the
+     warning spans the full form row instead of a half-width column. */
+  function findInsertAnchor(submitWrap, form) {
+    var node = submitWrap;
+    var anchor = submitWrap;
+    while (node && node !== form) {
+      if (
+        node.classList &&
+        (node.classList.contains('elementor-field-group') ||
+          node.classList.contains('elementor-column') ||
+          node.classList.contains('elementor-col') ||
+          /(^|\s)elementor-col-/.test(node.className))
+      ) {
+        anchor = node;
+      }
+      node = node.parentNode;
+    }
+    return anchor;
+  }
+
   function showWarning(selectEl) {
     if (getWarningEl()) return;
     var form = selectEl.closest('form');
     if (!form) return;
     var submitWrap = form.querySelector('.elementor-field-type-submit');
     var warning = createWarningEl();
-    if (submitWrap && submitWrap.parentNode) {
-      submitWrap.parentNode.insertBefore(warning, submitWrap);
-    } else {
-      form.appendChild(warning);
+    if (submitWrap) {
+      var anchor = findInsertAnchor(submitWrap, form);
+      if (anchor && anchor.parentNode) {
+        anchor.parentNode.insertBefore(warning, anchor);
+        return;
+      }
     }
+    form.appendChild(warning);
   }
 
   function hideWarning() {
