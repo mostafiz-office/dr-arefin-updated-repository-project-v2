@@ -30,7 +30,9 @@
       'display:block;' +
       'width:100%;' +
       'max-width:100%;' +
+      'flex:0 0 100%;' +
       'flex-basis:100%;' +
+      'grid-column:1 / -1;' +
       'box-sizing:border-box;' +
       'margin:0 0 15px 0;' +
       'padding:12px 15px;' +
