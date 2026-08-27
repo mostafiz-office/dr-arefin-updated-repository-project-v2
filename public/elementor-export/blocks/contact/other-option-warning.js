@@ -1,133 +1,111 @@
 /**
- * Dr. Arefin Appointment Form — "Other" option warning
- * Shows a red inline message above the Submit button when a user selects "Other"
- * in the Medical Concern dropdown.
+ * "Other" Option Warning — Dr. Arefin Appointment Form
+ * -----------------------------------------------------
+ * Shows a red inline warning directly above the Submit button
+ * when the visitor selects "Other" in the "Select Your Medical
+ * Concern" dropdown. The form can still be submitted — the
+ * warning is informational only.
  *
- * Works with both the static export form (#contact-concern) and Elementor forms
- * (auto-generated ids like form-field-field_xyz).
- *
- * Add this to the page footer (WPCode → JavaScript Snippet → Footer, or
- * Elementor → Custom Code → </body> End).
+ * INSTALL (WordPress):
+ *   WPCode plugin → Add Snippet → JavaScript → paste this file's
+ *   contents between <script> and </script> → Location: Footer,
+ *   run on Contact page only → Save & Activate.
  */
-
 (function () {
   'use strict';
 
-  var WARNING_TEXT = "No developer should put anything here because it's only for patients. So, if any developer submits their profile through this, we will reject it. The only way to submit the profile through LinkedIn DMs.";
-  var WARNING_CLASS = 'contact-other-warning';
+  var WARNING_ID = 'other-option-warning-message';
+  var MESSAGE =
+    '⚠️ No developer should put anything here because it\'s only for patients. ' +
+    'If any developer submits their profile through this form, we will reject it. ' +
+    'The only way to submit a profile is through LinkedIn DMs.';
 
-  function isOtherValue(value) {
-    return String(value || '').trim().toLowerCase() === 'other';
-  }
-
-  function hasOtherOption(select) {
-    for (var i = 0; i < select.options.length; i++) {
-      var opt = select.options[i];
-      if (isOtherValue(opt.value) || isOtherValue(opt.textContent)) return true;
-    }
-    return false;
-  }
-
-  function labelTextFor(select) {
-    var text = '';
-    if (select.id) {
-      var lbl = document.querySelector('label[for="' + CSS.escape(select.id) + '"]');
-      if (lbl) text += ' ' + lbl.textContent;
-    }
-    var group = select.closest('.contact-field, .elementor-field-group, .elementor-field-type-select, .form-group, div');
-    if (group) text += ' ' + group.textContent;
-    text += ' ' + (select.getAttribute('name') || '') + ' ' + (select.getAttribute('aria-label') || '');
-    return text.toLowerCase();
-  }
-
-  function findConcernSelect() {
-    var selects = Array.prototype.slice.call(document.querySelectorAll('select'));
-    var candidates = selects.filter(hasOtherOption);
-    if (!candidates.length) return null;
-
-    var preferred = candidates.filter(function (s) {
-      var t = labelTextFor(s);
-      return t.indexOf('medical concern') !== -1 || t.indexOf('concern') !== -1;
-    });
-
-    return preferred[0] || candidates[0];
-  }
-
-  function findSubmit(form) {
-    return form.querySelector(
-      'button[type="submit"], input[type="submit"], .contact-submit-btn, .elementor-button[type="submit"], button.elementor-button'
+  function findSelect() {
+    return (
+      document.getElementById('form-field-services_selected') ||
+      document.querySelector('select[name="form_fields[services_selected]"]')
     );
   }
 
-  function buildWarning() {
+  function getWarningEl() {
+    return document.getElementById(WARNING_ID);
+  }
+
+  function createWarningEl() {
     var el = document.createElement('div');
-    el.className = WARNING_CLASS;
+    el.id = WARNING_ID;
     el.setAttribute('role', 'alert');
-    el.setAttribute('aria-live', 'polite');
+    el.textContent = MESSAGE;
     el.style.cssText =
-      'color:#dc2626;font-size:14px;line-height:1.5;font-weight:600;margin:0 0 12px;display:none;width:100%;text-align:left;';
-    el.textContent = WARNING_TEXT;
+      'display:block;' +
+      'width:100%;' +
+      'box-sizing:border-box;' +
+      'margin:0 0 15px 0;' +
+      'padding:12px 15px;' +
+      'background-color:#fdecec;' +
+      'border:1px solid #e02020;' +
+      'border-left:4px solid #e02020;' +
+      'border-radius:4px;' +
+      'color:#c81e1e;' +
+      'font-size:14px;' +
+      'font-weight:600;' +
+      'line-height:1.5;';
     return el;
   }
 
-  function attach() {
-    var select = findConcernSelect();
-    if (!select || select.dataset.otherWarningBound === '1') return !!select;
-
-    var form = select.closest('form') || select.closest('.elementor-widget-form') || document.body;
-    var submit = findSubmit(form);
-
-    var warningEl = form.querySelector('.' + WARNING_CLASS) || buildWarning();
-
-    if (!warningEl.parentNode) {
-      if (submit) {
-        var wrapper =
-          submit.closest('.contact-form-submit') ||
-          submit.closest('.elementor-field-type-submit') ||
-          submit.closest('.elementor-field-group') ||
-          submit.parentElement;
-        if (wrapper && wrapper.parentNode) {
-          wrapper.parentNode.insertBefore(warningEl, wrapper);
-        } else {
-          submit.parentNode.insertBefore(warningEl, submit);
-        }
-      } else {
-        form.appendChild(warningEl);
-      }
+  function showWarning(selectEl) {
+    if (getWarningEl()) return; // already shown — no duplicates
+    var form = selectEl.closest('form');
+    if (!form) return;
+    var submitWrap = form.querySelector('.elementor-field-type-submit');
+    var warning = createWarningEl();
+    if (submitWrap && submitWrap.parentNode) {
+      submitWrap.parentNode.insertBefore(warning, submitWrap);
+    } else {
+      // Fallback: append at the end of the form
+      form.appendChild(warning);
     }
+  }
 
-    function update() {
-      var selected = select.options[select.selectedIndex];
-      var show = isOtherValue(select.value) || (selected && isOtherValue(selected.textContent));
-      warningEl.style.display = show ? 'block' : 'none';
+  function hideWarning() {
+    var el = getWarningEl();
+    if (el && el.parentNode) el.parentNode.removeChild(el);
+  }
+
+  function onSelectChange(e) {
+    var select = e.target;
+    if (select.value === 'Other') {
+      showWarning(select);
+    } else {
+      hideWarning();
     }
-
-    select.addEventListener('change', update);
-    select.addEventListener('input', update);
-    select.dataset.otherWarningBound = '1';
-    update();
-    return true;
   }
 
   function init() {
-    if (attach()) return;
+    var select = findSelect();
+    if (!select) return false;
+    if (!select.dataset.otherWarningBound) {
+      select.addEventListener('change', onSelectChange);
+      select.dataset.otherWarningBound = '1';
+      // Handle a pre-selected "Other" (e.g. after a validation error)
+      if (select.value === 'Other') showWarning(select);
+    }
+    return true;
+  }
 
-    // Elementor / popups / lazy-loaded forms: keep watching for a while.
-    var observer = new MutationObserver(function () {
-      if (attach()) observer.disconnect();
-    });
-    observer.observe(document.documentElement, { childList: true, subtree: true });
-    setTimeout(function () {
-      observer.disconnect();
-    }, 20000);
+  function boot() {
+    if (init()) return;
+    // Form may render late (page builder / caching) — retry briefly.
+    var attempts = 0;
+    var timer = setInterval(function () {
+      attempts++;
+      if (init() || attempts > 40) clearInterval(timer); // ~10s max
+    }, 250);
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', boot);
   } else {
-    init();
+    boot();
   }
-  window.addEventListener('load', function () {
-    attach();
-  });
 })();
