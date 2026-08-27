@@ -1,22 +1,12 @@
-/**
- * "Other" Option Warning — Dr. Arefin Appointment Form
- * -----------------------------------------------------
- * Shows a red inline warning directly above the Submit button
- * when the visitor selects "Other" in the "Select Your Medical
- * Concern" dropdown. The form can still be submitted — the
- * warning is informational only.
- *
- * INSTALL (WordPress):
- *   WPCode plugin → Add Snippet → JavaScript → paste this file's
- *   contents between <script> and </script> → Location: Footer,
- *   run on Contact page only → Save & Activate.
- */
+/* Other Option Warning - Dr. Arefin Appointment Form */
+/* Shows a red inline notice above the Submit button when "Other" is selected. */
+/* Submission is never blocked - the notice is informational only. */
 (function () {
   'use strict';
 
   var WARNING_ID = 'other-option-warning-message';
   var MESSAGE =
-    '⚠️ No developer should put anything here because it\'s only for patients. ' +
+    '\u26A0\uFE0F No developer should put anything here because it\'s only for patients. ' +
     'If any developer submits their profile through this form, we will reject it. ' +
     'The only way to submit a profile is through LinkedIn DMs.';
 
@@ -54,7 +44,7 @@
   }
 
   function showWarning(selectEl) {
-    if (getWarningEl()) return; // already shown — no duplicates
+    if (getWarningEl()) return;
     var form = selectEl.closest('form');
     if (!form) return;
     var submitWrap = form.querySelector('.elementor-field-type-submit');
@@ -62,7 +52,6 @@
     if (submitWrap && submitWrap.parentNode) {
       submitWrap.parentNode.insertBefore(warning, submitWrap);
     } else {
-      // Fallback: append at the end of the form
       form.appendChild(warning);
     }
   }
@@ -87,7 +76,6 @@
     if (!select.dataset.otherWarningBound) {
       select.addEventListener('change', onSelectChange);
       select.dataset.otherWarningBound = '1';
-      // Handle a pre-selected "Other" (e.g. after a validation error)
       if (select.value === 'Other') showWarning(select);
     }
     return true;
@@ -95,11 +83,10 @@
 
   function boot() {
     if (init()) return;
-    // Form may render late (page builder / caching) — retry briefly.
     var attempts = 0;
     var timer = setInterval(function () {
       attempts++;
-      if (init() || attempts > 40) clearInterval(timer); // ~10s max
+      if (init() || attempts > 40) clearInterval(timer);
     }, 250);
   }
 
