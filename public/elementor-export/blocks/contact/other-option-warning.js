@@ -1,56 +1,133 @@
 /**
  * Dr. Arefin Appointment Form — "Other" option warning
- * Shows a red inline message when a user selects "Other" in the Medical Concern dropdown.
- * Intended for the contact/appointment form on drarefin.com
- * Add this script to the page footer (e.g. via WPCode or Elementor Custom Code).
+ * Shows a red inline message above the Submit button when a user selects "Other"
+ * in the Medical Concern dropdown.
+ *
+ * Works with both the static export form (#contact-concern) and Elementor forms
+ * (auto-generated ids like form-field-field_xyz).
+ *
+ * Add this to the page footer (WPCode → JavaScript Snippet → Footer, or
+ * Elementor → Custom Code → </body> End).
  */
 
 (function () {
   'use strict';
 
-  const WARNING_TEXT = "No developer should put anything here because it's only for patients. So, if any developer submits their profile through this, we will reject it. The only way to submit the profile through LinkedIn DMs.";
+  var WARNING_TEXT = "No developer should put anything here because it's only for patients. So, if any developer submits their profile through this, we will reject it. The only way to submit the profile through LinkedIn DMs.";
+  var WARNING_CLASS = 'contact-other-warning';
 
-  function initOtherOptionWarning() {
-    const select = document.getElementById('contact-concern');
-    if (!select) return;
+  function isOtherValue(value) {
+    return String(value || '').trim().toLowerCase() === 'other';
+  }
 
-    const form = select.closest('form');
-    if (!form) return;
-
-    const submitButton = form.querySelector('button[type="submit"], .contact-submit-btn, input[type="submit"]');
-    if (!submitButton) return;
-
-    // Create warning element
-    let warningEl = form.querySelector('.contact-other-warning');
-    if (!warningEl) {
-      warningEl = document.createElement('div');
-      warningEl.className = 'contact-other-warning';
-      warningEl.setAttribute('role', 'alert');
-      warningEl.setAttribute('aria-live', 'polite');
-      warningEl.style.cssText = 'color: #dc2626; font-size: 14px; font-weight: 500; margin-bottom: 12px; display: none;';
-      warningEl.textContent = WARNING_TEXT;
-
-      // Insert before submit button's parent or directly before button
-      const submitWrapper = submitButton.closest('.contact-form-submit') || submitButton.parentElement || form;
-      submitWrapper.insertBefore(warningEl, submitButton);
+  function hasOtherOption(select) {
+    for (var i = 0; i < select.options.length; i++) {
+      var opt = select.options[i];
+      if (isOtherValue(opt.value) || isOtherValue(opt.textContent)) return true;
     }
+    return false;
+  }
 
-    function updateWarning() {
-      if (select.value === 'Other') {
-        warningEl.style.display = 'block';
+  function labelTextFor(select) {
+    var text = '';
+    if (select.id) {
+      var lbl = document.querySelector('label[for="' + CSS.escape(select.id) + '"]');
+      if (lbl) text += ' ' + lbl.textContent;
+    }
+    var group = select.closest('.contact-field, .elementor-field-group, .elementor-field-type-select, .form-group, div');
+    if (group) text += ' ' + group.textContent;
+    text += ' ' + (select.getAttribute('name') || '') + ' ' + (select.getAttribute('aria-label') || '');
+    return text.toLowerCase();
+  }
+
+  function findConcernSelect() {
+    var selects = Array.prototype.slice.call(document.querySelectorAll('select'));
+    var candidates = selects.filter(hasOtherOption);
+    if (!candidates.length) return null;
+
+    var preferred = candidates.filter(function (s) {
+      var t = labelTextFor(s);
+      return t.indexOf('medical concern') !== -1 || t.indexOf('concern') !== -1;
+    });
+
+    return preferred[0] || candidates[0];
+  }
+
+  function findSubmit(form) {
+    return form.querySelector(
+      'button[type="submit"], input[type="submit"], .contact-submit-btn, .elementor-button[type="submit"], button.elementor-button'
+    );
+  }
+
+  function buildWarning() {
+    var el = document.createElement('div');
+    el.className = WARNING_CLASS;
+    el.setAttribute('role', 'alert');
+    el.setAttribute('aria-live', 'polite');
+    el.style.cssText =
+      'color:#dc2626;font-size:14px;line-height:1.5;font-weight:600;margin:0 0 12px;display:none;width:100%;text-align:left;';
+    el.textContent = WARNING_TEXT;
+    return el;
+  }
+
+  function attach() {
+    var select = findConcernSelect();
+    if (!select || select.dataset.otherWarningBound === '1') return !!select;
+
+    var form = select.closest('form') || select.closest('.elementor-widget-form') || document.body;
+    var submit = findSubmit(form);
+
+    var warningEl = form.querySelector('.' + WARNING_CLASS) || buildWarning();
+
+    if (!warningEl.parentNode) {
+      if (submit) {
+        var wrapper =
+          submit.closest('.contact-form-submit') ||
+          submit.closest('.elementor-field-type-submit') ||
+          submit.closest('.elementor-field-group') ||
+          submit.parentElement;
+        if (wrapper && wrapper.parentNode) {
+          wrapper.parentNode.insertBefore(warningEl, wrapper);
+        } else {
+          submit.parentNode.insertBefore(warningEl, submit);
+        }
       } else {
-        warningEl.style.display = 'none';
+        form.appendChild(warningEl);
       }
     }
 
-    select.addEventListener('change', updateWarning);
-    // Run once on load in case "Other" is pre-selected
-    updateWarning();
+    function update() {
+      var selected = select.options[select.selectedIndex];
+      var show = isOtherValue(select.value) || (selected && isOtherValue(selected.textContent));
+      warningEl.style.display = show ? 'block' : 'none';
+    }
+
+    select.addEventListener('change', update);
+    select.addEventListener('input', update);
+    select.dataset.otherWarningBound = '1';
+    update();
+    return true;
+  }
+
+  function init() {
+    if (attach()) return;
+
+    // Elementor / popups / lazy-loaded forms: keep watching for a while.
+    var observer = new MutationObserver(function () {
+      if (attach()) observer.disconnect();
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+    setTimeout(function () {
+      observer.disconnect();
+    }, 20000);
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initOtherOptionWarning);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    initOtherOptionWarning();
+    init();
   }
+  window.addEventListener('load', function () {
+    attach();
+  });
 })();
