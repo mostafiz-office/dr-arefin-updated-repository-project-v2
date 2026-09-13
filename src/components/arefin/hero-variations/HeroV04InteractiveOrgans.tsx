@@ -100,7 +100,7 @@ const HeroV04InteractiveOrgans = () => {
             <h1 className="hero-h1 hero-h1-three-lines font-arefin-heading">
               <span className="block whitespace-nowrap hero-anim-fade-up hero-d-0">
                 <Link to="/treatment/gallbladder-surgery/" className="hero-h1-link">Gallbladder</Link>
-                <span className="whitespace-nowrap"> &amp; </span>
+                <span className="whitespace-nowrap">, </span>
                 <Link to="/treatment/liver-surgeon-dhaka/" className="hero-h1-link">Liver Surgeon</Link>
               </span>
               <span className="block whitespace-nowrap hero-anim-fade-up hero-d-100">
