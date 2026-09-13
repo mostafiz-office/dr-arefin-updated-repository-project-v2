@@ -97,18 +97,18 @@ const HeroV04InteractiveOrgans = () => {
               Hepatobiliary · Pancreatic · Upper-GI Surgery
             </p>
 
-            <h1 className="hero-h1 font-arefin-heading">
-              <span className="block hero-anim-fade-up hero-d-0">
+            <h1 className="hero-h1 hero-h1-three-lines font-arefin-heading">
+              <span className="block whitespace-nowrap hero-anim-fade-up hero-d-0">
                 <Link to="/treatment/gallbladder-surgery/" className="hero-h1-link">Gallbladder</Link>
                 <span className="whitespace-nowrap"> &amp; </span>
                 <Link to="/treatment/liver-surgeon-dhaka/" className="hero-h1-link">Liver Surgeon</Link>
               </span>
-              <span className="block hero-anim-fade-up hero-d-100">
+              <span className="block whitespace-nowrap hero-anim-fade-up hero-d-100">
                 <Link to="/treatment/laparoscopic-cholecystectomy/" className="hero-h1-link is-accent">
                   Advanced Laparoscopic Care
                 </Link>
               </span>
-              <span className="block hero-anim-fade-up hero-d-200">in Dhaka</span>
+              <span className="block whitespace-nowrap hero-anim-fade-up hero-d-200">in Dhaka</span>
             </h1>
 
             <p className="hero-anim-fade-up hero-d-200 hero-lede">
