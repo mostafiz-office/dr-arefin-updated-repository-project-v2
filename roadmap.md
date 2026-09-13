@@ -20,4 +20,4 @@
 ## Dr. Arifin exact hero heading
 - [x] Apply the exact approved wording to the React homepage
 - [x] Apply the matching wording to the WordPress export
-- [ ] Verify the exact three-line heading at desktop and mobile widths
+- [x] Verify the exact three-line heading at desktop and mobile widths
