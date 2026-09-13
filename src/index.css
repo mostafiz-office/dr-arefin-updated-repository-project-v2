@@ -1578,6 +1578,10 @@
     line-height: var(--lh-h1);
     letter-spacing: var(--ls-h1);
   }
+  .hero-04-light-band .hero-h1-three-lines {
+    font-size: 3.25rem;
+    letter-spacing: 0;
+  }
   .hero-04-light-band .hero-lede {
     color: hsl(var(--hero-light-muted));
     font-size: var(--fs-lede);
@@ -1600,6 +1604,10 @@
       line-height: 1.14;
       letter-spacing: -0.012em;
       text-wrap: balance;
+    }
+    .hero-04-light-band .hero-h1-three-lines {
+      font-size: 1.5rem;
+      letter-spacing: 0;
     }
     .hero-04-light-band .hero-eyebrow {
       font-size: 0.7rem;

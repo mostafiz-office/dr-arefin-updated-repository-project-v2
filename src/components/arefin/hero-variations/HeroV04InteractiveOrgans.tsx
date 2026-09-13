@@ -94,21 +94,21 @@ const HeroV04InteractiveOrgans = () => {
           {/* LEFT 60% — order-2 on mobile so portrait appears above text */}
           <div className="order-2 lg:order-1 lg:col-span-3 flex flex-col gap-6 lg:gap-8">
             <p className="hero-anim-fade-up hero-d-0 hero-eyebrow">
-              Hepatobiliary Surgery · Dhaka
+              Hepatobiliary · Pancreatic · Upper-GI Surgery
             </p>
 
-            <h1 className="hero-h1 font-arefin-heading">
-              <span className="block hero-anim-fade-up hero-d-0">
-                Top{" "}
-                <Link to="/treatment/hepatobiliary-surgery/" className="hero-h1-link">Hepatobiliary</Link>,{" "}
-                <Link to="/best-hepatobiliary-surgeon-dhaka/" className="hero-h1-link">Pancreatic</Link>
-                <span className="whitespace-nowrap">&nbsp;&amp;</span>
+            <h1 className="hero-h1 hero-h1-three-lines font-arefin-heading">
+              <span className="block whitespace-nowrap hero-anim-fade-up hero-d-0">
+                <Link to="/treatment/gallbladder-surgery/" className="hero-h1-link">Gallbladder</Link>
+                <span className="whitespace-nowrap"> &amp; </span>
+                <Link to="/treatment/liver-surgeon-dhaka/" className="hero-h1-link">Liver Surgeon</Link>
               </span>
-              <span className="block hero-anim-fade-up hero-d-100">
-                <Link to="/treatment/liver-surgeon-dhaka/" className="hero-h1-link is-accent">
-                  Liver Surgeon in Dhaka
+              <span className="block whitespace-nowrap hero-anim-fade-up hero-d-100">
+                <Link to="/treatment/laparoscopic-cholecystectomy/" className="hero-h1-link is-accent">
+                  Advanced Laparoscopic Care
                 </Link>
               </span>
+              <span className="block whitespace-nowrap hero-anim-fade-up hero-d-200">in Dhaka</span>
             </h1>
 
             <p className="hero-anim-fade-up hero-d-200 hero-lede">
