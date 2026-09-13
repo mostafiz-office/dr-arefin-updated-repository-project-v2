@@ -15,4 +15,4 @@
 
 ## Hero headline connector
 - [x] Replace “&” with a comma in the React and WordPress headings
-- [ ] Verify the three-line heading at desktop and mobile widths
+- [x] Verify the three-line heading at desktop and mobile widths
