@@ -105,10 +105,10 @@ const HeroV04InteractiveOrgans = () => {
               </span>
               <span className="block whitespace-nowrap hero-anim-fade-up hero-d-100">
                 <Link to="/treatment/laparoscopic-cholecystectomy/" className="hero-h1-link is-accent">
-                  Advanced Laparoscopic Care
+                  Advanced Laparoscopic
                 </Link>
               </span>
-              <span className="block whitespace-nowrap hero-anim-fade-up hero-d-200">in Dhaka</span>
+              <span className="block whitespace-nowrap hero-anim-fade-up hero-d-200">Care in Dhaka</span>
             </h1>
 
             <p className="hero-anim-fade-up hero-d-200 hero-lede">
