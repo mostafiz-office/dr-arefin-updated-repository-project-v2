@@ -1582,11 +1582,6 @@
     font-size: 3.25rem;
     letter-spacing: 0;
   }
-  @media (min-width: 1024px) and (max-width: 1279px) {
-    .hero-04-light-band .hero-h1-three-lines {
-      font-size: 2.5rem;
-    }
-  }
   .hero-04-light-band .hero-lede {
     color: hsl(var(--hero-light-muted));
     font-size: var(--fs-lede);
