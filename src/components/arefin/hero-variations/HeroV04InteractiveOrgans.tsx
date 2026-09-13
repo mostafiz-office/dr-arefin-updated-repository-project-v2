@@ -99,16 +99,18 @@ const HeroV04InteractiveOrgans = () => {
 
             <h1 className="hero-h1 hero-h1-three-lines font-arefin-heading">
               <span className="block whitespace-nowrap hero-anim-fade-up hero-d-0">
+                Best{" "}
                 <Link to="/treatment/gallbladder-surgery/" className="hero-h1-link">Gallbladder</Link>
                 <span className="whitespace-nowrap">, </span>
-                <Link to="/treatment/liver-surgeon-dhaka/" className="hero-h1-link">Liver Surgeon</Link>
+                <Link to="/treatment/liver-surgeon-dhaka/" className="hero-h1-link">Liver</Link>
               </span>
-              <span className="block whitespace-nowrap hero-anim-fade-up hero-d-100">
+              <span className="block whitespace-nowrap hero-anim-fade-up hero-d-100">Specialized Treatment &amp; Expert</span>
+              <span className="block whitespace-nowrap hero-anim-fade-up hero-d-200">
                 <Link to="/treatment/laparoscopic-cholecystectomy/" className="hero-h1-link is-accent">
-                  Advanced Laparoscopic
+                  Laparoscopic Surgery
                 </Link>
+                {" "}in Dhaka
               </span>
-              <span className="block whitespace-nowrap hero-anim-fade-up hero-d-200">Care in Dhaka</span>
             </h1>
 
             <p className="hero-anim-fade-up hero-d-200 hero-lede">

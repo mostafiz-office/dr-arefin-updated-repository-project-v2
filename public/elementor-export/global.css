@@ -924,7 +924,9 @@ body.wp-theme-astra .arefin-hero-copy { display: flex; flex-direction: column; g
 body.wp-theme-astra .arefin-hero-eyebrow { font-family: 'Poppins'; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.22em;
   text-transform: uppercase; color: hsl(var(--primary-bright)); margin: 0; }
 body.wp-theme-astra .arefin-hero-h1 { font-family: 'Ubuntu', system-ui, sans-serif; font-weight: 800; line-height: var(--lh-h1);
-  letter-spacing: var(--ls-h1); font-size: var(--fs-h1); color: hsl(0 0% 98%); margin: 0; text-wrap: balance; transition: text-shadow .4s ease; }
+  letter-spacing: 0; font-size: 2.45rem; color: hsl(0 0% 98%); margin: 0; text-wrap: balance; transition: text-shadow .4s ease; }
+@media (min-width: 1280px) { body.wp-theme-astra .arefin-hero-h1 { font-size: 2.9rem; } }
+@media (max-width: 639px) { body.wp-theme-astra .arefin-hero-h1 { font-size: 1.45rem; } }
 body.wp-theme-astra .arefin-hero-h1:hover { text-shadow: 1px 0.7px 0 hsl(160 22% 5%); }
 body.wp-theme-astra .arefin-hero-h1-line { display: block; }
 body.wp-theme-astra .arefin-hero-h1-link { color: inherit; text-decoration: none; transition: color .28s ease, text-shadow .28s ease; }

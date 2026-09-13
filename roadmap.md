@@ -16,3 +16,8 @@
 ## Hero headline connector
 - [x] Replace “&” with a comma in the React and WordPress headings
 - [x] Verify the three-line heading at desktop and mobile widths
+
+## Dr. Arifin exact hero heading
+- [x] Apply the exact approved wording to the React homepage
+- [x] Apply the matching wording to the WordPress export
+- [x] Verify the exact three-line heading at desktop and mobile widths
