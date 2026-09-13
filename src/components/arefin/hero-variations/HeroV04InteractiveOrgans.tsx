@@ -90,9 +90,9 @@ const HeroV04InteractiveOrgans = () => {
       />
 
       <div className="container relative pt-12 pb-12 md:pt-20 md:pb-20 lg:pt-24 lg:pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,13fr)_minmax(0,8fr)] xl:grid-cols-5 gap-10 lg:gap-8 xl:gap-12 items-start">
           {/* LEFT 60% — order-2 on mobile so portrait appears above text */}
-          <div className="order-2 lg:order-1 lg:col-span-3 flex flex-col gap-6 lg:gap-8">
+          <div className="order-2 lg:order-1 min-w-0 xl:col-span-3 flex flex-col gap-6 lg:gap-8">
             <p className="hero-anim-fade-up hero-d-0 hero-eyebrow">
               Hepatobiliary · Pancreatic · Upper-GI Surgery
             </p>
@@ -179,7 +179,7 @@ const HeroV04InteractiveOrgans = () => {
           </div>
 
           {/* RIGHT 40% — Portrait + interactive organ orbit. order-1 on mobile (image first). */}
-          <div className="order-1 lg:order-2 lg:col-span-2 relative z-0 lg:mt-[-40px] xl:mt-[-60px]">
+          <div className="order-1 lg:order-2 min-w-0 xl:col-span-2 relative z-0 lg:mt-[-40px] xl:mt-[-60px]">
             <div ref={stageRef} className="organ-stage relative mx-auto max-w-[280px] sm:max-w-sm md:max-w-md lg:max-w-none">
               {/* Behind-doctor ambient medical icons (frosted, lower z) */}
               <span className="med-icon-float is-behind med-float-a" style={{ top: '6%', left: '2%', zIndex: 0 }} aria-hidden="true">
