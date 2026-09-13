@@ -1,29 +1,58 @@
 # Plan: Refine Dr. Arefin’s Homepage Hero Title
 
-## Recommendation
-Use this three-line homepage heading:
+## What the group conversation means
+- **Dr. Arefin’s first response:** “Expert” sounds unnatural and self-claimed. He describes expertise as experience, so the heading should demonstrate specialization rather than announce “Expert.”
+- **Alim’s SEO direction:** Put the familiar patient phrase **“Gallbladder Surgeon”** in the heading and support “best in Dhaka” through links and page content.
+- **Dr. Arefin’s latest wording:** He wants the heading to cover **gallbladder**, **liver specialized care**, and **laparoscopic surgery**. He did not request “hepatobiliary” in the visible heading.
+
+## Three balanced headline options
+
+### Option 1 — Recommended
 
 ```text
-Gallbladder, Liver &
-Hepatobiliary Surgeon
+Gallbladder & Liver Surgeon
+Advanced Laparoscopic Care
 in Dhaka
 ```
 
-Keep the supporting label above it as:
+**Why it wins:** It naturally includes Alim’s “Gallbladder Surgeon” phrase, Dr. Arefin’s liver and laparoscopic priorities, and the location. It avoids unsupported “Best,” “Top,” and “Expert” claims.
+
+### Option 2 — Most patient-friendly
 
 ```text
-Laparoscopic · Hepatobiliary · Pancreatic Surgery
+Specialized Gallbladder & Liver Care
+Advanced Laparoscopic Surgery
+in Dhaka
 ```
 
+**Why it works:** This is closest to Dr. Arefin’s latest proposed wording, but rewritten as natural English. It focuses on what patients receive rather than praising the doctor. Its weakness is that “Gallbladder Surgeon” is not an exact phrase in the heading.
+
+### Option 3 — Strongest surgeon positioning
+
+```text
+Gallbladder & Liver Surgery
+by a Laparoscopic Surgeon
+in Dhaka
+```
+
+**Why it works:** It combines the service, technique, professional role, and location. It is clear, but less elegant than Option 1 and does not use the exact phrase “Gallbladder Surgeon.”
+
+## Supporting label
+For all three options, keep the broader specialty above the heading:
+
+```text
+HEPATOBILIARY · PANCREATIC · UPPER-GI SURGERY
+```
+
+This preserves the full clinical scope without forcing unfamiliar medical terminology into the main patient-facing headline.
+
 ## Why this resolves both viewpoints
-- **Dr. Arefin’s concern:** Remove “Expert” and avoid the awkward, overly promotional phrase “Expert Gallbladder Surgery & Laparoscopic Cholecystectomy.” Expertise should be demonstrated by credentials and experience, not claimed repeatedly in the main heading.
-- **Alim’s recommendation:** Lead with “Gallbladder,” the familiar word patients are most likely to understand and search.
-- **Search intent:** Preserve “Hepatobiliary Surgeon in Dhaka,” which Semrush estimates at about **260 Bangladesh searches per month**. “Laparoscopic surgeon in Dhaka” is estimated at about **110 per month**, so “Laparoscopic” remains prominent in the supporting label.
-- **Clinical breadth:** “Liver” protects the broader specialty positioning. “Pancreatic” remains visible in the supporting label and body copy without making the heading crowded.
+- **Search intent:** Semrush estimates **“gallbladder surgeon” at about 110 Bangladesh searches per month** and **“hepatobiliary surgeon in Dhaka” at about 260 per month**. Therefore, the recommendation puts the patient-friendly gallbladder phrase in the H1 and retains hepatobiliary in the supporting label.
+- **Clinical breadth:** “Liver” remains in the H1. “Hepatobiliary,” “pancreatic,” and “upper-GI” remain visible above it and in the paragraph below.
 - **Credibility:** Avoid “Best” and “Top” in the heading because they are difficult to substantiate and can sound self-promotional on a medical website.
 
 ## Implementation
-1. Replace the current homepage H1 with the recommended three-line wording.
+1. Replace the current homepage H1 with the selected three-line wording; Option 1 is recommended.
 2. Update the small specialty label above the H1 with the proposed supporting text.
 3. Keep the existing paragraph below the heading to mention liver, gallbladder, biliary tract, pancreas, stomach, and upper-GI care.
 4. Preserve the existing links around the medically relevant phrases.
