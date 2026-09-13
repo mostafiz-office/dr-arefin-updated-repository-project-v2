@@ -6,4 +6,4 @@
 ## Hero headline responsive fit
 - [x] Prevent the fixed three-line title from entering the portrait area
 - [x] Match the responsive fix in the WordPress export
-- [ ] Verify 1024px, 1138px, 1280px, and mobile presentation
+- [x] Verify 1024px, 1138px, 1280px, and mobile presentation
