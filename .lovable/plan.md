@@ -7,6 +7,14 @@ No, not from here. An Application Password only lets me read and edit content (p
 
 Once it's created, send me the staging address. Then set up the Code Snippets plugin and a new Application Password **on the staging site**.
 
+### If Softaculous gets stuck at "Propagating the database (95%)"
+This is common. It's the last step, where every link inside the database is rewritten to the new address. On a site with Elementor, WooCommerce and an SEO plugin, the database is large, and the hosting server can stop the job partway through without showing an error.
+1. Wait 10–15 minutes, then reload. Open Softaculous > All Installations. If the staging copy is listed, open its address. It often finished even though the bar froze.
+2. If it isn't listed, or it opens a broken page: delete that staging copy in Softaculous so it doesn't leave a half-made database behind.
+3. Make the database smaller, then try again: in wp-admin, use WP-Optimize (or a similar tool) to clear old revisions, temporary data and WooCommerce "Action Scheduler" logs. Elementor > Tools also has a "Regenerate files" button.
+4. Or ask your hosting support: "Softaculous staging stuck at 95% propagating database — please raise the PHP max_execution_time/memory limit or create the staging copy for us." Hosts usually do this for free.
+5. Another option: the WP Staging plugin copies in small steps, so it doesn't time out.
+
 ## About the password
 You pasted a second password in chat, so it is exposed too. I won't use either one. Please revoke both (wp-admin > Users > Profile > Application Passwords). After you approve this plan, I'll open a secure box where you enter `WP_URL`, `WP_USER` and `WP_APP_PASSWORD`. They are saved encrypted and never appear in chat or files.
 
