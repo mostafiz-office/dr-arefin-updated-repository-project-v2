@@ -66,7 +66,8 @@ function toCard(p: any): WpCard {
     excerpt: stripTags(p.excerpt?.rendered || "").replace(/\s*\[…\]|\s*\[&hellip;\]/g, "…"),
     date: d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }),
     isoDate: p.date?.slice(0, 10) || "",
-    author: p._embedded?.author?.[0]?.name || "Dr. Murshidul Arefin",
+    // WordPress author accounts are named "admin"; every article is by the doctor
+    author: "Dr. Murshidul Arefin",
     thumbnail: media?.media_details?.sizes?.medium_large?.source_url || media?.source_url || "",
     thumbAlt: media?.alt_text || decodeEntities(p.title?.rendered || ""),
     category: cat ? { name: decodeEntities(cat.name), slug: cat.slug } : undefined,
