@@ -38,3 +38,11 @@
 - [x] Blog: Articles list, single posts (/<slug>/), category pages (/category/<slug>/) from real WordPress posts; Research in menu; staging permalinks set to /%postname%/
 - [ ] User review of blog pages on staging (blocked: user, staging needs login)
 - [ ] Rebuild with live links (ROUTER_BASE=) then user pushes via WP Staging Pro + purge SpeedyCache
+
+## Go-live check (2026-10-13) — see Dr-Arefin-Spec/wordpress-export/09-go-live-checklist.md
+- [x] Compare main vs staging (pages, posts, categories, menu, footer, SEO)
+- [x] Contact form really sends (saved + emailed) and shows the "Other" warning
+- [ ] Owner confirms test emails arrived (blocked: owner)
+- [ ] Owner tests booking on staging (blocked: login)
+- [ ] Decide on 219 missing link targets (blocked: owner decision)
+- [ ] Rebuild with live links, WP Staging push, purge SpeedyCache

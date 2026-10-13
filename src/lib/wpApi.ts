@@ -31,7 +31,12 @@ function siteRoot(): string {
 }
 
 export function wpUrl(route: string, params: Record<string, string | number> = {}): string {
-  const q = new URLSearchParams({ rest_route: `/wp/v2${route}` });
+  return wpRestUrl(`/wp/v2${route}`, params);
+}
+
+/** Any REST namespace, e.g. "/arefin/v1/contact". */
+export function wpRestUrl(fullRoute: string, params: Record<string, string | number> = {}): string {
+  const q = new URLSearchParams({ rest_route: fullRoute });
   for (const [k, v] of Object.entries(params)) q.set(k, String(v));
   return `${siteRoot()}/?${q.toString()}`;
 }

@@ -17,6 +17,7 @@ import FAQAccordion from "@/components/arefin/FAQAccordion";
 import darkLogo from "@/assets/dr-arefin-logo-dark.webp";
 import heroBg from "@/assets/about-hero-ot-real.webp";
 import { Reveal } from "@/hooks/useScrollReveal";
+import { appointmentSchema, isOtherConcern, sendAppointmentRequest } from "@/lib/appointmentRequest";
 
 /* ── Medical Concern Options ── */
 const medicalConcerns = [
@@ -79,10 +80,27 @@ const ContactDark = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [website, setWebsite] = useState(""); // hidden spam trap
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorText, setErrorText] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Thank you! Your appointment request has been submitted. We will contact you within 24 hours.");
-    setFormData({ name: "", email: "", phone: "", concern: "", message: "" });
+    const parsed = appointmentSchema.safeParse(formData);
+    if (!parsed.success) {
+      setStatus("error");
+      setErrorText(parsed.error.errors[0]?.message || "Please check the form.");
+      return;
+    }
+    setStatus("sending");
+    try {
+      await sendAppointmentRequest({ ...parsed.data, website });
+      setStatus("success");
+      setFormData({ name: "", email: "", phone: "", concern: "", message: "" });
+    } catch {
+      setStatus("error");
+      setErrorText("Sorry, your request could not be sent. Please call +880 1311 487 592.");
+    }
   };
 
   return (
@@ -260,12 +278,30 @@ const ContactDark = () => {
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 />
               </div>
+              <div className="contact-trap" aria-hidden="true">
+                <label htmlFor="contact-website">Website</label>
+                <input id="contact-website" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+              </div>
+              {isOtherConcern(formData.concern) && (
+                <p className="contact-other-warning" role="alert">
+                  This form is for patients only. Developers and job seekers: please do not submit your profile here — contact us via LinkedIn DMs only.
+                </p>
+              )}
+              {status === "success" && (
+                <p className="contact-form-status is-success" role="status">
+                  Thank you! Your appointment request has been sent. Our team will contact you within 24 hours.
+                </p>
+              )}
+              {status === "error" && (
+                <p className="contact-form-status is-error" role="alert">{errorText}</p>
+              )}
               <div className="mt-8 flex justify-center">
                 <button
                   type="submit"
+                  disabled={status === "sending"}
                   className="hero-cta-primary contact-submit-btn"
                 >
-                  Submit Appointment Request
+                  {status === "sending" ? "Sending…" : "Submit Appointment Request"}
                   <Send className="h-[18px] w-[18px]" aria-hidden />
                 </button>
               </div>
@@ -632,6 +668,29 @@ const ContactDark = () => {
         }
         .arefin .contact-submit-btn svg { transition: transform 240ms ease; }
         .arefin .contact-submit-btn:hover svg { transform: translateX(2px); }
+        .arefin .contact-submit-btn:disabled { opacity: 0.7; cursor: wait; }
+        .arefin .contact-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+        .arefin .contact-other-warning,
+        .arefin .contact-form-status {
+          width: 100%;
+          margin-top: 1.25rem;
+          padding: 0.85rem 1rem;
+          border-radius: 8px;
+          font-size: 0.95rem;
+          line-height: 1.5;
+          font-weight: 600;
+        }
+        .arefin .contact-other-warning,
+        .arefin .contact-form-status.is-error {
+          background: hsl(0 85% 97%);
+          color: hsl(0 72% 38%);
+          border: 1px solid hsl(0 72% 50%);
+        }
+        .arefin .contact-form-status.is-success {
+          background: hsl(150 60% 96%);
+          color: hsl(150 70% 22%);
+          border: 1px solid hsl(150 50% 40%);
+        }
 
         /* Trust strip under map */
         .arefin .contact-trust-strip {
