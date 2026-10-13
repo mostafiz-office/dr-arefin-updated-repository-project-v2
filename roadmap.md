@@ -24,8 +24,10 @@
 
 ## WordPress exact-copy deploy
 - [x] Save kit into spec/ and scripts/wp-exact/
-- [ ] Get staging URL, admin user, Application Password, Code Snippets plugin (blocked: user)
-- [ ] Routes list, adapt build for React Router (snapshot), prefix arefin
+- [x] Staging access + Code Snippets + serving snippet
+- [x] Routes list, snapshot build, arefin prefix, staging-only guard
 - [ ] Homepage deploy + approval, then all pages, then blog/category
 - [x] WP Staging plugin installed + active on drarefin.com (2026-10-13)
-- [ ] User: WP Staging > Create Staging Site, then send staging URL + staging Application Password
+- [x] Staging site created
+- [x] Homepage on staging, verified
+- [ ] User approval of staging homepage (blocked: user)

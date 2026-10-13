@@ -43,7 +43,8 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        {/* WordPress staging build sets VITE_ROUTER_BASENAME=/staging; preview and live use "/" */}
+        <BrowserRouter basename={import.meta.env.VITE_ROUTER_BASENAME || undefined}>
           <ScrollToTop />
           <Routes>
             <Route path="/" element={<DrArefinHomeDark />} />
