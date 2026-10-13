@@ -1,0 +1,13 @@
+[
+  { "route": "/" },
+  { "route": "/about/" },
+  { "route": "/treatment/" },
+  { "route": "/treatment/liver-surgery/" },
+  { "route": "/treatment/gallbladder-surgery/" },
+  { "route": "/treatment/pancreatic-surgery/" },
+  { "route": "/treatment/biliary-tract-surgery/" },
+  { "route": "/mentorship/" },
+  { "route": "/gallery/" },
+  { "route": "/contact/" },
+  { "route": "/articles/" }
+]
