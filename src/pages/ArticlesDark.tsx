@@ -146,7 +146,7 @@ const ArticlesDark = () => {
                   </h2>
                   <ul className="article-card-meta text-fluid-meta">
                     <li><time dateTime={post.isoDate}>{post.date}</time></li>
-                    {post.category && <li>{post.category.name}</li>}
+                    <li>{post.category ? post.category.name : post.author}</li>
                   </ul>
                   <p className="article-card-excerpt">{post.excerpt}</p>
                   <Link to={post.path} className="article-card-readmore">

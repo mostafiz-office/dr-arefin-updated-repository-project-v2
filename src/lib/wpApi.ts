@@ -56,7 +56,7 @@ export function linkToPath(link: string): string {
 function toCard(p: any): WpCard {
   const media = p._embedded?.["wp:featuredmedia"]?.[0];
   const terms: any[] = (p._embedded?.["wp:term"] || []).flat();
-  const cat = terms.find((t) => t.taxonomy === "category" && t.slug !== "uncategorized") || terms.find((t) => t.taxonomy === "category");
+  const cat = terms.find((t) => t.taxonomy === "category" && t.slug !== "uncategorized");
   const d = new Date(p.date);
   return {
     id: p.id,
@@ -95,9 +95,12 @@ export async function fetchPostBySlug(slug: string): Promise<WpPost | null> {
   return {
     ...toCard(p),
     // the post body often starts with its own <h1>; the page already has one
-    contentHtml: String(p.content?.rendered || "").replace(/<h1(\s|>)/gi, "<h2$1").replace(/<\/h1>/gi, "</h2>"),
+    // and it repeats the post title, so a leading <h1> is dropped and any other <h1> becomes <h2>
+    contentHtml: String(p.content?.rendered || "")
+      .replace(/^\s*<h1[^>]*>[\s\S]*?<\/h1>\s*/i, "")
+      .replace(/<h1(\s|>)/gi, "<h2$1").replace(/<\/h1>/gi, "</h2>"),
     modified: p.modified?.slice(0, 10) || "",
-    categories: terms.filter((t) => t.taxonomy === "category").map((t) => ({ name: decodeEntities(t.name), slug: t.slug })),
+    categories: terms.filter((t) => t.taxonomy === "category" && t.slug !== "uncategorized").map((t) => ({ name: decodeEntities(t.name), slug: t.slug })),
   };
 }
 

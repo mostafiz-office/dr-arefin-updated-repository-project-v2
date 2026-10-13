@@ -581,6 +581,8 @@ const ArticleSingleDark = () => {
         .arefin .single-article-wp table { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; }
         .arefin .single-article-wp th, .arefin .single-article-wp td { border: 1px solid hsl(var(--border)); padding: 8px 10px; text-align: left; }
         .arefin .single-article-wp iframe { max-width: 100%; }
+        /* boxes the post itself colours (e.g. pale "Key takeaway" panels) keep dark text */
+        .arefin .single-article-wp [style*="background"], .arefin .single-article-wp [style*="background"] * { color: hsl(0 0% 15%); }
         .arefin a.single-article-tag { text-decoration: none; }
       `}</style>
     </div>
