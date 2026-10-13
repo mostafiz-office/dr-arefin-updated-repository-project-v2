@@ -30,4 +30,7 @@
 - [x] WP Staging plugin installed + active on drarefin.com (2026-10-13)
 - [x] Staging site created
 - [x] Homepage on staging, verified
-- [ ] User approval of staging homepage (blocked: user)
+- [x] User approved staging homepage
+- [x] All 11 Lovable pages deployed to staging (awaiting user review)
+- [ ] Blog list/single/category templates in Lovable design
+- [ ] Rebuild with live links (ROUTER_BASE=) then user pushes via WP Staging Pro + purge SpeedyCache
