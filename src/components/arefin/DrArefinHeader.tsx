@@ -53,6 +53,7 @@ const navLinks: NavItem[] = [
   },
   { label: "Mentorship", path: "/mentorship/" },
   { label: "Articles", path: "/articles/" },
+  { label: "Research", path: "/category/research/" },
   { label: "Gallery", path: "/gallery/" },
 ];
 

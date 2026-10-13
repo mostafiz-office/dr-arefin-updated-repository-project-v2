@@ -72,8 +72,8 @@ const App = () => (
             <Route path="/gallery/:slug/" element={<GalleryImageDetailDark />} />
             <Route path="/articles" element={<ArticlesDark />} />
             <Route path="/articles/" element={<ArticlesDark />} />
-            <Route path="/articles/:slug" element={<ArticleSingleDark />} />
-            <Route path="/articles/:slug/" element={<ArticleSingleDark />} />
+            <Route path="/category/:slug" element={<ArticlesDark />} />
+            <Route path="/category/:slug/" element={<ArticlesDark />} />
             <Route path="/hero-section-update" element={<HeroSectionUpdate />} />
             <Route path="/hero-section-update/" element={<HeroSectionUpdate />} />
             <Route path="/home-mobile-hero-preview" element={<HomeMobileHeroPreview />} />
@@ -101,6 +101,9 @@ const App = () => (
               <Route key={"j" + p.slug} path={p.slug} element={<SatellitePage />} />,
               <Route key={"j" + p.slug + "/"} path={p.slug + "/"} element={<SatellitePage />} />,
             ])}
+            {/* Any other one-segment address is a WordPress blog post (/<post-slug>/). */}
+            <Route path="/:slug" element={<ArticleSingleDark />} />
+            <Route path="/:slug/" element={<ArticleSingleDark />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
