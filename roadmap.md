@@ -27,3 +27,5 @@
 - [ ] Get staging URL, admin user, Application Password, Code Snippets plugin (blocked: user)
 - [ ] Routes list, adapt build for React Router (snapshot), prefix arefin
 - [ ] Homepage deploy + approval, then all pages, then blog/category
+- [x] WP Staging plugin installed + active on drarefin.com (2026-10-13)
+- [ ] User: WP Staging > Create Staging Site, then send staging URL + staging Application Password
