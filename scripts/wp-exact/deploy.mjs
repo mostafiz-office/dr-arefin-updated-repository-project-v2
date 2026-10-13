@@ -28,12 +28,15 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 
 // Root-relative links/assets in the bundle → staging base / uploads.
-function rewrite(text) {
+// In the JS bundle only plain href links get the base. Router `to:"/x"` values must stay as-is:
+// React Router adds the basename itself, and prefixing them made links like /staging/staging/contact/.
+function rewrite(text, { isBundle = false } = {}) {
   text = text.replace(/(["'`(=,\s])\/aw-/g, `$1${BASE}aw-`);
   if (ROUTER_BASE) {
     const esc = ROUTER_BASE.replace(/\//g, "\\/");
-    // href="/x"  href:"/x"  to:"/x" — skip protocol-relative, already-prefixed and uploads paths.
-    const re = new RegExp(`((?:href|to)\\s*[=:]\\s*["'\`])\\/(?!\\/|${esc.slice(2)}(?:\\/|["'\`])|wp-content\\/)`, "g");
+    const attrs = isBundle ? "href" : "(?:href|to)";
+    // href="/x"  href:"/x" — skip protocol-relative, already-prefixed and uploads paths.
+    const re = new RegExp(`(${attrs}\\s*[=:]\\s*["'\`])\\/(?!\\/|${esc.slice(2)}(?:\\/|["'\`])|wp-content\\/)`, "g");
     text = text.replace(re, `$1${ROUTER_BASE}/`);
   }
   return text;
@@ -41,7 +44,7 @@ function rewrite(text) {
 
 for (const f of fs.readdirSync(DIST).filter((f) => f.startsWith("aw-"))) {
   const src = path.join(DIST, f);
-  if (/\.(js|css)$/.test(f)) fs.writeFileSync(path.join(OUT, f), rewrite(fs.readFileSync(src, "utf8")));
+  if (/\.(js|css)$/.test(f)) fs.writeFileSync(path.join(OUT, f), rewrite(fs.readFileSync(src, "utf8"), { isBundle: true }));
   else fs.copyFileSync(src, path.join(OUT, f));
 }
 
