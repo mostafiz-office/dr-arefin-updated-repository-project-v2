@@ -1,32 +1,34 @@
-# Live vs staging comparison and go-live readiness check
+# Staging vs main site: findings so far and the fix plan
 
-## Goal
-Compare drarefin.com (live) with drarefin.com/staging/ page by page, produce one clear checklist, and answer: is staging ready to push to the main domain? No changes to the live site. Fixes found along the way are listed for your approval first, not applied automatically.
+## Checked so far (read-only, both sites)
+| Area | Main site | Staging | Status |
+|---|---|---|---|
+| Pages | 21 | 21, same addresses | OK |
+| Blog posts | 93 | 93 | OK |
+| Categories | 28 | 28 | OK |
+| Plugins | same list | same + Code Snippets | OK |
+| New Lovable design on staging | — | Home, About, Treatment + 4 surgery pages, Mentorship, Gallery, Contact, Articles | OK |
+| Booking, shop, cart, checkout, account | WooCommerce | not touched, still WooCommerce | OK so far (flow not tested yet) |
 
-## Early warning (already seen in the code)
-The Lovable contact form appears to only show a "Message received" pop-up — it may not actually send the message anywhere. If confirmed, the staging Contact page would lose real appointment requests after the push. This is the top item to check, and it likely blocks going live until fixed.
+## Problem found: the Contact page form does not send
+- On the main site the appointment form is an Elementor form, sent by email.
+- On staging the new Lovable Contact form only shows a "Thank you" pop-up. **The request goes nowhere.**
+- If we push now, every appointment request from the Contact page is lost. **Not ready to push until fixed.**
+- The red "Other" warning (no developer profiles, use LinkedIn) is also missing from the new form.
 
-## What will be checked
+## Fix plan (staging only)
+1. **Make the form really send.** Add a small receiver to the existing "Arefin exact pages" snippet. It emails the request to the same inbox the Elementor form uses today, through the site's existing email plugin (GoSMTP). Includes spam protection (hidden trap field + rate limit) and checks every field.
+2. **Show a real result.** "Sending…", then a success message, or an error with the phone number to call.
+3. **Add the "Other" warning** inside the new form, same red text, full width, works on phone.
+4. **Booking page check.** Make sure every "Book appointment" button goes to the real booking page, then test the booking flow on staging up to checkout (no payment).
+5. **Rest of the checklist.** For every page, main vs staging: page title and Google description, one main heading, canonical, broken links/images, menu (incl. Research) and footer links, blog list / single posts / categories, speed score on phone and computer.
+6. **Re-upload to staging, send one real test request**, and confirm it arrives in the inbox (you confirm receipt).
+7. **Write the checklist** to `Dr-Arefin-Spec/wordpress-export/09-go-live-checklist.md` with OK / Missing / Broken per item and a clear "Ready to push: Yes/No".
 
-1. **Every page (11 Lovable pages + blog)** — live vs staging: loads OK, main heading, page title and Google description (Yoast), canonical address, no broken links or images, desktop and phone screenshots side by side.
-2. **Pages that must stay on Elementor/WooCommerce** — shop, appointment booking (/shop/appointment/), cart, checkout, my account, donate, imprint, privacy, cookie, disclaimer, "best hepatobiliary surgeon" page: confirm they still open on staging exactly like live and are not replaced.
-3. **Menu and footer** — every menu item (incl. Research) and footer link opens the right page on staging; compare against live menu and footer link lists; flag anything missing.
-4. **Blog** — Articles list shows all 92 posts with paging, all 19 categories open (incl. Research), sample of single posts open at the same address as live, images load, post titles/descriptions match Yoast.
-5. **Contact page** — confirm whether the form sends; compare with the live Elementor form (where it emails, what fields, the "Other" warning). Check phone, WhatsApp, email, map links.
-6. **Booking page** — the WooCommerce appointment flow on staging: product opens, add to cart, checkout page loads (stop before paying). Confirm every "Book appointment" button on the new pages points to the real booking page.
-7. **SEO** — titles, descriptions, canonicals, one H1 per page, structured data present, robots not blocking, sitemaps still list the same addresses, no staging addresses leaking into the final build.
-8. **Speed** — Lighthouse (mobile + desktop) on home, contact, articles, one post, live vs staging; note file sizes and slow images.
-
-## How
-- Logged-in test browser on staging using the staging Application Password session (staging hides pages from logged-out visitors); public browser for live.
-- Read-only REST checks on both sites for pages, posts, categories, menus and Yoast data.
-- No writes to live. No writes to staging during the audit.
-
-## Deliverable
-- `Dr-Arefin-Spec/wordpress-export/09-go-live-checklist.md`: a table per area with Live / Staging / Status (OK, Missing, Broken) and evidence (screenshot names).
-- A short "Ready to push? Yes/No" answer with the blocking items, and a proposed fix list for your approval (for example: wire the contact form so it really sends, any missing menu/footer links).
-- Final pre-push steps kept in the checklist: rebuild with live addresses, your WP Staging push, purge SpeedyCache, re-check live.
+## Question for you
+Which email address should receive appointment requests? I'll read it from the current Elementor form settings; please confirm it's correct.
 
 ## Technical notes
-- `ContactSection` falls back to a fake toast when no `onSubmit` is passed; the audit will confirm which page usage passes one. Likely fix options: send to the existing WordPress form handler / email, or a Lovable Cloud function that emails the chamber.
-- If the WP Staging login blocks automated access, the logged-in visual checks fall back to replaying the build under the staging URL, and that limitation will be stated in the report.
+- `ContactDark.tsx` `handleSubmit` currently calls `alert()` only. Change it to `POST` to `?rest_route=/arefin/v1/contact` (same origin, works under `/staging` and live).
+- Snippet registers the REST route with `wp_mail()`, `sanitize_*`, honeypot, transient-based rate limit; recipient read from the Elementor form's email setting.
+- Live site not touched; changes reach live only via your WP Staging push.
