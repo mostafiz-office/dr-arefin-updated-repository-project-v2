@@ -668,6 +668,29 @@ const ContactDark = () => {
         }
         .arefin .contact-submit-btn svg { transition: transform 240ms ease; }
         .arefin .contact-submit-btn:hover svg { transform: translateX(2px); }
+        .arefin .contact-submit-btn:disabled { opacity: 0.7; cursor: wait; }
+        .arefin .contact-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+        .arefin .contact-other-warning,
+        .arefin .contact-form-status {
+          width: 100%;
+          margin-top: 1.25rem;
+          padding: 0.85rem 1rem;
+          border-radius: 8px;
+          font-size: 0.95rem;
+          line-height: 1.5;
+          font-weight: 600;
+        }
+        .arefin .contact-other-warning,
+        .arefin .contact-form-status.is-error {
+          background: hsl(0 85% 97%);
+          color: hsl(0 72% 38%);
+          border: 1px solid hsl(0 72% 50%);
+        }
+        .arefin .contact-form-status.is-success {
+          background: hsl(150 60% 96%);
+          color: hsl(150 70% 22%);
+          border: 1px solid hsl(150 50% 40%);
+        }
 
         /* Trust strip under map */
         .arefin .contact-trust-strip {

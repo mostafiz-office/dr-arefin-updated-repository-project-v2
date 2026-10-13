@@ -68,6 +68,44 @@ function arefin_serve_blog_shell() {
     echo $html;
     exit;
 }
+// Contact-page appointment form receiver: saves each request (private "arefin_request" posts,
+// visible in wp-admin > Appointment requests) and emails the same inbox the old Elementor form used.
+add_action('init', function () {
+    register_post_type('arefin_request', array(
+        'label' => 'Appointment requests', 'public' => false, 'show_ui' => true,
+        'menu_icon' => 'dashicons-email', 'supports' => array('title', 'editor'),
+        'capability_type' => 'post', 'capabilities' => array('create_posts' => 'do_not_allow'), 'map_meta_cap' => true,
+    ));
+});
+add_action('rest_api_init', function () {
+    register_rest_route('arefin/v1', '/contact', array(
+        'methods' => 'POST', 'permission_callback' => '__return_true',
+        'callback' => function (WP_REST_Request $r) {
+            if (trim((string) $r->get_param('website')) !== '') return new WP_REST_Response(array('ok' => true), 200); // bot
+            $ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'x';
+            $key = 'arefin_rl_' . md5($ip);
+            $n = (int) get_transient($key);
+            if ($n >= 5) return new WP_REST_Response(array('ok' => false, 'error' => 'too_many'), 429);
+            set_transient($key, $n + 1, HOUR_IN_SECONDS);
+            $name = sanitize_text_field((string) $r->get_param('name'));
+            $email = sanitize_email((string) $r->get_param('email'));
+            $phone = sanitize_text_field((string) $r->get_param('phone'));
+            $concern = sanitize_text_field((string) $r->get_param('concern'));
+            $msg = sanitize_textarea_field((string) $r->get_param('message'));
+            if ($name === '' || mb_strlen($name) > 100 || !is_email($email) || strlen($email) > 255
+                || mb_strlen($phone) < 6 || mb_strlen($phone) > 20 || $concern === '' || mb_strlen($concern) > 100 || mb_strlen($msg) > 1000) {
+                return new WP_REST_Response(array('ok' => false, 'error' => 'invalid'), 400);
+            }
+            $body = "Name: $name\nEmail: $email\nPhone: $phone\nMedical concern: $concern\n\nMessage:\n$msg\n";
+            $id = wp_insert_post(array('post_type' => 'arefin_request', 'post_status' => 'private',
+                'post_title' => "$name — $concern", 'post_content' => $body));
+            $sent = wp_mail('arefin-leads@googlegroups.com', "New Lead: $name — $concern", $body,
+                array('From: Dr. Arefin Website <info@drarefin.com>', "Reply-To: $name <$email>"));
+            if ($id && !is_wp_error($id)) update_post_meta($id, 'arefin_mail_sent', $sent ? '1' : '0');
+            return new WP_REST_Response(array('ok' => true, 'saved' => (bool) $id, 'mailed' => (bool) $sent), 200);
+        },
+    ));
+});
 `;
 
 const list = await wp("/code-snippets/v1/snippets");
