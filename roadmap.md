@@ -21,3 +21,9 @@
 - [x] Apply the exact approved wording to the React homepage
 - [x] Apply the matching wording to the WordPress export
 - [x] Verify the exact three-line heading at desktop and mobile widths
+
+## WordPress exact-copy deploy
+- [x] Save kit into spec/ and scripts/wp-exact/
+- [ ] Get staging URL, admin user, Application Password, Code Snippets plugin (blocked: user)
+- [ ] Routes list, adapt build for React Router (snapshot), prefix arefin
+- [ ] Homepage deploy + approval, then all pages, then blog/category
