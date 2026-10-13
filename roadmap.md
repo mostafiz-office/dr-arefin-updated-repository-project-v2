@@ -23,6 +23,9 @@
 - [x] Verify the exact three-line heading at desktop and mobile widths
 
 ## WordPress exact-copy deploy
+- [x] Correct homepage browser and sharing titles to “Gallbladder & Liver Surgeon in Dhaka | Dr. Arefin”
+- [x] Verify corrected title in preview and deploy homepage to staging only; stored titles verified
+- [ ] Logged-in staging title check (blocked: staging login protection; user review)
 - [x] Save kit into spec/ and scripts/wp-exact/
 - [x] Staging access + Code Snippets + serving snippet
 - [x] Routes list, snapshot build, arefin prefix, staging-only guard
