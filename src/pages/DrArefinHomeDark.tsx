@@ -86,16 +86,17 @@ const DrArefinHomeDark = () => {
   return (
     <div className="arefin dark min-h-screen bg-background text-foreground font-arefin">
       <Helmet>
-        <title>Gallbladder Expert Surgeon | MBBS | Popular, Dhaka, Bangladesh | Dr. Arifin</title>
+        <title>Gallbladder &amp; Liver Surgeon in Dhaka | Dr. Arefin</title>
         <meta name="description" content="Dr. Murshidul Arefin is a leading hepatobiliary and liver transplant surgeon at Popular Medical College Hospital, Dhaka. Expert in laparoscopic cholecystectomy, liver resection, pancreatic surgery, and biliary tract procedures." />
         <link rel="canonical" href="https://drarefin.com/" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Gallbladder Expert Surgeon | MBBS | Popular, Dhaka, Bangladesh | Dr. Arifin" />
+        <meta property="og:title" content="Gallbladder &amp; Liver Surgeon in Dhaka | Dr. Arefin" />
         <meta property="og:description" content="Dr. Murshidul Arefin is a leading hepatobiliary and liver transplant surgeon at Popular Medical College Hospital, Dhaka. Expert in laparoscopic cholecystectomy, liver resection, pancreatic surgery, and biliary tract procedures." />
         <meta property="og:url" content="https://drarefin.com/" />
         <meta property="og:site_name" content="Dr. Murshidul Arefin" />
         <meta property="og:locale" content="en_BD" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Gallbladder &amp; Liver Surgeon in Dhaka | Dr. Arefin" />
         <link rel="preload" as="image" href={aboutPortrait} fetchPriority="high" type="image/webp" />
       </Helmet>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString }} />

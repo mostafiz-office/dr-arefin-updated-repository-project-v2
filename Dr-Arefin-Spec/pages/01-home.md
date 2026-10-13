@@ -5,7 +5,8 @@
 - **Page type**: home
 
 ## SEO
-- **Meta title**: Top Hepatobiliary, Pancreatic & Liver Surgeon in Dhaka — Dr. Murshidul Arefin
+- **Meta title / og:title / twitter:title**: Gallbladder & Liver Surgeon in Dhaka | Dr. Arefin
+- **Title correction (2026-10-13)**: Remove “Expert” and correct “Arifin” to “Arefin” in homepage titles only. Preserve the visible heading, descriptions, and design. Deploy only to staging via `scripts/wp-exact/`.
 - **Meta description**: Expert hepatobiliary, liver, gallbladder, pancreas and upper-GI surgical care by Dr. Murshidul Arefin at Popular Medical College Hospital, Dhanmondi, Dhaka.
 - **Canonical**: https://drarefin.com/
 - **JSON-LD**: `MedicalBusiness` (or `Physician`) + `LocalBusiness` (Popular Medical College Hospital location) + `AggregateRating` if available
