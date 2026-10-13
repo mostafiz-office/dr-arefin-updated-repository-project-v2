@@ -1,7 +1,8 @@
 import { useState, useCallback } from "react";
 import { buildBreadcrumbList, buildGraph } from "@/lib/structuredData";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import DrArefinHeader from "@/components/arefin/DrArefinHeader";
 import DrArefinFooter from "@/components/arefin/DrArefinFooter";
@@ -9,223 +10,146 @@ import HeroSection from "@/components/arefin/HeroSection";
 import { GlobalCTABand } from "@/components/arefin/GlobalCTABand";
 import darkLogo from "@/assets/dr-arefin-logo-dark.webp";
 import heroBg from "@/assets/about-hero-ot-real.webp";
+import fallbackThumb from "@/assets/gallery/dr-murshidul-arefin-performing-gallbladder-surgery-dhaka.webp";
+import { fetchCategories, fetchPosts } from "@/lib/wpApi";
 
-/* ── Thumbnail imports — using gallery images as article thumbnails ── */
-import thumb01 from "@/assets/gallery/dr-murshidul-arefin-hepatobiliary-surgery-lecture-training-dhaka.webp";
-import thumb02 from "@/assets/gallery/dr-murshidul-arefin-performing-gallbladder-surgery-dhaka.webp";
-import thumb03 from "@/assets/gallery/dr-murshidul-arefin-keynote-speaker-popular-medical-college-dhaka.webp";
-import thumb04 from "@/assets/gallery/empyema-gallbladder-laparoscopic-surgery-specialist-dhaka.webp";
-import thumb05 from "@/assets/gallery/gallbladder-stone-laparoscopic-removal-surgery-dhaka.webp";
-import thumb06 from "@/assets/gallery/dr-murshidul-arefin-open-surgery-closeup-popular-medical-dhaka.webp";
-import thumb07 from "@/assets/gallery/hepatobiliary-open-surgery-best-surgeon-team-dhaka.webp";
-import thumb08 from "@/assets/gallery/dr-murshidul-arefin-medical-seminar-hepatobiliary-training-dhaka.webp";
-import thumb09 from "@/assets/gallery/dr-arefin-16th-international-surgical-congress-2025.webp";
+const POSTS_PER_PAGE = 9;
 
-/* ── Types ── */
-interface ArticlePost {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  isoDate: string;
-  author: string;
-  thumbnail: string;
-}
-
-/* ── Static article data ── */
-const articles: ArticlePost[] = [
-  {
-    slug: "laparoscopic-cholecystectomy-advances-2025",
-    title: "Advances in Laparoscopic Cholecystectomy: What Patients Should Know",
-    excerpt:
-      "Laparoscopic cholecystectomy remains the gold standard for gallbladder removal. Recent advances in surgical techniques have significantly reduced recovery times and improved patient outcomes. This article explores the latest developments in minimally invasive gallbladder surgery.",
-    date: "April 28, 2026",
-    isoDate: "2026-04-28",
-    author: "Dr. Murshidul Arefin",
-    thumbnail: thumb01,
-  },
-  {
-    slug: "gallbladder-stone-symptoms-treatment",
-    title: "Understanding Gallbladder Stones: Symptoms, Diagnosis & Treatment",
-    excerpt:
-      "Gallbladder stones affect millions worldwide. Recognizing early symptoms—such as upper abdominal pain, nausea, and bloating—is critical for timely intervention. Learn about modern diagnostic approaches and when surgery becomes necessary.",
-    date: "April 15, 2026",
-    isoDate: "2026-04-15",
-    author: "Dr. Murshidul Arefin",
-    thumbnail: thumb02,
-  },
-  {
-    slug: "hepatobiliary-surgery-training-bangladesh",
-    title: "Hepatobiliary Surgery Training in Bangladesh: Building the Next Generation",
-    excerpt:
-      "Bangladesh's hepatobiliary surgery landscape is evolving rapidly. As mentorship programs expand at institutions like Popular Medical College Hospital, a new generation of surgeons is being trained in complex liver and biliary procedures.",
-    date: "March 30, 2026",
-    isoDate: "2026-03-30",
-    author: "Dr. Murshidul Arefin",
-    thumbnail: thumb03,
-  },
-  {
-    slug: "empyema-gallbladder-management",
-    title: "Empyema Gallbladder: Challenges in Surgical Management",
-    excerpt:
-      "Empyema of the gallbladder presents unique surgical challenges due to severe inflammation and adhesions. This article discusses the diagnostic criteria, operative strategies, and outcomes of managing complicated gallbladder infections.",
-    date: "March 18, 2026",
-    isoDate: "2026-03-18",
-    author: "Dr. Murshidul Arefin",
-    thumbnail: thumb04,
-  },
-  {
-    slug: "gallbladder-stone-laparoscopic-removal",
-    title: "Laparoscopic Gallbladder Stone Removal: A Step-by-Step Guide",
-    excerpt:
-      "This technical article walks through the standard laparoscopic cholecystectomy procedure—from patient positioning and port placement to critical view of safety and specimen retrieval. Essential reading for medical professionals and informed patients alike.",
-    date: "March 5, 2026",
-    isoDate: "2026-03-05",
-    author: "Dr. Murshidul Arefin",
-    thumbnail: thumb05,
-  },
-  {
-    slug: "open-surgery-vs-laparoscopic",
-    title: "Open Surgery vs. Laparoscopic: When Is Open Approach Still Necessary?",
-    excerpt:
-      "While laparoscopic surgery has become the default approach, certain conditions—such as severe inflammation, unclear anatomy, or suspected malignancy—may require conversion to open surgery. Understanding when and why this decision is made.",
-    date: "February 22, 2026",
-    isoDate: "2026-02-22",
-    author: "Dr. Murshidul Arefin",
-    thumbnail: thumb06,
-  },
-  {
-    slug: "liver-resection-hepatocellular-carcinoma",
-    title: "Liver Resection for Hepatocellular Carcinoma: Current Approaches",
-    excerpt:
-      "Hepatocellular carcinoma (HCC) is one of the most common liver cancers globally. Surgical resection remains a curative option for selected patients. This review covers patient selection criteria, surgical techniques, and long-term outcomes.",
-    date: "February 10, 2026",
-    isoDate: "2026-02-10",
-    author: "Dr. Murshidul Arefin",
-    thumbnail: thumb07,
-  },
-  {
-    slug: "bile-duct-injury-prevention",
-    title: "Preventing Bile Duct Injuries During Cholecystectomy",
-    excerpt:
-      "Bile duct injury is a feared complication of cholecystectomy. Achieving the critical view of safety, understanding biliary anatomy variations, and knowing when to convert are essential skills for every hepatobiliary surgeon.",
-    date: "January 28, 2026",
-    isoDate: "2026-01-28",
-    author: "Dr. Murshidul Arefin",
-    thumbnail: thumb08,
-  },
-  {
-    slug: "international-surgical-congress-highlights",
-    title: "Highlights from the 16th International Surgical Congress 2025",
-    excerpt:
-      "The 16th International Surgical Congress brought together leading surgeons from across the globe. Key sessions covered innovations in minimally invasive surgery, AI-assisted diagnostics, and advances in hepatobiliary oncology.",
-    date: "January 15, 2026",
-    isoDate: "2026-01-15",
-    author: "Dr. Murshidul Arefin",
-    thumbnail: thumb09,
-  },
-];
-
-/* ── JSON-LD: Breadcrumb + Blog + BlogPosting[] ── */
-const jsonLdString = buildGraph(
-  buildBreadcrumbList([{ name: "Articles", path: "/articles/" }]),
-  {
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    name: "Articles & Insights — Dr. Murshidul Arefin",
-    description:
-      "Expert articles on hepatobiliary surgery, gallbladder treatment, liver surgery, and medical training by Dr. Murshidul Arefin, Dhaka, Bangladesh.",
-    url: "https://drarefin.com/articles/",
-    author: { "@id": "https://drarefin.com/#physician" },
-    blogPost: articles.map((p) => ({
-      "@type": "BlogPosting",
-      headline: p.title,
-      description: p.excerpt,
-      datePublished: p.isoDate,
-      url: `https://drarefin.com/articles/${p.slug}/`,
-      author: { "@id": "https://drarefin.com/#physician" },
-    })),
-  },
-);
-
-const POSTS_PER_PAGE = 6;
-
+/** Articles index (/articles/) and category archives (/category/:slug/) — real WordPress posts. */
 const ArticlesDark = () => {
+  const { slug: categorySlug } = useParams<{ slug?: string }>();
   const [page, setPage] = useState(1);
-  const totalPages = Math.ceil(articles.length / POSTS_PER_PAGE);
-  const paged = articles.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
+
+  const catsQ = useQuery({ queryKey: ["wp-categories"], queryFn: fetchCategories, staleTime: 600_000 });
+  const category = categorySlug ? catsQ.data?.find((c) => c.slug === categorySlug) : undefined;
+  const waitingForCategory = !!categorySlug && !category && !catsQ.isError;
+
+  const postsQ = useQuery({
+    queryKey: ["wp-posts", categorySlug || "all", page],
+    queryFn: () => fetchPosts({ page, perPage: POSTS_PER_PAGE, categoryId: category?.id }),
+    enabled: !waitingForCategory,
+    staleTime: 300_000,
+  });
+  const posts = postsQ.data?.posts || [];
+  const totalPages = postsQ.data?.totalPages || 1;
 
   const goTo = useCallback((p: number) => {
     setPage(p);
     window.scrollTo({ top: 480, behavior: "smooth" });
   }, []);
 
+  const pagePath = categorySlug ? `/category/${categorySlug}/` : "/articles/";
+  const pageUrl = `https://drarefin.com${pagePath}`;
+  const catName = category?.name || (categorySlug ? categorySlug.replace(/-/g, " ") : "");
+  const title = categorySlug
+    ? `${catName} — Articles by Dr. Murshidul Arefin, Hepatobiliary Surgeon, Dhaka`
+    : "Articles & Insights — Hepatobiliary Surgery Blog by Dr. Murshidul Arefin";
+  const description = categorySlug
+    ? category?.description || `Articles on ${catName} by Dr. Murshidul Arefin, hepatobiliary, liver, gallbladder and pancreatic surgeon in Dhaka, Bangladesh.`
+    : "Expert articles on hepatobiliary surgery, gallbladder treatment, liver surgery, and surgical training by Dr. Murshidul Arefin. Clinical insights from Popular Medical College Hospital, Dhaka.";
+
+  const jsonLdString = buildGraph(
+    buildBreadcrumbList(
+      categorySlug
+        ? [{ name: "Articles", path: "/articles/" }, { name: catName, path: pagePath }]
+        : [{ name: "Articles", path: "/articles/" }],
+    ),
+    {
+      "@context": "https://schema.org",
+      "@type": categorySlug ? "CollectionPage" : "Blog",
+      name: title,
+      description,
+      url: pageUrl,
+      author: { "@id": "https://drarefin.com/#physician" },
+    },
+  );
+
+  const loading = waitingForCategory || postsQ.isLoading;
+  const failed = postsQ.isError || (categorySlug && catsQ.isSuccess && !category);
+
   return (
    <div className="arefin dark min-h-screen bg-background text-foreground font-arefin">
     <Helmet>
-      <title>Articles & Insights — Hepatobiliary Surgery Blog by Dr. Murshidul Arefin</title>
-      <meta name="description" content="Expert articles on hepatobiliary surgery, gallbladder treatment, liver surgery, and surgical training by Dr. Murshidul Arefin. Clinical insights from Popular Medical College Hospital, Dhaka." />
-      <link rel="canonical" href="https://drarefin.com/articles/" />
-        <link rel="preload" as="image" href={heroBg} />
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <link rel="canonical" href={pageUrl} />
+      <link rel="preload" as="image" href={heroBg} />
       <meta property="og:type" content="website" />
-      <meta property="og:title" content="Articles & Insights — Hepatobiliary Surgery Blog by Dr. Murshidul Arefin" />
-      <meta property="og:description" content="Expert articles on hepatobiliary surgery, gallbladder treatment, and liver surgery by Dr. Murshidul Arefin, Dhaka." />
-      <meta property="og:url" content="https://drarefin.com/articles/" />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:url" content={pageUrl} />
       <meta property="og:site_name" content="Dr. Murshidul Arefin" />
       <meta property="og:locale" content="en_BD" />
       <meta name="twitter:card" content="summary_large_image" />
     </Helmet>
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: jsonLdString }}
-    />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString }} />
 
     <DrArefinHeader logoSrc={darkLogo} transparent />
 
-    {/* ══════════════ HERO — shared HeroSection (homepage parity) ══════════════ */}
-    <HeroSection
-      imageSrc={heroBg}
-      imageAlt="Articles and clinical insights by Dr. Murshidul Arefin, hepatobiliary surgeon, Dhaka"
-      breadcrumb="Articles"
-      kicker="Articles & Insights"
-      h1="Articles on Liver, Gallbladder, Pancreatic and Biliary Surgery"
-      introHtml={`Expert clinical insights on <a href="/treatment/" title="Hepatobiliary treatment services"><strong>hepatobiliary surgery</strong></a> from <a href="/about/" title="About Dr. Murshidul Arefin"><strong>Dr. Murshidul Arefin</strong></a> — covering gallbladder, liver, pancreatic and biliary care for patients and trainee surgeons alike.`}
-    />
+    {categorySlug ? (
+      <HeroSection
+        imageSrc={heroBg}
+        imageAlt={`${catName} articles by Dr. Murshidul Arefin, hepatobiliary surgeon, Dhaka`}
+        breadcrumb={catName}
+        kicker="Articles Category"
+        h1={catName}
+        introHtml={`Articles on <strong>${catName}</strong> from <a href="/about/" title="About Dr. Murshidul Arefin"><strong>Dr. Murshidul Arefin</strong></a>, hepatobiliary, liver, gallbladder and pancreatic surgeon in Dhaka. <a href="/articles/" title="All articles"><strong>See all articles</strong></a>.`}
+      />
+    ) : (
+      <HeroSection
+        imageSrc={heroBg}
+        imageAlt="Articles and clinical insights by Dr. Murshidul Arefin, hepatobiliary surgeon, Dhaka"
+        breadcrumb="Articles"
+        kicker="Articles & Insights"
+        h1="Articles on Liver, Gallbladder, Pancreatic and Biliary Surgery"
+        introHtml={`Expert clinical insights on <a href="/treatment/" title="Hepatobiliary treatment services"><strong>hepatobiliary surgery</strong></a> from <a href="/about/" title="About Dr. Murshidul Arefin"><strong>Dr. Murshidul Arefin</strong></a> — covering gallbladder, liver, pancreatic and biliary care for patients and trainee surgeons alike.`}
+      />
+    )}
 
     {/* ══════════════ ARTICLES GRID ══════════════ */}
     <section className="articles-light-band arefin-section-divider py-10 sm:py-14 md:py-20 lg:py-28" aria-label="Blog articles">
       <div className="container">
-        {paged.length === 0 ? (
+        {catsQ.data && catsQ.data.length > 0 && (
+          <nav className="articles-cat-row" aria-label="Article categories">
+            <Link to="/articles/" className={`articles-cat-pill ${!categorySlug ? "active" : ""}`} aria-current={!categorySlug ? "page" : undefined}>All</Link>
+            {catsQ.data.map((c) => (
+              <Link
+                key={c.slug}
+                to={`/category/${c.slug}/`}
+                onClick={() => setPage(1)}
+                className={`articles-cat-pill ${c.slug === categorySlug ? "active" : ""}`}
+                aria-current={c.slug === categorySlug ? "page" : undefined}
+                title={`${c.name} articles`}
+              >
+                {c.name} <span className="articles-cat-count">({c.count})</span>
+              </Link>
+            ))}
+          </nav>
+        )}
+
+        {loading ? (
+          <div className="articles-empty"><p>Loading articles…</p></div>
+        ) : failed || posts.length === 0 ? (
           <div className="articles-empty">
             <p>No articles available right now. Please check back soon.</p>
           </div>
         ) : (
           <div className="articles-grid">
-            {paged.map((post) => (
-              <article key={post.slug} className="article-card">
-                <div className="article-card-thumb">
-                  <img
-                    src={post.thumbnail}
-                    alt={post.title}
-                    loading="lazy"
-                    className="article-card-img"
-                  />
-                </div>
+            {posts.map((post) => (
+              <article key={post.id} className="article-card">
+                <Link to={post.path} className="article-card-thumb block" tabIndex={-1} aria-hidden>
+                  <img src={post.thumbnail || fallbackThumb} alt={post.thumbAlt} loading="lazy" className="article-card-img" />
+                </Link>
                 <div className="article-card-body">
                   <h2 className="article-card-title">
-                    <Link to={`/articles/${post.slug}/`}>{post.title}</Link>
+                    <Link to={post.path}>{post.title}</Link>
                   </h2>
                   <ul className="article-card-meta text-fluid-meta">
-                    <li>
-                      <time dateTime={post.isoDate}>{post.date}</time>
-                    </li>
-                    <li>{post.author}</li>
+                    <li><time dateTime={post.isoDate}>{post.date}</time></li>
+                    {post.category && <li>{post.category.name}</li>}
                   </ul>
                   <p className="article-card-excerpt">{post.excerpt}</p>
-                  <Link
-                    to={`/articles/${post.slug}/`}
-                    className="article-card-readmore"
-                  >
+                  <Link to={post.path} className="article-card-readmore">
                     Read More <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>
@@ -235,18 +159,12 @@ const ArticlesDark = () => {
         )}
 
         {/* ── Pagination ── */}
-        {totalPages > 1 && (
+        {totalPages > 1 && !loading && (
           <nav className="articles-pagination" aria-label="Pagination">
-            <button
-              className="articles-page-btn"
-              onClick={() => goTo(page - 1)}
-              disabled={page === 1}
-              aria-label="Previous page"
-            >
+            <button className="articles-page-btn" onClick={() => goTo(page - 1)} disabled={page === 1} aria-label="Previous page">
               <ChevronLeft className="h-4 w-4" />
               <span>Previous</span>
             </button>
-
             <div className="articles-page-numbers">
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
                 <button
@@ -260,13 +178,7 @@ const ArticlesDark = () => {
                 </button>
               ))}
             </div>
-
-            <button
-              className="articles-page-btn"
-              onClick={() => goTo(page + 1)}
-              disabled={page === totalPages}
-              aria-label="Next page"
-            >
+            <button className="articles-page-btn" onClick={() => goTo(page + 1)} disabled={page === totalPages} aria-label="Next page">
               <span>Next</span>
               <ChevronRight className="h-4 w-4" />
             </button>
@@ -581,6 +493,18 @@ const ArticlesDark = () => {
         color: hsl(0 0% 100%);
         border-color: hsl(131 87% 41%);
       }
+      /* ── Category pills ── */
+      .arefin .articles-cat-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+      .arefin .articles-cat-pill {
+        display: inline-flex; align-items: center; gap: 4px; min-height: 40px; padding: 8px 14px;
+        border-radius: 999px; border: 1px solid hsl(155 25% 70%); background: hsl(0 0% 100%);
+        color: hsl(0 0% 8%); font-size: 0.8125rem; font-weight: 600; text-decoration: none;
+        transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+      }
+      .arefin .articles-cat-pill:hover { background: hsl(138 50% 88%); color: hsl(142 71% 25%); border-color: hsl(131 87% 41%); }
+      .arefin .articles-cat-pill.active { background: hsl(142 71% 25%); color: hsl(0 0% 100%); border-color: hsl(142 71% 25%); }
+      .arefin .articles-cat-count { font-weight: 400; opacity: 0.8; }
+      .arefin .articles-light-band .articles-empty { color: hsl(0 0% 25%); }
     `}</style>
   </div>
   );
