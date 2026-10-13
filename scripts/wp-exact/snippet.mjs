@@ -150,4 +150,5 @@ const body = JSON.stringify({ name: NAME, code: CODE.trim(), scope: "global", ac
 const saved = existing
   ? await wp(`/code-snippets/v1/snippets/${existing.id}`, { method: "POST", body })
   : await wp("/code-snippets/v1/snippets", { method: "POST", body });
-console.log(`snippet ${saved.id} "${saved.name}" active=${saved.active}`);
+const fin = saved.active ? saved : await wp(`/code-snippets/v1/snippets/${saved.id}`, { method: "POST", body: JSON.stringify({ active: true }) });
+console.log(`snippet ${fin.id} "${fin.name}" active=${fin.active}`);

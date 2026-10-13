@@ -54,3 +54,5 @@ Read-only checks on drarefin.com; all fixes applied to staging only.
 2. Owner tests booking on staging up to payment.
 3. Decide on the 219 missing link targets.
 4. Rebuild with live links (`ROUTER_BASE=`), push with WP Staging Pro, purge SpeedyCache, re-check live.
+
+- [ ] Contact emails: confirm TEST 3 team + patient HTML emails match the old design (issue 15)
