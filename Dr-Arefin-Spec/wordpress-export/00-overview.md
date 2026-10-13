@@ -1,3 +1,5 @@
+> **Old approach.** Superseded by `08-staging-workflow.md` (exact-copy deploy via staging).
+
 # Dr. Arefin — WordPress / Elementor Export
 
 ## Goal
