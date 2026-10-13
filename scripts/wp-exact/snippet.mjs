@@ -8,6 +8,13 @@ import { wp } from "./target.mjs";
 
 const NAME = "Arefin exact pages";
 const CODE = String.raw`
+// Staging clone came with "Plain" permalinks; the live site (and every Lovable link) uses /%postname%/.
+add_action('init', function () {
+    if (get_option('permalink_structure') !== '/%postname%/') {
+        update_option('permalink_structure', '/%postname%/');
+        flush_rewrite_rules(true);
+    }
+}, 99);
 add_action('init', function () {
     register_post_meta('page', 'arefin_raw_html', array(
         'type' => 'string', 'single' => true, 'show_in_rest' => true,

@@ -61,7 +61,7 @@ function toCard(p: any): WpCard {
   return {
     id: p.id,
     slug: p.slug,
-    path: linkToPath(p.link),
+    path: `/${p.slug}/`, // live permalinks are /%postname%/ (staging may report ?p=ID)
     title: decodeEntities(p.title?.rendered || ""),
     excerpt: stripTags(p.excerpt?.rendered || "").replace(/\s*\[…\]|\s*\[&hellip;\]/g, "…"),
     date: d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }),
