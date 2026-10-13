@@ -33,7 +33,7 @@ function rewrite(text) {
   if (ROUTER_BASE) {
     const esc = ROUTER_BASE.replace(/\//g, "\\/");
     // href="/x"  href:"/x"  to:"/x" — skip protocol-relative, already-prefixed and uploads paths.
-    const re = new RegExp(`((?:href|to)\\s*[=:]\\s*["'\`])\\/(?!\\/|${esc.slice(2)}(?:\\/|["'`])|wp-content\\/)`, "g");
+    const re = new RegExp(`((?:href|to)\\s*[=:]\\s*["'\`])\\/(?!\\/|${esc.slice(2)}(?:\\/|["'\`])|wp-content\\/)`, "g");
     text = text.replace(re, `$1${ROUTER_BASE}/`);
   }
   return text;
