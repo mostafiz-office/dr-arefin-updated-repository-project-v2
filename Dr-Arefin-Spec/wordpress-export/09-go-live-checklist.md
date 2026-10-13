@@ -46,6 +46,8 @@ Read-only checks on drarefin.com; all fixes applied to staging only.
 | Largest images | ~330–360 KB each |
 | Google speed score | Not measured (Google's free test quota was used up; staging is login-only) |
 
+| Menu Book → Contact on staging | FIXED (doubled /staging/staging address), see issue 14 |
+
 ## Ready to push?
 **Not yet.** Remaining before push:
 1. Owner confirms both test emails arrived in arefin-leads@googlegroups.com.
