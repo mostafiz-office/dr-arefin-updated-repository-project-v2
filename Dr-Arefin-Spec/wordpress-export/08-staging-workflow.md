@@ -35,3 +35,9 @@ node scripts/wp-exact/deploy.mjs "/"        # or --all
 - [ ] Other static pages, after approval
 - [ ] Blog, single post and category templates
 - [ ] Base `/` rebuild, then push
+
+## Blog posts and categories (added 2026-10-13)
+- The Lovable Articles page, single posts (`/<post-slug>/`) and category pages (`/category/<slug>/`) read real posts from the WordPress REST API (`src/lib/wpApi.ts`). Posts stay authored in WordPress.
+- The "Arefin exact pages" snippet serves single posts and category archives with the Articles page's stored HTML (app shell) and replaces title/description/canonical with Yoast values (`X-Arefin-Exact: blog`).
+- The staging clone came with "Plain" permalinks (`?p=ID`, `/wp-json/` 404). The snippet now forces `/%postname%/` (same as live) so every Lovable address works on staging.
+- Code Snippets REST: updating a snippet can leave it inactive — always call `/snippets/<id>/activate` after saving and confirm `active=true`.

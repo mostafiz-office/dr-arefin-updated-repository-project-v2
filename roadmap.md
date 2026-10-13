@@ -32,5 +32,6 @@
 - [x] Homepage on staging, verified
 - [x] User approved staging homepage
 - [x] All 11 Lovable pages deployed to staging (awaiting user review)
-- [ ] Blog list/single/category templates in Lovable design
+- [x] Blog: Articles list, single posts (/<slug>/), category pages (/category/<slug>/) from real WordPress posts; Research in menu; staging permalinks set to /%postname%/
+- [ ] User review of blog pages on staging (blocked: user, staging needs login)
 - [ ] Rebuild with live links (ROUTER_BASE=) then user pushes via WP Staging Pro + purge SpeedyCache
