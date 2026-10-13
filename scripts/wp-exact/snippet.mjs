@@ -13,6 +13,17 @@ add_action('init', function () {
         'auth_callback' => function () { return current_user_can('edit_pages'); },
     ));
 });
+// Let administrators upload the build's own aw-*.js / aw-*.css files to the media library.
+add_filter('upload_mimes', function ($m) {
+    if (current_user_can('manage_options')) { $m['js'] = 'application/javascript'; $m['css'] = 'text/css'; }
+    return $m;
+});
+add_filter('wp_check_filetype_and_ext', function ($d, $file, $filename) {
+    if (current_user_can('manage_options') && preg_match('/^aw-[A-Za-z0-9_-]+\.(js|css)$/', $filename, $x)) {
+        $d['ext'] = $x[1]; $d['type'] = $x[1] === 'js' ? 'application/javascript' : 'text/css'; $d['proper_filename'] = $filename;
+    }
+    return $d;
+}, 10, 3);
 add_action('template_redirect', function () {
     if (is_admin() || isset($_GET['arefin_legacy']) || isset($_GET['elementor-preview']) || is_preview()) return;
     if (!is_singular('page') && !is_front_page()) return;
