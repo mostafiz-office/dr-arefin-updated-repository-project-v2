@@ -99,8 +99,43 @@ add_action('rest_api_init', function () {
             $body = "Name: $name\nEmail: $email\nPhone: $phone\nMedical concern: $concern\n\nMessage:\n$msg\n";
             $id = wp_insert_post(array('post_type' => 'arefin_request', 'post_status' => 'private',
                 'post_title' => "$name — $concern", 'post_content' => $body));
-            $sent = wp_mail('arefin-leads@googlegroups.com', "New Lead: $name — $concern", $body,
-                array('From: Dr. Arefin Website <info@drarefin.com>', "Reply-To: $name <$email>"));
+            // HTML emails copied from the main site's Elementor form (team + patient).
+            $hN = esc_html($name); $hE = esc_html($email); $aE = esc_attr($email); $hP = esc_html($phone);
+            $hC = esc_html($concern); $hM = $msg === '' ? '—' : nl2br(esc_html($msg));
+            $td = 'padding: 10px; border: 1px solid #dcdcdc;'; $th = $td . ' font-weight: bold; background-color: #ffffff;';
+            $team = '<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #0b1f3a; max-width: 600px; padding: 20px; border: 2px solid #0b3c6f; border-radius: 10px; background-color: #f4f8fc; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">'
+              . '<h2 style="color: #0b3c6f; border-bottom: 3px solid #1f6fb2; padding-bottom: 10px; margin-top: 0; font-size: 22px;">🔔 NEW PATIENT INQUIRY: Dr. Arefin Consultation 🔔</h2>'
+              . '<p style="font-size: 16px;">A new patient inquiry has been received. Please review the details below and arrange timely follow-up for consultation scheduling.</p>'
+              . '<table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 15px;">'
+              . '<tr><td colspan="2" style="background-color: #0b3c6f; color: #ffffff; padding: 12px; font-weight: bold; border: 1px solid #0b3c6f;">PATIENT DETAILS FOR REVIEW</td></tr>'
+              . '<tr><td style="width: 35%; ' . $th . '">Full Name:</td><td style="width: 65%; ' . $td . '">' . $hN . '</td></tr>'
+              . '<tr><td style="' . $th . '">Concern / Service Requested:</td><td style="' . $td . ' font-weight: bold; color: #0b1f3a;">' . $hC . '</td></tr>'
+              . '<tr><td style="' . $th . '">Email Address:</td><td style="' . $td . '"><a href="mailto:' . $aE . '" style="color: #0b3c6f;">' . $hE . '</a></td></tr>'
+              . '<tr><td style="' . $th . '">Phone Number:</td><td style="' . $td . '">' . $hP . '</td></tr>'
+              . '<tr><td style="' . $th . '">Patient Message:</td><td style="' . $td . '">' . $hM . '</td></tr></table>'
+              . '<p style="font-size: 16px; font-weight: bold; color: #0b1f3a; margin-top: 20px;">Follow-up Action: <span style="color: #0b3c6f;">Contact ' . $hP . ' to schedule consultation or provide medical guidance.</span></p>'
+              . '<p style="font-size: 14px; color: #777; margin-top: 25px;">Generated from Dr. Murshidul Arefin’s Official Website Contact Form (Dhaka, Bangladesh).</p></div>';
+            $lk = 'margin: 0 8px; text-decoration: none; color: #1f5f8b; font-weight: bold;';
+            $pat = '<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #0b2c4d; max-width: 600px; margin: auto; padding: 25px; border: 2px solid #1f5f8b; border-radius: 12px; background-color: #ffffff; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);">'
+              . '<h3 style="color: #0b2c4d; border-bottom: 3px solid #1f5f8b; padding-bottom: 15px; margin-top: 0; font-size: 20px;">Hello ' . $hN . ',</h3>'
+              . '<p style="font-size: 16px;">Thank you for contacting <strong>Dr. Murshidul Arefin</strong>. Your medical consultation request has been successfully received.</p>'
+              . '<p style="font-size: 16px;">We confirm your inquiry regarding: <strong>' . $hC . '</strong>.</p>'
+              . '<div style="background-color: #1f5f8b; color: #ffffff; padding: 20px; border-radius: 8px; margin: 30px 0;"><h4 style="margin-top: 0; font-size: 18px; color: #ffffff;">✅ What Happens Next?</h4>'
+              . '<ul style="padding-left: 20px; list-style: disc;"><li style="margin-bottom: 10px; font-weight: bold;">Our medical support team is reviewing your request.</li>'
+              . '<li style="font-weight: bold;">We will contact you at <span style="color: #ffd166;">' . $hP . '</span> within the next few business hours to confirm your appointment details.</li></ul></div>'
+              . '<p style="font-size: 16px; color: #0b2c4d;">If your matter is urgent or you need immediate assistance, please contact us directly:</p>'
+              . '<div style="background-color: #f4f8fc; padding: 20px; border-radius: 10px; text-align: center; margin: 25px 0; border: 2px solid #1f5f8b;">'
+              . '<p style="font-size: 18px; margin: 10px 0; font-weight: bold; color: #0b2c4d;">📞 Serial (Appointment Line)</p><p style="font-size: 24px; font-weight: bold; margin: 5px 0;"><a href="tel:01311487592" style="color: #1f5f8b; text-decoration: none;">01311487592</a></p>'
+              . '<p style="font-size: 18px; margin: 15px 0 10px 0; font-weight: bold; color: #0b2c4d;">💬 Direct WhatsApp</p><p style="font-size: 24px; font-weight: bold; margin: 5px 0;"><a href="https://wa.me/8801723134282" target="_blank" style="color: #1f5f8b; text-decoration: none;">01723134282</a></p>'
+              . '<p style="font-size: 14px; color: #666; margin-top: 15px;">📧 <a href="mailto:arefin-info@drarefin.com" style="color: #1f5f8b; text-decoration: none;">arefin-info@drarefin.com</a></p></div>'
+              . '<div style="text-align: center; margin-top: 30px; padding-top: 15px; border-top: 1px solid #d4d4d4;"><p style="font-size: 14px; color: #666; margin-bottom: 15px;">Stay informed with our latest health updates:</p>'
+              . '<p><a href="https://drarefin.com/articles/" style="' . $lk . '">Medical News</a> | <a href="https://drarefin.com/treatment/" style="' . $lk . '">Treatments</a> | <a href="https://drarefin.com/contact/" style="' . $lk . '">Contact</a></p>'
+              . '<p style="font-size: 16px; font-weight: bold; margin-top: 20px; color: #0b2c4d;">Dr. Murshidul Arefin’s Team<br><em>Dhanmondi, Dhaka, Bangladesh</em></p></div></div>';
+            $html = 'Content-Type: text/html; charset=UTF-8';
+            $sent = wp_mail('arefin-leads@googlegroups.com', "New Lead: $concern Inquiry from $name (Dr Arefin)", $team,
+                array($html, 'From: Dr Arefin Appointment <info@drarefin.com>', "Reply-To: $name <$email>"));
+            wp_mail($email, "Consultation Request Received! Next Steps for Your $concern Appointment with Dr. Arefin", $pat,
+                array($html, 'From: Dr Arefin Appointment Booking <info@drarefin.com>', 'Reply-To: info@drarefin.com'));
             if ($id && !is_wp_error($id)) update_post_meta($id, 'arefin_mail_sent', $sent ? '1' : '0');
             return new WP_REST_Response(array('ok' => true, 'saved' => (bool) $id, 'mailed' => (bool) $sent), 200);
         },
@@ -115,4 +150,5 @@ const body = JSON.stringify({ name: NAME, code: CODE.trim(), scope: "global", ac
 const saved = existing
   ? await wp(`/code-snippets/v1/snippets/${existing.id}`, { method: "POST", body })
   : await wp("/code-snippets/v1/snippets", { method: "POST", body });
-console.log(`snippet ${saved.id} "${saved.name}" active=${saved.active}`);
+const fin = saved.active ? saved : await wp(`/code-snippets/v1/snippets/${saved.id}`, { method: "POST", body: JSON.stringify({ active: true }) });
+console.log(`snippet ${fin.id} "${fin.name}" active=${fin.active}`);
