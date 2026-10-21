@@ -796,6 +796,7 @@
      ──────────────────────────────────────────────────────────────────────── */
   .arefin-mega-wide {
     width: min(1120px, calc(100vw - 32px));
+    max-height: calc(100dvh - 90px);
     padding: 0;
     display: flex;
     overflow: hidden;
@@ -809,6 +810,8 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+    max-height: inherit;
+    overflow-y: auto;
   }
   .arefin-mega-rail-label {
     display: block;
@@ -874,7 +877,9 @@
     padding: 24px 28px 20px;
     display: flex;
     flex-direction: column;
-    min-height: 456px;
+    min-height: min(456px, calc(100dvh - 220px));
+    max-height: inherit;
+    overflow-y: auto;
   }
   @keyframes arefin-mega-swap {
     from { opacity: 0; }
@@ -909,22 +914,27 @@
     gap: 10px;
     margin-top: 16px;
   }
+  /* QA P1: dark ink text on the bright green (6.75:1) — white text was
+     2.56:1 and failed WCAG AA. Hover uses brightness only so every state
+     stays AA; the darker green remains the hover colour for text/links. */
   .arefin-mega-btn-primary {
     display: inline-flex;
     align-items: center;
     padding: 10px 18px;
     border-radius: 999px;
     background: hsl(var(--primary-bright));
-    color: #fff;
+    color: hsl(140 48% 8%);
     font-size: 0.85rem;
     font-weight: 600;
     text-decoration: none;
-    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1), filter 150ms ease;
+    transition: filter 200ms ease;
   }
   .arefin-mega-btn-primary:hover {
-    background: hsl(var(--primary-darker));
+    filter: brightness(0.94);
   }
-  .arefin-mega-btn-primary:active,
+  .arefin-mega-btn-primary:active {
+    filter: brightness(0.88);
+  }
   .arefin-mega-btn-call:active {
     filter: brightness(0.92);
   }
@@ -970,7 +980,19 @@
     line-height: 1.35;
     color: hsl(40 10% 82%);
     text-decoration: none;
-    transition: color 300ms ease;
+    /* QA P4: cap at 2 lines (full label lives in the title attribute and
+       the target page H1) so long service names cannot stretch the panel */
+    max-height: calc(1.35em * 2 + 6px);
+    overflow: hidden;
+    /* QA P8: hover pill (negative margins keep the grid rhythm) */
+    padding: 3px 8px;
+    margin: -3px -8px;
+    border-radius: 8px;
+    transition: color 300ms ease, background-color 300ms ease;
+  }
+  .arefin-mega-area-link:hover,
+  .arefin-mega-area-link:focus-visible {
+    background-color: hsl(var(--primary-bright) / 0.1);
   }
   .arefin-mega-area-link::before {
     content: "";

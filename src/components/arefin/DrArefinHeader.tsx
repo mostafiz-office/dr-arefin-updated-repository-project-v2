@@ -104,6 +104,15 @@ const navLinks: NavItem[] = [
 
 const normalizePath = (path: string) => (path.endsWith("/") ? path : `${path}/`);
 
+/** QA P5: which mega service a route belongs to (its hub or one of its
+ *  service-in-area pages), so the panel can preselect it on open. */
+const megaServiceForPath = (path: string): string | undefined => {
+  const p = normalizePath(path);
+  return MEGA_SERVICES.find(
+    (s) => p === s.hub || p.startsWith(`/treatment/${s.slug}-in-`),
+  )?.slug;
+};
+
 const isRouteActive = (currentPath: string, itemPath: string) => {
   if (itemPath === "/") return currentPath === "/";
   const current = normalizePath(currentPath);
@@ -175,10 +184,29 @@ const NavItemLink = ({
     closeTimer.current = setTimeout(() => setOpenDropdown(null), 150);
   };
 
+  // QA P2: keyboard support — focus entering the item opens the panel
+  // (handleEnter on the li's onFocus); focus leaving the whole item
+  // (link + panel) closes it with the same grace timer as the mouse.
+  const handleBlur = (e: React.FocusEvent) => {
+    if (!hasChildren) return;
+    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+      closeTimer.current = setTimeout(() => setOpenDropdown(null), 150);
+    }
+  };
+
   // Mega panel: which service the detail pane shows. Mouse switching uses
   // an 80ms dwell so a fast diagonal sweep across the rail does not strobe
   // through services; keyboard focus switches immediately (plan §10.2).
-  const [activeMega, setActiveMega] = useState<string>(MEGA_DEFAULT_SERVICE);
+  const [activeMega, setActiveMega] = useState<string>(
+    () => megaServiceForPath(currentPath) ?? MEGA_DEFAULT_SERVICE,
+  );
+
+  // QA P5: when the panel opens on a treatment page, preselect its service.
+  useEffect(() => {
+    if (!isOpen) return;
+    const match = megaServiceForPath(currentPath);
+    if (match) setActiveMega(match);
+  }, [isOpen, currentPath]);
   const dwellTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const handleMegaHover = (slug: string) => {
     if (dwellTimer.current) clearTimeout(dwellTimer.current);
@@ -212,6 +240,8 @@ const NavItemLink = ({
       className="relative"
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
+      onFocus={handleEnter}
+      onBlur={handleBlur}
     >
       <Link
         to={item.path}
