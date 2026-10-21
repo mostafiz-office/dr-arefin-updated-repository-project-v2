@@ -148,7 +148,11 @@ const FirstInBangladesh = () => {
     }
     setStatus("sending");
     try {
-      await sendAppointmentRequest({ ...parsed.data, website });
+      await sendAppointmentRequest({
+        ...parsed.data,
+        website,
+        source: "First in Bangladesh page",
+      });
       setStatus("success");
       setFormData({ name: "", email: "", phone: "", concern: "", message: "" });
     } catch {

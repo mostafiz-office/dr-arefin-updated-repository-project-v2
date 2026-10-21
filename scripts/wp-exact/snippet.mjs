@@ -92,11 +92,12 @@ add_action('rest_api_init', function () {
             $phone = sanitize_text_field((string) $r->get_param('phone'));
             $concern = sanitize_text_field((string) $r->get_param('concern'));
             $msg = sanitize_textarea_field((string) $r->get_param('message'));
+            $source = sanitize_text_field((string) $r->get_param('source'));
             if ($name === '' || mb_strlen($name) > 100 || !is_email($email) || strlen($email) > 255
-                || mb_strlen($phone) < 6 || mb_strlen($phone) > 20 || $concern === '' || mb_strlen($concern) > 100 || mb_strlen($msg) > 1000) {
+                || mb_strlen($phone) < 6 || mb_strlen($phone) > 20 || $concern === '' || mb_strlen($concern) > 100 || mb_strlen($msg) > 1000 || mb_strlen($source) > 120) {
                 return new WP_REST_Response(array('ok' => false, 'error' => 'invalid'), 400);
             }
-            $body = "Name: $name\nEmail: $email\nPhone: $phone\nMedical concern: $concern\n\nMessage:\n$msg\n";
+            $body = "Name: $name\nEmail: $email\nPhone: $phone\nMedical concern: $concern\n" . ($source !== '' ? "Source: $source\n" : '') . "\nMessage:\n$msg\n";
             $id = wp_insert_post(array('post_type' => 'arefin_request', 'post_status' => 'private',
                 'post_title' => "$name — $concern", 'post_content' => $body));
             // HTML emails copied from the main site's Elementor form (team + patient).
@@ -110,6 +111,7 @@ add_action('rest_api_init', function () {
               . '<tr><td colspan="2" style="background-color: #0b3c6f; color: #ffffff; padding: 12px; font-weight: bold; border: 1px solid #0b3c6f;">PATIENT DETAILS FOR REVIEW</td></tr>'
               . '<tr><td style="width: 35%; ' . $th . '">Full Name:</td><td style="width: 65%; ' . $td . '">' . $hN . '</td></tr>'
               . '<tr><td style="' . $th . '">Concern / Service Requested:</td><td style="' . $td . ' font-weight: bold; color: #0b1f3a;">' . $hC . '</td></tr>'
+              . ($source !== '' ? '<tr><td style="' . $th . '">Source:</td><td style="' . $td . '">' . esc_html($source) . '</td></tr>' : '')
               . '<tr><td style="' . $th . '">Email Address:</td><td style="' . $td . '"><a href="mailto:' . $aE . '" style="color: #0b3c6f;">' . $hE . '</a></td></tr>'
               . '<tr><td style="' . $th . '">Phone Number:</td><td style="' . $td . '">' . $hP . '</td></tr>'
               . '<tr><td style="' . $th . '">Patient Message:</td><td style="' . $td . '">' . $hM . '</td></tr></table>'
@@ -136,7 +138,7 @@ add_action('rest_api_init', function () {
                 array($html, 'From: Dr Arefin Appointment <info@drarefin.com>', "Reply-To: $name <$email>"));
             wp_mail($email, "Consultation Request Received! Next Steps for Your $concern Appointment with Dr. Arefin", $pat,
                 array($html, 'From: Dr Arefin Appointment Booking <info@drarefin.com>', 'Reply-To: info@drarefin.com'));
-            if ($id && !is_wp_error($id)) update_post_meta($id, 'arefin_mail_sent', $sent ? '1' : '0');
+            if ($id && !is_wp_error($id)) { update_post_meta($id, 'arefin_mail_sent', $sent ? '1' : '0'); if ($source !== '') update_post_meta($id, 'arefin_source', $source); }
             return new WP_REST_Response(array('ok' => true, 'saved' => (bool) $id, 'mailed' => (bool) $sent), 200);
         },
     ));
