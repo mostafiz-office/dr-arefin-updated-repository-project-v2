@@ -914,55 +914,74 @@
     gap: 10px;
     margin-top: 16px;
   }
-  /* QA P1: dark ink text on the bright green (6.75:1) — white text was
-     2.56:1 and failed WCAG AA. Hover uses brightness only so every state
-     stays AA; the darker green remains the hover colour for text/links. */
+  /* Hero-pair styling (owner direction 2026-10-21): the dropdown buttons
+     mirror the hero CTAs — primary = black on bright green, hover swaps to
+     white on darker green; call = black on white, same swap hover. Panel
+     size uses the hero base geometry (3rem tall, 0.9375rem). The (0,4,0)
+     locks below keep the global dark link-hover rule (.arefin.dark a:hover,
+     (0,3,1)) from repainting these buttons' text bright green. */
   .arefin-mega-btn-primary {
     display: inline-flex;
     align-items: center;
-    padding: 10px 18px;
+    justify-content: center;
+    height: 3rem;
+    padding: 0 1.75rem;
     border-radius: 999px;
     background: hsl(var(--primary-bright));
-    color: hsl(140 48% 8%);
-    font-size: 0.85rem;
+    color: #000000;
+    font-size: 0.9375rem;
     font-weight: 600;
     text-decoration: none;
-    transition: filter 200ms ease;
+    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
   .arefin-mega-btn-primary:hover {
+    background: hsl(var(--primary-darker));
+    color: #ffffff;
+  }
+  .arefin-mega-btn-primary:active {
+    background: hsl(var(--primary-darker));
+    color: #ffffff;
     filter: brightness(0.94);
   }
-  /* The global dark link-hover rule (.arefin.dark a:hover, (0,3,1)) paints
-     hovered links bright green — on this button that is green-on-green and
-     the label vanishes. Lock the ink colour for interactive states at
-     (0,4,0) so it always wins. */
   .arefin.dark .arefin-mega-btn-primary:hover,
   .arefin.dark .arefin-mega-btn-primary:focus-visible,
   .arefin.dark .arefin-mega-btn-primary:active {
-    color: hsl(140 48% 8%);
-  }
-  .arefin-mega-btn-primary:active {
-    filter: brightness(0.88);
-  }
-  .arefin-mega-btn-call:active {
-    filter: brightness(0.92);
+    background: hsl(var(--primary-darker));
+    color: #ffffff;
   }
   .arefin-mega-btn-call {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
+    justify-content: center;
+    gap: 10px;
+    height: 3rem;
+    padding: 0 1.75rem;
     border-radius: 999px;
-    border: 1px solid hsl(40 15% 70% / 0.25);
-    color: hsl(40 10% 90%);
-    font-size: 0.85rem;
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    color: hsl(0 0% 4%);
+    font-size: 0.9375rem;
     font-weight: 600;
     text-decoration: none;
-    transition: border-color 300ms ease, color 300ms ease, filter 150ms ease;
+    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1), border-color 300ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
   .arefin-mega-btn-call:hover {
-    border-color: hsl(var(--primary-bright));
-    color: hsl(var(--primary-bright));
+    background: hsl(var(--primary-darker));
+    border-color: hsl(var(--primary-darker));
+    color: #ffffff;
+  }
+  .arefin-mega-btn-call:active {
+    background: hsl(var(--primary-darker));
+    border-color: hsl(var(--primary-darker));
+    color: #ffffff;
+    filter: brightness(0.94);
+  }
+  .arefin.dark .arefin-mega-btn-call:hover,
+  .arefin.dark .arefin-mega-btn-call:focus-visible,
+  .arefin.dark .arefin-mega-btn-call:active {
+    background: hsl(var(--primary-darker));
+    border-color: hsl(var(--primary-darker));
+    color: #ffffff;
   }
   .arefin-mega-areas-label {
     display: block;
