@@ -27,12 +27,15 @@ import FAQSinglePage from "./pages/FAQSinglePage";
 import SitemapPage from "./pages/SitemapPage";
 
 import { SATELLITE_PAGES } from "./data/satellitePages";
-import { MATRIX_PAGES_PILOT } from "./data/satelliteMatrix";
+import { MATRIX_PAGES_PILOT, MATRIX_PAGES_MENU } from "./data/satelliteMatrix";
 import { JOURNEY_TASK_PAGES } from "./data/journeyTaskPages";
 import { faqRegistry } from "./data/faqRegistry";
 
 // Expose matrix + journey-task pages to the findSatellitePage lookup (avoids circular import).
-(globalThis as { __MATRIX_PAGES__?: typeof MATRIX_PAGES_PILOT }).__MATRIX_PAGES__ = MATRIX_PAGES_PILOT;
+(globalThis as { __MATRIX_PAGES__?: typeof MATRIX_PAGES_PILOT }).__MATRIX_PAGES__ = [
+  ...MATRIX_PAGES_PILOT,
+  ...MATRIX_PAGES_MENU,
+];
 (globalThis as { __JOURNEY_TASK_PAGES__?: typeof JOURNEY_TASK_PAGES }).__JOURNEY_TASK_PAGES__ = JOURNEY_TASK_PAGES;
 
 const queryClient = new QueryClient();
@@ -96,6 +99,10 @@ const App = () => (
             {MATRIX_PAGES_PILOT.flatMap((p) => [
               <Route key={"m" + p.slug} path={p.slug} element={<SatellitePage />} />,
               <Route key={"m" + p.slug + "/"} path={p.slug + "/"} element={<SatellitePage />} />,
+            ])}
+            {MATRIX_PAGES_MENU.flatMap((p) => [
+              <Route key={"mm" + p.slug} path={p.slug} element={<SatellitePage />} />,
+              <Route key={"mm" + p.slug + "/"} path={p.slug + "/"} element={<SatellitePage />} />,
             ])}
             {JOURNEY_TASK_PAGES.flatMap((p) => [
               <Route key={"j" + p.slug} path={p.slug} element={<SatellitePage />} />,

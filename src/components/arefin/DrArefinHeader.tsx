@@ -3,6 +3,13 @@ import { Menu, X, Phone, MessageCircle, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/dr-arefin-logo-black.webp";
 import SlideButton from "./SlideButton";
+import {
+  MEGA_SERVICES,
+  MEGA_DEFAULT_SERVICE,
+  MEGA_TRUST_LINE,
+  MEGA_PHONE_HREF,
+  MEGA_PHONE_DISPLAY,
+} from "@/data/menu";
 
 type NavChild = { label: string; description: string; path: string; icon: React.ReactNode };
 
@@ -37,6 +44,43 @@ const BiliaryIcon = () => (
     <path d="M8 8h8"/>
   </svg>
 );
+const HepatobiliaryIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+    <path d="M3 12c0-4 3-8 7-8 2 0 3.5 1 4.5 2.5S17 9 19 9c2 0 2 2 2 3s-1 5-5 5c-2 0-3-1-4.5-1S8 17 6 17c-2 0-3-2.5-3-5z"/>
+    <circle cx="9" cy="11" r="1"/><circle cx="15" cy="13" r="1"/>
+  </svg>
+);
+const LaparoscopicIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+    <circle cx="10" cy="10" r="6"/>
+    <path d="M14.5 14.5 21 21"/>
+    <path d="M10 7.5v5M7.5 10h5"/>
+  </svg>
+);
+const TransplantIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+    <path d="M20 12a8 8 0 1 1-2.34-5.66"/>
+    <path d="M18.5 2.5v4h-4"/>
+  </svg>
+);
+const FattyLiverIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+    <path d="M12 3l7 2.8V11c0 4.8-3.4 7.9-7 9.5C8.4 18.9 5 15.8 5 11V5.8z"/>
+    <path d="M9 11.5l2 2 4-4"/>
+  </svg>
+);
+
+/** Mega rail icon per service slug (same hand-drawn stroke style). */
+const MEGA_ICONS: Record<string, React.ReactNode> = {
+  "liver-surgery": <LiverIcon />,
+  "gallbladder-surgery": <GallbladderIcon />,
+  "bile-duct-surgery": <BiliaryIcon />,
+  "pancreatic-surgery": <PancreasIcon />,
+  "hepatobiliary-surgery": <HepatobiliaryIcon />,
+  "laparoscopic-surgery": <LaparoscopicIcon />,
+  "liver-transplant-coordination": <TransplantIcon />,
+  "fatty-liver-management": <FattyLiverIcon />,
+};
 
 const navLinks: NavItem[] = [
   { label: "Home", path: "/" },
@@ -44,6 +88,7 @@ const navLinks: NavItem[] = [
   {
     label: "Treatment",
     path: "/treatment/",
+    mega: true,
     children: [
       { label: "Liver Surgery", description: "Resection, transplant & HCC care", path: "/treatment/liver-surgery/", icon: <LiverIcon /> },
       { label: "Gall Bladder", description: "Laparoscopic cholecystectomy", path: "/treatment/gallbladder-surgery/", icon: <GallbladderIcon /> },
@@ -130,6 +175,38 @@ const NavItemLink = ({
     closeTimer.current = setTimeout(() => setOpenDropdown(null), 150);
   };
 
+  // Mega panel: which service the detail pane shows. Mouse switching uses
+  // an 80ms dwell so a fast diagonal sweep across the rail does not strobe
+  // through services; keyboard focus switches immediately (plan §10.2).
+  const [activeMega, setActiveMega] = useState<string>(MEGA_DEFAULT_SERVICE);
+  const dwellTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const handleMegaHover = (slug: string) => {
+    if (dwellTimer.current) clearTimeout(dwellTimer.current);
+    dwellTimer.current = setTimeout(() => setActiveMega(slug), 80);
+  };
+  const handleMegaFocus = (slug: string) => {
+    if (dwellTimer.current) clearTimeout(dwellTimer.current);
+    setActiveMega(slug);
+  };
+  const activeService =
+    MEGA_SERVICES.find((s) => s.slug === activeMega) ?? MEGA_SERVICES[0];
+
+  // Touch laptops/tablets (coarse pointer): first tap on the mega item
+  // opens the panel instead of navigating; second tap navigates (plan §10.3).
+  const handleTopClick = (e: React.MouseEvent) => {
+    if (
+      item.mega &&
+      !isOpen &&
+      typeof window !== "undefined" &&
+      window.matchMedia("(pointer: coarse)").matches
+    ) {
+      e.preventDefault();
+      setOpenDropdown(item.label);
+      return;
+    }
+    setOpenDropdown(null);
+  };
+
   return (
     <li
       className="relative"
@@ -141,7 +218,7 @@ const NavItemLink = ({
         data-active={isActive || undefined}
         aria-haspopup={hasChildren || undefined}
         aria-expanded={hasChildren ? isOpen : undefined}
-        onClick={() => setOpenDropdown(null)}
+        onClick={handleTopClick}
         className={`arefin-nav-item inline-flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
           isActive
             ? "text-primary"
@@ -160,49 +237,95 @@ const NavItemLink = ({
 
       {hasChildren && isOpen && item.mega && (
         <div
-          className="absolute left-1/2 -translate-x-1/2 top-full pt-2 z-50"
+          className="fixed left-1/2 -translate-x-1/2 top-[74px] z-50"
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
         >
-          <div className="arefin-mega-panel arefin-mega-reveal" role="menu">
-            <div className="grid grid-cols-2 gap-2">
-              {item.children!.map((child) => {
-                const childActive = isRouteActive(currentPath, child.path);
-                return (
+          <div className="arefin-mega-panel arefin-mega-wide arefin-mega-reveal" role="menu">
+            {/* Left rail — services (data: src/data/menu.ts) */}
+            <div className="arefin-mega-rail">
+              <span className="arefin-mega-rail-label">Our Treatments</span>
+              {MEGA_SERVICES.map((svc) => (
+                <Link
+                  key={svc.slug}
+                  to={svc.hub}
+                  role="menuitem"
+                  title={svc.hubTitle}
+                  data-active={svc.slug === activeService.slug || undefined}
+                  onMouseEnter={() => handleMegaHover(svc.slug)}
+                  onFocus={() => handleMegaFocus(svc.slug)}
+                  onClick={() => setOpenDropdown(null)}
+                  className="arefin-mega-rail-item"
+                >
+                  <span className="arefin-mega-icon">{MEGA_ICONS[svc.slug]}</span>
+                  <span>
+                    <span className="arefin-mega-rail-name block">{svc.display}</span>
+                    <span className="arefin-mega-rail-count block">{svc.areaCount} areas</span>
+                  </span>
+                </Link>
+              ))}
+              <div className="arefin-mega-rail-footer">
+                <Link
+                  to="/treatment/"
+                  onClick={() => setOpenDropdown(null)}
+                  className="arefin-mega-footer-link text-xs font-medium transition-colors duration-300"
+                >
+                  View all treatments →
+                </Link>
+              </div>
+            </div>
+
+            {/* Right detail pane — swaps with the rail selection. Keyed swap
+                replays the 120ms opacity crossfade; pane height is locked
+                in CSS so switching never resizes the panel (plan §10.2). */}
+            <div className="arefin-mega-detail" key={activeService.slug}>
+              <div className="arefin-mega-swap">
+                <h3 className="arefin-mega-detail-title">{activeService.display}</h3>
+                <p className="arefin-mega-detail-desc">{activeService.description}</p>
+                <div className="arefin-mega-actions">
                   <Link
-                    key={child.path}
-                    to={child.path}
-                    role="menuitem"
-                    data-active={childActive || undefined}
+                    to={activeService.hub}
+                    title={activeService.hubTitle}
                     onClick={() => setOpenDropdown(null)}
-                    className="arefin-mega-card"
+                    className="arefin-mega-btn-primary"
                   >
-                    <span className="arefin-mega-icon">{child.icon}</span>
-                    <span>
-                      <span className="arefin-mega-card-title block">{child.label}</span>
-                      <span className="arefin-mega-card-desc block">{child.description}</span>
-                    </span>
+                    Treatment page →
                   </Link>
-                );
-              })}
-            </div>
-            <div className="arefin-mega-popular">
-              <span className="arefin-mega-popular-label">Popular topics</span>
-              <ul className="arefin-mega-popular-list">
-                <li><Link to="/best-hepatobiliary-surgeon-dhaka/" onClick={() => setOpenDropdown(null)} title="Best hepatobiliary surgeon in Dhaka">Best surgeon in Dhaka</Link></li>
-                <li><Link to="/conditions/gallstones/" onClick={() => setOpenDropdown(null)} title="Gallstones — symptoms and treatment">Gallstones</Link></li>
-                <li><Link to="/treatment/laparoscopic-surgery/" onClick={() => setOpenDropdown(null)} title="Laparoscopic surgery in Dhaka">Laparoscopic surgery</Link></li>
-                <li><Link to="/treatment/fatty-liver-management/" onClick={() => setOpenDropdown(null)} title="Fatty liver management">Fatty liver</Link></li>
-              </ul>
-            </div>
-            <div className="arefin-mega-footer">
-              <Link
-                to="/treatment/"
-                onClick={() => setOpenDropdown(null)}
-                className="arefin-mega-footer-link text-xs font-medium transition-colors duration-300"
-              >
-                View all treatments →
-              </Link>
+                  <a href={MEGA_PHONE_HREF} className="arefin-mega-btn-call" title={`Call Dr. Arefin — ${MEGA_PHONE_DISPLAY}`}>
+                    <Phone className="h-4 w-4" aria-hidden />
+                    Call
+                  </a>
+                </div>
+                <span className="arefin-mega-areas-label">Areas We Serve</span>
+                <ul className="arefin-mega-areas">
+                  {activeService.areas.map((area) => (
+                    <li key={area.path}>
+                      <Link
+                        to={area.path}
+                        title={area.title}
+                        onClick={() => setOpenDropdown(null)}
+                        className="arefin-mega-area-link"
+                      >
+                        {area.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="arefin-mega-detail-footer">
+                <span className="arefin-mega-trust">
+                  <span className="arefin-mega-trust-tick" aria-hidden>✓</span>
+                  {MEGA_TRUST_LINE}
+                </span>
+                <Link
+                  to={activeService.hub}
+                  title={activeService.hubTitle}
+                  onClick={() => setOpenDropdown(null)}
+                  className="arefin-mega-footer-link text-xs font-medium transition-colors duration-300"
+                >
+                  All {activeService.display} areas →
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -241,6 +364,65 @@ const NavItemLink = ({
   );
 };
 
+/**
+ * Mobile Treatment submenu — services from src/data/menu.ts, each with an
+ * expandable areas list (second-level accordion, plan §10.5). Route change
+ * closes the drawer via the header's existing effect, so links need no
+ * close handler here.
+ */
+const MobileMegaSubmenu = () => {
+  const [expanded, setExpanded] = useState<string | null>(MEGA_DEFAULT_SERVICE);
+  return (
+    <div className="ml-3 mt-1 flex flex-col gap-1 arefin-fade-in-up">
+      {MEGA_SERVICES.map((svc) => {
+        const isExp = expanded === svc.slug;
+        return (
+          <div key={svc.slug}>
+            <div className="flex items-center gap-1">
+              <Link
+                to={svc.hub}
+                title={svc.hubTitle}
+                className="flex-1 inline-flex items-center min-h-11 px-4 py-2.5 rounded-lg text-sm font-semibold text-popover-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              >
+                {svc.display}
+              </Link>
+              <button
+                type="button"
+                aria-expanded={isExp}
+                aria-label={`${svc.display} — areas served`}
+                onClick={() => setExpanded(isExp ? null : svc.slug)}
+                className="inline-flex items-center justify-center min-w-11 min-h-11 rounded-lg text-slate-700 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              >
+                <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${isExp ? "rotate-180" : ""}`} />
+              </button>
+            </div>
+            {isExp && (
+              <div className="ml-4 mb-1 flex flex-col arefin-fade-in-up">
+                {svc.areas.map((area) => (
+                  <Link
+                    key={area.path}
+                    to={area.path}
+                    title={area.title}
+                    className="border-l border-border px-3 py-2 text-[13px] text-body-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-r-lg"
+                  >
+                    {area.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
+      <Link
+        to="/treatment/"
+        className="mt-1 ml-[3px] inline-flex items-center gap-1 px-4 py-2 text-xs font-semibold text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg"
+      >
+        View all treatments →
+      </Link>
+    </div>
+  );
+};
+
 type DrArefinHeaderProps = { logoSrc?: string; transparent?: boolean };
 const DrArefinHeader = ({ logoSrc, transparent = false }: DrArefinHeaderProps = {}) => {
   const location = useLocation();
@@ -253,6 +435,16 @@ const DrArefinHeader = ({ logoSrc, transparent = false }: DrArefinHeaderProps = 
     setMobileOpen(false);
     setOpenDropdown(null);
   }, [location.pathname]);
+
+  // Esc closes any open desktop dropdown (plan §10.1)
+  useEffect(() => {
+    if (!openDropdown) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpenDropdown(null);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [openDropdown]);
 
   // Lock body scroll while the mobile menu is open. Preserves the user's
   // current scroll position so closing the menu doesn't jump to top.
@@ -376,7 +568,10 @@ const DrArefinHeader = ({ logoSrc, transparent = false }: DrArefinHeaderProps = 
                       {item.label}
                     </Link>
                   )}
-                  {hasChildren && isExpanded && (
+                  {hasChildren && isExpanded && item.mega && (
+                    <MobileMegaSubmenu />
+                  )}
+                  {hasChildren && isExpanded && !item.mega && (
                     <div
                       id={`mobile-submenu-${item.label}`}
                       className="ml-3 mt-1 flex flex-col gap-1 arefin-fade-in-up"

@@ -10,7 +10,7 @@
 import { writeFileSync, readFileSync } from "fs";
 import { resolve } from "path";
 import { SATELLITE_PAGES } from "../src/data/satellitePages";
-import { MATRIX_PAGES_PILOT } from "../src/data/satelliteMatrix";
+import { MATRIX_PAGES_PILOT, MATRIX_PAGES_MENU } from "../src/data/satelliteMatrix";
 import { JOURNEY_TASK_PAGES } from "../src/data/journeyTaskPages";
 import { faqRegistry } from "../src/data/faqRegistry";
 
@@ -74,6 +74,7 @@ for (const slug of articleSlugs) dynamicPaths.add(`/articles/${slug}/`);
 for (const slug of gallerySlugs) dynamicPaths.add(`/gallery/${slug}/`);
 for (const p of SATELLITE_PAGES) dynamicPaths.add(normalize(p.slug));
 for (const p of MATRIX_PAGES_PILOT) dynamicPaths.add(normalize(p.slug));
+for (const p of MATRIX_PAGES_MENU) dynamicPaths.add(normalize(p.slug));
 for (const p of JOURNEY_TASK_PAGES) dynamicPaths.add(normalize(p.slug));
 for (const f of faqRegistry) {
   dynamicPaths.add(`/${f.slug}/`);
@@ -111,6 +112,6 @@ console.log(
   `sitemap.xml written: ${allEntries.length} entries ` +
     `(${staticEntries.length} static + ${dynamicEntries.length} dynamic — ` +
     `${articleSlugs.length} articles, ${gallerySlugs.length} gallery, ` +
-    `${SATELLITE_PAGES.length} satellite, ${MATRIX_PAGES_PILOT.length} matrix, ` +
+    `${SATELLITE_PAGES.length} satellite, ${MATRIX_PAGES_PILOT.length + MATRIX_PAGES_MENU.length} matrix, ` +
     `${JOURNEY_TASK_PAGES.length} journey, ${faqRegistry.length} FAQ)`,
 );

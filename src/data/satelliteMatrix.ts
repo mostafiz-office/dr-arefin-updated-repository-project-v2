@@ -467,3 +467,33 @@ export const generateMatrixPages = (pairs: MatrixPair[]): SatellitePage[] => {
 
 /** Convenience export — pilot pages, ready to register in App.tsx. */
 export const MATRIX_PAGES_PILOT: SatellitePage[] = generateMatrixPages(MATRIX_PILOT);
+
+/**
+ * MENU SET — the services shown in the header mega menu rail
+ * (plan: .lovable/plan/mega-menu-atto-style-2026-10-21.md, decisions D1/D2).
+ * For these services, the "service-in-area" page is generated for EVERY
+ * area in AREAS, so every link in the menu's areas grid resolves.
+ * Pages already emitted by the pilot are filtered out (no duplicates).
+ */
+export const MATRIX_MENU_SERVICE_SLUGS: string[] = [
+  "liver-surgery",
+  "gallbladder-surgery",
+  "bile-duct-surgery",
+  "pancreatic-surgery",
+  "hepatobiliary-surgery",
+  "laparoscopic-surgery",
+  "liver-transplant-coordination",
+  "fatty-liver-management",
+];
+
+export const MATRIX_PAGES_MENU: SatellitePage[] = (() => {
+  const pilotSlugs = new Set(MATRIX_PAGES_PILOT.map((p) => p.slug));
+  const pairs: MatrixPair[] = MATRIX_MENU_SERVICE_SLUGS.flatMap((serviceSlug) =>
+    AREAS.map((area) => ({
+      serviceSlug,
+      areaSlug: area.slug,
+      intents: ["service-in-area" as MatrixIntent],
+    })),
+  );
+  return generateMatrixPages(pairs).filter((p) => !pilotSlugs.has(p.slug));
+})();
