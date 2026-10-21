@@ -40,6 +40,7 @@ const staticEntries: SitemapEntry[] = [
   { path: "/gallery/", changefreq: "monthly", priority: "0.6" },
   { path: "/articles/", changefreq: "weekly", priority: "0.7" },
   { path: "/contact/", changefreq: "monthly", priority: "0.8" },
+  { path: "/fastest-way-to-reach-a-doctor-in-bangladesh/", changefreq: "monthly", priority: "0.9" },
 ];
 
 /* ── Article slugs — parsed from ArticlesDark.tsx (source of truth) ── */

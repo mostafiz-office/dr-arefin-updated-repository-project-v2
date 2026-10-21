@@ -168,7 +168,7 @@ const ContactDark = () => {
               <Link to="/about/patient-centered-care/" title="Personalised hepatobiliary consultations — patient-centred care by Dr. Arefin"><strong>personalised consultations.</strong></Link> Explore{" "}
               <Link to="/treatment/liver-surgery/" title="Liver surgery services"><strong>liver surgery</strong></Link>,{" "}
               <Link to="/treatment/gallbladder-surgery/" title="Gallbladder surgery services"><strong>gallbladder treatment</strong></Link>, and{" "}
-              <Link to="/mentorship/" title="Surgical mentorship programs"><strong>mentorship programmes</strong></Link>.
+              <Link to="/mentorship/" title="Surgical mentorship programs"><strong>mentorship programmes</strong></Link>. In a hurry? See the <Link to="/fastest-way-to-reach-a-doctor-in-bangladesh/" title="Fastest way to reach a doctor in Bangladesh — a first in Bangladesh"><strong>fastest way to reach Dr. Arefin</strong></Link>.
             </p>
           </Reveal>
         </div>

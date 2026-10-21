@@ -108,6 +108,37 @@ const DrArefinHomeDark = () => {
           collapses to a single column with portrait-first ordering on mobile. */}
       <HeroV04InteractiveOrgans />
 
+      {/* ============== SECTION 1B — FIRST IN BANGLADESH SLIDE ==============
+          Links the homepage to /fastest-way-to-reach-a-doctor-in-bangladesh/.
+          Plan: .lovable/plan/first-in-bangladesh-page-plan-2026-10-21.md */}
+      <Reveal>
+        <section className="py-10 sm:py-12 md:py-16" aria-label="First time in Bangladesh — reach Dr. Arefin directly">
+          <div className="container px-4 sm:px-6">
+            <div className="flex flex-col items-start gap-7 rounded-3xl border border-white/10 bg-white/5 px-7 py-9 sm:px-10 md:flex-row md:items-center md:justify-between md:py-11">
+              <div className="max-w-2xl">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary-light">
+                  First Time in Bangladesh
+                </p>
+                <h2 className="font-heading text-2xl font-semibold leading-snug sm:text-3xl">
+                  The fastest way to reach a doctor — right from this website.
+                </h2>
+                <p className="mt-3 text-[15px] leading-relaxed text-foreground/75">
+                  No serial queues, no traffic, no waiting to ask a question. Call, WhatsApp or
+                  send a query — Dr. Arefin's dedicated team gives every message immediate attention.
+                </p>
+              </div>
+              <Link
+                to="/fastest-way-to-reach-a-doctor-in-bangladesh/"
+                title="Fastest way to reach a doctor in Bangladesh — reach Dr. Arefin directly"
+                className="hero-cta-primary is-green shrink-0 no-underline"
+              >
+                Reach Dr. Arefin
+              </Link>
+            </div>
+          </div>
+        </section>
+      </Reveal>
+
       {/* ============== SECTION 2 — VALUE PROPOSITION ============== */}
       <Reveal>
         <ValuePropV04LightA />

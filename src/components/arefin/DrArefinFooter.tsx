@@ -66,6 +66,7 @@ const DrArefinFooter = () => {
                 <li><Link to="/articles/" className="hover:text-primary-light transition-colors" title="Articles on hepatobiliary, liver and gallbladder health by Dr. Arefin">Articles</Link></li>
                 <li><Link to="/gallery/" className="hover:text-primary-light transition-colors" title="Gallery — operating theatre, chamber and conference photos">Gallery</Link></li>
                 <li><Link to="/contact/" className="hover:text-primary-light transition-colors" title="Contact Dr. Arefin — chamber address, phone and appointment booking">Contact</Link></li>
+                <li><Link to="/fastest-way-to-reach-a-doctor-in-bangladesh/" className="hover:text-primary-light transition-colors" title="Fastest way to reach a doctor in Bangladesh — reach Dr. Arefin directly, a first in Bangladesh">Reach Dr. Arefin Directly</Link></li>
               </ul>
             </div>
 
