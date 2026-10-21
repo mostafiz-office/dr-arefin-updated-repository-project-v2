@@ -4500,6 +4500,14 @@ html body.is-debug-organ-gap .arefin .organ-orb .organ-orb-img {
   /* Submenu rows inside .arefin-mobile-panel — keep dark-on-light contrast */
   .arefin-mobile-panel .arefin-dropdown-item-title { color: hsl(222 47% 11%); }
   .arefin-mobile-panel .arefin-dropdown-item-desc  { color: hsl(222 20% 35%); }
+  /* Mega-menu mobile submenu (2026-10-21) — same pinning pattern as above:
+     body prefix (0,2,1) beats any per-link utility, in every theme scope,
+     so service names/areas can never render light-on-light again. */
+  body .arefin-mobile-panel .arefin-mega-mobile-service { color: hsl(222 47% 11%); }
+  body .arefin-mobile-panel .arefin-mega-mobile-area {
+    color: hsl(222 20% 35%);
+    border-left-color: hsl(0 0% 88%);
+  }
 }
 
 /* ===================================================================

@@ -412,7 +412,7 @@ const MobileMegaSubmenu = () => {
               <Link
                 to={svc.hub}
                 title={svc.hubTitle}
-                className="flex-1 inline-flex items-center min-h-11 px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className="arefin-mega-mobile-service flex-1 inline-flex items-center min-h-11 px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 {svc.display}
               </Link>
@@ -433,7 +433,7 @@ const MobileMegaSubmenu = () => {
                     key={area.path}
                     to={area.path}
                     title={area.title}
-                    className="border-l border-slate-200 px-3 py-2 text-[13px] text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-r-lg"
+                    className="arefin-mega-mobile-area border-l border-slate-200 px-3 py-2 text-[13px] text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-r-lg"
                   >
                     {area.label}
                   </Link>
