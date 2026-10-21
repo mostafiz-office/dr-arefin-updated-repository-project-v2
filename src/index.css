@@ -353,7 +353,7 @@
     background-color: hsl(160 24% 7%);
     border-bottom-color: hsl(160 18% 22% / 0.5);
   }
-  .arefin.dark > header.sticky a:not(.arefin-mobile-link):not(.arefin-mobile-call),
+  .arefin.dark > header.sticky a:not(.arefin-mobile-link):not(.arefin-mobile-call):not(.arefin-dual-cta-call):not(.arefin-dual-cta-book):not(.arefin-dual-cta-contact):not(.arefin-mega-btn-primary):not(.arefin-mega-btn-call),
   .arefin.dark > header.sticky button:not(.arefin-mobile-link):not(.arefin-mobile-call) {
     color: hsl(0 0% 95%);
   }
@@ -363,7 +363,7 @@
      marker so cascade-layer ordering is documented. Real rules live below. */
 
   /* ─── Header nav-link hover → green (body text turns green on hover) ─── */
-  .arefin.dark > header.sticky a:not(.arefin-mobile-link):not(.arefin-mobile-call):hover,
+  .arefin.dark > header.sticky a:not(.arefin-mobile-link):not(.arefin-mobile-call):not(.arefin-dual-cta-call):not(.arefin-dual-cta-book):not(.arefin-dual-cta-contact):not(.arefin-mega-btn-primary):not(.arefin-mega-btn-call):hover,
   .arefin.dark > header.sticky button:not(.arefin-dual-cta-call):not(.arefin-dual-cta-book):not(.arefin-mobile-link):not(.arefin-mobile-call):hover {
     color: hsl(var(--primary-light));
   }
@@ -931,6 +931,15 @@
   }
   .arefin-mega-btn-primary:hover {
     filter: brightness(0.94);
+  }
+  /* The global dark link-hover rule (.arefin.dark a:hover, (0,3,1)) paints
+     hovered links bright green — on this button that is green-on-green and
+     the label vanishes. Lock the ink colour for interactive states at
+     (0,4,0) so it always wins. */
+  .arefin.dark .arefin-mega-btn-primary:hover,
+  .arefin.dark .arefin-mega-btn-primary:focus-visible,
+  .arefin.dark .arefin-mega-btn-primary:active {
+    color: hsl(140 48% 8%);
   }
   .arefin-mega-btn-primary:active {
     filter: brightness(0.88);
@@ -4519,7 +4528,7 @@ html body.is-debug-organ-gap .arefin .organ-orb .organ-orb-img {
   .arefin.dark > header.sticky .arefin-mobile-panel a.arefin-mega-mobile-area { color: hsl(222 20% 35%); }
   /* "View all treatments" keeps its brand green (08-03 intent) — chained
      pin (0,3,2) beats the .arefin-mobile-link pin (0,3,1). */
-  body .arefin-mobile-panel a.arefin-mega-mobile-viewall.arefin-mega-mobile-viewall { color: hsl(var(--primary-bright)); }
+  body .arefin-mobile-panel a.arefin-mega-mobile-viewall.arefin-mega-mobile-viewall { color: hsl(var(--primary-darker)); }
 }
 
 /* ===================================================================
