@@ -412,7 +412,7 @@ const MobileMegaSubmenu = () => {
               <Link
                 to={svc.hub}
                 title={svc.hubTitle}
-                className="arefin-mega-mobile-service flex-1 inline-flex items-center min-h-11 px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className="arefin-mobile-link arefin-mega-mobile-service flex-1 inline-flex items-center min-h-11 px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 {svc.display}
               </Link>
@@ -421,7 +421,7 @@ const MobileMegaSubmenu = () => {
                 aria-expanded={isExp}
                 aria-label={`${svc.display} — areas served`}
                 onClick={() => setExpanded(isExp ? null : svc.slug)}
-                className="inline-flex items-center justify-center min-w-11 min-h-11 rounded-lg text-slate-700 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className="arefin-mobile-link inline-flex items-center justify-center min-w-11 min-h-11 rounded-lg text-slate-700 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${isExp ? "rotate-180" : ""}`} />
               </button>
@@ -433,7 +433,7 @@ const MobileMegaSubmenu = () => {
                     key={area.path}
                     to={area.path}
                     title={area.title}
-                    className="arefin-mega-mobile-area border-l border-slate-200 px-3 py-2 text-[13px] text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-r-lg"
+                    className="arefin-mobile-link arefin-mega-mobile-area border-l border-slate-200 px-3 py-2 text-[13px] text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-r-lg"
                   >
                     {area.label}
                   </Link>
@@ -445,7 +445,7 @@ const MobileMegaSubmenu = () => {
       })}
       <Link
         to="/treatment/"
-        className="mt-1 ml-[3px] inline-flex items-center gap-1 px-4 py-2 text-xs font-semibold text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg"
+        className="arefin-mobile-link arefin-mega-mobile-viewall mt-1 ml-[3px] inline-flex items-center gap-1 px-4 py-2 text-xs font-semibold text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg"
       >
         View all treatments →
       </Link>
@@ -634,7 +634,7 @@ const DrArefinHeader = ({ logoSrc, transparent = false }: DrArefinHeaderProps = 
                       })}
                       <Link
                         to={item.path}
-                        className="mt-1 ml-[3px] inline-flex items-center gap-1 px-4 py-2 text-xs font-semibold text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg"
+                        className="arefin-mobile-link arefin-mega-mobile-viewall mt-1 ml-[3px] inline-flex items-center gap-1 px-4 py-2 text-xs font-semibold text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg"
                       >
                         View all {item.label.toLowerCase()} →
                       </Link>

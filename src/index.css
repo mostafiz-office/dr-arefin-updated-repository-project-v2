@@ -4500,14 +4500,26 @@ html body.is-debug-organ-gap .arefin .organ-orb .organ-orb-img {
   /* Submenu rows inside .arefin-mobile-panel — keep dark-on-light contrast */
   .arefin-mobile-panel .arefin-dropdown-item-title { color: hsl(222 47% 11%); }
   .arefin-mobile-panel .arefin-dropdown-item-desc  { color: hsl(222 20% 35%); }
-  /* Mega-menu mobile submenu (2026-10-21) — same pinning pattern as above:
-     body prefix (0,2,1) beats any per-link utility, in every theme scope,
-     so service names/areas can never render light-on-light again. */
-  body .arefin-mobile-panel .arefin-mega-mobile-service { color: hsl(222 47% 11%); }
-  body .arefin-mobile-panel .arefin-mega-mobile-area {
+  /* Mega-menu mobile submenu (2026-10-21) — same pinning pattern as above.
+     NOTE: Lovable's production build FLATTENS cascade layers, so raw
+     specificity decides there. The submenu anchors also carry
+     .arefin-mobile-link, which exempts them from the dark sticky-header
+     rule (.arefin.dark>header.sticky a:not(.arefin-mobile-link) at (0,5,2)
+     painting header anchors #f2f2f2). The chained-class pins below (0,3,2)
+     beat the .arefin-mobile-link pin (0,3,1) so areas keep their slate. */
+  body .arefin-mobile-panel a.arefin-mega-mobile-service.arefin-mega-mobile-service { color: hsl(222 47% 11%); }
+  body .arefin-mobile-panel a.arefin-mega-mobile-area.arefin-mega-mobile-area {
     color: hsl(222 20% 35%);
     border-left-color: hsl(0 0% 88%);
   }
+  /* Equal-specificity (0,5,2) locks on the exact dark sticky-header path,
+     later in source order — a second line of defence if the exemption
+     class is ever dropped from the markup. */
+  .arefin.dark > header.sticky .arefin-mobile-panel a.arefin-mega-mobile-service { color: hsl(222 47% 11%); }
+  .arefin.dark > header.sticky .arefin-mobile-panel a.arefin-mega-mobile-area { color: hsl(222 20% 35%); }
+  /* "View all treatments" keeps its brand green (08-03 intent) — chained
+     pin (0,3,2) beats the .arefin-mobile-link pin (0,3,1). */
+  body .arefin-mobile-panel a.arefin-mega-mobile-viewall.arefin-mega-mobile-viewall { color: hsl(var(--primary-bright)); }
 }
 
 /* ===================================================================
