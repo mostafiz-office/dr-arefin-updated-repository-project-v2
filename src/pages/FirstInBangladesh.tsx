@@ -462,7 +462,7 @@ const FirstInBangladesh = () => {
       </section>
 
       {/* ============== 7 — QUERY FORM ============== */}
-      <section id="query-form" className="py-12 sm:py-14 md:py-20 lg:py-28" aria-label="Send a query to Dr. Arefin">
+      <section id="query-form" className="reach-form-band py-12 sm:py-14 md:py-20 lg:py-28" aria-label="Send a query to Dr. Arefin">
         <div className="container px-4 sm:px-6">
           <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
             <Reveal>
@@ -631,35 +631,18 @@ const FirstInBangladesh = () => {
         </div>
       </section>
 
-      {/* ============== 8 — FAQ ============== */}
-      <section className="arefin-section-divider py-12 sm:py-14 md:py-20 lg:py-28" aria-label="Questions about reaching Dr. Arefin">
-        <div className="container px-4 sm:px-6">
-          <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-12">
-            <Reveal>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-primary-light">
-                Good to Know
-              </p>
-            </Reveal>
-            <Reveal delay={100}>
-              <h2 className="text-fluid-h2 font-semibold leading-tight">
-                Before you <strong>visit</strong>
-              </h2>
-            </Reveal>
-          </div>
-          <Reveal delay={100}>
-            <div className="mx-auto max-w-4xl">
-              <FAQAccordion
-                items={getFaqsBySlugs([
-                  "chamber-address-and-visiting-hours-dhanmondi",
-                  "how-to-book-a-gallbladder-surgery-consultation-in-dhanmondi",
-                  "appointment-fees-and-payment-dhaka",
-                  "is-laparoscopic-cholecystectomy-available-in-dhanmondi",
-                ])}
-              />
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* ============== 8 — FAQ (the accordion carries its own heading,
+          kicker and padding — same mint-band wrap as the homepage) ============== */}
+      <div className="arefin-mint-band">
+        <FAQAccordion
+          items={getFaqsBySlugs([
+            "chamber-address-and-visiting-hours-dhanmondi",
+            "how-to-book-a-gallbladder-surgery-consultation-in-dhanmondi",
+            "appointment-fees-and-payment-dhaka",
+            "is-laparoscopic-cholecystectomy-available-in-dhanmondi",
+          ])}
+        />
+      </div>
 
       {/* ============== 9 — FINAL CTA ============== */}
       <Reveal>
@@ -703,6 +686,81 @@ const FirstInBangladesh = () => {
           }
         />
       </Reveal>
+
+      {/* Form styles — the contact form's CSS lives in ContactDark's own
+          <style> blocks, so this page carries the same rules (extracted
+          verbatim 2026-10-21); only the card rule is re-scoped from
+          .contact-form-band to this page's .reach-form-band. */}
+      <style>{`
+        .arefin.dark .reach-form-band .contact-form {
+          background: hsl(0 0% 10%);
+          border: 1px solid hsl(0 0% 22%);
+          border-radius: 1.25rem;
+          padding: 2.25rem;
+          box-shadow: 0 12px 40px -20px hsl(0 0% 0% / 0.45);
+        }
+        .arefin .contact-field { display: flex; flex-direction: column; gap: 0.4rem; }
+        .arefin .contact-label {
+          font-size: 0.75rem; font-weight: 600;
+          color: hsl(0 0% 96% / 0.78);
+          text-transform: uppercase; letter-spacing: 0.08em;
+        }
+        .arefin .contact-input {
+          background: hsl(0 0% 7%);
+          border: 1px solid hsl(0 0% 24%);
+          border-radius: 0.625rem;
+          padding: 0.8rem 1rem;
+          color: hsl(0 0% 96%);
+          font-size: 0.938rem;
+          transition: border-color 240ms ease, box-shadow 240ms ease, background 240ms ease;
+          outline: none;
+          font-family: inherit;
+          width: 100%;
+        }
+        .arefin .contact-input::placeholder { color: hsl(0 0% 96% / 0.38); }
+        .arefin .contact-input:focus,
+        .arefin .contact-input:focus-visible {
+          border-color: hsl(var(--primary-bright));
+          box-shadow: 0 0 0 3px hsl(var(--primary-bright) / 0.22);
+          background: hsl(0 0% 8%);
+        }
+        .arefin .contact-select-wrap { position: relative; }
+        .arefin .contact-select { appearance: none; padding-right: 2.5rem; }
+        .arefin .contact-select-chev {
+          position: absolute; right: 0.875rem; top: 50%;
+          transform: translateY(-50%);
+          color: hsl(var(--primary-bright));
+          pointer-events: none;
+        }
+        .arefin .contact-select option { background: hsl(0 0% 10%); color: hsl(0 0% 96%); }
+        .arefin .contact-textarea { resize: vertical; min-height: 120px; }
+        .arefin .contact-submit-btn { gap: 0.5rem; }
+        .arefin .contact-submit-btn svg { transition: transform 240ms ease; }
+        .arefin .contact-submit-btn:hover svg { transform: translateX(2px); }
+        .arefin .contact-submit-btn:disabled { opacity: 0.7; cursor: wait; }
+        .arefin .contact-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+        .arefin .contact-other-warning,
+        .arefin .contact-form-status {
+          width: 100%;
+          margin-top: 1.25rem;
+          padding: 0.85rem 1rem;
+          border-radius: 8px;
+          font-size: 0.95rem;
+          line-height: 1.5;
+          font-weight: 600;
+        }
+        .arefin .contact-other-warning,
+        .arefin .contact-form-status.is-error {
+          background: hsl(0 85% 97%);
+          color: hsl(0 72% 38%);
+          border: 1px solid hsl(0 72% 50%);
+        }
+        .arefin .contact-form-status.is-success {
+          background: hsl(150 60% 96%);
+          color: hsl(150 70% 22%);
+          border: 1px solid hsl(150 50% 40%);
+        }
+      `}</style>
 
       <DrArefinFooter />
     </div>
