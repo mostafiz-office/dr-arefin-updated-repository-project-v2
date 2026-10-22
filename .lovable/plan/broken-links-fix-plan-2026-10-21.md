@@ -123,3 +123,45 @@ verification is stopped on and reported, never skipped silently.
 Content rewrites (incl. the Phase 2B depth upgrade), the 10 redirecting links
 (they resolve), FAQ figure reconciliation (1500+ vs the FAQ registry's 1,000+),
 and any change to the 12 already-live pages beyond what creating children requires.
+
+## Phase 1 execution record (2026-10-21 night)
+
+- 40 pages CREATED in WordPress (ids 4884–4923), snapshotted from the current app
+  build, deployed in 6 batches of ≤7, and verified live: 40/40 return HTTP 200 with
+  the exact-page marker and their own titles (e.g. /second-opinion/,
+  /treatment/whipple-procedure-dhaka/, /popular-medical-college-hospital/).
+- /treatment/laparoscopic-cholecystectomy/ also resolves now — WordPress's 404-guess
+  redirect sends it to the created /laparoscopic-cholecystectomy/ page.
+- Homepage broken links: 54 → 13. The remaining 13 are NOT creatable pages:
+  - 8 video links: the app has no /video/ pages at all (the cards link out to routes
+    that were never built; slugs end in YouTube IDs). Owner decision pending.
+  - 4 FAQ slugs (/how-can-i-book-a-consultation/, /is-financial-assistance-available/,
+    /what-conditions-does-dr-arefin-treat/, /where-does-dr-arefin-see-patients/):
+    no route exists in the app — the SPA renders the homepage for them, so creating
+    them would publish homepage clones. Owner decision pending.
+  - /best-hepatobiliary-surgeon-dhaka/: page id 4475 ALREADY EXISTS in WordPress,
+    published, with hand-built legacy content (61 revisions). It was deliberately NOT
+    overwritten. Its pretty URL returns 404 on fresh requests while WordPress
+    resolves it via ?page_id=4475 (301 → 200 on the warm path) — consistent with a
+    stale 404 in the host cache layer. Re-saving the page did not clear it. Owner
+    options: full cache purge from wp-admin, replace with the app version, or leave.
+- The 11 WordPress draft pages were inventoried first: all legacy (shop, dashboards,
+  templates) — none collide with the missing app pages.
+
+## Phase 2 execution record (2026-10-22)
+
+- All 120 mega-menu matrix pages (8 services × 15 areas) created in WordPress as
+  children of /treatment/ (ids 4964–5083), snapshotted from the app build
+  (120/120 unique titles, no homepage fallbacks, h1=1, 0 errors), deployed in
+  18 batches of ≤7 (batch 12 hit the proxy socket error and was re-run clean),
+  and verified live by CONTENT (title + app bundle): 120/120.
+- Verification lesson: once the host cache (LiteSpeed/SpeedyCache) warms, cached
+  responses drop the X-Arefin-Exact PHP header and reformat the HTML — verify
+  these pages by served title/content, not by the header. Rapid bulk checks can
+  also trip the host bot-check ("One moment, please..."); re-check stragglers
+  singly.
+- Known caveat stands (owner's P6): the matrix pages' body copy is thin
+  (~178 words in the app) — they are now live and indexable; the content-depth
+  upgrade remains a separate decision.
+- Published routes now: 172 of 447. Remaining: Phase 3 (158) + Phase 4 (123),
+  minus overlaps between phases.
