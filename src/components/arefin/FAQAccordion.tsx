@@ -106,16 +106,22 @@ const FAQRow = ({ item, index, basePath }: FAQRowProps) => {
       >
         <div ref={innerRef} className="arefin-faq-panel-inner">
           {typeof item.a === "string" ? <p>{item.a}</p> : item.a}
-          {/* T22: subtle inline "Show more" CTA → dedicated single-FAQ page. */}
-          <p className="arefin-faq-show-more">
-            <Link
-              to={href}
-              title={`Read the full answer: ${item.q}`}
-              className="arefin-faq-show-more-link"
-            >
-              Show more →
-            </Link>
-          </p>
+          {/* T22: subtle inline "Show more" CTA → dedicated single-FAQ page.
+              Rendered ONLY when the item has a dedicated page (linkToPage) —
+              the full answer is already inline, and a link to a page that
+              does not exist must never be emitted (SEO fix, 2026-10-22:
+              the unconditional link generated 448 dead /<slug>/ links). */}
+          {item.linkToPage && (
+            <p className="arefin-faq-show-more">
+              <Link
+                to={href}
+                title={`Read the full answer: ${item.q}`}
+                className="arefin-faq-show-more-link"
+              >
+                Show more →
+              </Link>
+            </p>
+          )}
         </div>
       </div>
     </div>
@@ -131,7 +137,7 @@ export const FAQAccordion = ({
   items,
   kicker = "Frequently asked",
   heading = "Common Questions",
-  basePath = "",
+  basePath = "/faq",
 }: FAQAccordionProps) => {
   if (!items || items.length === 0) return null;
 

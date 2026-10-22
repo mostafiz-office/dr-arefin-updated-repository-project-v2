@@ -29,7 +29,7 @@ const FAQSinglePage = () => {
     return <Navigate to="/" replace />;
   }
 
-  const canonicalPath = `/${entry.slug}/`;
+  const canonicalPath = `/faq/${entry.slug}/`;
   const canonicalUrl = `${SITE_URL}${canonicalPath}`;
   const title =
     entry.pageTitle ?? `${entry.q} — Dr. Murshidul Arefin`;
@@ -129,7 +129,7 @@ const FAQSinglePage = () => {
             <FAQAccordion
               kicker="Related questions"
               heading="People also ask"
-              basePath=""
+              basePath="/faq"
               items={related}
             />
           </div>

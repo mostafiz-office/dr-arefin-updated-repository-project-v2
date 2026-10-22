@@ -430,13 +430,20 @@ if (typeof import.meta !== "undefined" && (import.meta as { env?: { DEV?: boolea
 export const findFAQBySlug = (slug: string): FAQEntry | undefined =>
   faqRegistry.find((f) => f.slug === slug);
 
+/* Registry entries all have a dedicated /faq/<slug>/ page, so items handed
+   to FAQAccordion from these helpers carry linkToPage: true — the accordion
+   links the question (and its "Show more" CTA) to that page. Callers that
+   do not want links override it back to false (e.g. the homepage). */
 export const getFaqsByCategory = (category: FAQCategory): FAQEntry[] =>
-  faqRegistry.filter((f) => f.categories.includes(category));
+  faqRegistry
+    .filter((f) => f.categories.includes(category))
+    .map((f) => ({ ...f, linkToPage: true }));
 
 export const getFaqsBySlugs = (slugs: string[]): FAQEntry[] =>
   slugs
     .map((s) => findFAQBySlug(s))
-    .filter((f): f is FAQEntry => Boolean(f));
+    .filter((f): f is FAQEntry => Boolean(f))
+    .map((f) => ({ ...f, linkToPage: true }));
 
 /** Pick a small "related questions" set excluding the given slug. */
 export const getRelatedFaqs = (excludeSlug: string, limit = 4): FAQEntry[] => {
@@ -448,5 +455,5 @@ export const getRelatedFaqs = (excludeSlug: string, limit = 4): FAQEntry[] => {
           f.categories.some((c) => current.categories.includes(c))
       )
     : faqRegistry.filter((f) => f.slug !== excludeSlug);
-  return sameCategory.slice(0, limit);
+  return sameCategory.slice(0, limit).map((f) => ({ ...f, linkToPage: true }));
 };
