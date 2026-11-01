@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone, MessageCircle, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, MessageCircle, ChevronDown, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/dr-arefin-logo-black.webp";
 import SlideButton from "./SlideButton";
@@ -306,21 +306,23 @@ const NavItemLink = ({
               </div>
             </div>
 
-            {/* Right detail pane — swaps with the rail selection. Keyed swap
-                replays the 120ms opacity crossfade; pane height is locked
-                in CSS so switching never resizes the panel (plan §10.2). */}
-            <div className="arefin-mega-detail" key={activeService.slug}>
+            {/* Right detail pane — swaps with the rail selection. Nov 2026
+                feedback: no keyed remount (the old key + 120ms fade flashed
+                on every hover) — content updates in place, panel never moves;
+                the 80ms hover dwell still guards against sweep strobing. */}
+            <div className="arefin-mega-detail">
               <div className="arefin-mega-swap">
                 <h3 className="arefin-mega-detail-title">{activeService.display}</h3>
                 <p className="arefin-mega-detail-desc">{activeService.description}</p>
                 <div className="arefin-mega-actions">
                   <Link
-                    to={activeService.hub}
-                    title={activeService.hubTitle}
+                    to={`/contact/?treatment=${activeService.slug}`}
+                    title={`Send a query about ${activeService.display}`}
                     onClick={() => setOpenDropdown(null)}
                     className="arefin-mega-btn-primary"
                   >
-                    Treatment page →
+                    <Send className="h-4 w-4" aria-hidden />
+                    Send a Query
                   </Link>
                   <a href={MEGA_PHONE_HREF} className="arefin-mega-btn-call" title={`Call Dr. Arefin — ${MEGA_PHONE_DISPLAY}`}>
                     <Phone className="h-4 w-4" aria-hidden />

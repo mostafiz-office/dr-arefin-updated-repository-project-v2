@@ -796,6 +796,10 @@
      ──────────────────────────────────────────────────────────────────────── */
   .arefin-mega-wide {
     width: min(1120px, calc(100vw - 32px));
+    /* Nov 2026 feedback: ONE fixed height for every service — the old
+       min-height-only panel grew/shrank per service and the bottom edge
+       jumped. Detail stretches to fill; overflow scrolls on short screens. */
+    height: min(600px, calc(100dvh - 90px));
     max-height: calc(100dvh - 90px);
     padding: 0;
     display: flex;
@@ -809,7 +813,7 @@
     padding: 20px 12px 16px 16px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 6px;
     max-height: inherit;
     overflow-y: auto;
   }
@@ -910,6 +914,8 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    /* Fixed 2-line block: a 1-line description must not pull the areas up. */
+    min-height: calc(1.55em * 2);
   }
   .arefin-mega-actions {
     display: flex;
@@ -926,6 +932,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 10px;
     height: 3rem;
     padding: 0 1.75rem;
     border-radius: 999px;
@@ -1013,6 +1020,9 @@
     /* QA P4: cap at 2 lines (full label lives in the title attribute and
        the target page H1) so long service names cannot stretch the panel */
     max-height: calc(1.35em * 2 + 6px);
+    /* Nov 2026 feedback: every grid row is exactly 2-line height, so
+       wrapping can never change the panel's internals per service. */
+    min-height: calc(1.35em * 2 + 6px);
     overflow: hidden;
     /* QA P8: hover pill (negative margins keep the grid rhythm) */
     padding: 3px 8px;
@@ -1052,6 +1062,13 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+  }
+  /* Nov 2026 feedback: the "All … areas" link never splits onto a line
+     below (the Laparoscopic stray line) — it holds one line, shrinking
+     is absorbed by the fixed-height pane, not by wrapping. */
+  .arefin-mega-detail-footer .arefin-mega-footer-link {
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .arefin-mega-trust {
     display: inline-flex;
