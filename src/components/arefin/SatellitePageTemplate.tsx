@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 import DrArefinHeader from "@/components/arefin/DrArefinHeader";
 import DrArefinFooter from "@/components/arefin/DrArefinFooter";
 import darkLogo from "@/assets/dr-arefin-logo-dark.webp";
@@ -23,6 +24,14 @@ interface Props {
 }
 
 export const SatellitePageTemplate = ({ page }: Props) => {
+  /* Treatment attribution (Nov 2026 feedback, D2/D3): only pages under
+     /treatment/ get the form-first band; mentorship/conditions pages keep Call.
+     The slug is the first segment after /treatment/ (service, matrix area page,
+     or topic hub) — the contact page labels the submission with it. */
+  const { pathname } = useLocation();
+  const treatmentSeg = pathname.startsWith("/treatment/")
+    ? pathname.split("/").filter(Boolean)[1]
+    : undefined;
   const heroSrc = galleryAssets[page.heroImage] ?? page.heroImage;
   const canonicalPath = page.slug.endsWith("/") ? page.slug : page.slug + "/";
   const canonicalUrl = `${SITE_URL}${canonicalPath}`;
@@ -101,6 +110,8 @@ export const SatellitePageTemplate = ({ page }: Props) => {
 
         {/* ========== FINAL CTA (shared) ========== */}
         <GlobalCTABand
+          formCta={Boolean(treatmentSeg)}
+          treatmentSlug={treatmentSeg}
           headingLead="Need "
           headingAccent="expert advice?"
           body={

@@ -442,6 +442,8 @@ const BiliarySurgeryDark = () => {
 
       {/* ══════════════ FINAL CTA — shared GlobalCTABand (homepage parity) ══════════════ */}
       <GlobalCTABand
+        formCta
+        treatmentSlug="biliary-tract-surgery"
         headingLead="Ready for "
         headingAccent="Expert Biliary Consultation?"
         body={

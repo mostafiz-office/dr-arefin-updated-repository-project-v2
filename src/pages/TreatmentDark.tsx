@@ -243,6 +243,7 @@ const TreatmentDark = () => {
 
       {/* ============== FINAL CTA — shared GlobalCTABand (homepage parity) ============== */}
       <GlobalCTABand
+        formCta
         headingLead="Ready for "
         headingAccent="Expert Consultation?"
         body={

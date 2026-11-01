@@ -829,7 +829,7 @@
     gap: 12px;
     padding: 9px 12px;
     border-radius: 12px;
-    border-left: 3px solid transparent;
+    border-left: 2px solid transparent;
     text-decoration: none;
     outline: none;
     transition:
@@ -839,8 +839,10 @@
   .arefin-mega-rail-item:hover,
   .arefin-mega-rail-item:focus-visible,
   .arefin-mega-rail-item[data-active="true"] {
-    background-color: hsl(var(--primary-bright) / 0.12);
-    border-left-color: hsl(var(--primary-bright));
+    background-color: hsl(var(--primary-bright) / 0.2);
+    /* Lighter tint of the brand green (Nov 2026 feedback): the old full-strength
+       bar on the near-black panel read as dark-on-dark. */
+    border-left-color: color-mix(in hsl, hsl(var(--primary-bright)) 55%, white);
   }
   .arefin-mega-rail-item:focus-visible,
   .arefin-mega-area-link:focus-visible,

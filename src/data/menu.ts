@@ -78,6 +78,13 @@ export const MEGA_SERVICES: MegaService[] = MATRIX_MENU_SERVICE_SLUGS.map((slug)
   };
 }).filter((s) => Boolean(s.hub));
 
+/** Menu rail scope (Nov 2026 feedback, D1): the menu lists Gallbladder Surgery only.
+ * MEGA_SERVICES stays intact for its other consumers (First-in-Bangladesh list,
+ * route→service mapping); the header renders this filtered list instead. */
+export const MEGA_MENU_SERVICES: MegaService[] = MEGA_SERVICES.filter(
+  (s) => s.slug === "gallbladder-surgery",
+);
+
 /** Default service shown when the panel opens (plan decision D4). */
 export const MEGA_DEFAULT_SERVICE = "gallbladder-surgery";
 

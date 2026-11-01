@@ -5,6 +5,7 @@ import logo from "@/assets/dr-arefin-logo-black.webp";
 import SlideButton from "./SlideButton";
 import {
   MEGA_SERVICES,
+  MEGA_MENU_SERVICES,
   MEGA_DEFAULT_SERVICE,
   MEGA_TRUST_LINE,
   MEGA_PHONE_HREF,
@@ -217,7 +218,7 @@ const NavItemLink = ({
     setActiveMega(slug);
   };
   const activeService =
-    MEGA_SERVICES.find((s) => s.slug === activeMega) ?? MEGA_SERVICES[0];
+    MEGA_MENU_SERVICES.find((s) => s.slug === activeMega) ?? MEGA_MENU_SERVICES[0];
 
   // Touch laptops/tablets (coarse pointer): first tap on the mega item
   // opens the panel instead of navigating; second tap navigates (plan §10.3).
@@ -275,7 +276,7 @@ const NavItemLink = ({
             {/* Left rail — services (data: src/data/menu.ts) */}
             <div className="arefin-mega-rail">
               <span className="arefin-mega-rail-label">Our Treatments</span>
-              {MEGA_SERVICES.map((svc) => (
+              {MEGA_MENU_SERVICES.map((svc) => (
                 <Link
                   key={svc.slug}
                   to={svc.hub}
@@ -404,7 +405,7 @@ const MobileMegaSubmenu = () => {
   const [expanded, setExpanded] = useState<string | null>(MEGA_DEFAULT_SERVICE);
   return (
     <div className="ml-3 mt-1 flex flex-col gap-1 arefin-fade-in-up">
-      {MEGA_SERVICES.map((svc) => {
+      {MEGA_MENU_SERVICES.map((svc) => {
         const isExp = expanded === svc.slug;
         return (
           <div key={svc.slug}>

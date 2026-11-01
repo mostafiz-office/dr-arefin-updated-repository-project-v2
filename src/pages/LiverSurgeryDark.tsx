@@ -448,6 +448,8 @@ const LiverSurgeryDark = () => {
 
       {/* ══════════════ FINAL CTA — shared GlobalCTABand (homepage parity) ══════════════ */}
       <GlobalCTABand
+        formCta
+        treatmentSlug="liver-surgery"
         headingLead="Ready for "
         headingAccent="Expert Liver Consultation?"
         body={

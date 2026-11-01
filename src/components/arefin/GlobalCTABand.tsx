@@ -16,6 +16,14 @@ interface GlobalCTABandProps {
   /** Secondary (call) CTA. */
   callLabel?: string;
   callHref?: string;
+  /** When true, the secondary Call button becomes a contact-form button
+   * ("Send a Query" → /contact/, with ?treatment= when treatmentSlug is set).
+   * Nov 2026 feedback: treatment pages are form-first, not Call-first.
+   * Default behaviour (Call) is unchanged everywhere else. */
+  formCta?: boolean;
+  /** Treatment identifier carried to the contact page (?treatment=) so the
+   * submission is labelled with its source treatment. Only used with formCta. */
+  treatmentSlug?: string;
   /** Show stethoscope chip above heading. */
   showIcon?: boolean;
 }
@@ -36,8 +44,13 @@ export const GlobalCTABand = ({
   primaryTo = "/contact/",
   callLabel = "Call Now",
   callHref = "tel:+8801311487592",
+  formCta = false,
+  treatmentSlug,
   showIcon = true,
 }: GlobalCTABandProps) => {
+  const formTo = treatmentSlug
+    ? `/contact/?treatment=${encodeURIComponent(treatmentSlug)}`
+    : "/contact/";
   return (
     <section className="arefin-section-divider arefin-final-cta py-20 md:py-24 relative overflow-hidden">
       <div className="container relative text-center max-w-3xl mx-auto">
@@ -64,9 +77,11 @@ export const GlobalCTABand = ({
             <HeroCTA
               center
               primaryLabel={primaryLabel}
-              primaryTo={primaryTo}
+              primaryTo={formCta && treatmentSlug ? formTo : primaryTo}
               callLabel={callLabel}
               callHref={callHref}
+              secondaryTo={formCta ? formTo : undefined}
+              secondaryLabel={formCta ? "Send a Query" : undefined}
             />
           </div>
         </Reveal>

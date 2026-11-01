@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { physicianEntity, buildBreadcrumbList, buildGraph } from "@/lib/structuredData";
 import { Helmet } from "react-helmet-async";
 import { useState } from "react";
@@ -18,6 +18,7 @@ import darkLogo from "@/assets/dr-arefin-logo-dark.webp";
 import heroBg from "@/assets/about-hero-ot-real.webp";
 import { Reveal } from "@/hooks/useScrollReveal";
 import { appointmentSchema, isOtherConcern, sendAppointmentRequest } from "@/lib/appointmentRequest";
+import { SERVICES } from "@/data/satelliteMatrix";
 
 /* ── Medical Concern Options ── */
 const medicalConcerns = [
@@ -72,6 +73,15 @@ const jsonLdString = buildGraph(
 );
 
 const ContactDark = () => {
+  /* ?treatment= from treatment pages (Nov 2026 feedback, D3): labels the
+     submission with its source treatment so the chamber can tell which page
+     sent it. Unknown slugs pass through verbatim; no param = no source, as before. */
+  const { search } = useLocation();
+  const treatmentParam = new URLSearchParams(search).get("treatment") ?? "";
+  const treatmentDisplay = SERVICES.find((s) => s.slug === treatmentParam)?.display;
+  const treatmentSource = treatmentParam
+    ? `Treatment page: ${treatmentDisplay ?? treatmentParam}`
+    : "";
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -94,7 +104,11 @@ const ContactDark = () => {
     }
     setStatus("sending");
     try {
-      await sendAppointmentRequest({ ...parsed.data, website });
+      await sendAppointmentRequest({
+        ...parsed.data,
+        website,
+        ...(treatmentSource ? { source: treatmentSource } : {}),
+      });
       setStatus("success");
       setFormData({ name: "", email: "", phone: "", concern: "", message: "" });
     } catch {

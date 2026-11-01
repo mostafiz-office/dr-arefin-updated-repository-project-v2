@@ -428,6 +428,8 @@ const PancreaticSurgeryDark = () => {
 
       {/* ══════════════ FINAL CTA — shared GlobalCTABand (homepage parity) ══════════════ */}
       <GlobalCTABand
+        formCta
+        treatmentSlug="pancreatic-surgery"
         headingLead="Ready for "
         headingAccent="Expert Pancreatic Consultation?"
         body={

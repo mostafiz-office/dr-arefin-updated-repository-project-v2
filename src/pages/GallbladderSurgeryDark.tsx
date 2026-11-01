@@ -440,6 +440,8 @@ const GallbladderSurgeryDark = () => {
 
       {/* ══════════════ FINAL CTA — shared GlobalCTABand (homepage parity) ══════════════ */}
       <GlobalCTABand
+        formCta
+        treatmentSlug="gallbladder-surgery"
         headingLead="Ready for "
         headingAccent="Expert Gallbladder Consultation?"
         body={
