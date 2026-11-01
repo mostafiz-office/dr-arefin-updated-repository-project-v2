@@ -111,7 +111,7 @@ const SimilarWebsiteDark = () => {
         </div>
       </section>
 
-      <section className="container max-w-3xl mx-auto px-4 py-12 sm:py-14">
+      <section className="container max-w-3xl mx-auto px-4 py-12 sm:py-14 contact-form-band">
         <form onSubmit={handleSubmit} className="contact-form max-w-3xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
             <div className="contact-field">
@@ -216,6 +216,79 @@ const SimilarWebsiteDark = () => {
       </section>
 
       <DrArefinFooter />
+
+      {/* Form styling — copied verbatim from ContactDark's page-local block.
+          These contact-* classes have NO global CSS (nothing in index.css);
+          each form page carries its own copy (FirstInBangladesh does the
+          same). Without this block the form fell back to browser defaults:
+          labels beside inputs, unstyled boxes, and a VISIBLE spam trap. */}
+      <style>{`
+        .arefin.dark .contact-form-band .contact-form {
+          background: hsl(0 0% 10%);
+          border: 1px solid hsl(0 0% 22%);
+          border-radius: 1.25rem;
+          padding: 1.5rem;
+          box-shadow: 0 12px 40px -20px hsl(0 0% 0% / 0.45);
+        }
+        @media (min-width: 640px) {
+          .arefin.dark .contact-form-band .contact-form { padding: 2.25rem; }
+        }
+        .arefin .contact-field { display: flex; flex-direction: column; gap: 0.4rem; }
+        .arefin .contact-label {
+          font-size: 0.75rem; font-weight: 600;
+          color: hsl(0 0% 96% / 0.78);
+          text-transform: uppercase; letter-spacing: 0.08em;
+        }
+        .arefin .contact-input {
+          background: hsl(0 0% 7%);
+          border: 1px solid hsl(0 0% 24%);
+          border-radius: 0.625rem;
+          padding: 0.75rem 0.875rem;
+          color: hsl(0 0% 96%);
+          font-size: 16px;
+          transition: border-color 240ms ease, box-shadow 240ms ease, background 240ms ease;
+          outline: none;
+          font-family: inherit;
+          width: 100%;
+        }
+        @media (min-width: 640px) {
+          .arefin .contact-input { padding: 0.8rem 1rem; font-size: 0.938rem; }
+        }
+        .arefin .contact-input::placeholder { color: hsl(0 0% 96% / 0.38); }
+        .arefin .contact-input:focus,
+        .arefin .contact-input:focus-visible {
+          border-color: hsl(var(--primary-bright));
+          box-shadow: 0 0 0 3px hsl(var(--primary-bright) / 0.22);
+          background: hsl(0 0% 8%);
+        }
+        .arefin .contact-textarea { resize: vertical; min-height: 120px; }
+        .arefin .contact-submit-btn {
+          gap: 0.5rem;
+        }
+        .arefin .contact-submit-btn svg { transition: transform 240ms ease; }
+        .arefin .contact-submit-btn:hover svg { transform: translateX(2px); }
+        .arefin .contact-submit-btn:disabled { opacity: 0.7; cursor: wait; }
+        .arefin .contact-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+        .arefin .contact-form-status {
+          width: 100%;
+          margin-top: 1.25rem;
+          padding: 0.85rem 1rem;
+          border-radius: 8px;
+          font-size: 0.95rem;
+          line-height: 1.5;
+          font-weight: 600;
+        }
+        .arefin .contact-form-status.is-error {
+          background: hsl(0 85% 97%);
+          color: hsl(0 72% 38%);
+          border: 1px solid hsl(0 72% 50%);
+        }
+        .arefin .contact-form-status.is-success {
+          background: hsl(150 60% 96%);
+          color: hsl(150 70% 22%);
+          border: 1px solid hsl(150 50% 40%);
+        }
+      `}</style>
     </div>
   );
 };
