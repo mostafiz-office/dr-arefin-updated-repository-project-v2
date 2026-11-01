@@ -15,6 +15,7 @@ import TreatmentDark from "./pages/TreatmentDark";
 import LiverSurgeryDark from "./pages/LiverSurgeryDark";
 import ContactDark from "./pages/ContactDark";
 import FirstInBangladesh from "./pages/FirstInBangladesh";
+import SimilarWebsiteDark from "./pages/SimilarWebsiteDark";
 import GalleryDark from "./pages/GalleryDark";
 import GalleryImageDetailDark from "./pages/GalleryImageDetailDark";
 import ArticlesDark from "./pages/ArticlesDark";
@@ -72,6 +73,8 @@ const App = () => (
             <Route path="/fastest-way-to-reach-a-doctor-in-bangladesh/" element={<FirstInBangladesh />} />
             <Route path="/contact" element={<ContactDark />} />
             <Route path="/contact/" element={<ContactDark />} />
+            <Route path="/similar-website" element={<SimilarWebsiteDark />} />
+            <Route path="/similar-website/" element={<SimilarWebsiteDark />} />
             <Route path="/gallery" element={<GalleryDark />} />
             <Route path="/gallery/" element={<GalleryDark />} />
             <Route path="/gallery/:slug" element={<GalleryImageDetailDark />} />

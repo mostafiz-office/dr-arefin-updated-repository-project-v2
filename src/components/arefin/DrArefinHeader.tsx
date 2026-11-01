@@ -3,6 +3,7 @@ import { Menu, X, Phone, MessageCircle, ChevronDown, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/dr-arefin-logo-black.webp";
 import SlideButton from "./SlideButton";
+import SimilarWebsiteBar from "./SimilarWebsiteBar";
 import {
   MEGA_SERVICES,
   MEGA_MENU_SERVICES,
@@ -510,6 +511,8 @@ const DrArefinHeader = ({ logoSrc, transparent = false }: DrArefinHeaderProps = 
         ? "arefin-header arefin-header-transparent absolute top-0 left-0 right-0 z-50 arefin-fade-in"
         : "arefin-header sticky top-0 z-50 bg-white border-b border-border/50 arefin-fade-in"
     }>
+      {/* Lead bar first: above the menu in both sticky and transparent modes. */}
+      <SimilarWebsiteBar />
       <div className="container flex items-center justify-between h-[70px]">
         {/* Logo */}
         <Link
