@@ -78,11 +78,19 @@ export const MEGA_SERVICES: MegaService[] = MATRIX_MENU_SERVICE_SLUGS.map((slug)
   };
 }).filter((s) => Boolean(s.hub));
 
-/** Menu rail scope (Nov 2026 feedback, D1): the menu lists Gallbladder Surgery only.
+/** Menu rail scope (Nov 2026 feedback): gallbladder + non-liver treatments only.
+ * Liver-related services (Liver Surgery, Liver Transplant Coordination, Fatty
+ * Liver Management) are out — they belong to the Murshidul Arefin site.
  * MEGA_SERVICES stays intact for its other consumers (First-in-Bangladesh list,
  * route→service mapping); the header renders this filtered list instead. */
-export const MEGA_MENU_SERVICES: MegaService[] = MEGA_SERVICES.filter(
-  (s) => s.slug === "gallbladder-surgery",
+export const MEGA_MENU_SERVICES: MegaService[] = MEGA_SERVICES.filter((s) =>
+  [
+    "gallbladder-surgery",
+    "bile-duct-surgery",
+    "pancreatic-surgery",
+    "hepatobiliary-surgery",
+    "laparoscopic-surgery",
+  ].includes(s.slug),
 );
 
 /** Default service shown when the panel opens (plan decision D4). */

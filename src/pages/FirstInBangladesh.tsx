@@ -213,9 +213,11 @@ const FirstInBangladesh = () => {
               </Reveal>
               <Reveal delay={300}>
                 <div className="mt-9 flex flex-wrap items-center gap-3">
-                  <a href={MEGA_PHONE_HREF} className="hero-cta-primary is-green no-underline" title={`Call Dr. Arefin on ${MEGA_PHONE_DISPLAY}`}>
-                    <Phone className="hero-cta-icon h-[18px] w-[18px]" aria-hidden />
-                    Call Now
+                  {/* Nov 2026 feedback: form first — Send a Query leads, WhatsApp
+                      second, Call Now removed from this hero. */}
+                  <a href="#query-form" className="hero-cta-primary is-green no-underline" title="Send a query to Dr. Arefin's office">
+                    <Send className="hero-cta-icon h-[18px] w-[18px]" aria-hidden />
+                    Send a Query
                   </a>
                   <a
                     href={WHATSAPP_HREF}
@@ -226,10 +228,6 @@ const FirstInBangladesh = () => {
                   >
                     <MessageCircle className="hero-cta-icon-sm h-[18px] w-[18px]" aria-hidden />
                     WhatsApp
-                  </a>
-                  <a href="#query-form" className="hero-cta-secondary no-underline" title="Send a query to Dr. Arefin's office">
-                    <Send className="hero-cta-icon-sm h-[18px] w-[18px]" aria-hidden />
-                    Send a Query
                   </a>
                 </div>
               </Reveal>
