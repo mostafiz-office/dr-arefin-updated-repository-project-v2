@@ -353,7 +353,7 @@
     background-color: hsl(160 24% 7%);
     border-bottom-color: hsl(160 18% 22% / 0.5);
   }
-  .arefin.dark > header.sticky a:not(.arefin-mobile-link):not(.arefin-mobile-call):not(.arefin-dual-cta-call):not(.arefin-dual-cta-book):not(.arefin-dual-cta-contact):not(.arefin-mega-btn-primary):not(.arefin-mega-btn-call):not(.arefin-similar-bar-btn),
+  .arefin.dark > header.sticky a:not(.arefin-mobile-link):not(.arefin-mobile-call):not(.arefin-dual-cta-call):not(.arefin-dual-cta-book):not(.arefin-dual-cta-contact):not(.arefin-mega-dual-cta-send):not(.arefin-mega-dual-cta-call):not(.arefin-similar-bar-btn),
   .arefin.dark > header.sticky button:not(.arefin-mobile-link):not(.arefin-mobile-call) {
     color: hsl(0 0% 95%);
   }
@@ -363,7 +363,7 @@
      marker so cascade-layer ordering is documented. Real rules live below. */
 
   /* ─── Header nav-link hover → green (body text turns green on hover) ─── */
-  .arefin.dark > header.sticky a:not(.arefin-mobile-link):not(.arefin-mobile-call):not(.arefin-dual-cta-call):not(.arefin-dual-cta-book):not(.arefin-dual-cta-contact):not(.arefin-mega-btn-primary):not(.arefin-mega-btn-call):not(.arefin-similar-bar-btn):hover,
+  .arefin.dark > header.sticky a:not(.arefin-mobile-link):not(.arefin-mobile-call):not(.arefin-dual-cta-call):not(.arefin-dual-cta-book):not(.arefin-dual-cta-contact):not(.arefin-mega-dual-cta-send):not(.arefin-mega-dual-cta-call):not(.arefin-similar-bar-btn):hover,
   .arefin.dark > header.sticky button:not(.arefin-dual-cta-call):not(.arefin-dual-cta-book):not(.arefin-mobile-link):not(.arefin-mobile-call):hover {
     color: hsl(var(--primary-light));
   }
@@ -798,9 +798,13 @@
     width: min(1120px, calc(100vw - 32px));
     /* Nov 2026 feedback: ONE fixed height for every service — the old
        min-height-only panel grew/shrank per service and the bottom edge
-       jumped. Detail stretches to fill; overflow scrolls on short screens. */
-    height: min(600px, calc(100dvh - 90px));
-    max-height: calc(100dvh - 90px);
+       jumped. Detail stretches to fill; overflow scrolls on short screens.
+       Nov 2026 fix: the Similar Website bar left the header, so the header
+       is now 71px tall (70px nav + 1px border) and the panel sits at
+       top: 78px — height cap is 100dvh - 78px - 16px = 100dvh - 94px, so
+       top + height never exceeds 100dvh - 16px. */
+    height: min(600px, calc(100dvh - 94px));
+    max-height: calc(100dvh - 94px);
     padding: 0;
     display: flex;
     overflow: hidden;
@@ -850,8 +854,8 @@
   }
   .arefin-mega-rail-item:focus-visible,
   .arefin-mega-area-link:focus-visible,
-  .arefin-mega-btn-primary:focus-visible,
-  .arefin-mega-btn-call:focus-visible {
+  .arefin-mega-dual-cta-send:focus-visible,
+  .arefin-mega-dual-cta-call:focus-visible {
     outline: 2px solid hsl(var(--primary-bright));
     outline-offset: 2px;
   }
@@ -883,7 +887,7 @@
     padding: 24px 28px 20px;
     display: flex;
     flex-direction: column;
-    min-height: min(456px, calc(100dvh - 220px));
+    min-height: min(456px, calc(100dvh - 224px));
     max-height: inherit;
     overflow-y: auto;
   }
@@ -917,80 +921,65 @@
     /* Fixed 2-line block: a 1-line description must not pull the areas up. */
     min-height: calc(1.55em * 2);
   }
-  .arefin-mega-actions {
-    display: flex;
-    gap: 10px;
+  /* Grouped dual CTA (Nov 2026, user-approved 2026-11-08): one dark
+     segmented pill — Send a Query left, Call right, divider only, no OR
+     badge. Reference: the dark navy/black grouped pill the user sent
+     (WhatsApp image 2026-11-08). Text and icons stay white in both
+     segments; the reference's teal/yellow text colours are NOT copied.
+     Container is dark navy/black with a grey hairline; each segment is
+     transparent inside it, so the pair reads as one control. Hover lifts
+     the segment slightly (white overlay), never a colour swap. The
+     (0,4,0) locks below keep the global dark link-hover rule
+     (.arefin.dark a:hover, (0,3,1)) from repainting this text green. */
+  .arefin-mega-dual-cta {
+    display: inline-flex;
+    align-items: stretch;
     margin-top: 16px;
+    background: hsl(222 47% 7%);
+    border: 1px solid hsl(0 0% 100% / 0.14);
+    border-radius: 999px;
+    overflow: hidden;
   }
-  /* Hero-pair styling (owner direction 2026-10-21): the dropdown buttons
-     mirror the hero CTAs — primary = black on bright green, hover swaps to
-     white on darker green; call = black on white, same swap hover. Panel
-     size uses the hero base geometry (3rem tall, 0.9375rem). The (0,4,0)
-     locks below keep the global dark link-hover rule (.arefin.dark a:hover,
-     (0,3,1)) from repainting these buttons' text bright green. */
-  .arefin-mega-btn-primary {
+  .arefin-mega-dual-cta-send,
+  .arefin-mega-dual-cta-call {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     height: 3rem;
-    padding: 0 1.75rem;
-    border-radius: 999px;
-    background: hsl(var(--primary-bright));
-    color: #000000;
+    padding: 0 1.5rem;
     font-size: 0.9375rem;
     font-weight: 600;
+    color: #ffffff;
     text-decoration: none;
-    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .arefin-mega-btn-primary:hover {
-    background: hsl(var(--primary-darker));
+  .arefin-mega-dual-cta-send > svg,
+  .arefin-mega-dual-cta-call > svg {
     color: #ffffff;
   }
-  .arefin-mega-btn-primary:active {
-    background: hsl(var(--primary-darker));
-    color: #ffffff;
-    filter: brightness(0.94);
+  .arefin-mega-dual-cta-send {
+    border-right: 1px solid hsl(0 0% 100% / 0.14);
   }
-  .arefin.dark .arefin-mega-btn-primary:hover,
-  .arefin.dark .arefin-mega-btn-primary:focus-visible,
-  .arefin.dark .arefin-mega-btn-primary:active {
-    background: hsl(var(--primary-darker));
+  .arefin-mega-dual-cta-send:hover,
+  .arefin-mega-dual-cta-call:hover {
+    background: hsl(0 0% 100% / 0.08);
     color: #ffffff;
   }
-  .arefin-mega-btn-call {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    height: 3rem;
-    padding: 0 1.75rem;
-    border-radius: 999px;
-    background: #ffffff;
-    border: 1px solid #ffffff;
-    color: hsl(0 0% 4%);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1), border-color 300ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .arefin-mega-btn-call:hover {
-    background: hsl(var(--primary-darker));
-    border-color: hsl(var(--primary-darker));
+  .arefin-mega-dual-cta-send:active,
+  .arefin-mega-dual-cta-call:active {
+    background: hsl(0 0% 100% / 0.14);
     color: #ffffff;
   }
-  .arefin-mega-btn-call:active {
-    background: hsl(var(--primary-darker));
-    border-color: hsl(var(--primary-darker));
+  .arefin.dark .arefin-mega-dual-cta-send:hover,
+  .arefin.dark .arefin-mega-dual-cta-send:focus-visible,
+  .arefin.dark .arefin-mega-dual-cta-send:active,
+  .arefin.dark .arefin-mega-dual-cta-call:hover,
+  .arefin.dark .arefin-mega-dual-cta-call:focus-visible,
+  .arefin.dark .arefin-mega-dual-cta-call:active {
+    background: hsl(0 0% 100% / 0.08);
     color: #ffffff;
-    filter: brightness(0.94);
-  }
-  .arefin.dark .arefin-mega-btn-call:hover,
-  .arefin.dark .arefin-mega-btn-call:focus-visible,
-  .arefin.dark .arefin-mega-btn-call:active {
-    background: hsl(var(--primary-darker));
-    border-color: hsl(var(--primary-darker));
-    color: #ffffff;
+    text-shadow: none;
   }
   .arefin-mega-areas-label {
     display: block;
@@ -1011,7 +1000,9 @@
   }
   .arefin-mega-area-link {
     display: inline-flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     gap: 8px;
     font-size: 0.8rem;
     line-height: 1.35;
@@ -1024,15 +1015,20 @@
        wrapping can never change the panel's internals per service. */
     min-height: calc(1.35em * 2 + 6px);
     overflow: hidden;
-    /* QA P8: hover pill (negative margins keep the grid rhythm) */
-    padding: 3px 8px;
-    margin: -3px -8px;
+    /* QA P8: hover pill (negative margins keep the grid rhythm) — Nov 2026
+       fix: symmetric padding so the link is centred in its grid cell. */
+    padding: 6px 10px;
+    margin: -6px -10px;
     border-radius: 8px;
     transition: color 300ms ease, background-color 300ms ease;
   }
   .arefin-mega-area-link:hover,
   .arefin-mega-area-link:focus-visible {
     background-color: hsl(var(--primary-bright) / 0.1);
+    color: hsl(var(--primary-bright));
+    /* Nov 2026 fix: never underline on hover — the underline was the
+       only text-decoration: underline in this file. */
+    text-decoration: none;
   }
   .arefin-mega-area-link::before {
     content: "";
@@ -1040,15 +1036,8 @@
     width: 5px;
     height: 5px;
     border-radius: 999px;
-    margin-top: 0.45em;
     background: hsl(40 8% 45%);
     transition: background-color 300ms ease;
-  }
-  .arefin-mega-area-link:hover,
-  .arefin-mega-area-link:focus-visible {
-    color: hsl(var(--primary-bright));
-    text-decoration: underline;
-    text-underline-offset: 3px;
   }
   .arefin-mega-area-link:hover::before,
   .arefin-mega-area-link:focus-visible::before {
@@ -1070,9 +1059,9 @@
     white-space: nowrap;
     flex-shrink: 0;
   }
-  /* Similar-website lead bar (Nov 2026): slim dark strip, first child of
-     the shared headers so it sits above the menu on every page. Green
-     pill button reuses the primary CTA vocabulary. */
+  /* Similar-website lead bar (Nov 2026): slim dark strip, rendered only
+     on the Contact page (src/pages/ContactDark.tsx), in normal flow.
+     Green pill button reuses the primary CTA vocabulary. */
   .arefin-similar-bar {
     display: flex;
     align-items: center;

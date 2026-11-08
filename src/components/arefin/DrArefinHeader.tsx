@@ -3,7 +3,6 @@ import { Menu, X, Phone, MessageCircle, ChevronDown, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/dr-arefin-logo-black.webp";
 import SlideButton from "./SlideButton";
-import SimilarWebsiteBar from "./SimilarWebsiteBar";
 import {
   MEGA_SERVICES,
   MEGA_MENU_SERVICES,
@@ -269,7 +268,7 @@ const NavItemLink = ({
 
       {hasChildren && isOpen && item.mega && (
         <div
-          className="fixed left-1/2 -translate-x-1/2 top-[74px] z-50"
+          className="fixed left-1/2 -translate-x-1/2 top-[78px] z-50"
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
         >
@@ -315,17 +314,17 @@ const NavItemLink = ({
               <div className="arefin-mega-swap">
                 <h3 className="arefin-mega-detail-title">{activeService.display}</h3>
                 <p className="arefin-mega-detail-desc">{activeService.description}</p>
-                <div className="arefin-mega-actions">
+                <div className="arefin-mega-dual-cta" role="group" aria-label="Send a query or call Dr. Arefin">
                   <Link
                     to={`/contact/?treatment=${activeService.slug}`}
                     title={`Send a query about ${activeService.display}`}
                     onClick={() => setOpenDropdown(null)}
-                    className="arefin-mega-btn-primary"
+                    className="arefin-mega-dual-cta-send"
                   >
                     <Send className="h-4 w-4" aria-hidden />
                     Send a Query
                   </Link>
-                  <a href={MEGA_PHONE_HREF} className="arefin-mega-btn-call" title={`Call Dr. Arefin — ${MEGA_PHONE_DISPLAY}`}>
+                  <a href={MEGA_PHONE_HREF} className="arefin-mega-dual-cta-call" title={`Call Dr. Arefin — ${MEGA_PHONE_DISPLAY}`}>
                     <Phone className="h-4 w-4" aria-hidden />
                     Call
                   </a>
@@ -511,8 +510,6 @@ const DrArefinHeader = ({ logoSrc, transparent = false }: DrArefinHeaderProps = 
         ? "arefin-header arefin-header-transparent absolute top-0 left-0 right-0 z-50 arefin-fade-in"
         : "arefin-header sticky top-0 z-50 bg-white border-b border-border/50 arefin-fade-in"
     }>
-      {/* Lead bar first: above the menu in both sticky and transparent modes. */}
-      <SimilarWebsiteBar />
       <div className="container flex items-center justify-between h-[70px]">
         {/* Logo */}
         <Link

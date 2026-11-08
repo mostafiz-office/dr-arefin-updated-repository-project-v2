@@ -2,7 +2,6 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import logo from "@/assets/arefin-logo.webp";
-import SimilarWebsiteBar from "./SimilarWebsiteBar";
 
 /**
  * DrArefinHeaderLight — Pure White + Sage header for the light hero variations.
@@ -41,8 +40,6 @@ const DrArefinHeaderLight = () => {
         borderBottom: "1px solid hsl(var(--hero-light-border))",
       }}
     >
-      {/* Lead bar first: above the menu, matching the dark header. */}
-      <SimilarWebsiteBar />
       <div className="container flex items-center justify-between h-[72px]">
         {/* Logo */}
         <Link

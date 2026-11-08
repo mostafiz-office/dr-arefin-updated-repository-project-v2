@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import DrArefinHeader from "@/components/arefin/DrArefinHeader";
 import DrArefinFooter from "@/components/arefin/DrArefinFooter";
+import SimilarWebsiteBar from "@/components/arefin/SimilarWebsiteBar";
 
 import FAQAccordion from "@/components/arefin/FAQAccordion";
 import darkLogo from "@/assets/dr-arefin-logo-dark.webp";
@@ -464,6 +465,10 @@ const ContactDark = () => {
           .arefin.dark .home-faq-band .satellite-faq-answer { color: hsl(0 0% 96% / 0.78); }
         `}</style>
       </div>
+
+      {/* Similar-website lead bar — Contact page only, in normal flow
+          (scrolls away with the page, user-approved 2026-11-08). */}
+      <SimilarWebsiteBar />
 
       <DrArefinFooter />
 

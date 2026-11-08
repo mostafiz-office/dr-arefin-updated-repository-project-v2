@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
 
 /* Similar-website lead bar (Nov 2026, user-approved wording — use verbatim,
-   do not "fix" it): rendered FIRST inside the shared headers (dark + light),
-   so it sits above the menu in both sticky and transparent-header modes.
-   It sticks with the header on scroll; making it scroll away would need
-   header-mechanism changes, especially for transparent hero pages. */
+   do not "fix" it): rendered only on the Contact page
+   (src/pages/ContactDark.tsx). Do not add it back to the shared headers. */
 export default function SimilarWebsiteBar() {
   return (
     <div className="arefin-similar-bar">
