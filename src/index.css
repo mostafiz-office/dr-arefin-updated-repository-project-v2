@@ -934,6 +934,13 @@
   .arefin-mega-dual-cta {
     display: inline-flex;
     align-items: stretch;
+    /* Nov 2026 fix (FIX-PLAN-2): the parent .arefin-mega-swap is a column
+       flex container, so its stretch default made this pill full-width.
+       align-self + max-content size it to its content only; max-width
+       keeps it inside the pane on narrow screens. */
+    align-self: flex-start;
+    width: max-content;
+    max-width: 100%;
     margin-top: 16px;
     background: hsl(222 47% 7%);
     border: 1px solid hsl(0 0% 100% / 0.14);
@@ -1000,9 +1007,9 @@
   }
   .arefin-mega-area-link {
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
     gap: 8px;
     font-size: 0.8rem;
     line-height: 1.35;
@@ -1010,15 +1017,16 @@
     text-decoration: none;
     /* QA P4: cap at 2 lines (full label lives in the title attribute and
        the target page H1) so long service names cannot stretch the panel */
-    max-height: calc(1.35em * 2 + 6px);
+    max-height: calc(1.35em * 2 + 18px);
     /* Nov 2026 feedback: every grid row is exactly 2-line height, so
        wrapping can never change the panel's internals per service. */
-    min-height: calc(1.35em * 2 + 6px);
+    min-height: calc(1.35em * 2 + 18px);
     overflow: hidden;
     /* QA P8: hover pill (negative margins keep the grid rhythm) — Nov 2026
-       fix: symmetric padding so the link is centred in its grid cell. */
-    padding: 6px 10px;
-    margin: -6px -10px;
+       fix (FIX-PLAN-2): 3px more space top and bottom only (9px vertical,
+       10px horizontal unchanged); negative margin matches the padding. */
+    padding: 9px 10px;
+    margin: -9px -10px;
     border-radius: 8px;
     transition: color 300ms ease, background-color 300ms ease;
   }
@@ -1036,6 +1044,7 @@
     width: 5px;
     height: 5px;
     border-radius: 999px;
+    margin-top: 0.45em;
     background: hsl(40 8% 45%);
     transition: background-color 300ms ease;
   }
