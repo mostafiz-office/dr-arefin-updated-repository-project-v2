@@ -191,6 +191,11 @@ const ContactDark = () => {
 
       {/* CONTACT INFO CARDS section removed per request (General Enquiries / Official Address / Connect With Us) */}
 
+      {/* Similar-website lead bar — Contact page only, above the
+          appointment form so it is seen before the form (Nov 2026,
+          user-approved 2026-11-09). In normal flow; scrolls away. */}
+      <SimilarWebsiteBar />
+
       {/* ============== APPOINTMENT FORM — mint band relief, dark form card ============== */}
       <section
         id="appointment"
@@ -465,10 +470,6 @@ const ContactDark = () => {
           .arefin.dark .home-faq-band .satellite-faq-answer { color: hsl(0 0% 96% / 0.78); }
         `}</style>
       </div>
-
-      {/* Similar-website lead bar — Contact page only, in normal flow
-          (scrolls away with the page, user-approved 2026-11-08). */}
-      <SimilarWebsiteBar />
 
       <DrArefinFooter />
 

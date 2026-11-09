@@ -942,8 +942,11 @@
     width: max-content;
     max-width: 100%;
     margin-top: 16px;
-    background: hsl(222 47% 7%);
-    border: 1px solid hsl(0 0% 100% / 0.14);
+    /* Nov 2026 fix (FIX-PLAN-3): colours match the header Call/Book
+       pill (dark variant) — Send green/white, Call white/black.
+       Container is transparent; the colour seam is the divider. */
+    background: transparent;
+    border: 1px solid hsl(0 0% 100% / 0.20);
     border-radius: 999px;
     overflow: hidden;
   }
@@ -957,35 +960,53 @@
     padding: 0 1.5rem;
     font-size: 0.9375rem;
     font-weight: 600;
-    color: #ffffff;
     text-decoration: none;
-    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .arefin-mega-dual-cta-send > svg,
-  .arefin-mega-dual-cta-call > svg {
-    color: #ffffff;
+    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
   .arefin-mega-dual-cta-send {
-    border-right: 1px solid hsl(0 0% 100% / 0.14);
+    background: hsl(var(--primary-bright));
+    color: #ffffff;
   }
-  .arefin-mega-dual-cta-send:hover,
+  .arefin-mega-dual-cta-send > svg {
+    color: #ffffff;
+  }
+  .arefin-mega-dual-cta-call {
+    background: #ffffff;
+    color: hsl(0 0% 4%);
+  }
+  .arefin-mega-dual-cta-call > svg {
+    color: hsl(0 0% 4%);
+  }
+  .arefin-mega-dual-cta-send:hover {
+    background: hsl(var(--primary-darker));
+    color: #ffffff;
+  }
   .arefin-mega-dual-cta-call:hover {
-    background: hsl(0 0% 100% / 0.08);
-    color: #ffffff;
+    background: hsl(0 0% 92%);
+    color: hsl(0 0% 4%);
   }
-  .arefin-mega-dual-cta-send:active,
-  .arefin-mega-dual-cta-call:active {
-    background: hsl(0 0% 100% / 0.14);
+  .arefin-mega-dual-cta-send:active {
+    background: hsl(var(--primary-darker));
     color: #ffffff;
+    filter: brightness(0.94);
+  }
+  .arefin-mega-dual-cta-call:active {
+    background: hsl(0 0% 88%);
+    color: hsl(0 0% 4%);
+    filter: brightness(0.98);
   }
   .arefin.dark .arefin-mega-dual-cta-send:hover,
   .arefin.dark .arefin-mega-dual-cta-send:focus-visible,
-  .arefin.dark .arefin-mega-dual-cta-send:active,
+  .arefin.dark .arefin-mega-dual-cta-send:active {
+    background: hsl(var(--primary-darker));
+    color: #ffffff;
+    text-shadow: none;
+  }
   .arefin.dark .arefin-mega-dual-cta-call:hover,
   .arefin.dark .arefin-mega-dual-cta-call:focus-visible,
   .arefin.dark .arefin-mega-dual-cta-call:active {
-    background: hsl(0 0% 100% / 0.08);
-    color: #ffffff;
+    background: hsl(0 0% 92%);
+    color: hsl(0 0% 4%);
     text-shadow: none;
   }
   .arefin-mega-areas-label {
@@ -1007,7 +1028,10 @@
   }
   .arefin-mega-area-link {
     display: inline-flex;
-    align-items: flex-start;
+    /* Nov 2026 fix (FIX-PLAN-3): vertically centred, dynamic height —
+       a 1-line link no longer sits at the top of a fixed 2-line box
+       with empty space below it. Horizontal alignment stays left. */
+    align-items: center;
     justify-content: flex-start;
     text-align: left;
     gap: 8px;
@@ -1015,12 +1039,11 @@
     line-height: 1.35;
     color: hsl(40 10% 82%);
     text-decoration: none;
-    /* QA P4: cap at 2 lines (full label lives in the title attribute and
-       the target page H1) so long service names cannot stretch the panel */
-    max-height: calc(1.35em * 2 + 18px);
-    /* Nov 2026 feedback: every grid row is exactly 2-line height, so
-       wrapping can never change the panel's internals per service. */
-    min-height: calc(1.35em * 2 + 18px);
+    /* Nov 2026 fix (FIX-PLAN-3): dynamic height — one line of text plus
+       the symmetric top/bottom padding (2 x 9px). A 2-line link grows
+       to 2 lines with the same equal padding; no fixed 2-line box.
+       (Full label lives in the title attribute and the target page H1.) */
+    min-height: calc(1.35em + 18px);
     overflow: hidden;
     /* QA P8: hover pill (negative margins keep the grid rhythm) — Nov 2026
        fix (FIX-PLAN-2): 3px more space top and bottom only (9px vertical,
@@ -1044,7 +1067,6 @@
     width: 5px;
     height: 5px;
     border-radius: 999px;
-    margin-top: 0.45em;
     background: hsl(40 8% 45%);
     transition: background-color 300ms ease;
   }
