@@ -312,22 +312,26 @@ const NavItemLink = ({
                 the 80ms hover dwell still guards against sweep strobing. */}
             <div className="arefin-mega-detail">
               <div className="arefin-mega-swap">
-                <h3 className="arefin-mega-detail-title">{activeService.display}</h3>
-                <p className="arefin-mega-detail-desc">{activeService.description}</p>
-                <div className="arefin-mega-dual-cta" role="group" aria-label="Send a query or call Dr. Arefin">
-                  <Link
-                    to={`/contact/?treatment=${activeService.slug}`}
-                    title={`Send a query about ${activeService.display}`}
-                    onClick={() => setOpenDropdown(null)}
-                    className="arefin-mega-dual-cta-send"
-                  >
-                    <Send className="h-4 w-4" aria-hidden />
-                    Send a Query
-                  </Link>
-                  <a href={MEGA_PHONE_HREF} className="arefin-mega-dual-cta-call" title={`Call Dr. Arefin — ${MEGA_PHONE_DISPLAY}`}>
-                    <Phone className="h-4 w-4" aria-hidden />
-                    Call
-                  </a>
+                <div className="arefin-mega-head">
+                  <div className="arefin-mega-head-text">
+                    <h3 className="arefin-mega-detail-title">{activeService.display}</h3>
+                    <p className="arefin-mega-detail-desc">{activeService.description}</p>
+                  </div>
+                  <div className="arefin-mega-dual-cta" role="group" aria-label="Send a query or call Dr. Arefin">
+                    <Link
+                      to={`/contact/?treatment=${activeService.slug}`}
+                      title={`Send a query about ${activeService.display}`}
+                      onClick={() => setOpenDropdown(null)}
+                      className="arefin-mega-dual-cta-send"
+                    >
+                      <Send className="h-4 w-4" aria-hidden />
+                      Send a Query
+                    </Link>
+                    <a href={MEGA_PHONE_HREF} className="arefin-mega-dual-cta-call" title={`Call Dr. Arefin — ${MEGA_PHONE_DISPLAY}`}>
+                      <Phone className="h-4 w-4" aria-hidden />
+                      Call
+                    </a>
+                  </div>
                 </div>
                 <span className="arefin-mega-areas-label">Areas We Serve</span>
                 <ul className="arefin-mega-areas">

@@ -901,6 +901,18 @@
     flex-direction: column;
     flex: 1;
   }
+  /* Nov 2026 fix (FIX-PLAN-4): title/description on the left, the
+     grouped buttons on the right, vertically centred. */
+  .arefin-mega-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .arefin-mega-head-text {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
   .arefin-mega-detail-title {
     font-family: var(--font-heading, 'Ubuntu'), 'Poppins', system-ui, sans-serif;
     font-size: 1.375rem;
@@ -921,16 +933,15 @@
     /* Fixed 2-line block: a 1-line description must not pull the areas up. */
     min-height: calc(1.55em * 2);
   }
-  /* Grouped dual CTA (Nov 2026, user-approved 2026-11-08): one dark
-     segmented pill — Send a Query left, Call right, divider only, no OR
-     badge. Reference: the dark navy/black grouped pill the user sent
-     (WhatsApp image 2026-11-08). Text and icons stay white in both
-     segments; the reference's teal/yellow text colours are NOT copied.
-     Container is dark navy/black with a grey hairline; each segment is
-     transparent inside it, so the pair reads as one control. Hover lifts
-     the segment slightly (white overlay), never a colour swap. The
-     (0,4,0) locks below keep the global dark link-hover rule
-     (.arefin.dark a:hover, (0,3,1)) from repainting this text green. */
+  /* Grouped dual CTA — Send a Query left, Call right, no OR badge.
+     Colours (FIX-PLAN-3, 2026-11-09) match the header Call/Book pill
+     (dark variant): Send bright green with white text, Call white with
+     black text; the colour seam is the divider. Layout (FIX-PLAN-4,
+     2026-11-09): the group sits in .arefin-mega-head, to the right of
+     the title/description, vertically centred; size and 10px corners
+     match the navbar buttons. The (0,4,0) locks below keep the global
+     dark link-hover rule (.arefin.dark a:hover, (0,3,1)) from
+     repainting this text green. */
   .arefin-mega-dual-cta {
     display: inline-flex;
     align-items: stretch;
@@ -938,16 +949,18 @@
        flex container, so its stretch default made this pill full-width.
        align-self + max-content size it to its content only; max-width
        keeps it inside the pane on narrow screens. */
-    align-self: flex-start;
+    align-self: center;
+    flex-shrink: 0;
     width: max-content;
     max-width: 100%;
-    margin-top: 16px;
+    margin-top: 0;
     /* Nov 2026 fix (FIX-PLAN-3): colours match the header Call/Book
        pill (dark variant) — Send green/white, Call white/black.
-       Container is transparent; the colour seam is the divider. */
+       Container is transparent; the colour seam is the divider.
+       FIX-PLAN-4: 10px corners like the navbar buttons. */
     background: transparent;
     border: 1px solid hsl(0 0% 100% / 0.20);
-    border-radius: 999px;
+    border-radius: 10px;
     overflow: hidden;
   }
   .arefin-mega-dual-cta-send,
@@ -955,17 +968,21 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    height: 3rem;
-    padding: 0 1.5rem;
-    font-size: 0.9375rem;
-    font-weight: 600;
+    gap: 8px;
+    height: 2.625rem;
+    padding: 0 1.25rem;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
     text-decoration: none;
     transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
   .arefin-mega-dual-cta-send {
     background: hsl(var(--primary-bright));
     color: #ffffff;
+    border-radius: 10px 0 0 10px;
   }
   .arefin-mega-dual-cta-send > svg {
     color: #ffffff;
@@ -973,6 +990,7 @@
   .arefin-mega-dual-cta-call {
     background: #ffffff;
     color: hsl(0 0% 4%);
+    border-radius: 0 10px 10px 0;
   }
   .arefin-mega-dual-cta-call > svg {
     color: hsl(0 0% 4%);
