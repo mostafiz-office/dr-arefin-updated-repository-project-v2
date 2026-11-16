@@ -353,7 +353,7 @@
     background-color: hsl(160 24% 7%);
     border-bottom-color: hsl(160 18% 22% / 0.5);
   }
-  .arefin.dark > header.sticky a:not(.arefin-mobile-link):not(.arefin-mobile-call):not(.arefin-dual-cta-call):not(.arefin-dual-cta-book):not(.arefin-dual-cta-contact):not(.arefin-mega-btn-primary):not(.arefin-mega-btn-call):not(.arefin-similar-bar-btn),
+  .arefin.dark > header.sticky a:not(.arefin-mobile-link):not(.arefin-mobile-call):not(.arefin-dual-cta-call):not(.arefin-dual-cta-book):not(.arefin-dual-cta-contact):not(.arefin-mega-dual-cta-send):not(.arefin-mega-dual-cta-call):not(.arefin-similar-bar-btn),
   .arefin.dark > header.sticky button:not(.arefin-mobile-link):not(.arefin-mobile-call) {
     color: hsl(0 0% 95%);
   }
@@ -363,7 +363,7 @@
      marker so cascade-layer ordering is documented. Real rules live below. */
 
   /* ─── Header nav-link hover → green (body text turns green on hover) ─── */
-  .arefin.dark > header.sticky a:not(.arefin-mobile-link):not(.arefin-mobile-call):not(.arefin-dual-cta-call):not(.arefin-dual-cta-book):not(.arefin-dual-cta-contact):not(.arefin-mega-btn-primary):not(.arefin-mega-btn-call):not(.arefin-similar-bar-btn):hover,
+  .arefin.dark > header.sticky a:not(.arefin-mobile-link):not(.arefin-mobile-call):not(.arefin-dual-cta-call):not(.arefin-dual-cta-book):not(.arefin-dual-cta-contact):not(.arefin-mega-dual-cta-send):not(.arefin-mega-dual-cta-call):not(.arefin-similar-bar-btn):hover,
   .arefin.dark > header.sticky button:not(.arefin-dual-cta-call):not(.arefin-dual-cta-book):not(.arefin-mobile-link):not(.arefin-mobile-call):hover {
     color: hsl(var(--primary-light));
   }
@@ -799,23 +799,28 @@
     /* Nov 2026 feedback: ONE fixed height for every service — the old
        min-height-only panel grew/shrank per service and the bottom edge
        jumped. Detail stretches to fill; overflow scrolls on short screens. */
-    height: min(600px, calc(100dvh - 90px));
-    max-height: calc(100dvh - 90px);
+    height: min(580px, calc(100dvh - 85px));
+    max-height: calc(100dvh - 85px);
     padding: 0;
     display: flex;
     overflow: hidden;
     text-align: left;
   }
   .arefin-mega-rail {
-    width: 302px;
+    width: 290px;
     flex-shrink: 0;
     border-right: 1px solid hsl(40 15% 70% / 0.12);
-    padding: 20px 12px 16px 16px;
+    padding: 14px 10px 12px 12px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 2px;
     max-height: inherit;
-    overflow-y: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .arefin-mega-rail::-webkit-scrollbar {
+    display: none;
   }
   .arefin-mega-rail-label {
     display: block;
@@ -824,16 +829,16 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: hsl(40 8% 65%);
-    padding: 0 12px;
-    margin-bottom: 8px;
+    padding: 0 10px;
+    margin-bottom: 6px;
   }
   .arefin-mega-rail-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    margin: 2px 0;
-    border-radius: 10px;
+    gap: 10px;
+    padding: 6px 12px;
+    margin: 1px 0;
+    border-radius: 8px;
     border-left: 2px solid transparent;
     text-decoration: none;
     outline: none;
@@ -852,15 +857,15 @@
   }
   .arefin-mega-rail-item:focus-visible,
   .arefin-mega-area-link:focus-visible,
-  .arefin-mega-btn-primary:focus-visible,
-  .arefin-mega-btn-call:focus-visible {
+  .arefin-mega-dual-cta-send:focus-visible,
+  .arefin-mega-dual-cta-call:focus-visible {
     outline: 2px solid hsl(var(--primary-bright));
     outline-offset: 2px;
   }
   .arefin-mega-rail-name {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 600;
-    line-height: 1.25;
+    line-height: 1.2;
     color: hsl(40 10% 94%);
     text-align: left;
     transition: color 300ms ease;
@@ -871,19 +876,19 @@
     color: hsl(var(--primary-bright));
   }
   .arefin-mega-rail-count {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: hsl(40 8% 65%);
     margin-top: 1px;
   }
   .arefin-mega-rail-footer {
     margin-top: auto;
-    padding: 12px 12px 4px;
+    padding: 8px 10px 2px;
     border-top: 1px solid hsl(40 15% 70% / 0.12);
   }
   .arefin-mega-detail {
     flex: 1;
     min-width: 0;
-    padding: 24px 28px 20px;
+    padding: 24px 28px;
     display: flex;
     flex-direction: column;
     min-height: min(456px, calc(100dvh - 220px));
@@ -902,9 +907,9 @@
   }
   .arefin-mega-detail-header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 20px;
     margin-bottom: 20px;
   }
   .arefin-mega-detail-info {
@@ -933,79 +938,76 @@
     min-height: calc(1.5em * 2);
     text-align: left;
   }
-  .arefin-mega-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  /* Grouped dual-CTA in the Treatment mega menu — matches header pill vocabulary */
+  .arefin-mega-dual-cta {
+    display: inline-flex;
+    align-items: stretch;
     flex-shrink: 0;
-    margin-top: 2px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   }
-  .arefin-mega-btn-primary {
+  .arefin-mega-dual-cta-send,
+  .arefin-mega-dual-cta-call {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 7px;
     height: 2.25rem;
     padding: 0 1rem;
-    border-radius: 8px;
-    background: hsl(var(--primary-bright));
-    color: #ffffff !important;
+    font-family: "Poppins", sans-serif;
     font-size: 0.875rem;
     font-weight: 600;
     text-decoration: none !important;
     white-space: nowrap;
-    width: auto;
-    transition: background-color 200ms ease, color 200ms ease;
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
   }
-  .arefin-mega-btn-primary:hover {
-    background: hsl(var(--primary-darker));
+  .arefin-mega-dual-cta-send {
+    background: hsl(var(--primary-bright));
+    color: #ffffff !important;
+    border-radius: 8px 0 0 8px;
+  }
+  .arefin-mega-dual-cta-send > svg {
+    color: #ffffff;
+  }
+  .arefin-mega-dual-cta-send:hover {
+    background: hsl(var(--primary-darker)) !important;
     color: #ffffff !important;
   }
-  .arefin-mega-btn-primary:active {
-    background: hsl(var(--primary-darker));
+  .arefin-mega-dual-cta-send:active {
+    background: hsl(var(--primary-darker)) !important;
     color: #ffffff !important;
     filter: brightness(0.94);
   }
-  .arefin.dark .arefin-mega-btn-primary:hover,
-  .arefin.dark .arefin-mega-btn-primary:focus-visible,
-  .arefin.dark .arefin-mega-btn-primary:active {
+  .arefin-mega-dual-cta-call {
+    background: #ffffff;
+    color: #000000 !important;
+    border-radius: 0 8px 8px 0;
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+  }
+  .arefin-mega-dual-cta-call > svg {
+    color: #000000;
+  }
+  .arefin-mega-dual-cta-call:hover {
+    background: #f3f4f6 !important;
+    color: #000000 !important;
+  }
+  .arefin-mega-dual-cta-call:active {
+    background: #e5e7eb !important;
+    color: #000000 !important;
+  }
+  .arefin.dark .arefin-mega-dual-cta-send:hover,
+  .arefin.dark .arefin-mega-dual-cta-send:focus-visible,
+  .arefin.dark .arefin-mega-dual-cta-send:active {
     background: hsl(var(--primary-darker)) !important;
     color: #ffffff !important;
     text-shadow: none !important;
   }
-  .arefin-mega-btn-call {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    height: 2.25rem;
-    padding: 0 1rem;
-    border-radius: 8px;
-    background: #ffffff;
-    border: 1px solid #ffffff;
-    color: #000000 !important;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-decoration: none !important;
-    white-space: nowrap;
-    width: auto;
-    transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
-  }
-  .arefin-mega-btn-call:hover {
+  .arefin.dark .arefin-mega-dual-cta-call:hover,
+  .arefin.dark .arefin-mega-dual-cta-call:focus-visible,
+  .arefin.dark .arefin-mega-dual-cta-call:active {
     background: #f3f4f6 !important;
-    border-color: #f3f4f6 !important;
-    color: #000000 !important;
-  }
-  .arefin-mega-btn-call:active {
-    background: #e5e7eb !important;
-    border-color: #e5e7eb !important;
-    color: #000000 !important;
-  }
-  .arefin.dark .arefin-mega-btn-call:hover,
-  .arefin.dark .arefin-mega-btn-call:focus-visible,
-  .arefin.dark .arefin-mega-btn-call:active {
-    background: #f3f4f6 !important;
-    border-color: #f3f4f6 !important;
     color: #000000 !important;
     text-shadow: none !important;
   }
@@ -1028,46 +1030,36 @@
   }
   .arefin-mega-area-link {
     display: inline-flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 8px;
     font-size: 0.8rem;
     line-height: 1.35;
     color: hsl(40 10% 82%);
-    text-decoration: none;
-    /* QA P4: cap at 2 lines (full label lives in the title attribute and
-       the target page H1) so long service names cannot stretch the panel */
-    max-height: calc(1.35em * 2 + 6px);
-    /* Nov 2026 feedback: every grid row is exactly 2-line height, so
-       wrapping can never change the panel's internals per service. */
-    min-height: calc(1.35em * 2 + 6px);
-    overflow: hidden;
-    /* QA P8: hover pill (negative margins keep the grid rhythm) */
-    padding: 3px 8px;
-    margin: -3px -8px;
-    border-radius: 8px;
+    text-decoration: none !important;
+    padding: 6px 10px;
+    margin: -6px -10px;
+    border-radius: 6px;
     transition: color 300ms ease, background-color 300ms ease;
   }
   .arefin-mega-area-link:hover,
   .arefin-mega-area-link:focus-visible {
     background-color: hsl(var(--primary-bright) / 0.1);
+    color: hsl(var(--primary-bright)) !important;
+    text-decoration: none !important;
   }
   .arefin-mega-area-link::before {
     content: "";
+    display: inline-block;
     flex-shrink: 0;
     width: 5px;
     height: 5px;
     border-radius: 999px;
-    margin-top: 0.45em;
     background: hsl(40 8% 45%);
     transition: background-color 300ms ease;
   }
-  .arefin-mega-area-link:hover,
-  .arefin-mega-area-link:focus-visible {
-    color: hsl(var(--primary-bright));
-    text-decoration: none !important;
-  }
   .arefin.dark .arefin-mega-area-link:hover,
   .arefin.dark .arefin-mega-area-link:focus-visible {
+    color: hsl(var(--primary-bright)) !important;
     text-decoration: none !important;
   }
   .arefin-mega-area-link:hover::before,
@@ -1090,17 +1082,18 @@
     white-space: nowrap;
     flex-shrink: 0;
   }
-  /* Similar-website lead bar (Nov 2026): slim dark strip, first child of
-     the shared headers so it sits above the menu on every page. Green
-     pill button reuses the primary CTA vocabulary. */
+  /* Similar-website lead bar (Nov 2026): slim dark strip placed above
+     the appointment section on the contact page. */
   .arefin-similar-bar {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 8px 16px;
-    padding: 8px 16px;
+    gap: 8px 20px;
+    padding: 12px 20px;
     background: hsl(40 6% 8%);
+    border-top: 1px solid hsl(160 18% 22% / 0.5);
+    border-bottom: 1px solid hsl(160 18% 22% / 0.5);
     color: #ffffff;
     text-align: center;
   }
