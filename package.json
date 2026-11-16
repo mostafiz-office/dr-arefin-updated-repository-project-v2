@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "bunx tsx scripts/generate-sitemap.ts",
+    "predev": "npx tsx scripts/generate-sitemap.ts",
     "dev": "node scripts/patch-swc.cjs && vite",
-    "prebuild": "bunx tsx scripts/generate-sitemap.ts",
+    "prebuild": "npx tsx scripts/generate-sitemap.ts",
     "build": "node scripts/patch-swc.cjs && vite build",
     "build:dev": "node scripts/patch-swc.cjs && vite build --mode development",
     "lint": "eslint .",

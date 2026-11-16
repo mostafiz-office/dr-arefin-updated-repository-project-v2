@@ -55,6 +55,17 @@ export const SERVICES: MatrixService[] = [
       "Modern liver surgery requires precise pre-operative imaging, vascular control during resection, and a multidisciplinary HPB team. Dr. Arefin performs both minimally invasive and open hepatectomies tailored to tumour location and remnant liver volume.",
   },
   {
+    slug: "liver-resection-surgery",
+    noun: "liver resection surgery",
+    display: "Liver Resection Surgery",
+    surgeonNoun: "liver resection surgeon",
+    symptoms: ["right upper-quadrant pain", "jaundice", "liver mass", "unexplained weight loss"],
+    conditions: ["liver tumours", "hepatocellular carcinoma", "colorectal liver metastases", "benign liver lesions"],
+    heroImage: "/src/assets/gallery/liver-surgery-team-closeup-hepatobiliary-surgeon-dhaka.webp",
+    clinical:
+      "Liver resection (hepatectomy) removes the diseased part of the liver while preserving enough healthy liver to recover, planned around your imaging and liver function.",
+  },
+  {
     slug: "gallbladder-surgery",
     noun: "gallbladder surgery",
     display: "Gallbladder Surgery",
@@ -477,6 +488,7 @@ export const MATRIX_PAGES_PILOT: SatellitePage[] = generateMatrixPages(MATRIX_PI
  */
 export const MATRIX_MENU_SERVICE_SLUGS: string[] = [
   "liver-surgery",
+  "liver-resection-surgery",
   "gallbladder-surgery",
   "bile-duct-surgery",
   "pancreatic-surgery",

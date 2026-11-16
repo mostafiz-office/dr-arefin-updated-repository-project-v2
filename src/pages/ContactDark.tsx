@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import DrArefinHeader from "@/components/arefin/DrArefinHeader";
 import DrArefinFooter from "@/components/arefin/DrArefinFooter";
-import SimilarWebsiteBar from "@/components/arefin/SimilarWebsiteBar";
 
 import FAQAccordion from "@/components/arefin/FAQAccordion";
 import darkLogo from "@/assets/dr-arefin-logo-dark.webp";
@@ -191,10 +190,28 @@ const ContactDark = () => {
 
       {/* CONTACT INFO CARDS section removed per request (General Enquiries / Official Address / Connect With Us) */}
 
-      {/* Similar-website lead bar — Contact page only, above the
-          appointment form so it is seen before the form (Nov 2026,
-          user-approved 2026-11-09). In normal flow; scrolls away. */}
-      <SimilarWebsiteBar />
+      {/* ============== SIMILAR WEBSITE LEAD SECTION (Above Appointment Form) ============== */}
+      <section className="bg-background-deepest border-y border-border/40 py-6 sm:py-8" aria-label="Get a similar website">
+        <div className="container px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 p-5 sm:p-6 rounded-2xl bg-secondary/30 border border-primary/20 shadow-sm text-center sm:text-left">
+            <div>
+              <p className="text-base sm:text-lg font-semibold text-white mb-1">
+                Do you want a website like Dr. Arefin for your business?
+              </p>
+              <p className="text-xs sm:text-sm text-foreground/70">
+                Riseup Asia designs, develops, and optimizes medical &amp; specialist business websites.
+              </p>
+            </div>
+            <Link
+              to="/similar-website/"
+              className="inline-flex items-center justify-center h-10 px-6 rounded-lg bg-primary hover:bg-primary-darker text-white font-semibold text-sm whitespace-nowrap transition-colors shrink-0 shadow"
+              title="Get a similar website for your clinic or business"
+            >
+              Get a Similar Website
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* ============== APPOINTMENT FORM — mint band relief, dark form card ============== */}
       <section

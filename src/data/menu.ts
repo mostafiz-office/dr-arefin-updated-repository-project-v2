@@ -31,6 +31,7 @@ export interface MegaService {
 /** Hub URL per rail service — explicit mapping (plan §12 G6). */
 const HUBS: Record<string, string> = {
   "liver-surgery": "/treatment/liver-surgery/",
+  "liver-resection-surgery": "/treatment/complex-hepatic-resection/",
   "gallbladder-surgery": "/treatment/gallbladder-surgery/",
   "bile-duct-surgery": "/treatment/biliary-tract-surgery/",
   "pancreatic-surgery": "/treatment/pancreatic-surgery/",
@@ -44,6 +45,8 @@ const HUBS: Record<string, string> = {
 const DESCRIPTIONS: Record<string, string> = {
   "liver-surgery":
     "Surgery for liver tumours, cysts and other liver conditions, planned around your imaging and liver function.",
+  "liver-resection-surgery":
+    "Liver resection (hepatectomy) removes the diseased part of the liver while preserving enough healthy liver to recover, planned around your imaging and liver function.",
   "gallbladder-surgery":
     "Gallbladder removal and gallstone care, usually laparoscopic, for pain, inflammation and infection.",
   "bile-duct-surgery":
@@ -85,11 +88,15 @@ export const MEGA_SERVICES: MegaService[] = MATRIX_MENU_SERVICE_SLUGS.map((slug)
  * route→service mapping); the header renders this filtered list instead. */
 export const MEGA_MENU_SERVICES: MegaService[] = MEGA_SERVICES.filter((s) =>
   [
+    "liver-surgery",
+    "liver-resection-surgery",
     "gallbladder-surgery",
     "bile-duct-surgery",
     "pancreatic-surgery",
     "hepatobiliary-surgery",
     "laparoscopic-surgery",
+    "liver-transplant-coordination",
+    "fatty-liver-management",
   ].includes(s.slug),
 );
 
