@@ -32,9 +32,9 @@ export type AggregateRating = {
 
 export const GOOGLE_AGGREGATE: AggregateRating = {
   rating: 5.0,
-  total: 42,
+  total: 114,
   source_url:
-    "https://www.google.com/maps/place/Hepatobiliary+Surgeon+Dr.+Murshidul+Arefin/data=!4m2!3m1!1s0x0:0xd1abdcca00446a01",
+    "https://www.google.com/search?sca_esv=c2ee1e41de1ba409&sxsrf=AKL5yDgtXo4xS-dzno9XZh8ITEtf2sDABw:1794854843210&q=dr+murshidul+arefin&si=AE1YtOqiKPb2pdLXAi8quZ9vbH4aVq_aX8-3H9iFBLpRNK95c8HO18IZMidDF7fdDFiekRxUCU9XJGevxnR0vzK-OOJ6vOfuvzLnbTMWPbWmGDA4hA85DP6741P_9Cn8ffHWYLuJbiBbmrb43uOJwFPcnywhiAtMgw%3D%3D&uds=AE2AFgY6zQpx83iqp9GGrbOHyXE9MolsZxtFzeZDSZAXAQrrmRbefx0xeHKBCDEIvRIgg3DLF6KaiRfu7KKUKlLcxmRUPqvaFV6XTE5rypHxMyqvsHSvmq4&sa=X&ved=2ahUKEwiF5Oiqk42YAxXFa2wGHdF4E7IQrrQLegQIIRAA&biw=1366&bih=633&dpr=1",
   business_name: "Hepatobiliary Surgeon Dr. Murshidul Arefin",
 };
 

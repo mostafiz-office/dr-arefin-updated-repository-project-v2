@@ -1,5 +1,8 @@
 import { Reveal } from "@/hooks/useScrollReveal";
 import imgAhad from "@/assets/reviewers/ahad-ibna-ilias-real.webp";
+
+const GOOGLE_REVIEWS_URL =
+  "https://www.google.com/search?sca_esv=c2ee1e41de1ba409&sxsrf=AKL5yDgtXo4xS-dzno9XZh8ITEtf2sDABw:1794854843210&q=dr+murshidul+arefin&si=AE1YtOqiKPb2pdLXAi8quZ9vbH4aVq_aX8-3H9iFBLpRNK95c8HO18IZMidDF7fdDFiekRxUCU9XJGevxnR0vzK-OOJ6vOfuvzLnbTMWPbWmGDA4hA85DP6741P_9Cn8ffHWYLuJbiBbmrb43uOJwFPcnywhiAtMgw%3D%3D&uds=AE2AFgY6zQpx83iqp9GGrbOHyXE9MolsZxtFzeZDSZAXAQrrmRbefx0xeHKBCDEIvRIgg3DLF6KaiRfu7KKUKlLcxmRUPqvaFV6XTE5rypHxMyqvsHSvmq4&sa=X&ved=2ahUKEwiF5Oiqk42YAxXFa2wGHdF4E7IQrrQLegQIIRAA&biw=1366&bih=633&dpr=1";
 import imgShahriar from "@/assets/reviewers/shahriar-abdullah-sun-real.webp";
 import imgEmon from "@/assets/reviewers/emon-shahriar-real.webp";
 import imgSadia from "@/assets/reviewers/sadia-afrin-sathi-real.webp";
@@ -15,6 +18,15 @@ import imgShakib from "@/assets/reviewers/shakib-hasan-alvi-real.webp";
 import imgAhashan from "@/assets/reviewers/ahashan-habib-real.webp";
 import imgAbuTalha from "@/assets/reviewers/abu-talha-real.webp";
 import imgKaikobad from "@/assets/reviewers/abm-kaikobad-real.webp";
+import imgRowshon from "@/assets/reviewers/rowshon-ara-tania-real.webp";
+import imgTariqul from "@/assets/reviewers/muhammad-tariqul-islam-real.webp";
+import imgSinthia from "@/assets/reviewers/sinthia-hossain-real.webp";
+import imgMehrab from "@/assets/reviewers/mehrab-hosain-robin-real.webp";
+import imgAfjal from "@/assets/reviewers/md-afjal-hossain-arif-real.webp";
+import imgSarab from "@/assets/reviewers/sarab-mandal-real.webp";
+import imgAshraful from "@/assets/reviewers/ashraful-islam-real.webp";
+import imgAbdurRahman from "@/assets/reviewers/adv-md-abdur-rahman-real.webp";
+import imgFatema from "@/assets/reviewers/dr-fatema-sultana-pappy-real.webp";
 
 /**
  * DesignMonks-inspired 2-row marquee testimonial section.
@@ -40,6 +52,10 @@ const row1: Review[] = [
   { name: "Mahmudul Hasan", initial: "M", role: "Patient", image: imgMahmudul, text: "Dr. Arefin is an outstanding hepatobiliary surgeon. He explained the entire liver treatment process clearly and made us feel confident about the procedure. Highly recommended doctor in Dhaka." },
   { name: "Md. Saiful Islam", initial: "S", role: "Patient", image: imgSaiful, text: "Excellent experience with Dr. Arefin. He was very patient, answered all our questions, and the surgery went perfectly. His expertise is unmatched in Bangladesh." },
   { name: "Ajay Debnath", initial: "A", role: "Patient", image: imgAjay, text: "We traveled from far specifically to see Dr. Arefin. His reputation is well deserved — compassionate, skilled, and deeply committed to his patients' recovery and wellbeing." },
+  { name: "Rowshon Ara Tania", initial: "R", role: "Patient's Family", image: imgRowshon, text: "I am deeply grateful for the care and kindness shown to my mother. From the beginning, your sincerity and reassurance made us feel she was in the safest hands. It was wonderful to see such dedication and compassion in a doctor." },
+  { name: "Muhammad Tariqul Islam", initial: "M", role: "Patient", image: imgTariqul, text: "I had a very good experience with Dr. Murshidul Arefin. He is knowledgeable, professional, and explains treatment options clearly. He listens carefully and gives practical advice without creating fear. Highly recommended." },
+  { name: "Sinthia Hossain", initial: "S", role: "Patient's Family", image: imgSinthia, text: "When my grandfather was told his cancer was inoperable, Dr. Arefin gave us hope and successfully performed the surgery at Popular Hospital. His latest scans show no evidence of cancer. Deeply grateful to Dr. Arefin and his team." },
+  { name: "Mehrab Hosain Robin", initial: "M", role: "Patient", image: imgMehrab, text: "One of the most sincere doctors I have ever met. Very humble, passionate, and dedicated to his work. He knows exactly what needs to be done and handles every situation professionally. Wishing you all the best." },
 ];
 
 const row2: Review[] = [
@@ -51,6 +67,11 @@ const row2: Review[] = [
   { name: "Ahashan Habib", initial: "A", role: "Patient", image: imgAhashan, text: "Highly skilled hepatobiliary surgeon. Dr. Arefin's clear communication and meticulous approach gave us complete confidence. The post-operative care from his team was outstanding." },
   { name: "Abu Talha", initial: "A", role: "Patient", image: imgAbuTalha, text: "Genuinely caring and exceptionally talented. Dr. Arefin handled my case with patience and expertise. I would recommend him to anyone needing serious hepatobiliary or liver care in Bangladesh." },
   { name: "A.B.M Kaikobad", initial: "A", role: "Patient", image: imgKaikobad, text: "An excellent surgeon with a kind heart. Dr. Arefin's diagnosis was spot on and the surgery went smoothly. The follow-up care made all the difference in my recovery journey." },
+  { name: "Md. Afjal Hossain Arif", initial: "M", role: "Patient's Family", image: imgAfjal, text: "From my dad's diagnosis through to full recovery, Dr. Arefin provided exceptional, compassionate care. He walked us through every step with patience, clarity, and genuine empathy. Wholeheartedly recommended." },
+  { name: "Sarab Mandal", initial: "S", role: "Medical Trainee", image: imgSarab, text: "Proud to have you as my teacher. His knowledge, surgical expertise, and dedication to patient care are truly inspiring. Grateful to learn from a mentor who motivates me to grow as a future doctor. Respect and gratitude, Sir!" },
+  { name: "Ashraful Islam", initial: "A", role: "Patient's Family", image: imgAshraful, text: "Dr. Arefin takes care of his patients like family members. My whole family is so grateful for the treatment he provided for my dad from day one to full recovery. Wishing him every success." },
+  { name: "Adv. Md. Abdur Rahman", initial: "A", role: "Patient", image: imgAbdurRahman, text: "A very caring, sincere, and friendly doctor. His professionalism, dedication, and compassionate approach towards patients are truly admirable. Wishing him continued success and a bright future. Highly recommended." },
+  { name: "Dr. Fatema Sultana Pappy", initial: "F", role: "Physician", image: imgFatema, text: "An excellent hepatobiliary and pancreatic surgeon with exceptional clinical expertise, outstanding surgical skills, and a compassionate approach to patient care. Truly admirable and highly recommended!" },
 ];
 
 const GoogleIcon = () => (
@@ -138,35 +159,41 @@ const TestimonialsSection = () => (
           </h2>
         </Reveal>
         <Reveal delay={200}>
-          <div className="flex items-center justify-center gap-3">
+          <a
+            href={GOOGLE_REVIEWS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-3 no-underline cursor-pointer transition-opacity hover:opacity-80"
+            title="Read all 114 reviews for Dr. Murshidul Arefin on Google"
+          >
             <div className="flex items-center gap-1.5">
               <GoogleIcon />
               <span className="tm-meta-label">Google Reviews</span>
             </div>
             <span className="tm-meta-rating">5.0</span>
             <StarRow />
-            <span className="tm-meta-count">(42 reviews)</span>
-          </div>
+            <span className="tm-meta-count">(114 reviews)</span>
+          </a>
         </Reveal>
       </div>
     </div>
 
     <div className="tm-rows">
-      <MarqueeRow cards={row1} duration={60} />
-      <MarqueeRow cards={row2} duration={70} reverse />
+      <MarqueeRow cards={row1} duration={75} />
+      <MarqueeRow cards={row2} duration={85} reverse />
     </div>
 
     <div className="container">
       <Reveal delay={400}>
         <div className="text-center mt-12">
           <a
-            href="https://www.google.com/maps/place/Hepatobiliary+Surgeon+Dr.+Murshidul+Arefin/"
+            href={GOOGLE_REVIEWS_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="tm-google-link inline-flex items-center gap-2 text-sm font-medium no-underline"
           >
             <GoogleIcon />
-            See all 42 reviews on Google →
+            See all 114 reviews on Google →
           </a>
         </div>
       </Reveal>

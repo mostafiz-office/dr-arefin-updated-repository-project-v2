@@ -4,53 +4,53 @@ import SeoLink from "@/components/arefin/SeoLink";
 
 const stats = [
   {
-    end: 8,
+    end: 10,
     suffix: "+",
     separator: "",
     label: "Years of **surgical excellence**",
     category: "Experience",
     href: "/years-of-experience/",
     titleAttr:
-      "8+ years of dedicated hepatobiliary, liver, gallbladder, and pancreatic surgical experience in Dhaka — Dr. Murshidul Arefin's clinical track record",
+      "10+ years of dedicated hepatobiliary, liver, gallbladder, and pancreatic surgical experience in Dhaka — Dr. Murshidul Arefin's clinical track record",
     labelHref: "/surgical-excellence-experience/",
     labelTitleAttr:
       "Years of surgical excellence in hepatobiliary, liver, gallbladder, and pancreatic surgery — Dr. Murshidul Arefin's dedicated practice in Dhaka",
   },
   {
-    end: 800,
+    end: 1500,
     suffix: "+",
-    separator: "",
+    separator: ",",
     label: "**Successful surgeries**",
     category: "Clinical Volume",
     href: "/successful-surgeries/",
     titleAttr:
-      "800+ successful hepatobiliary surgeries — high clinical volume in liver, gallbladder, and pancreatic procedures performed by Dr. Murshidul Arefin in Dhaka",
+      "1,500+ successful hepatobiliary surgeries — high clinical volume in liver, gallbladder, and pancreatic procedures performed by Dr. Murshidul Arefin in Dhaka",
     labelHref: "/successful-hepatobiliary-surgeries/",
     labelTitleAttr:
       "Successful hepatobiliary surgeries and clinical outcomes in liver, gallbladder, and pancreatic procedures by Dr. Murshidul Arefin in Dhaka",
   },
   {
-    end: 10000,
+    end: 15000,
     suffix: "+",
     separator: ",",
     label: "**Patients treated**",
     category: "Patient Reach",
     href: "/patients-treated-count/",
     titleAttr:
-      "10,000+ patients consulted, evaluated, and treated by Dr. Murshidul Arefin's hepatobiliary and liver care practice in Dhaka",
+      "15,000+ patients consulted, evaluated, and treated by Dr. Murshidul Arefin's hepatobiliary and liver care practice in Dhaka",
     labelHref: "/patients-treated-care/",
     labelTitleAttr:
       "Patients treated across consultation, evaluation, surgery, and follow-up by Dr. Murshidul Arefin's hepatobiliary practice in Dhaka",
   },
   {
-    end: 80,
+    end: 100,
     suffix: "+",
     separator: "",
     label: "**Conferences**",
     category: "Academic",
     href: "/conferences-presented/",
     titleAttr:
-      "80+ national and international surgical conferences attended and presented at by Dr. Murshidul Arefin — active academic engagement in hepatobiliary surgery",
+      "100+ national and international surgical conferences attended and presented at by Dr. Murshidul Arefin — active academic engagement in hepatobiliary surgery",
     labelHref: "/surgical-conferences-academic/",
     labelTitleAttr:
       "Surgical conferences and academic engagement — national and international hepatobiliary surgery presentations by Dr. Murshidul Arefin",

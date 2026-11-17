@@ -1,10 +1,10 @@
 import CountUp from "@/components/CountUp";
 
 const stats = [
-  { end: 8, suffix: "+", separator: "", label: "Years of surgical excellence", category: "Experience" },
-  { end: 800, suffix: "+", separator: "", label: "Successful HPB surgeries", category: "Clinical Volume" },
-  { end: 10000, suffix: "+", separator: ",", label: "Patients treated", category: "Patient Reach" },
-  { end: 80, suffix: "+", separator: "", label: "Conferences & lectures", category: "Academic" },
+  { end: 10, suffix: "+", separator: "", label: "Years of surgical excellence", category: "Experience" },
+  { end: 1500, suffix: "+", separator: ",", label: "Successful HPB surgeries", category: "Clinical Volume" },
+  { end: 15000, suffix: "+", separator: ",", label: "Patients treated", category: "Patient Reach" },
+  { end: 100, suffix: "+", separator: "", label: "Conferences & lectures", category: "Academic" },
 ];
 
 const delays = ["hero-d-0", "hero-d-100", "hero-d-200", "hero-d-300"];

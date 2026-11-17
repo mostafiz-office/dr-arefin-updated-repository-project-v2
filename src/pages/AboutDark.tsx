@@ -230,7 +230,7 @@ const credentials = [
   {
     year: "Today",
     icon: Award,
-    title: "1,000+ Hepatobiliary Procedures",
+    title: "1,500+ Hepatobiliary Procedures",
     to: "/credentials/1500-gallbladder-surgeries-dhaka/",
     linkTitle: "1,500+ gallbladder & hepatobiliary surgeries performed in Dhaka — documented volume",
     body: (
@@ -244,7 +244,7 @@ const credentials = [
         , with more than{" "}
         <strong>
           <Link to="/credentials/1500-gallbladder-surgeries-dhaka/" title="1,500+ successful gallbladder & hepatobiliary procedures in Dhaka">
-            1,000 successful procedures
+            1,500 successful procedures
           </Link>
         </strong>{" "}
         across liver, gallbladder, biliary tract and pancreatic surgery — combining open and
@@ -386,7 +386,7 @@ const AboutDark = () => {
                   </li>
                   <li className="about-highlight-item flex items-start gap-3">
                     <HeartPulse className="about-highlight-icon h-5 w-5 mt-0.5 shrink-0" aria-hidden="true" />
-                    <span><strong><Link to="/credentials/1500-gallbladder-surgeries-dhaka/" title="1500+ successful gallbladder &amp; hepatobiliary surgeries performed in Dhaka">1,000+ successful surgeries</Link></strong> across hepatobiliary &amp; upper-GI care</span>
+                    <span><strong><Link to="/credentials/1500-gallbladder-surgeries-dhaka/" title="1500+ successful gallbladder &amp; hepatobiliary surgeries performed in Dhaka">1,500+ successful surgeries</Link></strong> across hepatobiliary &amp; upper-GI care</span>
                   </li>
                   <li className="about-highlight-item flex items-start gap-3">
                     <Stethoscope className="about-highlight-icon h-5 w-5 mt-0.5 shrink-0" aria-hidden="true" />
