@@ -23,7 +23,7 @@ import { getFaqsBySlugs } from "@/data/faqRegistry";
 import heroBg from "@/assets/gallery/hepatobiliary-open-surgery-best-surgeon-team-dhaka.webp";
 import imgPortrait from "@/assets/gallery/dr-murshidul-arefin-surgeon-ot-portrait.webp";
 import imgTumor from "@/assets/gallery/liver-pancreatic-open-surgery-specialist-team-dhaka.webp";
-import imgCyst from "@/assets/gallery/dr-murshidul-arefin-open-surgery-closeup-popular-medical-dhaka.webp";
+import imgCyst from "@/assets/dr-arefin-ot-action-scrubs-instruments.webp";
 import imgFatty from "@/assets/gallery/laparoscopic-gallbladder-surgery-full-ot-team-popular-medical-dhaka.webp";
 import imgTransplant from "@/assets/gallery/liver-surgery-team-closeup-hepatobiliary-surgeon-dhaka.webp";
 import imgFollowup from "@/assets/gallery/dr-murshidul-arefin-patient-recovery-after-gallbladder-surgery-dhaka.webp";

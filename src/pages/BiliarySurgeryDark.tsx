@@ -22,7 +22,7 @@ import { getFaqsBySlugs } from "@/data/faqRegistry";
 /* ── Real clinical images ── */
 import heroBg from "@/assets/gallery/gallbladder-surgery-operating-room-panoramic-dhaka.webp";
 import imgPortrait from "@/assets/gallery/dr-murshidul-arefin-surgeon-ot-portrait.webp";
-import imgObstruction from "@/assets/gallery/dr-murshidul-arefin-open-surgery-closeup-popular-medical-dhaka.webp";
+import imgObstruction from "@/assets/dr-arefin-ot-overhead-surgical-lights.webp";
 import imgCholangitis from "@/assets/gallery/dr-murshidul-arefin-laparoscopic-surgery-duo-popular-medical-dhaka.webp";
 import imgCancer from "@/assets/gallery/dr-murshidul-arefin-open-surgery-suturing-popular-medical-dhaka.webp";
 import imgStricture from "@/assets/gallery/hepatobiliary-open-surgery-best-surgeon-team-dhaka.webp";

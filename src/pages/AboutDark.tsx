@@ -23,7 +23,7 @@ import FAQAccordion from "@/components/arefin/FAQAccordion";
 import { getFaqsByCategory } from "@/data/faqRegistry";
 import darkLogo from "@/assets/dr-arefin-logo-dark.webp";
 import heroBg from "@/assets/about-hero-ot-real.webp";
-import portraitIntro from "@/assets/dr-arefin-liver-doctor-real.webp";
+import portraitIntro from "@/assets/dr-arefin-executive-portrait-suit.webp";
 import { Reveal } from "@/hooks/useScrollReveal";
 
 /**

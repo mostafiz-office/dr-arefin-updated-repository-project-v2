@@ -31,6 +31,8 @@ import ot14 from "@/assets/gallery/empyema-gallbladder-laparoscopic-surgery-spec
 import ot15 from "@/assets/gallery/gallbladder-stone-laparoscopic-removal-surgery-dhaka.webp";
 import ot16 from "@/assets/gallery/dr-murshidul-arefin-surgical-team-gallbladder-operation-popular-medical.webp";
 import ot17 from "@/assets/gallery/gallbladder-operation-surgical-team-popular-medical-dhaka.webp";
+import ot18 from "@/assets/dr-arefin-ot-overhead-surgical-lights.webp";
+import ot19 from "@/assets/dr-arefin-ot-action-scrubs-instruments.webp";
 
 /* ── Conference & Training ── */
 import ct01 from "@/assets/gallery/dr-arefin-16th-international-surgical-congress-2025.webp";
@@ -49,12 +51,23 @@ import ct13 from "@/assets/gallery/dr-murshidul-arefin-medical-conference-speake
 import ct14 from "@/assets/gallery/dr-murshidul-arefin-medical-seminar-hepatobiliary-training-dhaka.webp";
 import ct15 from "@/assets/gallery/dr-arefin-surgeons-group-table-conference-2024.webp";
 import ct16 from "@/assets/gallery/dr-arefin-senior-colleague-sea-pearl-selsb-2025.webp";
+import ct17 from "@/assets/gallery/dr-arefin-sosb-khulna-conference-award-crest-2026.webp";
+import ct18 from "@/assets/gallery/dr-arefin-sosb-khulna-delegate-portrait-2026.webp";
+import ct19 from "@/assets/gallery/dr-arefin-sosb-khulna-conference-hall-2026.webp";
+import ct20 from "@/assets/gallery/dr-arefin-sosb-8th-surgical-conference-stage-group-2026.webp";
+import ct21 from "@/assets/gallery/dr-arefin-sosb-conference-crest-presentation-stage-2026.webp";
+import ct22 from "@/assets/gallery/dr-arefin-surgical-colleague-conference-venue-2026.webp";
+import ct23 from "@/assets/gallery/dr-arefin-medical-colleagues-evening-gathering.webp";
+import ct24 from "@/assets/gallery/dr-arefin-surgeons-networking-session.webp";
 
 /* ── Chamber ── */
 import ch01 from "@/assets/gallery/dr-murshidul-arefin-liver-specialist-consultation-chamber-dhaka.webp";
 import ch02 from "@/assets/gallery/dr-murshidul-arefin-best-gallbladder-surgeon-dhaka.webp";
 import ch03 from "@/assets/gallery/dr-murshidul-arefin-hepatobiliary-surgeon.webp";
 import ch04 from "@/assets/gallery/dr-murshidul-arefin-appointment-gallbladder-liver-surgeon-dhaka.webp";
+import ch05 from "@/assets/dr-arefin-chamber-consultation-elderly-patient.webp";
+import ch06 from "@/assets/dr-arefin-consultation-desk-anatomical-chart.webp";
+import ch07 from "@/assets/dr-arefin-white-coat-studio-portrait.webp";
 
 /* ── Successful OT ── */
 import sot01 from "@/assets/gallery/dr-murshidul-arefin-successful-gallbladder-stone-operation-dhaka.webp";
@@ -103,6 +116,8 @@ export const galleryImages: GalleryImage[] = [
   { src: ot15, alt: "Gallbladder stone laparoscopic removal surgery in Dhaka", category: "Operation Theater" },
   { src: ot16, alt: "Dr. Murshidul Arefin surgical team gallbladder operation at Popular Medical", category: "Operation Theater" },
   { src: ot17, alt: "Gallbladder operation surgical team at Popular Medical, Dhaka", category: "Operation Theater" },
+  { src: ot18, alt: "Dr. Murshidul Arefin performing hepatobiliary surgery under overhead theatre lights", category: "Operation Theater" },
+  { src: ot19, alt: "Dr. Murshidul Arefin in surgical scrubs operating with specialized instruments and team", category: "Operation Theater" },
 
   /* Conference & Training */
   { src: ct01, alt: "Dr. Arefin at 16th International Surgical Congress 2025", category: "Conference & Training" },
@@ -121,12 +136,23 @@ export const galleryImages: GalleryImage[] = [
   { src: ct14, alt: "Dr. Murshidul Arefin medical seminar hepatobiliary training, Dhaka", category: "Conference & Training" },
   { src: ct15, alt: "Dr. Arefin with surgeons group at conference table 2024", category: "Conference & Training" },
   { src: ct16, alt: "Dr. Arefin with senior colleague at Sea Pearl SELSB 2025", category: "Conference & Training" },
+  { src: ct17, alt: "Dr. Arefin with 8th Surgical Conference SOSB 2026 award crest", category: "Conference & Training" },
+  { src: ct18, alt: "Dr. Arefin at Society of Surgeons of Bangladesh 2026 national conference", category: "Conference & Training" },
+  { src: ct19, alt: "Dr. Arefin at the SOSB Khulna 8th Surgical Conference hall", category: "Conference & Training" },
+  { src: ct20, alt: "Dr. Arefin on stage with surgical faculty at SOSB Khulna 2026", category: "Conference & Training" },
+  { src: ct21, alt: "Dr. Arefin receiving surgical conference crest at SOSB Khulna 2026", category: "Conference & Training" },
+  { src: ct22, alt: "Dr. Arefin with senior surgical colleague at SOSB 2026 venue", category: "Conference & Training" },
+  { src: ct23, alt: "Dr. Arefin with medical colleagues and surgical fellows", category: "Conference & Training" },
+  { src: ct24, alt: "Dr. Arefin during surgical congress networking session", category: "Conference & Training" },
 
   /* Chamber */
   { src: ch01, alt: "Dr. Murshidul Arefin liver specialist consultation chamber, Dhaka", category: "Chamber" },
   { src: ch02, alt: "Dr. Murshidul Arefin — best gallbladder surgeon in Dhaka", category: "Chamber" },
   { src: ch03, alt: "Dr. Murshidul Arefin — hepatobiliary surgeon portrait", category: "Chamber" },
   { src: ch04, alt: "Dr. Murshidul Arefin appointment — gallbladder and liver surgeon, Dhaka", category: "Chamber" },
+  { src: ch05, alt: "Dr. Murshidul Arefin conducting patient consultation and medical guidance in chamber", category: "Chamber" },
+  { src: ch06, alt: "Dr. Murshidul Arefin at consultation desk with clinical anatomical chart", category: "Chamber" },
+  { src: ch07, alt: "Dr. Murshidul Arefin in official doctor coat — hepatobiliary consultant portrait", category: "Chamber" },
 
   /* Successful OT */
   { src: sot01, alt: "Dr. Murshidul Arefin successful gallbladder stone operation, Dhaka", category: "Successful OT" },

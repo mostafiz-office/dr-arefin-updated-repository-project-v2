@@ -17,6 +17,7 @@ import SimilarWebsiteBar from "@/components/arefin/SimilarWebsiteBar";
 import FAQAccordion from "@/components/arefin/FAQAccordion";
 import darkLogo from "@/assets/dr-arefin-logo-dark.webp";
 import heroBg from "@/assets/about-hero-ot-real.webp";
+import visitingCardImg from "@/assets/dr-arefin-popular-diagnostic-centre-visiting-hours-card.webp";
 import { Reveal } from "@/hooks/useScrollReveal";
 import { appointmentSchema, isOtherConcern, sendAppointmentRequest } from "@/lib/appointmentRequest";
 import { SERVICES } from "@/data/satelliteMatrix";
@@ -395,6 +396,16 @@ const ContactDark = () => {
                   <p className="contact-info-text">Saturday – Thursday</p>
                   <p className="contact-info-text">5:00 PM – 9:00 PM</p>
                   <p className="contact-info-text contact-info-muted">Friday: Closed</p>
+                </div>
+
+                <div className="contact-chamber-card contact-info-card arefin-card arefin-card-hover overflow-hidden !p-2">
+                  <img
+                    src={visitingCardImg}
+                    alt="Dr. Murshidul Arefin Official Chamber Visiting Hours - Popular Diagnostic Centre Dhanmondi Unit 2 Room 304"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-auto rounded-lg object-contain"
+                  />
                 </div>
               </div>
             </Reveal>

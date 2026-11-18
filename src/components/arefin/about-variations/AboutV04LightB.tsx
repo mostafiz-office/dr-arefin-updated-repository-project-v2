@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import SeoLink from "@/components/arefin/SeoLink";
 import { ArrowRight, BookOpen } from "lucide-react";
-import portrait from "@/assets/arefin-about-portrait-real.webp";
+import portrait from "@/assets/dr-arefin-white-coat-studio-portrait.webp";
 
 /**
  * About — Variation B (LIGHT) "Credentials Showcase"
@@ -103,8 +103,8 @@ const AboutV04LightB = () => {
                 <img
                   src={portrait}
                   alt="Dr. Murshidul Arefin — Hepatobiliary & Liver Transplant Surgeon, Dhaka"
-                  width={1279}
-                  height={1920}
+                  width={896}
+                  height={1196}
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"

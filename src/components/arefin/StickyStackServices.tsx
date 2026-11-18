@@ -7,9 +7,9 @@ import { useYouTubeUploads } from "@/hooks/useYouTubeUploads";
 import imgOtDoing from "@/assets/dr-arefin-doing-ot-real.webp";
 import imgOtTeam from "@/assets/dr-arefin-ot-team-real.webp";
 import imgPostOp from "@/assets/dr-arefin-post-operation-real.webp";
-import imgStaff from "@/assets/dr-arefin-popular-medical-staff-real.webp";
-import imgBiliary from "@/assets/transformation-biliary-surgery-real.webp";
-import imgTransplant from "@/assets/transformation-liver-transplant-real.webp";
+import imgConsultationElderly from "@/assets/dr-arefin-chamber-consultation-elderly-patient.webp";
+import imgBileDuctOT from "@/assets/dr-arefin-ot-overhead-surgical-lights.webp";
+import imgTransplantOT from "@/assets/dr-arefin-ot-action-scrubs-instruments.webp";
 
 /**
  * Sticky stacking service cards — JS scroll-driven.
@@ -66,8 +66,8 @@ const cards: ServiceCard[] = [
     title: "Bile Duct & Hepatic Surgery",
     desc: "Precision surgery for **bile duct injuries, strictures, and choledochal cysts**, restoring normal biliary drainage and preventing long-term liver damage through **expert reconstruction techniques**.",
     stats: [{ value: "200+", label: "RECONSTRUCTIONS" }, { value: "85%", label: "REFERRAL RATE" }],
-    fallbackImage: imgBiliary,
-    imageAlt: "Biliary surgery transformation — before and after results",
+    fallbackImage: imgBileDuctOT,
+    imageAlt: "Dr. Arefin performing bile duct and hepatic reconstruction under operating theatre lights",
     slug: "bile-duct-surgery",
     keywords: ["bile duct", "choledochal", "biliary stricture", "bile injury", "hepaticojejunostomy", "জন্ডিস", "jaundice"],
   },
@@ -76,8 +76,8 @@ const cards: ServiceCard[] = [
     title: "Liver Transplant Coordination",
     desc: "Personalized **pre- and post-transplant care** to guide patients through every stage of their **liver health journey** with compassion, expert supervision, and seamless coordination with transplant centers.",
     stats: [{ value: "150+", label: "PATIENTS GUIDED" }, { value: "Lifetime", label: "FOLLOW-UP CARE" }],
-    fallbackImage: imgTransplant,
-    imageAlt: "Liver transplant patient recovery — Dr. Arefin's guidance",
+    fallbackImage: imgTransplantOT,
+    imageAlt: "Dr. Arefin in surgical scrubs operating with specialized instruments and theatre team",
     slug: "liver-transplant",
     keywords: ["transplant", "liver transplant", "donor", "living donor", "পুনর্জন্ম", "নতুন করে গড়ে"],
   },
@@ -86,8 +86,8 @@ const cards: ServiceCard[] = [
     title: "Fatty Liver & Disease Management",
     desc: "Comprehensive medical management for **fatty liver, hepatitis, and chronic liver disease** with evidence-based protocols for lifestyle modification, monitoring, and **early intervention** to prevent progression.",
     stats: [{ value: "500+", label: "PATIENTS MANAGED" }, { value: "Non-surgical", label: "FIRST APPROACH" }],
-    fallbackImage: imgStaff,
-    imageAlt: "Dr. Arefin and medical staff reviewing patient liver health data",
+    fallbackImage: imgConsultationElderly,
+    imageAlt: "Dr. Arefin conducting chamber consultation and counseling for an elderly patient",
     slug: "fatty-liver",
     keywords: ["fatty liver", "hepatitis", "cirrhosis", "liver disease", "nafld", "nash", "সমস্যা", "সতর্ক"],
   },

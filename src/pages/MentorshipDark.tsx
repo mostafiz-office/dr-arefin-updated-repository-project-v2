@@ -19,7 +19,7 @@ import DrArefinFooter from "@/components/arefin/DrArefinFooter";
 import HeroSection from "@/components/arefin/HeroSection";
 import { GlobalCTABand } from "@/components/arefin/GlobalCTABand";
 import darkLogo from "@/assets/dr-arefin-logo-dark.webp";
-import heroBg from "@/assets/dr-arefin-ot-team-real.webp";
+import heroBg from "@/assets/gallery/dr-arefin-medical-colleagues-evening-gathering.webp";
 import { Reveal } from "@/hooks/useScrollReveal";
 import CountUp from "@/components/CountUp";
 import TestimonialsSection from "@/components/arefin/TestimonialsSection";
