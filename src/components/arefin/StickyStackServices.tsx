@@ -217,11 +217,11 @@ const VideoCard = ({
       onMouseLeave={handleMouseLeave}
     >
       <div className="sss-flip-inner">
-        {/* Front — image + animated play badge */}
-        <button
-          type="button"
-          className="sss-flip-face sss-flip-front sss-video-thumb"
+        {/* Front — image + animated play badge + hover YouTube link */}
+        <div
+          className="sss-flip-face sss-flip-front sss-video-thumb cursor-pointer"
           onClick={handleClick}
+          role="button"
           aria-label={`Play video: ${imageAlt}`}
           tabIndex={flipped ? -1 : 0}
         >
@@ -239,22 +239,64 @@ const VideoCard = ({
               <path d="M45 24L27 14v20" fill="hsl(var(--primary-bright))"/>
             </svg>
           </span>
-        </button>
 
-        {/* Back — iframe (mounted only while flipped) */}
+          {/* Hover YouTube link badge */}
+          {videoId && (
+            <a
+              href={`https://www.youtube.com/watch?v=${videoId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="sss-yt-badge"
+              title="Watch on YouTube"
+              aria-label={`Watch ${imageAlt} on YouTube`}
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="#ff0000" aria-hidden="true">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>Watch on YouTube</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+              </svg>
+            </a>
+          )}
+        </div>
+
+        {/* Back — iframe (mounted only while flipped) + persistent Watch on YouTube link */}
         <div
           className="sss-flip-face sss-flip-back"
           aria-hidden={!flipped}
           onClick={handleClick}
         >
           {mountIframe ? (
-            <iframe
-              className="sss-card-iframe"
-              src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1&mute=${muted ? 1 : 0}&playsinline=1`}
-              title={imageAlt}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            <>
+              <iframe
+                className="sss-card-iframe"
+                src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1&mute=${muted ? 1 : 0}&playsinline=1`}
+                title={imageAlt}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+              {videoId && (
+                <a
+                  href={`https://www.youtube.com/watch?v=${videoId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="sss-yt-badge sss-yt-badge--back"
+                  title="Watch on YouTube (Opens in new tab)"
+                  aria-label={`Watch ${imageAlt} on YouTube`}
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#ff0000" aria-hidden="true">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                  <span>Watch on YouTube</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                  </svg>
+                </a>
+              )}
+            </>
           ) : (
             <div className="sss-iframe-loader" aria-hidden>
               <svg className="sss-spinner" viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">

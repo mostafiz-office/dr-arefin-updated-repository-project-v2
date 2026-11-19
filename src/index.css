@@ -3482,6 +3482,58 @@
 .sss-flip-back .sss-iframe-loader {
   color: hsl(0 0% 100% / 0.6);
 }
+
+/* YouTube link badge on slide cards (appears on hover) */
+.sss-yt-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: hsl(0 0% 0% / 0.82);
+  color: #fff;
+  border: 1px solid hsl(0 0% 100% / 0.22);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 14px hsl(0 0% 0% / 0.35);
+  z-index: 10;
+  transition: opacity 220ms ease, transform 220ms ease, background 200ms ease, border-color 200ms ease;
+  pointer-events: auto;
+}
+
+/* On front face: fade in on card hover */
+.sss-flip-front .sss-yt-badge {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+.sss-flip:hover .sss-flip-front .sss-yt-badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* On back face: always clearly visible in the corner over the iframe */
+.sss-yt-badge--back {
+  opacity: 0.92;
+  transform: translateY(0);
+}
+.sss-yt-badge--back:hover {
+  opacity: 1;
+}
+
+.sss-yt-badge:hover {
+  background: #ff0000;
+  border-color: #ff0000;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px hsl(0 100% 50% / 0.4);
+}
 /* Reduced motion: fade swap instead of rotation */
 @media (prefers-reduced-motion: reduce) {
   .sss-flip-inner { transition: none; }

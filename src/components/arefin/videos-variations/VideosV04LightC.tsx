@@ -66,7 +66,7 @@ const VideoThumb = ({
   const showIframe = hovering || engaged;
   const src = driveId
     ? `https://drive.google.com/file/d/${driveId}/preview`
-    : `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1${
+    : `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1${
         engaged ? "&autoplay=1" : ""
       }`;
 

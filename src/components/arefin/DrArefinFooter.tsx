@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Facebook, Youtube, Linkedin, Instagram } from "lucide-react";
 import logo from "@/assets/dr-arefin-logo.webp";
-import crestBadge from "@/assets/dr-arefin-hpb-specialist-crest-badge.webp";
 
 // Inline SVG icon nodes (lucide doesn't ship these brand marks)
 const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -34,20 +33,13 @@ const DrArefinFooter = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:[grid-template-columns:1.618fr_1fr_1.2fr_0.8fr] gap-10">
             {/* Brand */}
             <div>
-              <div className="flex items-center gap-3 mb-5">
-                <Link to="/" className="inline-block" title="Dr. M Arefin — Hepatobiliary, Liver, Gallbladder & Pancreatic Surgeon in Dhanmondi, Dhaka — Home">
-                  <img
-                    src={logo}
-                    alt="Dr. M Arefin Hepatobiliary Panacea — official logo"
-                    className="h-14 w-auto"
-                  />
-                </Link>
+              <Link to="/" className="inline-block mb-5" title="Dr. M Arefin — Hepatobiliary, Liver, Gallbladder & Pancreatic Surgeon in Dhanmondi, Dhaka — Home">
                 <img
-                  src={crestBadge}
-                  alt="Dr. Arefin HPB Specialist Verified Emblem"
-                  className="h-12 w-12 object-contain rounded-full shadow-sm"
+                  src={logo}
+                  alt="Dr. M Arefin Hepatobiliary Panacea — official logo"
+                  className="h-14 w-auto"
                 />
-              </div>
+              </Link>
               <p className="text-sm leading-relaxed arefin-band-body">
                 {/* T04 (2026-05-17): Gallbladder-first rewrite — leads with
                     the highest-priority keyword, then expands to broader
