@@ -86,7 +86,7 @@ const ValuePropV04LightA = () => {
       style={{ background: "#E2F8E7" }}
       aria-label="Value proposition — minimalist numerals"
     >
-      <div className="container px-6 sm:px-8 md:px-6 py-14 sm:py-16 md:pt-14 md:pb-24 lg:pt-16 lg:pb-28">
+      <div className="container max-w-[1248px] mx-auto px-6 py-14 md:py-20 lg:py-28">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8">
           {items.map((it, i) => (
             <article

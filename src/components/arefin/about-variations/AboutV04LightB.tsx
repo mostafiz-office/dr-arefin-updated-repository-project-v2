@@ -16,7 +16,7 @@ const AboutV04LightB = () => {
       className="hero-04-light-band arefin-section-divider relative"
       aria-label="About Dr. Murshidul Arefin — credentials showcase"
     >
-      <div className="container py-14 md:py-20 lg:py-28 lg:py-32">
+      <div className="container max-w-[1248px] mx-auto px-6 py-14 md:py-20 lg:py-28 lg:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Text column */}
           <div className="lg:col-span-7 hero-anim-fade-up hero-d-0">

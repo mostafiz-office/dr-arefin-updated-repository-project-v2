@@ -199,15 +199,21 @@ const DrArefinHomeLight = () => {
         </div>
         <style>{`
           .arefin-feature-band .cta-band-bg-img {
-            filter: brightness(0.42) saturate(0.85);
+            filter: brightness(0.72) saturate(0.95);
           }
           .arefin-feature-band .cta-band-overlay {
             background: linear-gradient(
               to bottom,
-              hsl(0 0% 0% / 0.72) 0%,
-              hsl(0 0% 0% / 0.78) 50%,
-              hsl(0 0% 0% / 0.86) 100%
+              hsl(0 0% 0% / 0.45) 0%,
+              hsl(0 0% 0% / 0.52) 50%,
+              hsl(0 0% 0% / 0.60) 100%
             );
+          }
+          .arefin-feature-band h2 {
+            text-shadow: 0 3px 20px hsl(0 0% 0% / 0.85), 0 1px 4px hsl(0 0% 0% / 0.9);
+          }
+          .arefin-feature-band .arefin-band-body {
+            text-shadow: 0 2px 14px hsl(0 0% 0% / 0.85), 0 1px 3px hsl(0 0% 0% / 0.9);
           }
           /* T15: All body text in this dark CTA band shares the SAME exact white
              at rest. Links/strongs only differ on hover (green + shadow). */
