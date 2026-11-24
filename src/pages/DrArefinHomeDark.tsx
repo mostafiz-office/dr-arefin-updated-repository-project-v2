@@ -201,14 +201,16 @@ const DrArefinHomeDark = () => {
         </div>
         <style>{`
           .arefin-feature-band .cta-band-bg-img {
-            filter: brightness(0.72) saturate(0.95);
+            filter: brightness(0.52) saturate(0.90) blur(2.5px);
+            transform: scale(1.05);
+            transform-origin: center;
           }
           .arefin-feature-band .cta-band-overlay {
             background: linear-gradient(
               to bottom,
-              hsl(0 0% 0% / 0.45) 0%,
-              hsl(0 0% 0% / 0.52) 50%,
-              hsl(0 0% 0% / 0.60) 100%
+              hsl(0 0% 0% / 0.62) 0%,
+              hsl(0 0% 0% / 0.68) 50%,
+              hsl(0 0% 0% / 0.76) 100%
             );
           }
           .arefin-feature-band h2 {
