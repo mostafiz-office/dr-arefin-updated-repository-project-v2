@@ -29,6 +29,7 @@ import SectionToneValidator from "@/components/arefin/dev/SectionToneValidator";
 
 import SeoLink from "@/components/arefin/SeoLink";
 import aboutPortrait from "@/assets/arefin-about-portrait-real.webp";
+import ctaOtBg from "@/assets/dr-arefin-ot-action-scrubs-instruments.webp";
 
 import story1 from "@/assets/transformation-liver-transplant-real.webp";
 import story2 from "@/assets/transformation-biliary-surgery-real.webp";
@@ -165,17 +166,27 @@ const DrArefinHomeDark = () => {
       </Reveal>
 
       {/* ============== SECTION 7 — CTA BAND #1 ============== */}
-      <section className="arefin-feature-band py-20 md:py-24 relative bg-background">
-        <div className="container relative text-center max-w-3xl mx-auto">
+      <section className="arefin-feature-band py-20 md:py-24 relative overflow-hidden bg-background">
+        <div className="absolute inset-0 pointer-events-none">
+          <img
+            src={ctaOtBg}
+            loading="lazy"
+            alt=""
+            aria-hidden="true"
+            className="cta-band-bg-img block w-full h-full object-cover object-center"
+          />
+          <div className="cta-band-overlay absolute inset-0" />
+        </div>
+        <div className="container relative z-10 text-center max-w-3xl mx-auto">
           <Reveal>
-            <h2 className="text-fluid-h1 font-bold mb-6 leading-[1.1] tracking-tight [text-wrap:balance] max-w-4xl mx-auto">
+            <h2 className="text-fluid-h1 font-bold mb-6 leading-[1.1] tracking-tight [text-wrap:balance] max-w-4xl mx-auto drop-shadow-md">
               Transform Lives,{" "}
               <span className="text-primary-light italic font-bold">One Surgery</span>{" "}
               at a Time
             </h2>
           </Reveal>
           <Reveal delay={100}>
-            <p className="arefin-band-body text-fluid-lede mb-10 leading-relaxed max-w-2xl mx-auto">
+            <p className="arefin-band-body text-fluid-lede mb-10 leading-relaxed max-w-2xl mx-auto text-white/95 drop-shadow-sm">
               Your trust and support help{" "}
               <SeoLink to="/about/" title="About Dr. Murshidul Arefin — Hepatobiliary and Liver Transplant Surgeon" bold>Dr. Murshidul Arefin</SeoLink> deliver{" "}
               <SeoLink to="/treatment/hepatobiliary-surgery/" title="Critical hepatobiliary and liver surgery in Dhaka by Dr. Arefin" bold>critical liver and hepatobiliary surgeries</SeoLink> to{" "}
@@ -188,6 +199,35 @@ const DrArefinHomeDark = () => {
             </div>
           </Reveal>
         </div>
+        <style>{`
+          .arefin-feature-band .cta-band-bg-img {
+            filter: brightness(0.42) saturate(0.85);
+          }
+          .arefin-feature-band .cta-band-overlay {
+            background: linear-gradient(
+              to bottom,
+              hsl(0 0% 0% / 0.72) 0%,
+              hsl(0 0% 0% / 0.78) 50%,
+              hsl(0 0% 0% / 0.86) 100%
+            );
+          }
+          .arefin-feature-band .arefin-band-body,
+          .arefin-feature-band .arefin-band-body strong,
+          .arefin-feature-band .arefin-band-body .seo-link {
+            color: hsl(0 0% 100%);
+            font-weight: inherit;
+          }
+          .arefin-feature-band .arefin-band-body .seo-link {
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+                        text-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1);
+          }
+          .arefin-feature-band .arefin-band-body .seo-link:hover {
+            color: hsl(var(--primary));
+            text-shadow: 1px 0.7px 0 rgb(var(--hover-shadow-ink));
+          }
+        `}</style>
       </section>
 
       {/* ============== SECTION 8 — SERVICES ============== */}

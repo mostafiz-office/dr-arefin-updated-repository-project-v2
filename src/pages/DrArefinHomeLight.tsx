@@ -24,6 +24,7 @@ import { Fragment, type ReactNode } from "react";
 
 import story1 from "@/assets/transformation-liver-transplant-real.webp";
 import story2 from "@/assets/transformation-biliary-surgery-real.webp";
+import ctaOtBg from "@/assets/dr-arefin-ot-action-scrubs-instruments.webp";
 
 
 const initiatives = [
@@ -162,26 +163,27 @@ const DrArefinHomeLight = () => {
       <ServicesV04LightC />
 
       {/* ============== SECTION 8 — CTA BAND #1 ============== */}
-      <section className="arefin-feature-band py-20 md:py-24 relative overflow-hidden">
+      <section className="arefin-feature-band py-20 md:py-24 relative overflow-hidden bg-background">
         <div className="absolute inset-0 pointer-events-none">
-          <div
-            className="absolute inset-0 opacity-60"
-            style={{
-              background:
-                "radial-gradient(ellipse at 30% 50%, hsl(var(--primary) / 0.35), transparent 60%), radial-gradient(ellipse at 70% 50%, hsl(var(--primary-glow) / 0.25), transparent 50%)",
-            }}
+          <img
+            src={ctaOtBg}
+            loading="lazy"
+            alt=""
+            aria-hidden="true"
+            className="cta-band-bg-img block w-full h-full object-cover object-center"
           />
+          <div className="cta-band-overlay absolute inset-0" />
         </div>
-        <div className="container relative text-center max-w-3xl mx-auto">
+        <div className="container relative z-10 text-center max-w-3xl mx-auto">
           <Reveal>
-            <h2 className="text-fluid-h1 font-bold mb-6 leading-[1.1] tracking-tight [text-wrap:balance] max-w-4xl mx-auto">
+            <h2 className="text-fluid-h1 font-bold mb-6 leading-[1.1] tracking-tight [text-wrap:balance] max-w-4xl mx-auto drop-shadow-md">
               Transform Lives,{" "}
               <span className="text-primary-light italic font-bold">One Surgery</span>{" "}
               at a Time
             </h2>
           </Reveal>
           <Reveal delay={100}>
-            <p className="arefin-band-body text-base md:text-lg mb-10 leading-relaxed max-w-2xl mx-auto">
+            <p className="arefin-band-body text-base md:text-lg mb-10 leading-relaxed max-w-2xl mx-auto text-white/95 drop-shadow-sm">
               Your trust and support help{" "}
               <SeoLink to="/dr-murshidul-arefin/" title="About Dr. Murshidul Arefin — hepatobiliary surgeon in Dhaka" bold>Dr. Murshidul Arefin</SeoLink> deliver{" "}
               <SeoLink to="/critical-liver-surgery/" title="Critical liver surgery — complex hepatic procedures by Dr. Arefin" bold>critical liver</SeoLink> and{" "}
@@ -196,6 +198,17 @@ const DrArefinHomeLight = () => {
           </Reveal>
         </div>
         <style>{`
+          .arefin-feature-band .cta-band-bg-img {
+            filter: brightness(0.42) saturate(0.85);
+          }
+          .arefin-feature-band .cta-band-overlay {
+            background: linear-gradient(
+              to bottom,
+              hsl(0 0% 0% / 0.72) 0%,
+              hsl(0 0% 0% / 0.78) 50%,
+              hsl(0 0% 0% / 0.86) 100%
+            );
+          }
           /* T15: All body text in this dark CTA band shares the SAME exact white
              at rest. Links/strongs only differ on hover (green + shadow). */
           .arefin-feature-band .arefin-band-body,
