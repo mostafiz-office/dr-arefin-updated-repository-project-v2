@@ -883,12 +883,24 @@
   .arefin-mega-rail-item:hover .arefin-mega-rail-name,
   .arefin-mega-rail-item:focus-visible .arefin-mega-rail-name,
   .arefin-mega-rail-item[data-active="true"] .arefin-mega-rail-name {
-    color: hsl(var(--primary-bright));
+    color: #ffffff;
   }
   .arefin-mega-rail-count {
     font-size: 0.7rem;
     color: hsl(40 8% 65%);
     margin-top: 1px;
+    transition: color 300ms ease;
+  }
+  .arefin-mega-rail-item:hover .arefin-mega-rail-count,
+  .arefin-mega-rail-item:focus-visible .arefin-mega-rail-count,
+  .arefin-mega-rail-item[data-active="true"] .arefin-mega-rail-count {
+    color: #ffffff;
+  }
+  .arefin-mega-rail-item:hover .arefin-mega-icon,
+  .arefin-mega-rail-item:focus-visible .arefin-mega-icon,
+  .arefin-mega-rail-item[data-active="true"] .arefin-mega-icon {
+    color: #ffffff;
+    background-color: hsl(var(--primary-bright) / 0.35);
   }
   .arefin-mega-rail-footer {
     margin-top: auto;
