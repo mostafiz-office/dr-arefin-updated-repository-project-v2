@@ -168,7 +168,7 @@ const DrArefinHeaderLight = () => {
                 <Phone className="h-4 w-4" /> Call
               </a>
               <a
-                href="https://client.rasia.pro/best-gallblader-book-appointment"
+                href="/contact/"
                 className="flex-1 inline-flex items-center justify-center gap-2 h-11 rounded-full text-sm font-semibold transition-colors duration-300"
                 style={{
                   background: "hsl(var(--primary-bright))",

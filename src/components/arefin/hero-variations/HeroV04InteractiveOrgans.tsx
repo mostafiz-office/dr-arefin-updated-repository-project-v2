@@ -77,7 +77,7 @@ const HeroV04InteractiveOrgans = () => {
     return () => document.removeEventListener("click", onDocClick);
   }, [activeOrb]);
   return (
-    <section className="hero-04-light-band relative">
+    <section className="hero-04-light-band relative overflow-x-clip">
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"

@@ -860,10 +860,8 @@
   .arefin-mega-rail-item:hover,
   .arefin-mega-rail-item:focus-visible,
   .arefin-mega-rail-item[data-active="true"] {
-    background-color: hsl(var(--primary-bright) / 0.2);
-    /* Lighter tint of the brand green (Nov 2026 feedback): the old full-strength
-       bar on the near-black panel read as dark-on-dark. */
-    border-left-color: color-mix(in hsl, hsl(var(--primary-bright)) 55%, white);
+    background-color: #ffffff;
+    border-left-color: #ffffff;
   }
   .arefin-mega-rail-item:focus-visible,
   .arefin-mega-area-link:focus-visible,
@@ -883,7 +881,7 @@
   .arefin-mega-rail-item:hover .arefin-mega-rail-name,
   .arefin-mega-rail-item:focus-visible .arefin-mega-rail-name,
   .arefin-mega-rail-item[data-active="true"] .arefin-mega-rail-name {
-    color: #ffffff;
+    color: #000000;
   }
   .arefin-mega-rail-count {
     font-size: 0.7rem;
@@ -894,13 +892,19 @@
   .arefin-mega-rail-item:hover .arefin-mega-rail-count,
   .arefin-mega-rail-item:focus-visible .arefin-mega-rail-count,
   .arefin-mega-rail-item[data-active="true"] .arefin-mega-rail-count {
-    color: #ffffff;
+    color: #4b5563;
   }
   .arefin-mega-rail-item:hover .arefin-mega-icon,
   .arefin-mega-rail-item:focus-visible .arefin-mega-icon,
   .arefin-mega-rail-item[data-active="true"] .arefin-mega-icon {
-    color: #ffffff;
-    background-color: hsl(var(--primary-bright) / 0.35);
+    color: #000000;
+    background-color: hsl(0 0% 90%);
+  }
+  .arefin-mega-rail-item:hover .arefin-mega-icon svg,
+  .arefin-mega-rail-item:focus-visible .arefin-mega-icon svg,
+  .arefin-mega-rail-item[data-active="true"] .arefin-mega-icon svg {
+    color: #000000;
+    stroke: #000000;
   }
   .arefin-mega-rail-footer {
     margin-top: auto;
@@ -4045,7 +4049,7 @@
    - --top-left  → LIVER, placed mid-left (chest height, left of portrait)
    - --mid-right → GALLBLADDER, placed top-right (head/shoulder height) */
 .arefin .organ-orb--top-left   { top: 30%; left: -12%; }
-.arefin .organ-orb--mid-right  { top: 16%; right: -8%; }
+.arefin .organ-orb--mid-right  { top: 16%; right: 0%; }
 .arefin .organ-orb--bottom-left{ bottom: 4%; left: -8%; }
 
 /* Mobile orbit: pull orbs inward so tooltips stay within the viewport.
@@ -4205,22 +4209,20 @@
   border-bottom: 1px solid hsl(var(--primary-bright) / 0.5);
 }
 .arefin .organ-orb--mid-right .organ-tooltip {
-  /* Anchor BELOW the orb, aligned to the orb's RIGHT edge so the card
-     extends down-and-left into empty space — never overlapping the
-     portrait that sits to the left of this orb. */
+  /* Anchor BELOW the orb, aligned inward so the card stays comfortably inside the hero banner and viewport */
   left: auto;
-  right: 0;
+  right: 28px;
   top: calc(100% + var(--organ-tooltip-gap));
   bottom: auto;
-  max-width: min(280px, calc(100vw - 32px));
+  max-width: min(280px, calc(100vw - 48px));
   transform-origin: top right;
   transform: translateX(0) translateY(-14px) scale(0.9);
 }
 .arefin .organ-orb--mid-right .organ-tooltip::after {
-  /* Arrow points UP toward the orb, anchored near the right edge of the card. */
+  /* Arrow points UP toward the orb, aligned with the orb center */
   top: 0;
   left: auto;
-  right: 24px;
+  right: 48px;
   bottom: auto;
   margin: -6px 0 0 0;
   transform: rotate(45deg);
