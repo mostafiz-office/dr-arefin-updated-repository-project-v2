@@ -40,7 +40,7 @@ const CallToCareV04LightA = () => {
           />
 
           <div className="mt-10 flex justify-center">
-            <SlideButton to="/contact/" hoverText="Book an Appointment">
+            <SlideButton href="https://client.rasia.pro/best-gallblader-book-appointment" hoverText="Book an Appointment">
               Book an Appointment
             </SlideButton>
           </div>

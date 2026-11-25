@@ -406,7 +406,7 @@ export const SATELLITE_PAGES: SatellitePage[] = [
     related: [
       { to: "/treatment/liver-surgeon-dhaka/", label: "Liver Surgeon in Dhaka", title: "Best liver surgeon in Dhaka" },
       { to: "/best-hepatobiliary-surgeon-dhaka/", label: "Best Hepatobiliary Surgeon", title: "Best hepatobiliary surgeon in Dhaka" },
-      { to: "/contact/", label: "Book Appointment", title: "Contact and book appointment with Dr. Arefin" },
+      { to: "https://client.rasia.pro/best-gallblader-book-appointment", label: "Book Appointment", title: "Contact and book appointment with Dr. Arefin" },
       { to: "/about/", label: "About Dr. Arefin", title: "About Dr. Arefin" },
     ],
   },

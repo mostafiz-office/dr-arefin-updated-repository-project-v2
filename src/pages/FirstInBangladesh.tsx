@@ -621,9 +621,9 @@ const FirstInBangladesh = () => {
                   <h3 className="font-heading text-base font-semibold">Book an appointment</h3>
                   <p className="mt-1.5 text-[15px] leading-relaxed text-foreground/75">
                     Prefer the full booking page?{" "}
-                    <Link to="/contact/" title="Contact Dr. Arefin — book an appointment in Dhanmondi, Dhaka">
+                    <a href="https://client.rasia.pro/best-gallblader-book-appointment" title="Contact Dr. Arefin — book an appointment in Dhanmondi, Dhaka">
                       <strong>Book an appointment here</strong>
-                    </Link>
+                    </a>
                     .
                   </p>
                 </div>

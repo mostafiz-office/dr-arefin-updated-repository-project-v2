@@ -41,7 +41,7 @@ export const GlobalCTABand = ({
   headingAccent = "Expert Consultation?",
   body,
   primaryLabel = "Book Appointment",
-  primaryTo = "/contact/",
+  primaryTo = "https://client.rasia.pro/best-gallblader-book-appointment",
   callLabel = "Call Now",
   callHref = "tel:+8801311487592",
   formCta = false,
@@ -77,7 +77,7 @@ export const GlobalCTABand = ({
             <HeroCTA
               center
               primaryLabel={primaryLabel}
-              primaryTo={formCta && treatmentSlug ? formTo : primaryTo}
+              primaryTo={primaryTo}
               callLabel={callLabel}
               callHref={callHref}
               secondaryTo={formCta ? formTo : undefined}

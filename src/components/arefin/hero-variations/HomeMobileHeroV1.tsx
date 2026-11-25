@@ -94,10 +94,10 @@ const HomeMobileHeroV1 = () => {
           </p>
 
           <div className="hmh-v1-cta-row">
-            <Link to="/contact/" aria-label="Book an appointment with Dr. Arefin" className="hmh-v1-cta-primary">
+            <a href="https://client.rasia.pro/best-gallblader-book-appointment" aria-label="Book an appointment with Dr. Arefin" className="hmh-v1-cta-primary">
               Book Appointment
               <ArrowRight className="hmh-v1-cta-icon" />
-            </Link>
+            </a>
             <a href="tel:+8801311487592" aria-label="Call Dr. Arefin" className="hmh-v1-cta-secondary">
               <Phone className="hmh-v1-cta-icon-sm" />
               Call Now

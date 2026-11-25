@@ -76,14 +76,14 @@ const HeroV04LightC = () => {
             </p>
 
             <div className="hero-anim-fade-up hero-d-400 flex flex-col sm:flex-row gap-3">
-              <Link
-                to="/contact/"
+              <a
+                href="https://client.rasia.pro/best-gallblader-book-appointment"
                 aria-label="Book an appointment with Dr. Arefin"
                 className="hero-cta-primary"
               >
                 Book an Appointment
                 <ArrowRight className="hero-cta-icon" />
-              </Link>
+              </a>
               <a
                 href="tel:+8801311487592"
                 aria-label="Call Dr. Arefin"

@@ -203,8 +203,8 @@ const AboutV04LightC = () => {
               <SlideButton to="/about/" hoverText="Learn More">
                 Learn More
               </SlideButton>
-              <Link
-                to="/contact/"
+              <a
+                href="https://client.rasia.pro/best-gallblader-book-appointment"
                 className="about-c-ghost font-arefin"
                 style={{
                   fontSize: 14,
@@ -214,7 +214,7 @@ const AboutV04LightC = () => {
                 }}
               >
                 Book Consultation →
-              </Link>
+              </a>
             </div>
           </div>
         </div>

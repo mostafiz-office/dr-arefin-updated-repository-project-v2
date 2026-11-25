@@ -44,12 +44,14 @@ const DrArefinHeaderLight = () => {
         {/* Logo */}
         <Link
           to="/hero-variations/04-light/"
-          aria-label="Dr. M Arefin — Hepatobiliary Panacea"
+          aria-label="Best Gallbladder Doctor — Dr. M Arefin"
+          title="Best Gallbladder Doctor"
           className="flex items-center"
         >
           <img
             src={logo}
-            alt="Dr. M Arefin Hepatobiliary Panacea logo"
+            alt="Best Gallbladder Doctor — Dr. M Arefin"
+            title="Best Gallbladder Doctor"
             className="h-9 md:h-11 w-auto transition-[filter] duration-300 hover:[filter:brightness(1.05)]"
             width={300}
             height={88}
@@ -98,7 +100,7 @@ const DrArefinHeaderLight = () => {
             <span className="hidden xl:inline">+880 1311 487 592</span>
           </a>
           <a
-            href="/contact/"
+            href="https://client.rasia.pro/best-gallblader-book-appointment"
             className="inline-flex items-center gap-2 h-11 px-5 rounded-full text-sm font-semibold transition-[background-color,box-shadow] duration-300"
             style={{
               background: "hsl(var(--primary-bright))",
@@ -166,7 +168,7 @@ const DrArefinHeaderLight = () => {
                 <Phone className="h-4 w-4" /> Call
               </a>
               <a
-                href="/contact/"
+                href="https://client.rasia.pro/best-gallblader-book-appointment"
                 className="flex-1 inline-flex items-center justify-center gap-2 h-11 rounded-full text-sm font-semibold transition-colors duration-300"
                 style={{
                   background: "hsl(var(--primary-bright))",

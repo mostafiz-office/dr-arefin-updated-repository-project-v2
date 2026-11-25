@@ -59,7 +59,7 @@ const CallToCareV04LightB = () => {
             className="rounded-full"
             style={{ boxShadow: "0 0 0 1px hsl(var(--primary-light) / 0.30)" }}
           >
-            <SlideButton to="/contact/" hoverText="Book an Appointment">
+            <SlideButton href="https://client.rasia.pro/best-gallblader-book-appointment" hoverText="Book an Appointment">
               Book an Appointment
             </SlideButton>
           </div>

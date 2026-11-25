@@ -52,7 +52,7 @@ const CallToCareV04LightC = () => {
                 dangerouslySetInnerHTML={{ __html: renderBold(BODY) }}
               />
               <div className="mt-8">
-                <SlideButton to="/contact/" hoverText="Book an Appointment">
+                <SlideButton href="https://client.rasia.pro/best-gallblader-book-appointment" hoverText="Book an Appointment">
                   Book an Appointment
                 </SlideButton>
               </div>

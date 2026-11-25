@@ -396,14 +396,14 @@ const AboutDark = () => {
               </Reveal>
               <Reveal delay={240}>
                 <div className="about-intro-cta-row flex flex-col sm:flex-row gap-3 mt-6 md:mt-8">
-                  <Link
-                    to="/contact/"
+                  <a
+                    href="https://client.rasia.pro/best-gallblader-book-appointment"
                     aria-label="Book an appointment with Dr. Arefin"
                     className="hero-cta-primary is-green no-underline w-full sm:w-auto justify-center"
                   >
                     Book an Appointment
                     <ArrowRight className="hero-cta-icon" />
-                  </Link>
+                  </a>
                   <a
                     href="tel:+8801311487592"
                     aria-label="Call Dr. Arefin"

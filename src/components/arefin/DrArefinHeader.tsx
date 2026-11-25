@@ -147,14 +147,14 @@ export const CallBookPill = () => (
       Call
     </a>
     <span className="arefin-dual-cta-or" aria-hidden>OR</span>
-    <Link
-      to="/contact/"
+    <a
+      href="https://client.rasia.pro/best-gallblader-book-appointment"
       className="arefin-dual-cta-book no-underline"
       title="Book an appointment with Dr. Arefin"
     >
       <MessageCircle className="h-[15px] w-[15px]" strokeWidth={2} aria-hidden />
       Book
-    </Link>
+    </a>
   </div>
 );
 
@@ -519,11 +519,13 @@ const DrArefinHeader = ({ logoSrc, transparent = false }: DrArefinHeaderProps = 
         <Link
           to="/"
           className="group flex items-center"
-          aria-label="Dr. M Arefin — Hepatobiliary Panacea"
+          aria-label="Best Gallbladder Doctor — Dr. M Arefin"
+          title="Best Gallbladder Doctor"
         >
           <img
             src={logoSrc ?? logo}
-            alt="Dr. M Arefin Hepatobiliary Panacea logo"
+            alt="Best Gallbladder Doctor — Dr. M Arefin"
+            title="Best Gallbladder Doctor"
             className="h-9 sm:h-10 md:h-14 w-auto max-w-[150px] sm:max-w-[180px] md:max-w-none object-contain transition-[filter] duration-300 group-hover:[filter:brightness(1.08)]"
           />
         </Link>
@@ -660,7 +662,7 @@ const DrArefinHeader = ({ logoSrc, transparent = false }: DrArefinHeaderProps = 
                 Call
               </a>
               <SlideButton
-                to="/contact/"
+                href="https://client.rasia.pro/best-gallblader-book-appointment"
                 hoverText="Let's Talk"
                 className="flex-1"
               >

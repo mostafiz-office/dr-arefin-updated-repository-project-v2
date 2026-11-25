@@ -437,12 +437,12 @@ const DrArefinHomeLight = () => {
           </Reveal>
           <Reveal delay={300}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link
-                to="/dr-arefin/contact"
+              <a
+                href="https://client.rasia.pro/best-gallblader-book-appointment"
                 className="inline-flex items-center justify-center gap-2 h-14 px-8 rounded-full bg-primary text-primary-foreground font-semibold text-base shadow-lg shadow-primary/20 hover:[filter:brightness(1.1)] transition-[filter] duration-300"
               >
                 Book an Appointment <ArrowRight className="h-5 w-5" />
-              </Link>
+              </a>
               <a
                 href="tel:+8801311487592"
                 className="inline-flex items-center justify-center gap-2 h-14 px-8 rounded-full bg-card border border-border text-foreground font-semibold text-base hover:border-primary hover:text-primary transition-colors duration-300"

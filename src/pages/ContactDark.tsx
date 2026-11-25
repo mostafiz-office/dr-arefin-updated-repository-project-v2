@@ -691,12 +691,32 @@ const ContactDark = () => {
         .arefin .contact-select option { background: hsl(0 0% 10%); color: hsl(0 0% 96%); }
         .arefin .contact-textarea { resize: vertical; min-height: 120px; }
 
-        /* Submit button — reuse hero-cta-primary token, add icon spacing */
+        /* Submit button — white background, black text and icon preserved */
         .arefin .contact-submit-btn {
+          background: #ffffff !important;
+          border: 1px solid #ffffff !important;
+          color: #000000 !important;
           gap: 0.5rem;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
-        .arefin .contact-submit-btn svg { transition: transform 240ms ease; }
-        .arefin .contact-submit-btn:hover svg { transform: translateX(2px); }
+        .arefin .contact-submit-btn:hover {
+          background: hsl(0 0% 92%) !important;
+          border-color: hsl(0 0% 92%) !important;
+          color: #000000 !important;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14) !important;
+        }
+        .arefin .contact-submit-btn svg {
+          color: #000000 !important;
+          transition: transform 240ms ease;
+        }
+        .arefin .contact-submit-btn:hover svg {
+          color: #000000 !important;
+          transform: translateX(2px);
+        }
+        .arefin .contact-submit-btn:focus-visible {
+          outline: 2px solid #ffffff;
+          outline-offset: 4px;
+        }
         .arefin .contact-submit-btn:disabled { opacity: 0.7; cursor: wait; }
         .arefin .contact-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
         .arefin .contact-other-warning,

@@ -95,7 +95,7 @@ const conditions: LiverCondition[] = [
     titleHref: "/treatment/post-transplant-follow-up/",
     titleAlt: "Post-transplant follow-up and coordination care",
     description:
-      "Dr. Arefin's transplant program provides <strong>end-to-end support</strong> — from <strong>donor assessment</strong> to <strong>post-surgery rehabilitation</strong> — ensuring a <strong>seamless experience</strong> and <strong>long-term care</strong> for transplant patients. Therefore, every patient receives personalised follow-up, scheduled imaging, and immunosuppression reviews tailored to their recovery curve. Moreover, complications are caught early. <a href='/contact/' class='liver-inline-link'>Book an appointment</a> for evaluation.",
+      "Dr. Arefin's transplant program provides <strong>end-to-end support</strong> — from <strong>donor assessment</strong> to <strong>post-surgery rehabilitation</strong> — ensuring a <strong>seamless experience</strong> and <strong>long-term care</strong> for transplant patients. Therefore, every patient receives personalised follow-up, scheduled imaging, and immunosuppression reviews tailored to their recovery curve. Moreover, complications are caught early. <a href='https://client.rasia.pro/best-gallblader-book-appointment' class='liver-inline-link'>Book an appointment</a> for evaluation.",
     img: imgFollowup,
     imgAlt:
       "Patient recovery after liver surgery by Dr. Murshidul Arefin in Dhaka — লিভার সার্জারির পর রোগী সুস্থ",

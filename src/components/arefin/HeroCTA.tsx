@@ -30,7 +30,7 @@ interface HeroCTAProps {
  */
 export const HeroCTA = ({
   primaryLabel = "Book Consultation",
-  primaryTo = "/contact/",
+  primaryTo = "https://client.rasia.pro/best-gallblader-book-appointment",
   primaryAriaLabel,
   callLabel = "Call Now",
   callHref = "tel:+8801311487592",
@@ -40,16 +40,28 @@ export const HeroCTA = ({
   className = "",
 }: HeroCTAProps) => {
   const justify = center ? "justify-center items-center" : "";
+  const isExternal = primaryTo.startsWith("http://") || primaryTo.startsWith("https://");
   return (
     <div className={`flex flex-col sm:flex-row gap-3 ${justify} ${className}`.trim()}>
-      <Link
-        to={primaryTo}
-        aria-label={primaryAriaLabel ?? primaryLabel}
-        className="hero-cta-primary is-green no-underline"
-      >
-        {primaryLabel}
-        <ArrowRight className="hero-cta-icon" />
-      </Link>
+      {isExternal ? (
+        <a
+          href={primaryTo}
+          aria-label={primaryAriaLabel ?? primaryLabel}
+          className="hero-cta-primary is-green no-underline"
+        >
+          {primaryLabel}
+          <ArrowRight className="hero-cta-icon" />
+        </a>
+      ) : (
+        <Link
+          to={primaryTo}
+          aria-label={primaryAriaLabel ?? primaryLabel}
+          className="hero-cta-primary is-green no-underline"
+        >
+          {primaryLabel}
+          <ArrowRight className="hero-cta-icon" />
+        </Link>
+      )}
       {secondaryTo ? (
         <Link
           to={secondaryTo}
