@@ -209,13 +209,10 @@ const NavItemLink = ({
     const match = megaServiceForPath(currentPath);
     if (match) setActiveMega(match);
   }, [isOpen, currentPath]);
-  const dwellTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const handleMegaHover = (slug: string) => {
-    if (dwellTimer.current) clearTimeout(dwellTimer.current);
-    dwellTimer.current = setTimeout(() => setActiveMega(slug), 80);
+    setActiveMega(slug);
   };
   const handleMegaFocus = (slug: string) => {
-    if (dwellTimer.current) clearTimeout(dwellTimer.current);
     setActiveMega(slug);
   };
   const activeService =
