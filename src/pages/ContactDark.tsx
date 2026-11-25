@@ -174,7 +174,13 @@ const ContactDark = () => {
           </Reveal>
           <Reveal delay={100}>
             <h1 className="contact-hero-h1 text-fluid-h1">
-              Book an Appointment
+              <a
+                href="https://client.rasia.pro/best-gallblader-book-appointment"
+                className="contact-hero-h1-link"
+                title="Book an appointment with Dr. Arefin"
+              >
+                Book an Appointment
+              </a>
             </h1>
           </Reveal>
           <Reveal delay={200}>
@@ -210,7 +216,13 @@ const ContactDark = () => {
             </Reveal>
             <Reveal delay={100}>
               <h2 className="contact-section-heading text-fluid-h2 font-semibold mb-6 leading-tight">
-                Book an <strong>Appointment</strong>
+                <a
+                  href="https://client.rasia.pro/best-gallblader-book-appointment"
+                  className="contact-section-heading-link"
+                  title="Book an appointment with Dr. Arefin"
+                >
+                  Book an <strong>Appointment</strong>
+                </a>
               </h2>
             </Reveal>
             <Reveal delay={200}>
@@ -497,13 +509,22 @@ const ContactDark = () => {
         .arefin .contact-hero-h1 {
           color: #ffffff;
           text-shadow: 0 2px 20px hsl(0 0% 0% / 0.6);
+          cursor: pointer;
+        }
+        .arefin .contact-hero-h1-link {
+          color: #ffffff;
+          text-decoration: none;
+          cursor: pointer;
+          display: inline-block;
           transition: text-shadow 280ms cubic-bezier(0.22,1,0.36,1),
                       color 280ms cubic-bezier(0.22,1,0.36,1);
-          cursor: default;
         }
-        .arefin .contact-hero-h1:hover {
+        .arefin .contact-hero-h1:hover .contact-hero-h1-link,
+        .arefin .contact-hero-h1-link:hover,
+        .arefin .contact-hero-h1-link:focus-visible {
           text-shadow: 1px 0.7px 0 rgb(var(--hover-shadow-ink));
           color: hsl(var(--primary));
+          outline: none;
         }
         .arefin .contact-hero-sub { color: hsl(0 0% 100% / 0.85); }
         .arefin .contact-hero-sub strong { color: inherit; font-weight: inherit; }
@@ -524,9 +545,22 @@ const ContactDark = () => {
 
         /* ── Section heading hover ink ── */
         .arefin .contact-section-heading { color: hsl(var(--foreground)); }
-        .arefin .contact-section-heading strong {
-          color: inherit; font-weight: inherit; cursor: default;
+        .arefin .contact-section-heading-link {
+          color: inherit;
+          text-decoration: none;
+          cursor: pointer;
+          display: inline-block;
           transition: color 240ms cubic-bezier(0.22,1,0.36,1), text-shadow 240ms cubic-bezier(0.22,1,0.36,1);
+        }
+        .arefin .contact-section-heading-link:hover,
+        .arefin .contact-section-heading-link:focus-visible {
+          color: hsl(var(--primary));
+          text-shadow: 1px 1px 0 hsl(var(--foreground));
+          outline: none;
+        }
+        .arefin .contact-section-heading-link strong {
+          color: inherit; font-weight: inherit; cursor: pointer;
+          transition: inherit;
         }
         .arefin .contact-section-heading strong:hover {
           color: hsl(var(--primary));
