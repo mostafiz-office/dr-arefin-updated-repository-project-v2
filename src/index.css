@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&family=Poppins:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Ubuntu:wght@700&family=Poppins:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -687,6 +687,9 @@
     box-shadow: none;
     padding: 20px 24px;
     transform-origin: top center;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   .arefin-mega-card {
     display: flex;
@@ -871,13 +874,16 @@
     outline-offset: 2px;
   }
   .arefin-mega-rail-name {
-    font-size: 0.84rem;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 0.78125rem;
     font-weight: 500;
     line-height: 1.25;
     letter-spacing: -0.01em;
     color: hsl(40 10% 94%);
     text-align: left;
     transition: color 300ms ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   .arefin-mega-rail-item:hover .arefin-mega-rail-name,
   .arefin-mega-rail-item:focus-visible .arefin-mega-rail-name,
@@ -886,11 +892,14 @@
     font-weight: 500;
   }
   .arefin-mega-rail-count {
-    font-size: 0.72rem;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 0.6875rem;
     font-weight: 400;
     color: hsl(40 8% 65%);
     margin-top: 1px;
     transition: color 300ms ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   .arefin-mega-rail-item:hover .arefin-mega-rail-count,
   .arefin-mega-rail-item:focus-visible .arefin-mega-rail-count,
