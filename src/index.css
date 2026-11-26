@@ -4238,7 +4238,7 @@
 .arefin .organ-orb--mid-right .organ-tooltip {
   /* Anchor BELOW the orb, aligned inward so the card stays comfortably inside the hero banner and viewport */
   left: auto;
-  right: 28px;
+  right: 36px;
   top: calc(100% + var(--organ-tooltip-gap));
   bottom: auto;
   max-width: min(280px, calc(100vw - 48px));
@@ -4246,10 +4246,10 @@
   transform: translateX(0) translateY(-14px) scale(0.9);
 }
 .arefin .organ-orb--mid-right .organ-tooltip::after {
-  /* Arrow points UP toward the orb, aligned with the orb center */
+  /* Arrow points UP toward the orb, aligned with the orb center (36px + 42px = 78px) */
   top: 0;
   left: auto;
-  right: 48px;
+  right: 42px;
   bottom: auto;
   margin: -6px 0 0 0;
   transform: rotate(45deg);
